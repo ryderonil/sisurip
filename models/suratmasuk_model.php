@@ -36,6 +36,19 @@ class Suratmasuk_Model extends Model{
     public function input(){
         
     }
+    
+    public function getSuratMasukById($id){
+        
+        $sql = "SELECT * FROM suratmasuk WHERE id_surat= :id";
+        
+        $sth = $this->prepare($sql);
+        
+        $sth->bindValue(":id", $id);
+        $sth->execute();
+        
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        return $sth->fetchAll();
+    }
 }
 
 ?>

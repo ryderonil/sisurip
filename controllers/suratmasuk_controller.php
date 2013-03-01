@@ -41,6 +41,11 @@ class Suratmasuk_Controller extends Controller{
     public function input(){
         $this->model->input();
     }
+    
+    public function getSuratMasukById($id){
+        $this->view->dataSurat = $this->model->getSuratMasukById($id);
+        $this->view->render(suratmasuk/detilsurat);
+    }
 }
 
 ?>
