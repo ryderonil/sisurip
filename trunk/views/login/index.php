@@ -1,5 +1,5 @@
 <form method="POST" action="login/auth">
-    <label>Nama Pengguna</label><input type="text" name="username" placeholder="username anda"></input>
-    <label>Password</label><input type="password" name="password"></input>
-    <label></label><input type="submit" name="submit" value="LOGIN"></input>
+    <label>Nama Pengguna</label><input type="text" name="username" placeholder="username anda"></br>
+    <label>Password</label><input type="password" name="password"></br>
+    <label></label><input type="submit" name="submit" value="LOGIN"></br>
 </form>

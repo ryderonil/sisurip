@@ -19,8 +19,9 @@ class Bootstrap {
     }
     
     public function init(){
-        $url = $_GET['page'];
+        $url = isset($_GET['page'])?$_GET['page']:null;
         //print_r($url);
+        
         
         $url = rtrim($url, "/");
         $url = explode('/',$url);
@@ -39,11 +40,13 @@ class Bootstrap {
                 
                 $controller->loadModel($url[0]);
             }else{
-                echo "file ".$url[0].'.php tidak ada';
+                $controller = new Suratmasuk_Controller;
+                //echo "file ".$url[0].'.php tidak ada';
+                $controller->loadModel('suratmasuk');
             }
         }
         
-        if(isset($url[1])){
+        /*if(isset($url[1])){
             if(method_exists($controller, $url[1])):
                $controller->{$url[1]}();
             else:
@@ -52,6 +55,38 @@ class Bootstrap {
             endif;
         }else{
             $controller->index();
+        }*/
+        
+        $param = array();
+        
+        $length = count($url);
+        if($length>2){
+            for($i=2;$i<$length;$i++){
+                $param[] = $url[$i];
+            }
+        }
+        
+        $param = implode(",",$param);
+        
+        if($length>1){
+            if(!method_exists($controller, $url[1])){
+                echo "method tidak ada";
+            }
+            
+        }
+        
+        switch($length){
+            case 2:
+                $controller->{$url[1]}();
+                break;
+            case 1:
+                $controller->index();
+                break;
+            default :
+                $controller->{$url[1]}($param);
+                break;
+            
+                
         }
         
        

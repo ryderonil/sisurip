@@ -25,19 +25,36 @@ class Suratmasuk_Model extends Model{
         return $this->select($sql);
     }
     
-    public function edit(){
-        
+    public function edit($id){
+        return $this->select("SELECT * FROM suratmasuk WHERE id_suratmasuk=:id", array("id"=>$id));
     }
     
-    public function remove(){
+    public function remove($id){
         
     }
     
     public function input(){
         
+        
     }
     
-    public function getSuratMasukById($id){
+    public function editSurat(){
+        $data = array(
+            "tgl_terima"=>$_POST['tgl_terima'],
+            "tgl_surat"=>$_POST['tgl_surat'],
+            "no_surat"=>$_POST['no_surat'],
+            "asal_surat"=>$_POST['asal_surat'],
+            "perihal"=>$_POST['perihal']
+        );
+        
+        $id = $_POST['id'];
+        $where = "id_suratmasuk = '".$id."'";
+        echo $where;
+        $this->update("suratmasuk", $data, $where);
+        header('location:../suratmasuk/showall');
+    }
+    
+    public function getSuratMasukById($id){ //fungsi ini mgkn tidak diperlukan
         
         $sql = "SELECT * FROM suratmasuk WHERE id_surat= :id";
         

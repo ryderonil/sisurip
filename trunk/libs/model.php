@@ -56,6 +56,7 @@ class Model extends PDO{
         
         $sql = "UPDATE $table SET $field WHERE $wheres";
         
+        //echo $sql;
         $sth = $this->prepare($sql);
         
         foreach($data as $key=>$value){
