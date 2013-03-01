@@ -1,0 +1,156 @@
+body {
+    background: silver;
+    font: 14px 'trebuchet ms', arial, sans-serif;
+}
+
+/** Structure */
+#header {
+    padding: 20px;
+    background: #12407f;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 4px solid #436fac;
+}
+
+#content {
+    background: #fff;
+    padding: 20px;
+}
+
+#footer {
+    background: #12407f;
+    color: #fff;
+    padding: 20px;
+    border-top: 4px solid #436fac;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* Links */
+#header a {
+    color: #fff;
+    background: #436fac;
+    padding: 4px 15px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+#header a:hover {
+    background: #4d8add
+}
+
+/** Forms */
+form {
+    font: 100% verdana,arial,sans-serif;
+}
+
+form label { 
+    display: block;
+    float: left; 
+    width: 150px; 
+    padding: 0; 
+    margin: 9px 0 0;
+    text-align: right; 
+}
+
+form input, form select {
+    width: auto;
+    margin: 5px 0 0 10px;
+    border: 1px solid gray;
+    padding: 4px;
+}
+
+form input[type=submit]:hover {
+    cursor: pointer;
+    background: silver;
+}
+
+
+form br {clear: left;}
+
+/**----------menu dropdown---------- **/
+
+#trans-nav { 
+	list-style-type: none; 
+	height: 40px; 
+	padding: 0; 
+	margin-left: 480px; 
+	
+}
+#trans-nav li { 
+	float: left; 
+	position: relative; 
+	padding: 0;
+	line-height: 40px; 
+	background: #5a8078;
+	repeat-x 0 0; 
+	-webkit-border-radius : 10px 10px 10px 10px;
+}
+#trans-nav li:hover { 
+	background-position: 0 -40px; 
+}
+#trans-nav li a { 
+	display: block; 
+	padding: 0 15px; 
+	color: #fff; 
+	text-decoration: none; 
+}
+#trans-nav li a:hover { 
+	color: #a3f1d7; 
+	
+}
+#trans-nav li ul { 
+	opacity: 0; 
+	position: absolute; 
+	left: 0; 
+	width: 8em; 
+	background: #63867f; 
+	list-style-type: none; 
+	padding: 0; 
+	margin: 0; 
+	-webkit-border-radius : 10px 10px 10px 10px;
+}
+#trans-nav li:hover ul { 
+	opacity: 1; 
+}
+#trans-nav li ul li { 
+	float: none; 
+	position: static; 
+	height: 0; 
+	line-height: 0; 
+	background: none; 
+}
+#trans-nav li:hover ul li { 
+	height: 30px; 
+	line-height: 30px; 
+	
+	
+}
+#trans-nav li ul li a { 
+	background: #63867f; 
+	-webkit-border-radius : 10px 10px 10px 10px;
+}
+
+
+<!--Animation dengan webkit transition-->
+
+#trans-nav li ul li a:hover { 
+	background: #000; 
+}
+#trans-nav li { 
+	-webkit-transition: all 0.2s; 
+}
+#trans-nav li a { 
+	-webkit-transition: all 0.5s; 
+}
+#trans-nav li ul { 
+	-webkit-transition: all 1s; 
+}
+#trans-nav li ul li { 
+	-webkit-transition: height 0.5s; 
+}
+
+
+
