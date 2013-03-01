@@ -30,16 +30,26 @@ class Suratmasuk_Controller extends Controller{
         $this->view->render('suratmasuk/suratmasuk');
     }
     
-    public function edit(){
-        $this->model->edit();
+    public function edit($id){
+        $this->view->data = $this->model->edit($id);
+        $this->view->render('suratmasuk/ubah');
     }
     
-    public function remove(){
-        $this->model->remove();
+    public function remove($id){
+        $this->model->remove($id);
+        
+    }
+    
+    public function editSurat(){
+        $this->model->editSurat();
     }
     
     public function input(){
         $this->model->input();
+    }
+    
+    public function rekam(){
+        $this->view->render('suratmasuk/rekam');
     }
     
     public function getSuratMasukById($id){

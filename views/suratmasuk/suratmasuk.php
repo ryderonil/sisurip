@@ -1,4 +1,5 @@
 <table border="1">
+    <tr><td colspan="7"><a href="<?php echo URL;?>suratmasuk/rekam">R E K A M</a></td></tr>
 <?php
     foreach($this->listSurat as $key => $value) {
         echo '<tr>';
