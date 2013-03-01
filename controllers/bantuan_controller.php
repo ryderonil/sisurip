@@ -15,7 +15,7 @@ class Bantuan_Controller extends Controller{
     //put your code here
     
     public function index(){
-        $this->view->render('bantuan/index.php');
+        $this->view->render('bantuan/index');
     }
     
     public function show(){

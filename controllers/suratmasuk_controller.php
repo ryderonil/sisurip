@@ -20,12 +20,26 @@ class Suratmasuk_Controller extends Controller{
     //put your code here
     
     public function index(){
-        $this->view->render('suratmasuk/index.php');
+        $this->view->render('suratmasuk/index');
     }
     
-    public function show(){
+    public function showAll(){
         
-        $this->model->show();
+        $this->view->listSurat = $this->model->showAll();
+        
+        $this->view->render('suratmasuk/suratmasuk');
+    }
+    
+    public function edit(){
+        $this->model->edit();
+    }
+    
+    public function remove(){
+        $this->model->remove();
+    }
+    
+    public function input(){
+        $this->model->input();
     }
 }
 

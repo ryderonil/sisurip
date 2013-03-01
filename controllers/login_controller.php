@@ -15,7 +15,7 @@ class Login_Controller extends Controller{
     //put your code here
     
     public function index(){
-        $this->view->render('login/index.php');
+        $this->view->render('login/index');
     }
     
     public function auth(){
