@@ -18,8 +18,23 @@ class Suratmasuk_Model extends Model{
         parent::__construct();
     }
     
-    public function show(){
-        echo 10+10;
+    public function showAll(){
+        
+        $sql = "SELECT * FROM suratmasuk";        
+        
+        return $this->select($sql);
+    }
+    
+    public function edit(){
+        
+    }
+    
+    public function remove(){
+        
+    }
+    
+    public function input(){
+        
     }
 }
 

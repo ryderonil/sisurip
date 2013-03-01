@@ -20,7 +20,7 @@ class View {
         
         if(!is_array($view)){
             require 'views/header.php';
-            require 'views/'.$view;
+            require 'views/'.$view.'.php';
             require 'views/footer.php';
         }else{
             echo 'view array';

@@ -33,6 +33,7 @@
                             </ul>
                         </li>
                         <li><a href=<?php echo URL; ?>bantuan>Bantuan</a></li>
+                        <li><a href=<?php echo URL; ?>login>Login</a></li>
                     </ul>
                 </div>
                      
