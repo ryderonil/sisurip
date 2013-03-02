@@ -6,6 +6,7 @@
         <link href="<?php echo URL; ?>public/css/default.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
+        <div id="wrapper">
         <div id="header">
             
                 <!-- menu atas -->
@@ -54,5 +55,6 @@
             
             
         </div>
+        
         <div id="content">
     
