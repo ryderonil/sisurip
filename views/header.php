@@ -11,7 +11,9 @@
             
                 <!-- menu atas -->
                 <div id="menu">
-                    <div id="brand">KPPN BENGKULU</div>
+                    <div id="depkeu-logo"><img border="1" src="<?php echo URL; ?>public/images/depkeu-kecil.jpg"></div>
+                    <div id="brand"> KPPN BENGKULU</div>
+                    <div id="pull-right">Triyono</div>
                     <div>
                     <ul id="trans-nav">
                         <li><a href=<?php echo URL; ?>suratmasuk>Surat Masuk</a></li>
@@ -42,14 +44,17 @@
                     
                 </div>
                 <div id="navbar">
-                <!-- pencarian -->
-                <div>
+                <!-- pencarian -->                
+                <div id="sisurip"><h1>SiSuRIP</h1></div>
+                
+                <div id="">                    
                     <form method="POST" action="<?php echo URL;?>cari">
                         <input type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian">
                         <input type="submit" name="submit" value="CARI">
                     </form>
                 </div>
                 <!-- end of pencarian -->
+                
                 </div>
                      
             

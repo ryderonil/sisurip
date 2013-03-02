@@ -29,6 +29,7 @@ body {
     
     background: #12407f;
     height: 40px;
+    border-bottom: 1px solid #0d2f5e;
 }
 
 #content {
@@ -92,6 +93,7 @@ form input[type=submit]:hover {
 form br {clear: left;}
 
 #brand {
+    
     padding: 5px 15px;
     float: right;
     position: relative;
@@ -102,6 +104,40 @@ form br {clear: left;}
 
 #brand:hover {
     color: silver;
+    -webkit-transition: all 1s;
+}
+
+#pull-right {
+    padding: 9px 15px;
+    float: right;
+    position: relative;    
+    color: red;
+}
+
+#depkeu-logo {
+    padding: 0.5px 15px;
+    float: right;
+    position: relative;    
+    color: red;
+}
+
+#pull-left {
+    padding: 0px 15px;
+    float: left;
+    position: relative;    
+    color: red;
+}
+
+/**-------sisurip---------------**/
+#sisurip {
+    padding: 0px 15px;
+    float: left;
+    position: relative;    
+    color: maroon; 
+}
+
+#sisurip:hover {
+    color: khaki;
     -webkit-transition: all 1s;
 }
 
