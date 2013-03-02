@@ -1,16 +1,23 @@
 body {
     background: silver;
     font: 14px 'trebuchet ms', arial, sans-serif;
+    width: 90%;
 }
 
 /** Structure */
 #header {
-    padding: 20px;
+    padding: 0px;
     background: #12407f;
     color: #fff;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom: 4px solid #436fac;
+    float: top;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom: 4px solid #436fac;     
+}
+
+#menu {
+    background: #12407f;
+    height: 40px;
 }
 
 #content {
@@ -30,7 +37,7 @@ body {
 /* Links */
 #header a {
     color: #fff;
-    background: #436fac;
+    background: #12407f;
     padding: 4px 15px;
     text-decoration: none;
     font-size: 15px;
@@ -70,13 +77,32 @@ form input[type=submit]:hover {
 
 form br {clear: left;}
 
+#brand {
+    padding: 5px 15px;
+    float: right;
+    position: relative;
+    font-weight: bolder;
+    font-size: 25px;
+    color: #0d2f5e;
+}
+
+#brand:hover {
+    color: silver;
+    -webkit-transition: all 1s;
+}
+
+#navbar {     
+    padding-bottom: 10px;
+}
+
 /**----------menu dropdown---------- **/
 
 #trans-nav { 
 	list-style-type: none; 
 	height: 40px; 
 	padding: 0; 
-	margin-left: 480px; 
+	/**margin-left: 480px;**/
+        float : top left;
 	
 }
 #trans-nav li { 
@@ -105,8 +131,8 @@ form br {clear: left;}
 	opacity: 0; 
 	position: absolute; 
 	left: 0; 
-	width: 8em; 
-	background: #63867f; 
+	width: 15em; 
+	background: #4d8add; 
 	list-style-type: none; 
 	padding: 0; 
 	margin: 0; 
@@ -129,7 +155,7 @@ form br {clear: left;}
 	
 }
 #trans-nav li ul li a { 
-	background: #63867f; 
+	background: #4d8add; 
 	-webkit-border-radius : 10px 10px 10px 10px;
 }
 
