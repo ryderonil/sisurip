@@ -33,7 +33,7 @@ class Suratmasuk_Controller extends Controller{
     }
     
     public function edit($id){
-        $this->view->data = $this->model->edit($id);
+        $this->view->data = $this->model->getSuratMasukById($id);
         $this->view->render('suratmasuk/ubah');
     }
     
@@ -56,7 +56,18 @@ class Suratmasuk_Controller extends Controller{
     
     public function getSuratMasukById($id){
         $this->view->dataSurat = $this->model->getSuratMasukById($id);
-        $this->view->render(suratmasuk/detilsurat);
+        $this->view->render('suratmasuk/detilsurat');
+    }
+    
+    public function disposisi($id){
+        $this->view->data = $this->model->getSuratMasukById($id);
+        $this->view->seksi = $this->model->get('r_bagian');
+        $this->view->petunjuk = $this->model->get('r_petunjuk');
+        $this->view->render('suratmasuk/disposisi');
+    }
+    
+    public function rekamdisposisi(){
+        $this->model->rekamdisposisi();
     }
 }
 

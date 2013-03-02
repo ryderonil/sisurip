@@ -7,6 +7,10 @@
     <label>NOMOR SURAT</label><input type="text" name="no_surat" value="<?php echo $value['no_surat'] ?>"></br>
     <label>ASAL</label><input type="text" name="asal_surat" value="<?php echo $value['asal_surat'] ?>"></br>
     <label>PERIHAL</label><input type="" name="perihal" value="<?php echo $value['perihal'] ?>"></br>
+    <label>STATUS</label><input type="" name="status" value="<?php echo $value['status'] ?>"></br>
+    <label>SIFAT</label><input type="" name="sifat" value="<?php echo $value['sifat'] ?>"></br>
+    <label>JENIS</label><input type="" name="jenis" value="<?php echo $value['jenis'] ?>"></br>
+    <label>LAMPIRAN</label><input type="" name="lampiran" value="<?php echo $value['lampiran'] ?>"></br>
     <label></label><input type="submit" name="submit" value="SIMPAN">
 </form>
 

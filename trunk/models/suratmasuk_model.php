@@ -25,17 +25,28 @@ class Suratmasuk_Model extends Model{
         return $this->select($sql);
     }
     
-    public function edit($id){
-        return $this->select("SELECT * FROM suratmasuk WHERE id_suratmasuk=:id", array("id"=>$id));
-    }
-    
     public function remove($id){
-        
+        $where = 'id_suratmasuk='.$id;
+        $this->delete('suratmasuk', $where);
+        header('location:'.URL.'suratmasuk');
     }
     
     public function input(){
+        $data = array(
+            "no_agenda"=>$_POST['no_agenda'],
+            "tgl_terima"=>$_POST['tgl_terima'],
+            "tgl_surat"=>$_POST['tgl_surat'],
+            "no_surat"=>$_POST['no_surat'],
+            "asal_surat"=>$_POST['asal_surat'],
+            "perihal"=>$_POST['perihal'],
+            "status"=>$_POST['status'],
+            "sifat"=>$_POST['sifat'],
+            "jenis"=>$_POST['jenis'],
+            "lampiran"=>$_POST['lampiran']
+        );
         
-        
+        $this->insert('suratmasuk', $data);
+        header('location:'.URL.'suratmasuk');
     }
     
     public function editSurat(){
@@ -44,27 +55,48 @@ class Suratmasuk_Model extends Model{
             "tgl_surat"=>$_POST['tgl_surat'],
             "no_surat"=>$_POST['no_surat'],
             "asal_surat"=>$_POST['asal_surat'],
-            "perihal"=>$_POST['perihal']
+            "perihal"=>$_POST['perihal'],
+            "status"=>$_POST['status'],
+            "sifat"=>$_POST['sifat'],
+            "jenis"=>$_POST['jenis'],
+            "lampiran"=>$_POST['lampiran']
         );
         
         $id = $_POST['id'];
         $where = "id_suratmasuk = '".$id."'";
-        echo $where;
+        //echo $where;
         $this->update("suratmasuk", $data, $where);
-        header('location:../suratmasuk/showall');
+        header('location:'.URL.'suratmasuk');
     }
     
     public function getSuratMasukById($id){ //fungsi ini mgkn tidak diperlukan
         
-        $sql = "SELECT * FROM suratmasuk WHERE id_surat= :id";
+        return $this->select("SELECT * FROM suratmasuk WHERE id_suratmasuk=:id", array("id"=>$id));
+    }
+    
+    public function get($table){
+        return $this->select("SELECT * FROM ".$table);
+    }
+    
+    public function rekamdisposisi(){
+        $id_surat = $_POST['id_surat'];
+        $sifat = $_POST['sifat'];
+        $petunjuk = $_POST['petunjuk'];
+        $catatan = $_POST['catatan'];
+        $disposisi = $_POST['disposisi'];
+        $disposisi = implode(',',$disposisi);
+        $petunjuk = implode(',',$petunjuk);
         
-        $sth = $this->prepare($sql);
+        $data = array(
+            'id_surat'=>$id_surat,
+            'sifat'=>$sifat,
+            'disposisi'=>$disposisi,
+            'petunjuk'=>$petunjuk,
+            'catatan'=>$catatan
+            );
         
-        $sth->bindValue(":id", $id);
-        $sth->execute();
-        
-        $sth->setFetchMode(PDO::FETCH_ASSOC);
-        return $sth->fetchAll();
+        $this->insert('disposisi', $data);
+        header('location:'.URL.'suratmasuk');
     }
 }
 
