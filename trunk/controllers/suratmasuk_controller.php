@@ -20,7 +20,9 @@ class Suratmasuk_Controller extends Controller{
     //put your code here
     
     public function index(){
-        $this->view->render('suratmasuk/index');
+        //$this->view->render('suratmasuk/index');
+        //header('location:'.URL.'suratmasuk/showall');
+        $this->showAll();
     }
     
     public function showAll(){
