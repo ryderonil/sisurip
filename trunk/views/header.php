@@ -7,9 +7,11 @@
     </head>
     <body>
         <div id="header">
-            <di id="navbar">
+            
                 <!-- menu atas -->
-                <div class="menu">
+                <div id="menu">
+                    <div id="brand">KPPN BENGKULU</div>
+                    <div>
                     <ul id="trans-nav">
                         <li><a href=<?php echo URL; ?>suratmasuk>Surat Masuk</a></li>
                         <li><a href=<?php echo URL; ?>suratkeluar>Surat Keluar</a></li>
@@ -35,12 +37,22 @@
                         <li><a href=<?php echo URL; ?>bantuan>Bantuan</a></li>
                         <li><a href=<?php echo URL; ?>login>Login</a></li>
                     </ul>
+                    </div>
+                    
+                </div>
+                <div id="navbar">
+                <!-- pencarian -->
+                <div>
+                    <form method="POST" action="<?php echo URL;?>cari">
+                        <input type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian">
+                        <input type="submit" name="submit" value="CARI">
+                    </form>
+                </div>
+                <!-- end of pencarian -->
                 </div>
                      
-            </di>
-            <div id="navbar">
-                <!-- pencarian -->
-            </div>
+            
+            
         </div>
         <div id="content">
     
