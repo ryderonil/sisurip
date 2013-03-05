@@ -29,7 +29,8 @@ body {
     
     background: #12407f;
     height: 40px;
-    border-bottom: 1px solid #0d2f5e;
+    border-bottom: 1px solid #154a93;
+    
 }
 
 #content {
@@ -99,11 +100,11 @@ form br {clear: left;}
     position: relative;
     font-weight: bolder;
     font-size: 25px;
-    color: #0d2f5e;
+    color: #0b2348;
 }
 
 #brand:hover {
-    color: silver;
+    color: white;
     -webkit-transition: all 1s;
 }
 
@@ -137,7 +138,7 @@ form br {clear: left;}
 }
 
 #sisurip:hover {
-    color: khaki;
+    color: whitesmoke;
     -webkit-transition: all 1s;
 }
 

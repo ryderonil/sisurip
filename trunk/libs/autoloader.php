@@ -4,8 +4,9 @@
 //class Autoloader{
     
     //$path = array();
+
     
-    function __autoload($class){
+    function  __autoload($class){
         $path = array(
                 'controllers/',
                 'models/',
@@ -27,10 +28,7 @@
         
         echo 'file tidak ada';
         return false;        
-    }
+    }    
     
-    function setPath($path){
-        $path = $path;
-    }
 //}
 ?>
