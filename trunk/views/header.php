@@ -26,15 +26,15 @@
                         </li>
                         <li><a href="">Pengaturan</a>
                             <ul>
-                                <li><a href="#">Kantor</a></li>
-                                <li><a href="#">Lokasi Arsip</a></li>
-                                <li><a href="#">Klasifikasi Arsip</a></li>
-                                <li><a href="#">Klasifikasi Surat</a></li>
-                                <li><a href="#">Sifat Surat</a></li>
-                                <li><a href="#">Penomoran</a></li>
-                                <li><a href="#">Pengguna</a></li>
-                                <li><a href="#">Backup</a></li>
-                                <li><a href="#">Restore</a></li>
+                                <li><a href="<?php echo URL;?>admin/rekamKantor">Kantor</a></li>
+                                <li><a href="<?php echo URL;?>admin/rekamLokasi">Lokasi Arsip</a></li>
+                                <li><a href="<?php echo URL;?>admin/rekamKlasifikasiArsip">Klasifikasi Arsip</a></li>
+                                <li><a href="<?php echo URL;?>admin/rekamJenisLampiran">Lampiran</a></li>
+                                <li><a href="<?php echo URL;?>admin/rekamStatusSurat">Status Surat</a></li>
+                                <li><a href="<?php echo URL;?>admin/rekamNomor">Penomoran</a></li>
+                                <li><a href="<?php echo URL;?>admin/rekamUser">Pengguna</a></li>
+                                <li><a href="<?php echo URL;?>admin/backup">Backup</a></li>
+                                <li><a href="<?php echo URL;?>admin/restore">Restore</a></li>
                             </ul>
                         </li>
                         <li><a href=<?php echo URL; ?>bantuan>Bantuan</a></li>
