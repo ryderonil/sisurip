@@ -30,6 +30,8 @@ class Login_Model extends Model{
         $int = $sth->rowCount();
         
         if($int>0){
+            Session::createSession();
+            Session::set('loggedin',$username);
             header('location:../suratmasuk');
         }else{
             header('location:../login');
