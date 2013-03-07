@@ -20,6 +20,10 @@ class Admin_Controller extends Controller{
         $this->showAll();
     }
     
+    public function rekamKantor(){
+        $this->view->render('admin/kantor/index');
+    }
+    
     public function rekamAlamat(){
         $this->view->render('admin/alamat/index');
     }
