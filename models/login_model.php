@@ -15,7 +15,7 @@ class Login_Model extends Model{
     
     public function auth(){
         $username = $_POST['username'];
-        $password = $_POST['password'];
+        $password = $_POST['password'];   
         
         $sql = "SELECT * FROM user WHERE username = :username AND password = :password";
         $sth = $this->prepare($sql);
@@ -25,13 +25,18 @@ class Login_Model extends Model{
         
         $sth->execute();
         
-        $sth->fetchAll();
+        $data = $sth->fetchAll(PDO::FETCH_ASSOC); 
+       
+        foreach($data as $value){
+            $this->nama = $value['namaPegawai'];            
+        }
         
         $int = $sth->rowCount();
         
         if($int>0){
             Session::createSession();
-            Session::set('loggedin',$username);
+            Session::set('loggedin',true);
+            Session::set('user',$this->nama);
             header('location:../suratmasuk');
         }else{
             header('location:../login');
@@ -46,7 +51,8 @@ class Login_Model extends Model{
          */
         
         
-    }
+    }   
+    
     
 }
 ?>

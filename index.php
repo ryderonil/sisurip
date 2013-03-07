@@ -2,6 +2,7 @@
 
 include 'config/config.php';
 include 'libs/autoloader.php';
+include 'libs/session.php';
 
 //Autoloader::__autoload(get_class());
 

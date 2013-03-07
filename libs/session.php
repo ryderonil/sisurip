@@ -8,11 +8,11 @@
 class Session{
     
     public static function createSession(){
-        @session_start();
+        @session_start();        
     }
     
     public static function set($name,$value){
-        $_SESSION[$name] = $value;
+        $_SESSION[$name] = $value;        
     }
     
     public static function get($name) {
@@ -20,7 +20,7 @@ class Session{
     }
     
     public static function destroySession(){
-        @session_destroy();
+        session_destroy();        
     }
     
     public static function unsetAll(){

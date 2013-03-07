@@ -13,9 +13,12 @@
                 <div id="menu">
                     <div id="depkeu-logo"><img border="1" src="<?php echo URL; ?>public/images/depkeu-kecil.jpg"></div>
                     <div id="brand"> KPPN BENGKULU</div>
-                    <div id="pull-right">Triyono</div>
+                    <div id="pull-right"><?php echo Session::get('user'); ?></div>
                     <div>
                     <ul id="trans-nav">
+                        <?php                        
+                        //echo Session::get('user');
+                        if(Session::get('loggedin')==true):?>
                         <li><a href=<?php echo URL; ?>suratmasuk>Surat Masuk</a></li>
                         <li><a href=<?php echo URL; ?>suratkeluar>Surat Keluar</a></li>
                         <li><a href="">Monitoring</a>
@@ -37,8 +40,9 @@
                                 <li><a href="<?php echo URL;?>admin/restore">Restore</a></li>
                             </ul>
                         </li>
-                        <li><a href=<?php echo URL; ?>bantuan>Bantuan</a></li>
-                        <li><a href=<?php echo URL; ?>login>Login</a></li>
+                        <li><a href="<?php echo URL; ?>bantuan">Bantuan</a></li>                        
+                        <li><a href="<?php echo URL; ?>login/logout">Logout</a></li>
+                        <?php endif; ?>
                     </ul>
                     </div>
                     

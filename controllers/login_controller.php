@@ -22,6 +22,15 @@ class Login_Controller extends Controller{
         $this->model->auth();
     }
     
+    public function logout(){
+        //$this->model->logout();
+        //Session::unsetAll();
+        Session::createSession();
+        Session::destroySession();
+        //session_destroy();
+        header('location:../login');
+        exit();
+    }
     
 }
 ?>
