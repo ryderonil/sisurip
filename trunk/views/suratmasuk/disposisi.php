@@ -1,4 +1,4 @@
-<form method="POST" action="<?php echo URL?>suratmasuk/rekamdisposisi">
+<div id="form-wrapper"><form method="POST" action="<?php echo URL?>suratmasuk/rekamdisposisi">
     <h1 align="center">Catat Disposisi</h1>
     <h2>Informasi Surat :</h2></br>
     <?php foreach($this->data as $value) { ?>
@@ -64,3 +64,4 @@
     </table>    
     <input type="submit" name="submit" value="SIMPAN">
 </form>
+</div>

@@ -1,4 +1,4 @@
-<form method="POST" action="">
+<div id="form-wrapper"><form method="POST" action="">
     <label>NAMA KANTOR</label><input type="text" name="nama"></br>
     <label>SINGKATAN</label><input type="text" name="singkatan"></br>
     <label>ALAMAT</label><input type="text" name="alamat"></br>
@@ -11,3 +11,4 @@
 <table>
     
 </table>
+</div>
