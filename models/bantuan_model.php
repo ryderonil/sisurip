@@ -10,6 +10,7 @@ class Bantuan_Model extends Model{
     public function __construct() {
         //echo 'ini adalah model</br>';
         parent::__construct();
+        Auth::handleLogin();
     }
     
     public function show(){
