@@ -12,8 +12,8 @@
                 <!-- menu atas -->
                 <div id="menu">
                     <div id="depkeu-logo"><img border="1" src="<?php echo URL; ?>public/images/depkeu-kecil.jpg"></div>
-                    <div id="brand"> KPPN BENGKULU</div>
-                    <div id="pull-right"><?php echo Session::get('user'); ?></div>
+                    <div id="brand"> <?php echo $this->kantor;?></div>
+                    <div id="pull-right"><img id="user-icon" src="<?php echo URL;?>public/images/User-Executive.png"> <?php echo Session::get('user'); ?></div>
                     <div>
                     <ul id="trans-nav">
                         <?php                        

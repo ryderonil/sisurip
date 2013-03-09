@@ -224,6 +224,11 @@ form br {clear: left;}
     padding-bottom: 10px;
 }
 
+#user-icon {
+    background:url('../public/images/user.png') no-repeat;
+    background-position: -140px -140px; 
+}
+
 /**----------menu dropdown---------- **/
 
 #trans-nav { 

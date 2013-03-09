@@ -15,6 +15,7 @@ class Suratmasuk_Controller extends Controller{
     public function __construct() {
         @parent::__construct($registry);
         Auth::handleLogin();
+        $this->view->kantor = Kantor::getNama(); 
         //$this->view = new View;
         //echo "</br>kelas berhasil di bentuk";
     }

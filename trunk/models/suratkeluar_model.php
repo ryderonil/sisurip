@@ -11,6 +11,7 @@ class Suratkeluar_Model extends Model{
     public function __construct() {
         //echo 'ini adalah model</br>';
         parent::__construct();
+        
     }
     
     public function show(){
