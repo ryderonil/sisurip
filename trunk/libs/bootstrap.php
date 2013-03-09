@@ -67,6 +67,7 @@ class Bootstrap {
         }
         
         $param = implode(",",$param);
+        //echo $param;
         
         if($length>1){
             if(!method_exists($controller, $url[1])){
@@ -76,6 +77,9 @@ class Bootstrap {
         }
         
         switch($length){
+            case 4:
+                $controller->{$url[1]}($url[2],$url[3]);
+                break;
             case 2:
                 $controller->{$url[1]}();
                 break;
