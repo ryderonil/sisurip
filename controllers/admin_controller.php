@@ -123,7 +123,32 @@ class Admin_Controller extends Controller{
     }
     
     public function rekamUser(){
+        $this->view->bagian = $this->model->select('SELECT * FROM r_bagian');
+        $this->view->user = $this->model->select('SELECT * FROM user');
+        $this->view->jabatan = $this->model->select('SELECT * FROM jabatan');
+        $this->view->role = $this->model->select('SELECT * FROM role');
+        $this->view->count = count($this->view->user);
         $this->view->render('admin/user/index');
+    }
+    
+    public function ubahUser($id){        
+        $this->view->bagian = $this->model->select('SELECT * FROM r_bagian');
+        $this->view->user = $this->model->select('SELECT * FROM user');
+        $this->view->jabatan = $this->model->select('SELECT * FROM jabatan');
+        $this->view->role = $this->model->select('SELECT * FROM role');
+        $dataUbah = $this->model->select('SELECT * FROM user WHERE id_user='.$id);
+        foreach($dataUbah as $value){
+            $this->view->data[0] = $value['id_user'];
+            $this->view->data[1] = $value['username'];
+            $this->view->data[2] = $value['password'];
+            $this->view->data[3] = $value['namaPegawai'];
+            $this->view->data[4] = $value['NIP'];
+            $this->view->data[5] = $value['jabatan'];
+            $this->view->data[6] = $value['bagian'];
+            $this->view->data[7] = $value['role'];
+            $this->view->data[8] = $value['active'];
+        }
+        $this->view->render('admin/user/ubahUser');
     }
     
     public function inputRekamKantor(){
@@ -261,6 +286,52 @@ class Admin_Controller extends Controller{
         $where = ' id_status='.$id;
         $this->model->deleteStatusSurat($where);
         $this->rekamStatusSurat();
+    }
+    
+    public function inputRekamUser(){
+        $data = array(
+            'namaPegawai'=>$_POST['namaPegawai'],
+            'NIP'=>$_POST['NIP'],
+            'username'=>$_POST['username'],
+            'password'=>$_POST['password'],
+            'bagian'=>$_POST['bagian'],
+            'jabatan'=>$_POST['jabatan'],
+            'role'=>$_POST['role'],
+            'active'=>'Y'
+        );
+        $this->model->addUser($data);
+        $this->rekamUser();
+    }
+    
+    public function updateRekamUser(){
+        $data = array(
+            'namaPegawai'=>$_POST['namaPegawai'],
+            'NIP'=>$_POST['NIP'],
+            'username'=>$_POST['username'],
+            'password'=>$_POST['password'],
+            'bagian'=>$_POST['bagian'],
+            'jabatan'=>$_POST['jabatan'],
+            'role'=>$_POST['role'],
+            'active'=>'Y'
+        );
+        
+        $where = ' id_user='.$_POST['id'];
+        $this->model->updateUser($data,$where);
+        $this->rekamUser();
+    }
+    
+    public function hapusUser($id){
+        $where = ' id_user='.$id;
+        $this->model->deleteUser($where);
+        $this->rekamUser();
+    }
+    
+    public function setAktifUser($id,$active){
+        
+        $aktif = ($active=='Y')? 'N':'Y';
+        //echo $aktif;
+        $this->model->setAktifUser($id,$aktif);
+        $this->rekamUser();
     }
     
 }

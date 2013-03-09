@@ -79,5 +79,26 @@ class Admin_Model extends Model{
     public function deleteStatusSurat($where){
         $this->delete('status', $where);
     }
+    
+    public function addUser($data){
+        $this->insert('user', $data);
+    }
+    
+    public function updateUser($data, $where){
+        $this->update('user', $data, $where);
+    }
+    
+    public function deleteUser($where){
+        $this->delete('user', $where);
+    }
+    
+    public function setAktifUser($id, $aktif){
+        $data = array(
+          'active'=>$aktif  
+        );
+        
+        $where = ' id_user='.$id;
+        $this->update('user', $data, $where);
+    }
 }
 ?>
