@@ -10,7 +10,8 @@
         $path = array(
                 'controllers/',
                 'models/',
-                'libs/'
+                'libs/',
+                'utils/'
             );
         $file = strtolower($class).'.php';
         //echo $file;
