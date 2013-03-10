@@ -83,7 +83,29 @@ class Admin_Controller extends Controller{
     }
     
     public function rekamLokasi(){
+        $this->view->bagian = $this->model->select('SELECT * FROM r_bagian');
+        $this->view->rak = $this->model->select('SELECT * FROM lokasi WHERE tipe=1');
+        $this->view->baris = $this->model->select('SELECT * FROM lokasi WHERE tipe=2');
+        $this->view->lokasi = $this->model->viewLokasi();
+        //$this->view->lokasi = $this->model->select('SELECT * FROM lokasi');
         $this->view->render('admin/lokasi/index');
+    }
+    
+    public function ubahLokasi($id){        
+        $this->view->bagian = $this->model->select('SELECT * FROM r_bagian');
+        $this->view->rak = $this->model->select('SELECT * FROM lokasi WHERE tipe=1');
+        $this->view->baris = $this->model->select('SELECT * FROM lokasi WHERE tipe=2');
+        $this->view->lokasi = $this->model->viewLokasi();
+        $dataUbah = $this->model->select('SELECT * FROM lokasi WHERE id_lokasi='.$id);
+        foreach($dataUbah as $value){
+            //jika rak maka langsung, jika baris maka dicari raknya dulu dari parent, jika box maka dua kali 
+            //cari parent
+            $this->view->data[0] = $value['id_lokasi'];
+            $this->view->data[1] = $value['bagian'];
+            $this->view->data[2] = $value['parent'];
+            $this->view->data[3] = $value['lokasi'];
+        }
+        $this->view->render('admin/lokasi/ubahLokasi');
     }
     
     public function rekamNomor(){
@@ -332,6 +354,30 @@ class Admin_Controller extends Controller{
         //echo $aktif;
         $this->model->setAktifUser($id,$aktif);
         $this->rekamUser();
+    }
+    
+    public function inputRekamLokasi(){
+        $rak = (int)$_POST['rak'];
+        $baris = (int)$_POST['baris'];
+        $parent=null;
+        if($rak==0 && $baris==0){
+            $tipe = 1;
+        }elseif($rak!=0 && $baris==0){
+            $tipe=2;
+            $parent=$rak;
+        }elseif($rak!=0 && $baris!=0){
+            $tipe=3;
+            $parent=$baris;
+        }
+        $data = array(
+            'parent'=>$parent,
+            'bagian'=>$_POST['bagian'],
+            'lokasi'=>$_POST['nama'],
+            'tipe'=>$tipe,
+            'status'=>'E'
+        );
+        $this->model->addLokasi($data);
+        $this->rekamLokasi();
     }
     
 }

@@ -1,6 +1,7 @@
 <h1>Tambah Status Surat</h1>
 <form method="POST" action="<?php echo URL; ?>admin/inputRekamStatus">
-    
+              
+        <hr>
     <label>TIPE SURAT</label><input type="text" name="tipe_surat"></br>
     <label>STATUS</label><input type="text" name="status"></br>
     <label></label><input type="submit" name="submit" value="SIMPAN">

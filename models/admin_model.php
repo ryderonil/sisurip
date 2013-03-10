@@ -100,5 +100,32 @@ class Admin_Model extends Model{
         $where = ' id_user='.$id;
         $this->update('user', $data, $where);
     }
+    
+    public function addLokasi($data){
+        $this->insert('lokasi', $data);
+    }
+    
+    public function viewLokasi(){
+        $data = array();
+        $query = 'SELECT a.id_lokasi as id_lokasi, a.bagian, b.kd_bagian as bagian, a.lokasi as lokasi, a.status as status 
+            FROM lokasi a JOIN r_bagian b ON a.bagian = b.id_bagian WHERE a.tipe = 1';
+        $rak = $this->select($query);
+        $no = 1;
+        foreach ($rak as $value){
+            $data[] = array($no, $value['bagian'], $value['lokasi'],null,null,$value['status']='E'?'BELUM PENUH':'PENUH',$value['id_lokasi']);
+            $sql = 'SELECT * FROM lokasi WHERE parent='.$value['id_lokasi'];
+            $baris = $this->select($sql);
+            foreach ($baris as $value1){
+                $data[] = array(null,null, null,$value1['lokasi'],null,$value1['status']='E'?'BELUM PENUH':'PENUH',$value1['id_lokasi']);
+                $sql1 = 'SELECT * FROM lokasi WHERE parent='.$value1['id_lokasi'];
+                $box = $this->select($sql1);
+                foreach ($box as $value2){
+                    $data[] = array(null,null, null,null,$value1['lokasi'],$value2['status']='E'?'BELUM PENUH':'PENUH',$value2['id_lokasi']);
+                }
+            }
+            $no++;
+        }
+        return $data;
+    }
 }
 ?>

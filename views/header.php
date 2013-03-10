@@ -4,6 +4,17 @@
         <title>Sistem Informasi Penatausahaan Surat dan Arsip</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="<?php echo URL; ?>public/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo URL; ?>public/css/flick/jquery-ui-1.10.1.custom.css" rel="stylesheet">             
+	<script src="<?php echo URL; ?>public/js/jquery-1.9.1.js"></script>
+	<script src="<?php echo URL; ?>public/js/jquery-ui-1.10.1.custom.js"></script>
+        <?php 
+            if(isset($this->js)){
+                foreach($this->js as $js){
+                    echo '<script src='.URL.'views/'.$js.'.js ></script>';
+                }
+            }
+        ?>
+        
     </head>
     <body>
         <div id="wrapper">
