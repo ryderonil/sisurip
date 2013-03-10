@@ -1,6 +1,6 @@
 <h1>Tambah Format Nomor Surat</h1>
-<form method="POST" action="<?php echo URL; ?>admin/inputRekamNomor">
-    
+<form method="POST" action="<?php echo URL; ?>admin/inputRekamNomor">              
+        <hr>
     <label>FORMAT NOMOR</label><input type="text" name="nomor"></br>
     <label>BAGIAN</label><select name="bagian">
         <option name="" selected>--PILIH BAGIAN--</option>

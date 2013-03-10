@@ -1,6 +1,7 @@
 <h1>Tambah Jenis Lampiran</h1>
 <form method="POST" action="<?php echo URL; ?>admin/inputRekamLampiran">    
-    
+                
+        <hr>
     <label>TIPE NASKAH DINAS</label><input type="text" name="tipe_naskah"></br>
     <label></label><input type="submit" name="submit" value="SIMPAN">
 </form>

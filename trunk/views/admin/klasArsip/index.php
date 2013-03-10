@@ -1,6 +1,7 @@
 <h1>Tambah Klasifikasi Arsip</h1>
 <form method="POST" action="<?php echo URL; ?>admin/inputRekamKlasArsip">
-    
+                
+        <hr>
     <label>KODE KLASIFIKASI</label><input type="text" name="kode"></br>
     <label>KLASIFIKASI</label><input type="text" name="klasifikasi"></br>
     <label></label><input type="submit" name="submit" value="SIMPAN">

@@ -1,6 +1,7 @@
 <h1>Tambah User</h1>
 <form method="POST" action="<?php echo URL; ?>admin/inputRekamUser">
-    
+    <h1>Pengaturan User Aplikasi</h1>            
+        <hr>
     <label>NAMA PEGAWAI</label><input type="text" name="namaPegawai"></br>
     <label>NIP</label><input type="text" name="NIP"></br>
     <label>NAMA USER</label><input type="text" name="username"></br>

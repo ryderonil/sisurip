@@ -35,8 +35,8 @@ class Suratmasuk_Model extends Model{
     public function input(){
         $data = array(
             "no_agenda"=>$_POST['no_agenda'],
-            "tgl_terima"=>$_POST['tgl_terima'],
-            "tgl_surat"=>$_POST['tgl_surat'],
+            "tgl_terima"=> Tanggal::ubahFormatTanggal($_POST['tgl_terima']),
+            "tgl_surat"=>  Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
             "no_surat"=>$_POST['no_surat'],
             "asal_surat"=>$_POST['asal_surat'],
             "perihal"=>$_POST['perihal'],
@@ -45,9 +45,9 @@ class Suratmasuk_Model extends Model{
             "jenis"=>$_POST['jenis'],
             "lampiran"=>$_POST['lampiran']
         );
-        
+        var_dump($data);
         $this->insert('suratmasuk', $data);
-        header('location:'.URL.'suratmasuk');
+        //header('location:'.URL.'suratmasuk');
     }
     
     public function editSurat(){

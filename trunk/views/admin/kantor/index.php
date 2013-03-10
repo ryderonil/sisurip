@@ -1,5 +1,8 @@
+
 <div id="form-wrapper"><form method="POST" action="<?php if($this->cek>0): 
         echo URL.'admin/updateRekamKantor'; else: echo URL.'admin/inputRekamKantor'; endif; ?>">
+    <h2>Pengaturan Kantor</h2>            
+        <hr>    
     <?php if($this->cek>0)  ?><input type="hidden" name="id" value="<?php echo $this->id;  ?>">
     <label>BAGIAN ANGGARAN</label><input type="text" name="ba" value="<?php if($this->cek>0) echo $this->ba;?>"></br>
     <label>ESELON I</label><input type="text" name="es1" value="<?php if($this->cek>0) echo $this->es1;?>"></br>
