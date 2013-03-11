@@ -14,11 +14,11 @@
         //echo '<td>' . $value['asal_surat'] . '</td>';
         //echo '<td>' . $value['perihal'] . '</td>';
         echo '<td>
-                <a href="'.URL.'suratmasuk/edit/'.$value['id_suratmasuk'].'">Edit</a> 
-                <a href="'.URL.'suratmasuk/remove/'.$value['id_suratmasuk'].'">Delete</a>
-                <a href="'.URL.'suratmasuk/disposisi/'.$value['id_suratmasuk'].'">Disposisi</a>
-                <a href="'.URL.'suratmasuk/ctkdisposisi/'.$value['id_suratmasuk'].'">Cetak Disposisi</a>
-                <a href="'.URL.'suratmasuk/updatestatus/'.$value['id_suratmasuk'].'">Status</a></td>';
+                <a href="'.URL.'suratmasuk/edit/'.$value['id_suratmasuk'].'"><input type=button value=Ubah></a> 
+                <a href="'.URL.'suratmasuk/remove/'.$value['id_suratmasuk'].'"><input type=button value=Hapus></a>
+                <a href="'.URL.'suratmasuk/disposisi/'.$value['id_suratmasuk'].'"><input type=button value=Disposisi></a>
+                <a href="'.URL.'suratmasuk/ctkdisposisi/'.$value['id_suratmasuk'].'"><input type=button value="Cetak Disposisi"></a>
+                <a href="'.URL.'suratmasuk/updatestatus/'.$value['id_suratmasuk'].'"><input type=button value=Status></a></td>';
         echo '</tr>';
     }
 ?>

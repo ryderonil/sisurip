@@ -1,4 +1,4 @@
-<h1>Tambah User</h1>
+<div id="form-wrapper"><h1>Tambah User</h1>
 <form method="POST" action="<?php echo URL; ?>admin/inputRekamUser">
     <h1>Pengaturan User Aplikasi</h1>            
         <hr>
@@ -28,8 +28,10 @@
         ?>
     </select></br>   
     <label></label><input type="submit" name="submit" value="SIMPAN">
-</form>
-
+</form></div>
+</br>
+<hr>
+</br>
 <?php if($this->count>0) { $no=1;?>
 <div class="CSSTableGenerator"><table border="1">
     <tr><th>NO</th><th>NAMA PEGAWAI</th><th>NAMA USER</th><th>AKSI</th><th>AKTIF</th></tr>
@@ -37,9 +39,9 @@
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['namaPegawai']; ?></td>
         <td><?php echo $value['username']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>">UBAH</a> | 
-            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>">HAPUS</a></td>
-        <td><a href="<?php echo URL;?>admin/setAktifUser/<?php echo $value['id_user'].'/'.$value['active'];?>"><?php echo $value['active']; ?></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input type="button" value="HAPUS"></a></td>
+        <td><a href="<?php echo URL;?>admin/setAktifUser/<?php echo $value['id_user'].'/'.$value['active'];?>"><input type="button" value="<?php echo $value['active']; ?>"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>

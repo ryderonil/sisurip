@@ -112,20 +112,34 @@ class Admin_Model extends Model{
         $rak = $this->select($query);
         $no = 1;
         foreach ($rak as $value){
-            $data[] = array($no, $value['bagian'], $value['lokasi'],null,null,$value['status']='E'?'BELUM PENUH':'PENUH',$value['id_lokasi']);
+            $data[] = array($no, $value['bagian'], $value['lokasi'],null,null,$value['status'],$value['id_lokasi']);
             $sql = 'SELECT * FROM lokasi WHERE parent='.$value['id_lokasi'];
             $baris = $this->select($sql);
             foreach ($baris as $value1){
-                $data[] = array(null,null, null,$value1['lokasi'],null,$value1['status']='E'?'BELUM PENUH':'PENUH',$value1['id_lokasi']);
+                $data[] = array(null,null, null,$value1['lokasi'],null,$value1['status'],$value1['id_lokasi']);
                 $sql1 = 'SELECT * FROM lokasi WHERE parent='.$value1['id_lokasi'];
                 $box = $this->select($sql1);
                 foreach ($box as $value2){
-                    $data[] = array(null,null, null,null,$value1['lokasi'],$value2['status']='E'?'BELUM PENUH':'PENUH',$value2['id_lokasi']);
+                    $data[] = array(null,null, null,null,$value2['lokasi'],$value2['status'],$value2['id_lokasi']);
                 }
             }
             $no++;
         }
         return $data;
+    }
+    
+    public function updateLokasi($data, $where){
+        $this->update('lokasi', $data, $where);
+    }
+    
+    public function setStatusLokasi($id, $status){
+        //$status = ($status == 'PENUH')?'E':'F';
+        $data = array(
+          'status'=>$status
+        );
+        
+        $where = ' id_lokasi='.$id;
+        $this->update('lokasi', $data, $where);
     }
 }
 ?>
