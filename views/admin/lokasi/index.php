@@ -34,7 +34,7 @@
     <p>bagian harus dipilih</p>
 </form>
 
-<table border="0">
+<div class="CSSTableGenerator"><table border="0">
     <tr><th>NO</th><th>BAGIAN</th><th>RAK</th><th>BARIS</th><th>BOX</th><th>STATUS</th><th>AKSI</th></tr>
     <?php 
         foreach($this->lokasi as $data){            
@@ -47,4 +47,4 @@
             <td><a href=".URL."admin/ubahLokasi/".$data[6].">UBAH</a> | <a href=>STATUS</a></td></tr>";
         }
     ?>
-</table>
+</table></div>

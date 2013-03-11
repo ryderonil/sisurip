@@ -18,8 +18,8 @@ class Admin_Controller extends Controller{
     
     public function index(){
         //$this->view->render('suratmasuk/index');
-        //header('location:'.URL.'suratmasuk/showall');
-        $this->showAll();
+        header('location:'.URL.'suratmasuk');
+        //$this->showAll();
     }
     
     public function rekamKantor(){

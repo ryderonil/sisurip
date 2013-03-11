@@ -13,7 +13,7 @@
 </form>
 
 
-<table border="1">
+<div class="CSSTableGenerator"><table border="1">
     <tr><th>NO</th><th>BAGIAN</th><th>KODE NOMOR</th><th>AKSI</th></tr>
     <?php $no=1; foreach($this->nomor as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
@@ -22,4 +22,4 @@
         <td><a href="<?php echo URL;?>admin/ubahNomor/<?php echo $value['id_nomor'];?>">UBAH</a> | 
             <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>">HAPUS</a></td></tr>
     <?php $no++; }?>
-</table>
+</table></div>

@@ -48,7 +48,7 @@
 </form>
 
 
-<table border="1">
+<div class="CSSTableGenerator"><table border="1">
     <tr><th>NO</th><th>NAMA PEGAWAI</th><th>NAMA USER</th><th>AKSI</th><th>AKTIF</th></tr>
     <?php $no=1; foreach($this->user as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
@@ -58,4 +58,4 @@
             <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>">HAPUS</a></td>
         <td><a href="<?php echo URL;?>admin/setAktifUser/<?php echo $value['id_user'].'/'.$value['active'];?>"><?php echo $value['active']; ?></a></td></tr>
     <?php $no++; }?>
-</table>
+</table></div>
