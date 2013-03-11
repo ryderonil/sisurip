@@ -102,9 +102,26 @@ class Admin_Controller extends Controller{
             //cari parent
             $this->view->data[0] = $value['id_lokasi'];
             $this->view->data[1] = $value['bagian'];
-            $this->view->data[2] = $value['parent'];
-            $this->view->data[3] = $value['lokasi'];
+            $parent = $value['parent'];
+            $tipe = (int) $value['tipe'];
+            if($tipe==2){
+                //$prak = $this->model->select('SELECT * FROM lokasi WHERE id_lokasi='.$parent);
+                //foreach ($prak as $value1){
+                    $this->view->data[2] = $value['parent'];
+                    $this->view->data[3] = null;
+                //}
+            }if($tipe==3){
+                $pbar = $this->model->select('SELECT * FROM lokasi WHERE id_lokasi='.$parent);                
+                foreach ($pbar as $value1){
+                    $this->view->data[2] = $value1['parent'];                 
+                    $this->view->data[3] = $value['parent'];
+                }  
+                
+            }
+            $this->view->data[4] = $value['lokasi'];
         }
+        
+        //var_dump($this->view->data);
         $this->view->render('admin/lokasi/ubahLokasi');
     }
     
@@ -377,6 +394,39 @@ class Admin_Controller extends Controller{
             'status'=>'E'
         );
         $this->model->addLokasi($data);
+        $this->rekamLokasi();
+    }
+    
+    public function updateRekamLokasi(){
+        $id = $_POST['id'];
+        $rak = (int)$_POST['rak'];
+        $baris = (int)$_POST['baris'];
+        $parent=null;
+        if($rak==0 && $baris==0){
+            $tipe = 1;
+        }elseif($rak!=0 && $baris==0){
+            $tipe=2;
+            $parent=$rak;
+        }elseif($rak!=0 && $baris!=0){
+            $tipe=3;
+            $parent=$baris;
+        }
+        $data = array(
+            'parent'=>$parent,
+            'bagian'=>$_POST['bagian'],
+            'lokasi'=>$_POST['nama'],
+            'tipe'=>$tipe,
+            'status'=>'E'
+        );
+        $where = ' id_lokasi='.$id;
+        $this->model->updateLokasi($data, $where);
+        $this->rekamLokasi();
+    }
+    
+    public function ubahStatusLokasi($id, $status){
+        $status = ($status=='E')? 'F':'E';
+        //echo $aktif;
+        $this->model->setStatusLokasi($id,$status);
         $this->rekamLokasi();
     }
     

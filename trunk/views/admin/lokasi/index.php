@@ -1,4 +1,4 @@
-<form method="POST" action="<?php echo URL;?>admin/inputRekamLokasi">
+<div id="form-wrapper"><form method="POST" action="<?php echo URL;?>admin/inputRekamLokasi">
     <h2>Pengaturan Lokasi Penyimpanan Arsip</h2>            
         <hr>
     <label>BAGIAN</label><select name="bagian">
@@ -32,8 +32,10 @@
     <p>Jika filling dipilih, baris tidak dipilih->rekam baris</p>
     <p>Jika filling dipilih, baris dipilih->rekam box</p>
     <p>bagian harus dipilih</p>
-</form>
-
+</form></div>
+</br>
+<hr>
+</br>
 <div class="CSSTableGenerator"><table border="0">
     <tr><th>NO</th><th>BAGIAN</th><th>RAK</th><th>BARIS</th><th>BOX</th><th>STATUS</th><th>AKSI</th></tr>
     <?php 
@@ -44,7 +46,8 @@
             <td>$data[3]</td>
             <td>$data[4]</td>
             <td>$data[5]</td>
-            <td><a href=".URL."admin/ubahLokasi/".$data[6].">UBAH</a> | <a href=>STATUS</a></td></tr>";
+            <td><a href=".URL."admin/ubahLokasi/".$data[6]."><input type=button value=UBAH></a> | 
+                <a href=".URL."admin/ubahStatusLokasi/".$data[6]."/".$data[5]."><input type=button value=STATUS></a></td></tr>";
         }
     ?>
 </table></div>
