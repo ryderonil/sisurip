@@ -1,6 +1,8 @@
-<form method="POST" action="<?php echo URL; ?>suratmasuk/input">
-    <label>AGENDA</label><input type="text" name="no_agenda"></br>
-    <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>
+<h2>Rekam Surat Masuk</h2>            
+        <hr>
+<div id="form-wrapper"><form method="POST" action="<?php echo URL; ?>suratmasuk/input">
+    <label>AGENDA</label><input type="text" name="no_agenda" value="<?php echo $this->agenda;?>" readonly></br>
+    <!--<label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->
     <label>TANGGAL SURAT</label><input type="text" id="datepicker" name="tgl_surat"></br>
     <label>NOMOR SURAT</label><input type="text" name="no_surat"></br>
     <label>ASAL</label><input type="text" name="asal_surat"></br>
@@ -10,4 +12,4 @@
     <label>JENIS</label><input type="" name="jenis"></br>
     <label>LAMPIRAN</label><input type="" name="lampiran"></br>    
     <label></label><input type="submit" name="submit" value="SIMPAN">
-</form>
+</form></div>

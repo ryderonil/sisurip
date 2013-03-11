@@ -1,7 +1,8 @@
-<div id="form-wrapper"><h1>Tambah Jenis Lampiran</h1>
+<h2>Tambah Jenis Lampiran</h2><hr>
+<div id="form-wrapper">
 <form method="POST" action="<?php echo URL; ?>admin/inputRekamLampiran">    
                 
-        <hr>
+        
     <label>TIPE NASKAH DINAS</label><input type="text" name="tipe_naskah"></br>
     <label></label><input type="submit" name="submit" value="SIMPAN">
 </form></div>
@@ -14,8 +15,8 @@
     <?php foreach($this->lampiran as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>        
         <td><?php echo $value['tipe_naskah']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_lampiran'];?>"><input type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_lampiran'];?>"><input type="button" value="HAPUS"></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_lampiran'];?>"><input class="btn" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_lampiran'];?>"><input class="btn" type="button" value="HAPUS"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>

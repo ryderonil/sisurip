@@ -1,6 +1,8 @@
-<div id="form-wrapper"><h1>Tambah Format Nomor Surat</h1>
+<h2>Tambah Format Nomor Surat</h2>
+<hr>
+<div id="form-wrapper">
 <form method="POST" action="<?php echo URL; ?>admin/inputRekamNomor">              
-        <hr>
+       
     <label>FORMAT NOMOR</label><input type="text" name="nomor"></br>
     <label>BAGIAN</label><select name="bagian">
         <option name="" selected>--PILIH BAGIAN--</option>
@@ -20,8 +22,8 @@
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['bagian']; ?></td>
         <td><?php echo $value['kd_nomor']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahNomor/<?php echo $value['id_nomor'];?>"><input type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input type="button" value="HAPUS"></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="HAPUS"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
