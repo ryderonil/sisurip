@@ -15,6 +15,7 @@ class Suratmasuk_Controller extends Controller{
     public function __construct() {
         @parent::__construct($registry);
         Auth::handleLogin();
+        $this->nomor = new Nomor();
         $this->view->kantor = Kantor::getNama(); 
         $this->view->js = array(
           'suratmasuk/js/default'  
@@ -56,6 +57,7 @@ class Suratmasuk_Controller extends Controller{
     }
     
     public function rekam(){
+        $this->view->agenda = $this->nomor->generateNumber('SM');
         $this->view->render('suratmasuk/rekam');
     }
     

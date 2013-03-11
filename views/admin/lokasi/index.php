@@ -1,6 +1,7 @@
-<div id="form-wrapper"><form method="POST" action="<?php echo URL;?>admin/inputRekamLokasi">
-    <h2>Pengaturan Lokasi Penyimpanan Arsip</h2>            
+<h2>Pengaturan Lokasi Penyimpanan Arsip</h2>            
         <hr>
+<div id="form-wrapper"><form method="POST" action="<?php echo URL;?>admin/inputRekamLokasi">
+    
     <label>BAGIAN</label><select name="bagian">
         <option value="0">--PILIH BAGIAN--</option>
         <?php 
@@ -46,8 +47,8 @@
             <td>$data[3]</td>
             <td>$data[4]</td>
             <td>$data[5]</td>
-            <td><a href=".URL."admin/ubahLokasi/".$data[6]."><input type=button value=UBAH></a> | 
-                <a href=".URL."admin/ubahStatusLokasi/".$data[6]."/".$data[5]."><input type=button value=STATUS></a></td></tr>";
+            <td><a href=".URL."admin/ubahLokasi/".$data[6]."><input class=btn type=button value=UBAH></a> | 
+                <a href=".URL."admin/ubahStatusLokasi/".$data[6]."/".$data[5]."><input class=btn type=button value=STATUS></a></td></tr>";
         }
     ?>
 </table></div>

@@ -9,4 +9,7 @@ define('DB_USER','root');
 define('DB_PASS','');
 //end setting database
 
+date_default_timezone_set('Asia/Jakarta');
+
+
 ?>

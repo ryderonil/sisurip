@@ -1,4 +1,4 @@
-<div id="form-wrapper"><h1>Ubah Status Surat</h1>
+<h2>Ubah Status Surat</h2><hr><div id="form-wrapper">
 <form method="POST" action="<?php echo URL; ?>admin/updateRekamStatus">
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <label>TIPE SURAT</label><input type="text" name="tipe_surat" value="<?php echo $this->data[1];?>"></br>
@@ -15,7 +15,7 @@
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['tipe_surat']; ?></td>
         <td><?php echo $value['status']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahStatusSurat/<?php echo $value['id_status'];?>"><input type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusStatus/<?php echo $value['id_status'];?>"><input type="button" value="HAPUS"></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahStatusSurat/<?php echo $value['id_status'];?>"><input class="btn" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusStatus/<?php echo $value['id_status'];?>"><input class="btn" type="button" value="HAPUS"></a></td></tr>
     <?php $no++; }?>
 </table></div>

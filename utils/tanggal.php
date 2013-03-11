@@ -71,5 +71,13 @@ class Tanggal{
         
         return $month;
     }
+    
+    public static function getTglSekarang(){
+        return date('Y-m-d');
+    }
+    
+    public static function getTimeSekarang(){
+        return ;
+    }
 }
 ?>

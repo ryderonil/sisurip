@@ -1,7 +1,6 @@
-<div id="form-wrapper"><h1>Tambah User</h1>
+<h2>Tambah User</h2><hr><div id="form-wrapper">
 <form method="POST" action="<?php echo URL; ?>admin/inputRekamUser">
-    <h1>Pengaturan User Aplikasi</h1>            
-        <hr>
+    
     <label>NAMA PEGAWAI</label><input type="text" name="namaPegawai"></br>
     <label>NIP</label><input type="text" name="NIP"></br>
     <label>NAMA USER</label><input type="text" name="username"></br>
@@ -39,9 +38,9 @@
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['namaPegawai']; ?></td>
         <td><?php echo $value['username']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input type="button" value="HAPUS"></a></td>
-        <td><a href="<?php echo URL;?>admin/setAktifUser/<?php echo $value['id_user'].'/'.$value['active'];?>"><input type="button" value="<?php echo $value['active']; ?>"></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="HAPUS"></a></td>
+        <td><a href="<?php echo URL;?>admin/setAktifUser/<?php echo $value['id_user'].'/'.$value['active'];?>"><input class="btn" type="button" value="<?php echo $value['active']; ?>"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>

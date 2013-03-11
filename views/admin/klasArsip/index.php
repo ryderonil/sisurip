@@ -1,7 +1,9 @@
-<div id="form-wrapper"><h1>Tambah Klasifikasi Arsip</h1>
+<h2>Tambah Klasifikasi Arsip</h2>
+ <hr>
+<div id="form-wrapper">
 <form method="POST" action="<?php echo URL; ?>admin/inputRekamKlasArsip">
                 
-        <hr>
+       
     <label>KODE KLASIFIKASI</label><input type="text" name="kode"></br>
     <label>KLASIFIKASI</label><input type="text" name="klasifikasi"></br>
     <label></label><input type="submit" name="submit" value="SIMPAN">
@@ -16,8 +18,8 @@
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['kode']; ?></td>
         <td><?php echo $value['klasifikasi']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input type="button" value="HAPUS"></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="HAPUS"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
