@@ -6,7 +6,7 @@
 </form>
 
 
-<table border="1">
+<div class="CSSTableGenerator"><table border="1">
     <tr><th>NO</th><th>TIPE NASKAH</th><th>AKSI</th></tr>
     <?php $no=1; foreach($this->lampiran as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>        
@@ -14,4 +14,4 @@
         <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_lampiran'];?>">UBAH</a> | 
             <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_lampiran'];?>">HAPUS</a></td></tr>
     <?php $no++; }?>
-</table>
+</table></div>

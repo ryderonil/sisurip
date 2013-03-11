@@ -1,10 +1,11 @@
-<table border="1">
-    <tr><td colspan="7"><a href="<?php echo URL;?>suratmasuk/rekam"><input type="button" value="R E K A M"></a></td></tr>
+<p><a href="<?php echo URL;?>suratmasuk/rekam"><input type="button" value="R E K A M"></p>
+<div class="CSSTableGenerator"><table border="1">
+    <tr><td >AGENDA</td><td >INFORMASI SURAT</td><td >AKSI</td></tr>
 <?php
     foreach($this->listSurat as $key => $value) {
         echo '<tr valign=top>';
         //echo '<td>' . $value['no_agenda'] . '</td>';
-        echo '<td>' . Tanggal::tgl_indo($value['tgl_terima']) . '</td>';
+        echo '<td>' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</td>';
         echo '<td><a href="'.URL.'suratmasuk/getSuratMasukById/'.$value['id_suratmasuk'].'">' . $value['no_surat'] . '</a> || '
             . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'. $value['asal_surat'] . '</br>'. $value['perihal'] .
              '</td>';
@@ -21,4 +22,4 @@
         echo '</tr>';
     }
 ?>
-</table>
+</table></div>
