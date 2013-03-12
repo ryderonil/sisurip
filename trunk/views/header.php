@@ -7,6 +7,8 @@
         <link href="<?php echo URL; ?>public/css/flick/jquery-ui-1.10.1.custom.css" rel="stylesheet">             
 	<script src="<?php echo URL; ?>public/js/jquery-1.9.1.js"></script>
 	<script src="<?php echo URL; ?>public/js/jquery-ui-1.10.1.custom.js"></script>
+        <script src="<?php echo URL; ?>public/js/jquery.validate.js"></script>       
+       
         <?php 
             if(isset($this->js)){
                 foreach($this->js as $js){

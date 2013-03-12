@@ -12,3 +12,9 @@ $('input:text, input:password')
         'cursor' : 'text'
   });
 
+
+$(document).ready(function(){
+    $("#form-rekam").validate();
+});
+
+
