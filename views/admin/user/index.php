@@ -1,25 +1,25 @@
 <h2>Tambah User</h2><hr><div id="form-wrapper">
-<form method="POST" action="<?php echo URL; ?>admin/inputRekamUser">
+<form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamUser">
     
-    <label>NAMA PEGAWAI</label><input type="text" name="namaPegawai"></br>
-    <label>NIP</label><input type="text" name="NIP"></br>
-    <label>NAMA USER</label><input type="text" name="username"></br>
-    <label>PASSWORD</label><input type="text" name="password"></br>
-    <label>BAGIAN</label><select name="bagian">
+    <label>NAMA PEGAWAI</label><input class="required" type="text" name="namaPegawai"></br>
+    <label>NIP</label><input class="required" type="text" name="NIP"></br>
+    <label>NAMA USER</label><input class="required" type="text" name="username"></br>
+    <label>PASSWORD</label><input class="required" type="text" name="password"></br>
+    <label>BAGIAN</label><select class="required" name="bagian">
         <option value="">--PILIH BAGIAN--</option>
         <?php foreach($this->bagian as $key=>$value){
                 echo '<option value='.$value['id_bagian'].'>'.strtoupper($value['bagian']).'</option>';
             }
         ?>
     </select></br>
-    <label>JABATAN</label><select name="jabatan">
+    <label>JABATAN</label><select class="required" name="jabatan">
         <option value="">--PILIH JABATAN--</option>
         <?php foreach($this->jabatan as $key=>$value){
                 echo '<option value='.$value['id_jabatan'].'>'.strtoupper($value['nama_jabatan']).'</option>';
             }
         ?>
     </select></br>
-    <label>ROLE</label><select name="role">
+    <label>ROLE</label><select class="required" name="role">
         <option value="">--PILIH ROLE--</option>
         <?php foreach($this->role as $key=>$value){
                 echo '<option value='.$value['id_role'].'>'.strtoupper($value['role']).'</option>';

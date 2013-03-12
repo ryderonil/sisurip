@@ -1,8 +1,8 @@
 <h2>Ubah Status Surat</h2><hr><div id="form-wrapper">
-<form method="POST" action="<?php echo URL; ?>admin/updateRekamStatus">
+<form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/updateRekamStatus">
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
-    <label>TIPE SURAT</label><input type="text" name="tipe_surat" value="<?php echo $this->data[1];?>"></br>
-    <label>STATUS</label><input type="text" name="status" value="<?php echo $this->data[2];?>"></br>
+    <label>TIPE SURAT</label><input class="required" type="text" name="tipe_surat" value="<?php echo $this->data[1];?>"></br>
+    <label>STATUS</label><input class="required" type="text" name="status" value="<?php echo $this->data[2];?>"></br>
     <label></label><input type="submit" name="submit" value="SIMPAN">
 </form></div>
 

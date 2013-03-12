@@ -12,6 +12,9 @@ class Login_Controller extends Controller{
         $this->view->kantor = Kantor::getNama(); 
         //$this->view = new View;
         //echo "</br>kelas berhasil di bentuk";
+        $this->view->js = array(
+          'login/js/default'  
+        );
     }
     //put your code here
     

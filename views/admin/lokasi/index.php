@@ -1,8 +1,8 @@
 <h2>Pengaturan Lokasi Penyimpanan Arsip</h2>            
         <hr>
-<div id="form-wrapper"><form method="POST" action="<?php echo URL;?>admin/inputRekamLokasi">
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamLokasi">
     
-    <label>BAGIAN</label><select name="bagian">
+    <label>BAGIAN</label><select class="required" name="bagian">
         <option value="0">--PILIH BAGIAN--</option>
         <?php 
             foreach($this->bagian as $value){
@@ -26,7 +26,7 @@
             }
         ?>
     </select></br>
-    <label>LABEL</label><input type="text" name="nama"></br>
+    <label>LABEL</label><input class="required" type="text" name="nama"></br>
     <!--<label>KETERANGAN</label><input type="text" name="keterangan" width="40"></textarea></br>-->
     <label></label><input type="submit" name="simpan" value="SIMPAN"></br>
     <p>Jika filling tidak dipilih, baris tidak dipilih->rekam filling</p>

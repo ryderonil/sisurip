@@ -1,8 +1,8 @@
 <h2>Tambah Status Surat</h2><hr><div id="form-wrapper">
-<form method="POST" action="<?php echo URL; ?>admin/inputRekamStatus">              
+<form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamStatus">              
         
-    <label>TIPE SURAT</label><input type="text" name="tipe_surat"></br>
-    <label>STATUS</label><input type="text" name="status"></br>
+    <label>TIPE SURAT</label><input class="required" type="text" name="tipe_surat"></br>
+    <label>STATUS</label><input class="required" type="text" name="status"></br>
     <label></label><input type="submit" name="submit" value="SIMPAN">
 </form></div>
 </br>
