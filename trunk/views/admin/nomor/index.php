@@ -1,10 +1,10 @@
 <h2>Tambah Format Nomor Surat</h2>
 <hr>
 <div id="form-wrapper">
-<form method="POST" action="<?php echo URL; ?>admin/inputRekamNomor">              
+<form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamNomor">              
        
-    <label>FORMAT NOMOR</label><input type="text" name="nomor"></br>
-    <label>BAGIAN</label><select name="bagian">
+    <label>FORMAT NOMOR</label><input class="required" type="text" name="nomor"></br>
+    <label>BAGIAN</label><select class="required" name="bagian">
         <option name="" selected>--PILIH BAGIAN--</option>
         <?php foreach($this->bagian as $key=>$value) { ?>
         <option value="<?php echo $value['kd_bagian'];?>"> <?php echo strtoupper($value['bagian']);?></option>

@@ -1,9 +1,9 @@
 <h2>Ubah Jenis Lampiran</h2>
 <hr>
 <div id="form-wrapper">
-<form method="POST" action="<?php echo URL; ?>admin/updateRekamLampiran">
+<form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/updateRekamLampiran">
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
-    <label>TIPE NASKAH DINAS</label><input type="text" name="tipe_naskah" value="<?php echo $this->data[1];?>"></br>    
+    <label>TIPE NASKAH DINAS</label><input class="required" type="text" name="tipe_naskah" value="<?php echo $this->data[1];?>"></br>    
     <label></label><input type="submit" name="submit" value="SIMPAN">
 </form></div>
 

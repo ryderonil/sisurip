@@ -1,11 +1,11 @@
 <h2>Ubah User</h2><hr><div id="form-wrapper">
-<form method="POST" action="<?php echo URL; ?>admin/updateRekamUser">
+<form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/updateRekamUser">
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
-    <label>NAMA PEGAWAI</label><input type="text" name="namaPegawai" value="<?php echo $this->data[3]; ?>"></br>
-    <label>NIP</label><input type="text" name="NIP" value="<?php echo $this->data[4]; ?>"></br>
-    <label>NAMA USER</label><input type="text" name="username" value="<?php echo $this->data[1]; ?>"></br>
-    <label>PASSWORD</label><input type="text" name="password" value="<?php echo $this->data[2]; ?>"></br>
-    <label>BAGIAN</label><select name="bagian">
+    <label>NAMA PEGAWAI</label><input class="required" type="text" name="namaPegawai" value="<?php echo $this->data[3]; ?>"></br>
+    <label>NIP</label><input class="required" type="text" name="NIP" value="<?php echo $this->data[4]; ?>"></br>
+    <label>NAMA USER</label><input class="required" type="text" name="username" value="<?php echo $this->data[1]; ?>"></br>
+    <label>PASSWORD</label><input class="required" type="text" name="password" value="<?php echo $this->data[2]; ?>"></br>
+    <label>BAGIAN</label><select class="required" name="bagian">
         <option value="">--PILIH BAGIAN--</option>
         <?php foreach($this->bagian as $key=>$value){
             
@@ -18,7 +18,7 @@
             }
         ?>
     </select></br>
-    <label>JABATAN</label><select name="jabatan">
+    <label>JABATAN</label><select class="required" name="jabatan">
         <option value="">--PILIH JABATAN--</option>
         <?php foreach($this->jabatan as $key=>$value){
                
@@ -31,7 +31,7 @@
                 }
         ?>
     </select></br>
-    <label>ROLE</label><select name="role">
+    <label>ROLE</label><select class="required" name="role">
         <option value="">--PILIH ROLE--</option>
         <?php foreach($this->role as $key=>$value){
                 
