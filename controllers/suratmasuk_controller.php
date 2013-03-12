@@ -76,6 +76,24 @@ class Suratmasuk_Controller extends Controller{
     public function rekamdisposisi(){
         $this->model->rekamdisposisi();
     }
+    
+    public function distribusi($id){
+        $this->view->dataSurat = $this->model->select('SELECT * FROM suratmasuk WHERE id_suratmasuk='.$id);
+        $this->view->bagian = $this->model->select('SELECT * FROM r_bagian');
+        
+        foreach($this->view->dataSurat as $value){
+            $this->view->data[0] = $value['id_suratmasuk'];
+            $this->view->data[1] = $value['no_surat'];
+            $this->view->data[2] = $value['perihal'];
+            $this->view->data[3] = $value['asal_surat'];           
+            
+        }
+        $this->view->render('suratmasuk/distribusi');
+    }
+    
+    public function rekamDistribusi(){
+        $this->model->rekamDistribusi();
+    }
 }
 
 ?>

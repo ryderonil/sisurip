@@ -161,9 +161,15 @@ form label {
 
 form input, form select {
     width: auto;
+    /*min-width: 200px;*/
     margin: 5px 0 0 10px;
     border: 1px solid gray;
     padding: 4px;
+}
+
+.float-input {
+    min-width: 40%;
+    width: auto;
 }
 
 form input:hover, form select:hover {
