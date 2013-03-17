@@ -57,15 +57,15 @@ class Admin_Model extends Model{
     }
     
     public function addLampiran($data){
-        $this->insert('lampiran', $data);
+        $this->insert('tipe_naskah', $data);
     }
     
     public function updateLampiran($data, $where){
-        $this->update('lampiran', $data, $where);
+        $this->update('tipe_naskah', $data, $where);
     }
     
     public function deleteLampiran($where){
-        $this->delete('lampiran', $where);
+        $this->delete('tipe_naskah', $where);
     }
     
     public function addStatusSurat($data){

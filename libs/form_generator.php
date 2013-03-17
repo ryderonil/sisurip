@@ -13,7 +13,7 @@ class Form_Generator{
     
     function form_open($action, $form=array()){
         if(!is_null($form)){
-            return "<form action='".URL.$action."'";
+            echo "<form action='".URL.$action."'>";
             
         }
         
@@ -23,11 +23,11 @@ class Form_Generator{
         }
         $form_open .= ">";
         
-        return $form_open;
+        echo $form_open;
     }
     
     function form_close(){
-        return "</form>";
+        echo "</form>";
     }
     
     function form_input($input = array()){
@@ -40,7 +40,7 @@ class Form_Generator{
         
         $return .= "/>";
         
-        return $return;
+        echo $return;
         
     }
     
@@ -54,7 +54,7 @@ class Form_Generator{
         
         $return .= "/>";
         
-        return $return;
+        echo $return;
     }
     
     function form_password($input=array()){
@@ -67,7 +67,7 @@ class Form_Generator{
         
         $return .= "/>";
         
-        return $return;
+        echo $return;
     }
     
     function form_upload($input=array()){
@@ -80,7 +80,7 @@ class Form_Generator{
         
         $return .= "/>";
         
-        return $return;
+        echo $return;
     }
     
     function form_textarea($input=array(), $val=null){
@@ -92,7 +92,7 @@ class Form_Generator{
         
         $return .= ">".$val."</textarea>";
         
-        return $return;
+        echo $return;
     }
     
     function form_label($Name, $for=null){
@@ -100,7 +100,7 @@ class Form_Generator{
             return '<label>'.$Name.'</label>';
         }
         
-        return "<label for='".$for."'>".$Name."</label>";
+        echo "<label for='".$for."'>".$Name."</label>";
     }
     
     function form_dropdown($name, $option, $selected=0){
@@ -112,32 +112,32 @@ class Form_Generator{
         }
         
         $return .= "</select>";
-        return $return;
+        echo $return;
     }
     
     function form_checkbox($name, $value){
         $type = 'checkbox';
-        return "<input type='".$type."' name='".$name."' value='".$value."'/>";
+        echo "<input type='".$type."' name='".$name."' value='".$value."'>";
     }
     
     function form_radio($name, $value){
         $type = 'radio';
-        return "<input type='".$type."' name='".$name."' value='".$value."'/>";
+        echo "<input type='".$type."' name='".$name."' value='".$value."'>";
     }
     
     function form_submit($name,$value){
         $type='submit';
-        return "<input type='".$type."' name='".$name."' value='".$value."'/>";
+        echo "<input type='".$type."' name='".$name."' value='".$value."'>";
     }
     
     function form_button($name, $value){
         $type='button';
-        return "<button type='".$type."' name='".$name."'>'".$value."'</button>";
+        echo "<button type='".$type."' name='".$name."'>'".$value."'</button>";
     }
     
     function form_reset($name, $value){
         $type='reset';
-        return "<input type='".$type."' name='".$name."' value='".$value."'/>";
+        echo "<input type='".$type."' name='".$name."' value='".$value."'>";
     }
     
     

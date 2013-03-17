@@ -14,6 +14,8 @@ class View {
     
     public function __construct() {
         $this->js = array();
+        $this->form=new Form_Generator();
+        $this->html=new Html();
     }
     
     public function render($view){

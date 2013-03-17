@@ -20,22 +20,22 @@ class Html{
             return $br;
         }
         
-        return '</br>';
+        echo '</br>';
     }
     
     function heading($heading, $hirarki){
         switch($hirarki){
            case 1:
-               return '<h1>'.$heading.'</h1>';
+               echo '<h1>'.$heading.'</h1>';
                break;
            case 2;
-               return '<h2>'.$heading.'</h2>';
+               echo '<h2>'.$heading.'</h2>';
                break;
            case 3;
-               return '<h3>'.$heading.'</h3>';
+               echo '<h3>'.$heading.'</h3>';
                break;
            case 4;
-               return '<h4>'.$heading.'</h4>';
+               echo '<h4>'.$heading.'</h4>';
                break;
         }
     }
@@ -47,7 +47,7 @@ class Html{
         }
         
         $img .= '>';
-        return $img;
+        echo $img;
     }
     
     function link_tag($link=array()){
@@ -64,10 +64,22 @@ class Html{
             for($i=0;$i<$nbs;$i++){
                 $nbs .= '&nbsp;';
             }
-            return $nbs;
+            echo $nbs;
         }
         
-        return '&nbsp';
+        echo '&nbsp';
+    }
+    
+    function hr(){
+        echo "<hr>";
+    }
+    
+    function div_open($id, $ids){
+        echo "<div $id='".$ids."'>";
+    }
+    
+    function div_close(){
+        echo "</div>";
     }
 }
 ?>

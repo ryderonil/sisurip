@@ -61,8 +61,18 @@ class Suratmasuk_Controller extends Controller{
         $this->view->render('suratmasuk/rekam');
     }
     
-    public function getSuratMasukById($id){
+    public function detil($id){
         $this->view->dataSurat = $this->model->getSuratMasukById($id);
+        foreach($this->view->dataSurat as $key=>$value){
+            $this->view->data[0] = $value['id_suratmasuk'];
+            $this->view->data[1] = $value['no_agenda'];
+            $this->view->data[2] = $value['tgl_terima'];
+            $this->view->data[3] = $value['tgl_surat'];
+            $this->view->data[4] = $value['no_surat'];
+            $this->view->data[5] = $value['asal_surat'];
+            $this->view->data[6] = $value['perihal'];
+
+        }
         $this->view->render('suratmasuk/detilsurat');
     }
     
@@ -70,7 +80,28 @@ class Suratmasuk_Controller extends Controller{
         $this->view->data = $this->model->getSuratMasukById($id);
         $this->view->seksi = $this->model->get('r_bagian');
         $this->view->petunjuk = $this->model->get('r_petunjuk');
-        $this->view->render('suratmasuk/disposisi');
+        $this->view->data2 = $this->model->select('SELECT * FROM disposisi WHERE id_surat=' . $id);
+        $this->view->count = count($this->view->data2);
+        //echo $this->view->count;
+        if ($this->view->count > 0) {
+
+            foreach ($this->view->data2 as $key => $value) {
+                $this->view->disp[0] = $value['id_disposisi'];
+                $this->view->disp[1] = $value['id_surat'];
+                $this->view->disp[2] = $value['sifat'];
+                $this->view->disp[3] = $value['disposisi'];
+                $this->view->disp[4] = $value['petunjuk'];
+                $this->view->disp[5] = $value['catatan'];
+            }
+            $this->view->disposisi = explode(',', $this->view->disp[3]);
+            $this->view->petunjuk = explode(',', $this->view->disp[4]);
+            //var_dump($this->view->disposisi);
+
+            $this->view->render('suratmasuk/ctkDisposisi');
+        }else{
+           $this->view->render('suratmasuk/disposisi'); 
+        }
+        
     }
     
     public function rekamdisposisi(){
@@ -92,7 +123,10 @@ class Suratmasuk_Controller extends Controller{
     }
     
     public function rekamDistribusi(){
-        $this->model->rekamDistribusi();
+        $id = $_POST['id'];
+        $bagian = $_POST['bagian'];
+        //var_dump($bagian);
+        $this->model->distribusi($id, $bagian);
     }
 }
 
