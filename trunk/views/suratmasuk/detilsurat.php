@@ -1,11 +1,29 @@
 <?php foreach($this->dataSurat as $key=>$value) { ?>
-<form method="POST" action="<?php echo URL; ?>suratmasuk/edit/<?php echo $value['id_suratmasuk']; ?>">
-    <label>AGENDA</label><input type="text" name="no_agenda" value="<?php echo $value['no_agenda'] ?>" readonly></br>
-    <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima" value="<?php echo $value['tgl_terima'] ?>" readonly></br>
-    <label>TANGGAL SURAT</label><input type="text" name="tgl_surat" value="<?php echo $value['tgl_surat'] ?>" readonly></br>
-    <label>NOMOR SURAT</label><input type="text" name="no_surat" value="<?php echo $value['no_surat'] ?>" readonly></br>
-    <label>ASAL</label><input type="text" name="asal_surat" value="<?php echo $value['asal_surat'] ?>" readonly></br>
-    <label>PERIHAL</label><input type="" name="perihal" value="<?php echo $value['perihal'] ?>" readonly></br>
-    <label></label><input type="submit" name="submit" value="UBAH">
-</form>
+<div>
+    <table class="CSSTableGenerator">
+        <tr><td></td><td></td></tr>
+        <tr><td>AGENDA</td><td><?php echo $this->data[1]; ?></td></tr>
+        <tr><td>TANGGAL TERIMA</td><td><?php echo Tanggal::tgl_indo($this->data[2]); ?></td></tr>
+        <!--<tr><td>TANGGAL SURAT</td><td><?php echo $this->data[3]; ?></td></tr>
+        <tr><td>NOMOR SURAT</td><td><?php echo $this->data[4]; ?></td></tr>
+        <tr><td>ASAL</td><td><?php echo $this->data[5]; ?></td></tr>
+        <tr><td>PERIHAL</td><td><?php echo $this->data[6]; ?></td></tr>-->
+        <tr><td></td><td>
+                <a href="<?php echo URL;?>suratkeluar/rekam/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="TANGGAPAN SURAT"></a>
+                <a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
+                <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="ARSIP"></a>
+                <a href="<?php echo URL;?>suratmasuk/edit/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="U B A H"></a></td></tr>
+    </table>
+    </div>
+<!-- menampilkan pdf hanya butuh iframe, cuman, browser harus embed ama pdf reader 
+(install pdf reader setelah browser) -->
+<div>
+    </br>
+    <!--<p><h2>TAMPILAN ARSIP ELEKTRONIK</h2></p>-->
+    <hr>
+    </br>
+    <iframe src="<?php echo URL;?>arsip/1.pdf" width="100%" height="400">
+  <p>browser anda tidak mendukung tampilan ini.</p>
+</iframe></div>
 <?php } ?>
+

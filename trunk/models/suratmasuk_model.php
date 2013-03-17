@@ -86,19 +86,31 @@ class Suratmasuk_Model extends Model{
         $petunjuk = $_POST['petunjuk'];
         $catatan = $_POST['catatan'];
         $disposisi = $_POST['disposisi'];
-        $disposisi = implode(',',$disposisi);
+        $disp = implode(',',$disposisi);
         $petunjuk = implode(',',$petunjuk);
         
         $data = array(
             'id_surat'=>$id_surat,
             'sifat'=>$sifat,
-            'disposisi'=>$disposisi,
+            'disposisi'=>$disp,
             'petunjuk'=>$petunjuk,
             'catatan'=>$catatan
             );
         
-        $this->insert('disposisi', $data);
+        $this->insert('disposisi', $data);        
+        $this->distribusi($id_surat, $disposisi);
         header('location:'.URL.'suratmasuk');
+    }
+    
+    public function distribusi($id, $data){
+        $length = count($data);
+        for($i=0;$i<$length;$i++){
+            $dataInsert = array(
+                'id_surat'=>$id,
+                'id_bagian'=>$data[$i]
+            );
+            $this->insert('distribusi', $dataInsert);
+        }
     }
 }
 

@@ -53,17 +53,18 @@ class Admin_Controller extends Controller{
     }
     
     public function rekamJenisLampiran(){
-        $this->view->lampiran = $this->model->select('SELECT * FROM lampiran');
+        $this->view->lampiran = $this->model->select('SELECT * FROM tipe_naskah');
         $this->view->count = count($this->view->lampiran);
         $this->view->render('admin/lampiran/index');
     }
     
     public function ubahLampiran($id){        
-        $this->view->lampiran = $this->model->select('SELECT * FROM lampiran');
-        $dataUbah = $this->model->select('SELECT * FROM lampiran WHERE id_lampiran='.$id);
+        $this->view->lampiran = $this->model->select('SELECT * FROM tipe_naskah');
+        $dataUbah = $this->model->select('SELECT * FROM tipe_naskah WHERE id_tipe='.$id);
         foreach($dataUbah as $value){
-            $this->view->data[0] = $value['id_lampiran'];
-            $this->view->data[1] = $value['tipe_naskah'];            
+            $this->view->data[0] = $value['id_tipe'];
+            $this->view->data[1] = $value['tipe_naskah'];
+            $this->view->data[2] = $value['kode_naskah'];
         }
         $this->view->render('admin/lampiran/ubahLampiran');
     }
@@ -282,7 +283,8 @@ class Admin_Controller extends Controller{
     
     public function inputRekamLampiran(){
         $data = array(         
-            'tipe_naskah'=>$_POST['tipe_naskah']
+            'tipe_naskah'=>$_POST['tipe_naskah'],
+            'kode_naskah'=>$_POST['kode_naskah']
         );
         $this->model->addLampiran($data);
         $this->rekamJenisLampiran();
@@ -290,16 +292,17 @@ class Admin_Controller extends Controller{
     
     public function updateRekamLampiran(){
         $data = array(            
-            'tipe_naskah'=>$_POST['tipe_naskah']
+            'tipe_naskah'=>$_POST['tipe_naskah'],
+            'kode_naskah'=>$_POST['kode_naskah']
         );
         
-        $where = ' id_lampiran='.$_POST['id'];
+        $where = ' id_tipe='.$_POST['id'];
         $this->model->updateLampiran($data,$where);
         $this->rekamJenisLampiran();
     }
     
     public function hapusLampiran($id){
-        $where = ' id_lampiran='.$id;
+        $where = ' id_tipe ='.$id;
         $this->model->deleteLampiran($where);
         $this->rekamJenisLampiran();
     }

@@ -9,6 +9,10 @@ define('DB_USER','root');
 define('DB_PASS','');
 //end setting database
 
+define('__EXT_FILE__','application/pdf');
+define('DIR_UPLOAD','arsip/');
+
+
 date_default_timezone_set('Asia/Jakarta');
 
 
