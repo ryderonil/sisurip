@@ -4,10 +4,22 @@
         <title>Sistem Informasi Penatausahaan Surat dan Arsip</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="<?php echo URL; ?>public/css/default.css" rel="stylesheet" type="text/css" />
-        <link href="<?php echo URL; ?>public/css/flick/jquery-ui-1.10.1.custom.css" rel="stylesheet">             
-	<script src="<?php echo URL; ?>public/js/jquery-1.9.1.js"></script>
+        
+        <link href="<?php echo URL; ?>public/css/flick/jquery-ui-1.10.1.custom.css" rel="stylesheet">
+        <!--<link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/css/jquery.autocomplete.css"  />-->
+	
+        <script src="<?php echo URL; ?>public/js/jquery-1.7.1.min.js"></script>
+        
 	<script src="<?php echo URL; ?>public/js/jquery-ui-1.10.1.custom.js"></script>
-        <script src="<?php echo URL; ?>public/js/jquery.validate.js"></script>       
+        
+        <script src="<?php echo URL; ?>public/js/jquery.validate.js"></script>
+        <!--<script src="<?php echo URL; ?>public/js/jquery.js"></script>
+        <script src="<?php echo URL; ?>public/js/jquery.autocomplete.js"></script>-->
+        
+       <!--<script type="text/javascript" src="<?php echo URL; ?>public/js/jquery-1.4.2.min.js"></script> 
+	<script type="text/javascript" src="<?php echo URL; ?>public/js/jquery-ui-1.8.2.custom.min.js"></script>
+        <link rel="stylesheet" href="<?php echo URL; ?>public/css/smoothness/jquery-ui-1.8.2.custom.css" /> -->
+        
        
         <?php 
             if(isset($this->js)){

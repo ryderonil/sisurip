@@ -37,7 +37,7 @@
         }
         ?></select></br>
     <label>ALAMAT TUJUAN</label><input class="required" type="text" name="asal_surat">
-        <input type="button" name="rekam"></input></br>
+    <a href="#"><input type="button" name="" value="+"></input></a></br>
     <label>PERIHAL</label><input class="required" type="" name="perihal"></br>
     <label>SIFAT</label><select name="sifat">
         <option value="">--PILIH SIFAT SURAT--</option>

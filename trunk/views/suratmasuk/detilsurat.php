@@ -1,5 +1,5 @@
 <?php foreach($this->dataSurat as $key=>$value) { ?>
-<div>
+<div class="left">
     <table class="CSSTableGenerator">
         <tr><td></td><td></td></tr>
         <tr><td>AGENDA</td><td><?php echo $this->data[1]; ?></td></tr>
@@ -17,12 +17,10 @@
     </div>
 <!-- menampilkan pdf hanya butuh iframe, cuman, browser harus embed ama pdf reader 
 (install pdf reader setelah browser) -->
-<div>
-    </br>
-    <!--<p><h2>TAMPILAN ARSIP ELEKTRONIK</h2></p>-->
-    <hr>
-    </br>
-    <iframe src="<?php echo URL;?>arsip/1.pdf" width="100%" height="400">
+<div class="right">
+    
+    <!--<p><h2>TAMPILAN ARSIP ELEKTRONIK</h2></p>-->    
+    <iframe src="<?php echo URL;?>arsip/1.pdf">
   <p>browser anda tidak mendukung tampilan ini.</p>
 </iframe></div>
 <?php } ?>

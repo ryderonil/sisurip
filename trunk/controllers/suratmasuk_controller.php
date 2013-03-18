@@ -56,7 +56,15 @@ class Suratmasuk_Controller extends Controller{
         $this->model->input();
     }
     
-    public function rekam(){
+    public function rekam($s=null){
+        if(!is_null($s)) $this->view->alamat=$s;
+        $almt = new Admin_Model();
+        $alamat = $almt->getAlamat($s);
+        //$this->view->alamat
+        foreach($alamat as $value){
+            $this->view->alamat .= ' '.$value['nama_satker'];
+        }
+        
         $this->view->agenda = $this->nomor->generateNumber('SM');
         $this->view->render('suratmasuk/rekam');
     }

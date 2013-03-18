@@ -141,5 +141,10 @@ class Admin_Model extends Model{
         $where = ' id_lokasi='.$id;
         $this->update('lokasi', $data, $where);
     }
+    
+    public function getAlamat($kd=null){
+        if(is_null($kd)) return $this->select('SELECT * FROM alamat');
+        return $this->select('SELECT * FROM alamat WHERE kode_satker='.$kd);
+    }
 }
 ?>
