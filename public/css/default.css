@@ -1,6 +1,6 @@
 *{  
-   margin:0;  
-   padding:0;  
+    margin:0;  
+    padding:0;  
 }  
 
 
@@ -30,20 +30,20 @@ body {
     background-image: -ms-linear-gradient(bottom, rgb(19,101,173) 0%, rgb(18,65,127) 53%);
 
     background-image: -webkit-gradient(
-	linear,
-	left bottom,
-	left top,
-	color-stop(0, rgb(19,101,173)),
-	color-stop(0.53, rgb(18,65,127))
-);
+        linear,
+        left bottom,
+        left top,
+        color-stop(0, rgb(19,101,173)),
+        color-stop(0.53, rgb(18,65,127))
+        );
 }
 
 #menu {
-    
+
     background: #12407f;
     height: 40px;
     border-bottom: 1px solid #154a93;
-    
+
 }
 
 #content {
@@ -83,7 +83,7 @@ body {
 #cwrapper {
     background: #0073c8;
     color: #ffffff;
-    min-height: 200px;
+    min-height: 400px;
     max-width: 80%;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -95,7 +95,7 @@ body {
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     margin: 0 auto;
-    
+
 }
 
 #footer {
@@ -112,12 +112,12 @@ body {
     background-image: -ms-linear-gradient(top, rgb(19,101,173) 0%, rgb(18,65,127) 56%);
 
     background-image: -webkit-gradient(
-	linear,
-	left top,
-	left bottom,
-	color-stop(0, rgb(19,101,173)),
-	color-stop(0.56, rgb(18,65,127))
-);
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(19,101,173)),
+        color-stop(0.56, rgb(18,65,127))
+        );
 }
 
 /* Links */
@@ -167,7 +167,7 @@ body {
 }
 
 form {
-    
+
     display: inline-block;
     font: 100% verdana,arial,sans-serif;
 }
@@ -222,12 +222,17 @@ form input[type=submit]:hover {
 
 form br {clear: left;}
 
+iframe {
+    width: 100%;
+    min-height: 400px;
+}
+
 #error{
     background: red;
 }
 
 #brand {
-    
+
     padding: 5px 15px;
     float: right;
     position: relative;
@@ -248,7 +253,7 @@ form br {clear: left;}
     padding: 9px 15px;
     float: right;
     position: relative;   
-    
+
 }
 
 #depkeu-logo {
@@ -267,16 +272,16 @@ form br {clear: left;}
 
 
 /**---------- untuk detil surat dansemisalnya---------**/
-#content-left {
-    padding: 0px 15px;
-    float: left;
-    width: 50%;
+.left {
+    padding: 1px;
+    float:left;
+    width: 49%;
 }
 
-#content-right {
-    padding: 0px 15px;
-    float: right;
-    width: 50%;
+.right{
+    padding: 1px;
+    float:right;
+    width: 49%;
 }
 /**-------sisurip---------------**/
 #sisurip {
@@ -307,66 +312,66 @@ form br {clear: left;}
 /**----------menu dropdown---------- **/
 
 #trans-nav { 
-        list-style-type: none; 
-        height: 40px; 
-        padding: 0; 
-        /**margin-left: 480px;**/
-        float : top left;
-        
+    list-style-type: none; 
+    height: 40px; 
+    padding: 0; 
+    /**margin-left: 480px;**/
+    float : top left;
+
 }
 #trans-nav li { 
-        float: left; 
-        position: relative; 
-        padding: 0;
-        line-height: 40px; 
-        background: #5a8078;
-        repeat-x 0 0; 
-        -webkit-border-radius : 10px 10px 10px 10px;
+    float: left; 
+    position: relative; 
+    padding: 0;
+    line-height: 40px; 
+    background: #5a8078;
+    repeat-x 0 0; 
+    -webkit-border-radius : 10px 10px 10px 10px;
 }
 #trans-nav li:hover { 
-        background-position: 0 -40px; 
+    background-position: 0 -40px; 
 }
 #trans-nav li a { 
-        display: block; 
-        padding: 0 15px; 
-        color: #fff; 
-        text-decoration: none; 
+    display: block; 
+    padding: 0 15px; 
+    color: #fff; 
+    text-decoration: none; 
 }
 #trans-nav li a:hover { 
-        color: #a3f1d7; 
-        
+    color: #a3f1d7; 
+
 }
 #trans-nav li ul { 
-        opacity: 0; 
-        position: absolute; 
-        left: 0; 
-        width: 15em; 
-        background: #4d8add; 
-        list-style-type: none; 
-        padding: 0; 
-        margin: 0; 
-        -webkit-border-radius : 0px 0px 0px 0px;
+    opacity: 0; 
+    position: absolute; 
+    left: 0; 
+    width: 15em; 
+    background: #4d8add; 
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0; 
+    -webkit-border-radius : 0px 0px 0px 0px;
 }
 #trans-nav li:hover ul { 
-        opacity: 1; 
+    opacity: 1; 
 }
 #trans-nav li ul li { 
-        float: none; 
-        position: static; 
-        height: 0; 
-        line-height: 0; 
-        background: none; 
+    float: none; 
+    position: static; 
+    height: 0; 
+    line-height: 0; 
+    background: none; 
 }
 #trans-nav li:hover ul li { 
-        height: 30px; 
-        line-height: 30px; 
-        
-        
+    height: 30px; 
+    line-height: 30px; 
+
+
 }
 #trans-nav li ul li a { 
-        background: #4d8add; 
-        -webkit-border-radius : 0px 0px 0px 0px;
-        background: #4d8add; /* Old browsers */
+    background: #4d8add; 
+    -webkit-border-radius : 0px 0px 0px 0px;
+    background: #4d8add; /* Old browsers */
     background: -moz-linear-gradient(left,  #4d8add 1%, #52baea 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(1%,#4d8add), color-stop(100%,#52baea)); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(left,  #4d8add 1%,#52baea 100%); /* Chrome10+,Safari5.1+ */
@@ -381,85 +386,85 @@ form br {clear: left;}
 <!--Animation dengan webkit transition-->
 
 #trans-nav li ul li a:hover { 
-        background: #000; 
+    background: #000; 
 }
 #trans-nav li { 
-        -webkit-transition: all 0.2s; 
+    -webkit-transition: all 0.2s; 
 }
 #trans-nav li a { 
-        -webkit-transition: all 0.5s; 
+    -webkit-transition: all 0.5s; 
 }
 #trans-nav li ul { 
-        -webkit-transition: all 1s; 
+    -webkit-transition: all 1s; 
 }
 #trans-nav li ul li { 
-        -webkit-transition: height 0.5s; 
+    -webkit-transition: height 0.5s; 
 }
 
 /**-----------table----------**/
 
 table {
-    
+
 }
 
 table tr {
-    
+
 }
 
 table td {
-    
+
 }
 
 table th {
-    
+
 }
 
 .CSSTableGenerator {
-	margin:0px;padding:0px;
-	width:100%;
-	/*box-shadow: 10px 10px 5px #888888; bayangan
-	border:1px solid #000000;*/
-        border:1px solid #ffffff;
-	
-	-moz-border-radius-bottomleft:0px;
-	-webkit-border-bottom-left-radius:0px;
-	border-bottom-left-radius:0px;
-	
-	-moz-border-radius-bottomright:0px;
-	-webkit-border-bottom-right-radius:0px;
-	border-bottom-right-radius:0px;
-	
-	-moz-border-radius-topright:0px;
-	-webkit-border-top-right-radius:0px;
-	border-top-right-radius:0px;
-	
-	-moz-border-radius-topleft:0px;
-	-webkit-border-top-left-radius:0px;
-	border-top-left-radius:0px;
+    margin:0px;padding:0px;
+    width:100%;
+    /*box-shadow: 10px 10px 5px #888888; bayangan
+    border:1px solid #000000;*/
+    border:1px solid #ffffff;
+
+    -moz-border-radius-bottomleft:0px;
+    -webkit-border-bottom-left-radius:0px;
+    border-bottom-left-radius:0px;
+
+    -moz-border-radius-bottomright:0px;
+    -webkit-border-bottom-right-radius:0px;
+    border-bottom-right-radius:0px;
+
+    -moz-border-radius-topright:0px;
+    -webkit-border-top-right-radius:0px;
+    border-top-right-radius:0px;
+
+    -moz-border-radius-topleft:0px;
+    -webkit-border-top-left-radius:0px;
+    border-top-left-radius:0px;
 }.CSSTableGenerator table{
-	width:100%;
-	height:100%;
-	margin:0px;padding:0px;
+    width:100%;
+    height:100%;
+    margin:0px;padding:0px;
 }.CSSTableGenerator tr:last-child td:last-child {
-	-moz-border-radius-bottomright:0px;
-	-webkit-border-bottom-right-radius:0px;
-	border-bottom-right-radius:0px;
+    -moz-border-radius-bottomright:0px;
+    -webkit-border-bottom-right-radius:0px;
+    border-bottom-right-radius:0px;
 }
 .CSSTableGenerator table tr:first-child td:first-child {
-	-moz-border-radius-topleft:0px;
-	-webkit-border-top-left-radius:0px;
-	border-top-left-radius:0px;
+    -moz-border-radius-topleft:0px;
+    -webkit-border-top-left-radius:0px;
+    border-top-left-radius:0px;
 }
 .CSSTableGenerator table tr:first-child td:last-child {
-	-moz-border-radius-topright:0px;
-	-webkit-border-top-right-radius:0px;
-	border-top-right-radius:0px;
+    -moz-border-radius-topright:0px;
+    -webkit-border-top-right-radius:0px;
+    border-top-right-radius:0px;
 }.CSSTableGenerator tr:last-child td:first-child{
-	-moz-border-radius-bottomleft:0px;
-	-webkit-border-bottom-left-radius:0px;
-	border-bottom-left-radius:0px;
+    -moz-border-radius-bottomleft:0px;
+    -webkit-border-bottom-left-radius:0px;
+    border-bottom-left-radius:0px;
 }.CSSTableGenerator tr:hover td{
-	
+
 }
 .CSSTableGenerator tr:nth-child(odd){ background-color:#bbd80a; }
 /*.CSSTableGenerator tr:nth-child(odd){ background-color:#aad4ff; } original
@@ -467,67 +472,67 @@ table th {
 .CSSTableGenerator tr:nth-child(odd){ background-color:#00bcf2; } bluenginal
 */
 .CSSTableGenerator tr:nth-child(even)    { background-color:#ffffff; }.CSSTableGenerator td{
-	vertical-align:middle;
-	
-	
-	/*border:1px solid #000000;*/
-        border:1px solid #ffffff;
-	border-width:0px 1px 1px 0px;
-	text-align:left;
-	padding:7px;
-	font-size:14px;
-	font-family:Arial;
-	font-weight:normal;
-	color:#000000;
+    vertical-align:middle;
+
+
+    /*border:1px solid #000000;*/
+    border:1px solid #ffffff;
+    border-width:0px 1px 1px 0px;
+    text-align:left;
+    padding:7px;
+    font-size:14px;
+    font-family:Arial;
+    font-weight:normal;
+    color:#000000;
 }.CSSTableGenerator tr:last-child td{
-	border-width:0px 1px 0px 0px;
+    border-width:0px 1px 0px 0px;
 }.CSSTableGenerator tr td:last-child{
-	border-width:0px 0px 1px 0px;
+    border-width:0px 0px 1px 0px;
 }.CSSTableGenerator tr:last-child td:last-child{
-	border-width:0px 0px 0px 0px;
+    border-width:0px 0px 0px 0px;
 }
 .CSSTableGenerator tr:first-child td{
-		background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3a97f4), color-stop(1, #1c6dbf) );
-	background:-moz-linear-gradient( center top, #3a97f4 5%, #1c6dbf 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a97f4", endColorstr="#1c6dbf");	background: -o-linear-gradient(top,#3a97f4,1c6dbf);
+    background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3a97f4), color-stop(1, #1c6dbf) );
+    background:-moz-linear-gradient( center top, #3a97f4 5%, #1c6dbf 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a97f4", endColorstr="#1c6dbf");	background: -o-linear-gradient(top,#3a97f4,1c6dbf);
 
-	background-color:#3a97f4;
-	border:0px solid #ffffff;
-	text-align:center;
-	border-width:0px 0px 1px 1px;
-	font-size:16px;
-	font-family:Arial;
-	font-weight:bold;
-	color:#ffffff;
+    background-color:#3a97f4;
+    border:0px solid #ffffff;
+    text-align:center;
+    border-width:0px 0px 1px 1px;
+    font-size:16px;
+    font-family:Arial;
+    font-weight:bold;
+    color:#ffffff;
 }
 
 .CSSTableGenerator tr th{
-		background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3a97f4), color-stop(1, #1c6dbf) );
-	background:-moz-linear-gradient( center top, #3a97f4 5%, #1c6dbf 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a97f4", endColorstr="#1c6dbf");	background: -o-linear-gradient(top,#3a97f4,1c6dbf);
+    background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3a97f4), color-stop(1, #1c6dbf) );
+    background:-moz-linear-gradient( center top, #3a97f4 5%, #1c6dbf 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a97f4", endColorstr="#1c6dbf");	background: -o-linear-gradient(top,#3a97f4,1c6dbf);
 
-	background-color:#3a97f4;
-	border:0px solid #ffffff;
-	text-align:center;
-	border-width:0px 0px 1px 1px;
-	font-size:16px;
-	font-family:Arial;
-	font-weight:bold;
-	color:#ffffff;
+    background-color:#3a97f4;
+    border:0px solid #ffffff;
+    text-align:center;
+    border-width:0px 0px 1px 1px;
+    font-size:16px;
+    font-family:Arial;
+    font-weight:bold;
+    color:#ffffff;
 }
 
 .CSSTableGenerator tr:first-child:hover td{
-	background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3a97f4), color-stop(1, #1c6dbf) );
-	background:-moz-linear-gradient( center top, #3a97f4 5%, #1c6dbf 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a97f4", endColorstr="#1c6dbf");	background: -o-linear-gradient(top,#3a97f4,1c6dbf);
+    background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3a97f4), color-stop(1, #1c6dbf) );
+    background:-moz-linear-gradient( center top, #3a97f4 5%, #1c6dbf 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a97f4", endColorstr="#1c6dbf");	background: -o-linear-gradient(top,#3a97f4,1c6dbf);
 
-	background-color:#3a97f4;
+    background-color:#3a97f4;
 }
 .CSSTableGenerator tr:first-child td:first-child{
-	border-width:0px 0px 1px 0px;
+    border-width:0px 0px 1px 0px;
 }
 .CSSTableGenerator tr:first-child td:last-child{
-	border-width:0px 0px 1px 1px;
+    border-width:0px 0px 1px 1px;
 }
 
 .btn {
@@ -547,21 +552,61 @@ table th {
 
 .btn:hover {
     background: rgb(254,187,187); /* Old browsers */
-background: -moz-linear-gradient(top,  rgba(254,187,187,1) 0%, rgba(254,144,144,1) 45%, rgba(255,92,92,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,187,187,1)), color-stop(45%,rgba(254,144,144,1)), color-stop(100%,rgba(255,92,92,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); /* IE10+ */
-background: linear-gradient(to bottom,  rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#febbbb', endColorstr='#ff5c5c',GradientType=0 ); /* IE6-9 */
+    background: -moz-linear-gradient(top,  rgba(254,187,187,1) 0%, rgba(254,144,144,1) 45%, rgba(255,92,92,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,187,187,1)), color-stop(45%,rgba(254,144,144,1)), color-stop(100%,rgba(255,92,92,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#febbbb', endColorstr='#ff5c5c',GradientType=0 ); /* IE6-9 */
 
 
 }
 
 label.error {
-            min-width: 200px;
-            color: red; padding-left: .5em;
-            font-weight: bold;
-            float: right;
-        }
+    min-width: 200px;
+    color: red; padding-left: .5em;
+    font-weight: bold;
+    float: right;
+}
 
+/* Autocomplete
+                        ----------------------------------*/
+.ui-autocomplete { position: absolute; cursor: default; }	
+.ui-autocomplete-loading { background: white url('http://localhost/suripmvc/public/js/images/ui-anim_basic_16x16.gif') right center no-repeat; }
+
+/* workarounds */
+* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+
+/* Menu
+----------------------------------*/
+.ui-menu {
+    list-style:none;
+    padding: 2px;
+    margin: 0;
+    display:block;
+}
+.ui-menu .ui-menu {
+    margin-top: -3px;
+}
+.ui-menu .ui-menu-item {
+    margin:0;
+    padding: 0;
+    zoom: 1;
+    float: left;
+    clear: left;
+    width: 100%;
+    font-size:80%;
+}
+.ui-menu .ui-menu-item a {
+    text-decoration:none;
+    display:block;
+    padding:.2em .4em;
+    line-height:1.5;
+    zoom:1;
+}
+.ui-menu .ui-menu-item a.ui-state-hover,
+.ui-menu .ui-menu-item a.ui-state-active {
+    font-weight: normal;
+    margin: -1px;
+}
