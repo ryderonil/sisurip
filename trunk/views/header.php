@@ -58,14 +58,14 @@
                                 <li><a href="<?php echo URL;?>admin/rekamLokasi">Lokasi Arsip</a></li>
                                 <li><a href="<?php echo URL;?>admin/rekamKlasifikasiArsip">Klasifikasi Arsip</a></li>
                                 <li><a href="<?php echo URL;?>admin/rekamJenisLampiran">Lampiran</a></li>
-                                <li><a href="<?php echo URL;?>admin/rekamStatusSurat">Status Surat</a></li>
+                                <!--<li><a href="<?php echo URL;?>admin/rekamStatusSurat">Status Surat</a></li>-->
                                 <li><a href="<?php echo URL;?>admin/rekamNomor">Penomoran</a></li>
                                 <li><a href="<?php echo URL;?>admin/rekamUser">Pengguna</a></li>
                                 <li><a href="<?php echo URL;?>admin/backup">Backup</a></li>
                                 <li><a href="<?php echo URL;?>admin/restore">Restore</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?php echo URL; ?>bantuan">Bantuan</a></li>                        
+                        <!--<li><a href="<?php echo URL; ?>bantuan">Bantuan</a></li>-->                        
                         <li><a href="<?php echo URL; ?>login/logout">Logout</a></li>
                         <?php endif; ?>
                     </ul>
@@ -73,15 +73,18 @@
                     
                 </div>
                 <div id="navbar">
-                <!-- pencarian -->                
-                <div id="sisurip"><h1>SiSuRIP</h1></div>
+                <!-- pencarian --> 
                 
-                <div id="">                    
+                <div id="sisurip">
+                    <?php if(Session::get('loggedin')==true):?><h1>SiSuRIP</h1><?php endif; ?></div>
+                
+                <div id="">  <?php if(Session::get('loggedin')==true):?>                  
                     <form method="POST" action="<?php echo URL;?>cari">
                         <input type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian">
                         <input type="submit" name="submit" value="CARI">
-                    </form>
+                    </form><?php endif; ?>
                 </div>
+                
                 <!-- end of pencarian -->
                 
                 </div>

@@ -58,33 +58,43 @@ class Helper_Controller extends Controller{
       } */
 
     function alamat() {
-        $q = $_REQUEST['term'];
-        echo $q;
-        if (!is_null($q))
-            exit;
+        $q = $_POST['queryString'];              
 
         $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
         mysql_select_db('sisurip');
         
         $rs = mysql_query("SELECT kode_satker, nama_satker FROM alamat WHERE nama_satker LIKE '%$q%'", $dblink);
 
-        $data = array();
+        //$data = array();
         if ($rs && mysql_num_rows($rs)) {
             while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
-                $data[] = array(
-                    'label' => $row['kode_satker'].' '.$row['nama_satker'],
-                    'value' => $row['kode_satker']
-                );
+                //$data[] = array(
+                    //'label' => $row['kode_satker'].' '.$row['nama_satker'],
+                    //'value' => $row['kode_satker']
+                    //
+                //);
+                
+                echo '<a href=#>'.$row['kode_satker'].' '.$row['nama_satker'].'</a></br>';
             }
         }
 
-        echo json_encode($data);
-        flush();
+        //echo json_encode($data);
+        //flush();
     }
     
-    function pilihalamat($var){
+    function pilihalamat($var, $id=null){
+        if((int)$var==1){
+            $this->view->surat = 'suratmasuk/rekam';
+        }elseif((int)$var==2){
+            $this->view->surat = 'suratkeluar/rekam';
+        }elseif((int)$var==3){
+            $this->view->surat = 'suratmasuk/edit';
+            
+        }
         
-        $this->view->kdsurat = $var;
+        if(!is_null($id)) $this->view->ids = $id;
+        //echo $this->view->surat;
+        //$this->view->kdsurat = $var;
         $this->view->alamat = $this->model->getAlamat();  
         //var_dump($this->view->alamat)   ; 
         $this->view->render('helper/alamat');

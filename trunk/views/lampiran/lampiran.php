@@ -27,7 +27,7 @@
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>lampiran/addRekamLampiran">
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <label>TIPE NASKAH DINAS</label><select class="required" name="tipe">
-        <option value="">--PILIH TIPE NASKAH DINAS--</option>
+        <option value="0">--PILIH TIPE NASKAH DINAS--</option>
         <?php
             foreach ($this->tipe as $key=>$value){
                 echo "<option value=$value[id_tipe]>$value[kode_naskah] $value[tipe_naskah]</option>";
@@ -40,5 +40,18 @@
     <label>ASAL/PENANDA TANGAN</label><input class="required" type="text" name="asal"></br>
     <label>KETERANGAN</label><input type="text" name="keterangan"></br>
     <label>PILIH FILE</label><input class="required" type="file" name="upload"></br>
-    <label></label><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="submit" name="submit" value="SIMPAN" onClick="return selesai()">
 </form></div>
+
+<script>
+    function selesai()
+{
+    
+  var answer = confirm ("Anda yakin menyimpan perubahan?")
+    if (answer)
+        return true;
+    else
+        //window.location='cart_view.php';
+        return false;
+    }
+    </script>

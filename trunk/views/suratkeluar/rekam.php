@@ -36,8 +36,9 @@
             echo "<option value='".$value['id_tipe']."'>$value[tipe_naskah]</option>";
         }
         ?></select></br>
-    <label>ALAMAT TUJUAN</label><input class="required" type="text" name="asal_surat">
-    <a href="#"><input type="button" name="" value="+"></input></a></br>
+    <label>ALAMAT TUJUAN</label><input class="required" type="text" name="asal_surat" value="<?php if(isset($this->alamat)) echo $this->alamat; ?>">
+    <a href="<?php echo URL;?>helper/pilihalamat/2<?php 
+                    if(isset($this->data)) echo "/".$this->data[0];?>"><input type="button" name="" value="+"></input></a></br>
     <label>PERIHAL</label><input class="required" type="" name="perihal"></br>
     <label>SIFAT</label><select name="sifat">
         <option value="">--PILIH SIFAT SURAT--</option>
