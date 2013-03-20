@@ -44,7 +44,7 @@ class Lampiran_Controller extends Controller{
         );
         
         $this->model->addLampiran($data);
-        header('location:'.URL.'suratmasuk/'.$data['id_surat']);
+        header('location:'.URL.'suratmasuk/detil/'.$data['id_surat']);
     }
     
 }

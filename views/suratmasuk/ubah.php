@@ -5,11 +5,37 @@
     <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima" value="<?php echo $value['tgl_terima'] ?>" readonly></br>
     <label>TANGGAL SURAT</label><input id="datepicker" type="text" name="tgl_surat" value="<?php echo $value['tgl_surat'] ?>"></br>
     <label>NOMOR SURAT</label><input type="text" name="no_surat" value="<?php echo $value['no_surat'] ?>"></br>
-    <label>ASAL</label><input type="text" name="asal_surat" value="<?php echo $value['asal_surat'] ?>"></br>
+    <label>ASAL</label><input type="text" name="asal_surat" value="<?php echo isset($this->alamat)?$this->alamat:$value['asal_surat']; ?>">
+    <a href="<?php echo URL;?>helper/pilihalamat/3<?php 
+                     echo "/".$value['id_suratmasuk'];?>"><input type="button" name="" value="+"></a></br>
     <label>PERIHAL</label><input type="" name="perihal" value="<?php echo $value['perihal'] ?>"></br>
     <label>STATUS</label><input type="" name="status" value="<?php echo $value['status'] ?>"></br>
-    <label>SIFAT</label><input type="" name="sifat" value="<?php echo $value['sifat'] ?>"></br>
-    <label>JENIS</label><input type="" name="jenis" value="<?php echo $value['jenis'] ?>"></br>
+    <label>SIFAT</label><select name="sifat">
+        <?php
+        
+            foreach($this->sifat as $sifat){
+                if($sifat['kode_sifat']==$value['sifat']){
+                    echo "<option value=$sifat[kode_sifat] selected>$sifat[sifat_surat]</option>";
+                }else{
+                    echo "<option value=$sifat[kode_sifat]>$sifat[sifat_surat]</option>";
+                }
+            }
+        ?>
+    </select>   
+    </br>
+    <label>JENIS</label><select name="jenis">
+        <?php
+        
+            foreach($this->jenis as $jenis){
+                if($jenis['kode_klassurat']==$value['jenis']){
+                    echo "<option value=$jenis[kode_klassurat] selected>$jenis[klasifikasi]</option>";
+                }else{
+                    echo "<option value=$jenis[kode_klassurat]>$jenis[klasifikasi]</option>";
+                }
+            }
+        ?>
+    </select>
+    <!--<input type="" name="jenis" value="<?php echo $value['jenis'] ?>">--></br>
     <label>LAMPIRAN</label><input type="" name="lampiran" value="<?php echo $value['lampiran'] ?>"></br>
     <label></label><input type="submit" name="submit" value="SIMPAN">
 </form></div>

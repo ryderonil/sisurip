@@ -10,68 +10,102 @@
  *
  * @author aisyah
  */
-class Suratmasuk_Controller extends Controller{
-    
+class Suratmasuk_Controller extends Controller {
+
     public function __construct() {
         @parent::__construct($registry);
         Auth::handleLogin();
         $this->nomor = new Nomor();
-        $this->view->kantor = Kantor::getNama(); 
+        $this->view->kantor = Kantor::getNama();
         $this->view->js = array(
-          'suratmasuk/js/default'  
+            'suratmasuk/js/default'
         );
         //$this->view = new View;
         //echo "</br>kelas berhasil di bentuk";
     }
+
     //put your code here
-    
-    public function index(){
+
+    public function index() {
         //$this->view->render('suratmasuk/index');
         //header('location:'.URL.'suratmasuk/showall');
         $this->showAll();
     }
-    
-    public function showAll(){
-        
+
+    public function showAll() {
+
         $this->view->listSurat = $this->model->showAll();
-        
+
         $this->view->render('suratmasuk/suratmasuk');
     }
-    
-    public function edit($id){
-        $this->view->data = $this->model->getSuratMasukById($id);
+
+    public function edit($id_sm = null, $ids = null) {
+        if (!is_null($id_sm)) {
+//cek id_sm jika panjang=5 maka kode satker
+            $length = strlen($id_sm);
+            //echo $length . " " . $id_sm;
+            if ($length == 6) {
+                $this->view->alamat = $id_sm;
+                $almt = new Admin_Model();
+                $alamat = $almt->getAlamat($id_sm);
+                //$this->view->alamat
+                foreach ($alamat as $value) {
+                    $this->view->alamat .= ' ' . $value['nama_satker'];
+                }
+                //echo $this->view->alamat;
+                if (!is_null($ids)) {
+                    $this->view->data = $this->model->getSuratMasukById($ids);
+                    $this->view->sifat = $this->model->get('sifat_surat');
+                    $this->view->jenis = $this->model->get('klasifikasi_surat');
+                    //var_dump($this->view->jenis);
+                }
+            } else {
+
+
+                $this->view->data = $this->model->getSuratMasukById($id_sm);
+                $this->view->sifat=$this->model->get('sifat_surat');
+                $this->view->jenis=$this->model->get('klasifikasi_surat');
+                //var_dump($this->view->jenis);
+            }
+        }
+        /** **/
+        //$this->view->data = $this->model->getSuratMasukById($ids);
         $this->view->render('suratmasuk/ubah');
     }
-    
-    public function remove($id){
+
+    public function remove($id) {
         $this->model->remove($id);
-        
     }
-    
-    public function editSurat(){
+
+    public function editSurat() {
         $this->model->editSurat();
     }
-    
-    public function input(){
+
+    public function input() {
         $this->model->input();
     }
-    
-    public function rekam($s=null){
-        if(!is_null($s)) $this->view->alamat=$s;
-        $almt = new Admin_Model();
-        $alamat = $almt->getAlamat($s);
-        //$this->view->alamat
-        foreach($alamat as $value){
-            $this->view->alamat .= ' '.$value['nama_satker'];
+
+    public function rekam($s = null) {
+        if (!is_null($s)) {
+
+            $this->view->alamat = $s;
+            $almt = new Admin_Model();
+            $alamat = $almt->getAlamat($s);            
+            //$this->view->alamat
+            
+            foreach ($alamat as $value) {
+                $this->view->alamat .= ' ' . $value['nama_satker'];
+            }
         }
-        
+        $this->view->sifat = $this->model->get('sifat_surat');
+            $this->view->jenis = $this->model->get('klasifikasi_surat');
         $this->view->agenda = $this->nomor->generateNumber('SM');
         $this->view->render('suratmasuk/rekam');
     }
-    
-    public function detil($id){
+
+    public function detil($id) {
         $this->view->dataSurat = $this->model->getSuratMasukById($id);
-        foreach($this->view->dataSurat as $key=>$value){
+        foreach ($this->view->dataSurat as $key => $value) {
             $this->view->data[0] = $value['id_suratmasuk'];
             $this->view->data[1] = $value['no_agenda'];
             $this->view->data[2] = $value['tgl_terima'];
@@ -79,18 +113,47 @@ class Suratmasuk_Controller extends Controller{
             $this->view->data[4] = $value['no_surat'];
             $this->view->data[5] = $value['asal_surat'];
             $this->view->data[6] = $value['perihal'];
-
         }
         $this->view->render('suratmasuk/detilsurat');
     }
-    
-    public function disposisi($id){
-        $this->view->data = $this->model->getSuratMasukById($id);
+
+    public function disposisi($id) {
+        $data = $this->model->getSuratMasukById($id);
+
+        foreach ($data as $value) {
+            $this->view->data['id_suratmasuk'] = $value['id_suratmasuk'];
+            $this->view->data['no_surat'] = $value['no_surat'];
+            $this->view->data['status'] = $value['status'];
+            $this->view->data['tgl_terima'] = Tanggal::tgl_indo($value['tgl_terima']);
+            $this->view->data['tgl_surat'] = Tanggal::tgl_indo($value['tgl_surat']);            
+            $this->view->data['no_agenda'] = $value['no_agenda'];
+            $this->view->data['lampiran'] = $value['lampiran'];
+            $sql = "SELECT sifat_surat FROM sifat_surat WHERE kode_sifat ='" . $value['sifat']."'";
+            
+            $sifat = $this->model->select($sql);
+            
+            foreach ($sifat as $value2) {
+                $this->view->data['sifat'] = $value2['sifat_surat'];
+            }
+            $sql2 = "SELECT klasifikasi FROM klasifikasi_surat WHERE kode_klassurat ='" . $value['jenis']."'";
+            $jenis = $this->model->select($sql2);
+            foreach ($jenis as $value3) {
+                $this->view->data['jenis'] = $value3['klasifikasi']; 
+            }
+            $sql3 = 'SELECT nama_satker FROM alamat WHERE kode_satker=' . trim($value['asal_surat']);
+            $asal = $this->model->select($sql3);            
+            foreach ($asal as $value1) {
+                $this->view->data['asal_surat'] = $value1['nama_satker'];
+            }
+            
+            $this->view->data['perihal'] = $value['perihal'];
+        }
         $this->view->seksi = $this->model->get('r_bagian');
         $this->view->petunjuk = $this->model->get('r_petunjuk');
         $this->view->data2 = $this->model->select('SELECT * FROM disposisi WHERE id_surat=' . $id);
         $this->view->count = count($this->view->data2);
         //echo $this->view->count;
+        //var_dump($this->view->petunjuk);
         if ($this->view->count > 0) {
 
             foreach ($this->view->data2 as $key => $value) {
@@ -102,40 +165,95 @@ class Suratmasuk_Controller extends Controller{
                 $this->view->disp[5] = $value['catatan'];
             }
             $this->view->disposisi = explode(',', $this->view->disp[3]);
-            $this->view->petunjuk = explode(',', $this->view->disp[4]);
-            //var_dump($this->view->disposisi);
+            $this->view->petunjuk2 = explode(',', $this->view->disp[4]);
+            //var_dump($this->view->petunjuk2);
 
-            $this->view->render('suratmasuk/ctkDisposisi');
-        }else{
-           $this->view->render('suratmasuk/disposisi'); 
-        }
-        
+            //$this->view->render('suratmasuk/disposisi');
+        } 
+            $this->view->render('suratmasuk/disposisi');
+       
     }
     
-    public function rekamdisposisi(){
+    //sepertinya sama dengan method sebelumnya
+    public function ctkDisposisi($id) {
+        $disposisi = new Disposisi();
+        $datas = $this->model->getSuratMasukById($id);
+
+        foreach ($datas as $value) {
+            $this->view->data['id_suratmasuk'] = $value['id_suratmasuk'];
+            $this->view->data['no_surat'] = $value['no_surat'];
+            $this->view->data['status'] = $value['status'];
+            $this->view->data['tgl_terima'] = Tanggal::tgl_indo($value['tgl_terima']);
+            $this->view->data['tgl_surat'] = Tanggal::tgl_indo($value['tgl_surat']);
+            $this->view->data['sifat'] = $value['sifat'];
+            $this->view->data['no_agenda'] = $value['no_agenda'];
+            $this->view->data['lampiran'] = $value['lampiran'];
+            $this->view->data['jenis'] = $value['jenis'];
+            $sql = 'SELECT nama_satker FROM alamat WHERE kode_satker=' . trim($value['asal_surat']);
+            $asal = $this->model->select($sql);
+            foreach ($asal as $value1) {
+                $this->view->data['asal_surat'] = $value1['nama_satker'];
+            }
+            $this->view->data['perihal'] = $value['perihal'];
+        }
+        $datad = $disposisi->getDisposisi(array('id_surat' => $id));
+        $count = count($datad);
+        if ($count > 0) {
+            foreach ($datad as $value) {
+                $this->view->disp[0] = $value['id_disposisi'];
+                $this->view->disp[1] = $value['id_surat'];
+                $this->view->disp[2] = $value['sifat'];
+                $this->view->disp[3] = $value['disposisi'];
+                $this->view->disp[4] = $value['petunjuk'];
+                $this->view->disp[5] = $value['catatan'];
+            }
+            $this->view->disposisi = explode(',', $this->view->disp[3]);
+            $this->view->petunjuk = explode(',', $this->view->disp[4]);
+        }
+        $this->view->render('suratmasuk/ctkDisposisi');
+    }
+
+    public function rekamdisposisi() {
         $this->model->rekamdisposisi();
     }
-    
-    public function distribusi($id){
-        $this->view->dataSurat = $this->model->select('SELECT * FROM suratmasuk WHERE id_suratmasuk='.$id);
+
+    public function distribusi($id) {
+        $this->view->dataSurat = $this->model->select('SELECT * FROM suratmasuk WHERE id_suratmasuk=' . $id);
         $this->view->bagian = $this->model->select('SELECT * FROM r_bagian');
-        
-        foreach($this->view->dataSurat as $value){
+
+        foreach ($this->view->dataSurat as $value) {
             $this->view->data[0] = $value['id_suratmasuk'];
             $this->view->data[1] = $value['no_surat'];
             $this->view->data[2] = $value['perihal'];
-            $this->view->data[3] = $value['asal_surat'];           
-            
+            $this->view->data[3] = $value['asal_surat'];
         }
         $this->view->render('suratmasuk/distribusi');
     }
-    
-    public function rekamDistribusi(){
+
+    public function rekamDistribusi() {
         $id = $_POST['id'];
         $bagian = $_POST['bagian'];
         //var_dump($bagian);
         $this->model->distribusi($id, $bagian);
     }
+    
+    public function rekamCatatan(){
+        $id_disposisi;
+        $bagian;
+        $peg = $_POST['peg'];
+        $catatan = $_POST['catatan'];
+        $data = array('id_disposisi'=>$id_disposisi,
+            'bagian'=>$bagian,
+            'pelaksana'=>$peg,
+            'catatan'=>$catatan);
+        
+        $this->model->insert('catatan',$data);
+    }
+    
+    public function catatan(){
+        $this->view->render('suratmasuk/catatan');
+    }
+
 }
 
 ?>
