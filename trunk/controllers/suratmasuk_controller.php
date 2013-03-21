@@ -114,6 +114,9 @@ class Suratmasuk_Controller extends Controller {
             $this->view->data[5] = $value['asal_surat'];
             $this->view->data[6] = $value['perihal'];
         }
+        $lamp = new Lampiran_Model();
+        $this->view->lampiran = $lamp->getLampiranSurat($this->view->data[0]);
+        $this->view->count = count($this->view->lampiran);
         $this->view->render('suratmasuk/detilsurat');
     }
 

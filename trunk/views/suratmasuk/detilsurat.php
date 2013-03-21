@@ -1,5 +1,8 @@
 <?php foreach($this->dataSurat as $key=>$value) { ?>
 <div class="left">
+    <h2>INFORMASI SURAT :</h>
+    <hr>
+    </br>
     <table class="CSSTableGenerator">
         <tr><td></td><td></td></tr>
         <tr><td>AGENDA</td><td><?php echo $this->data[1]; ?></td></tr>
@@ -15,6 +18,24 @@
                 <a href="<?php echo URL;?>suratmasuk/edit/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="U B A H"></a>
                 <a href="<?php echo URL;?>suratmasuk/catatan/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="DISPOSISI KASI"></a></td></tr>
     </table>
+    
+    <?php if($this->count>0){?>
+    </br>
+    <hr>
+    <h3>Lampiran :</h3>
+    <hr>
+    </br>
+    <table class="CSSTableGenerator">
+        <tr><th>TIPE</th><th>NOMOR</th><th>TANGGAL</th></tr>
+        <?php
+            
+            foreach($this->lampiran as $value){
+                echo "<tr><td>$value[tipe]</td><td>$value[nomor]</td><td>".Tanggal::tgl_indo($value['tanggal'])."</td></tr>";
+            }
+        ?>
+        
+    </table>
+    <?php } ?>
     </div>
 <!-- menampilkan pdf hanya butuh iframe, cuman, browser harus embed ama pdf reader 
 (install pdf reader setelah browser) -->

@@ -18,31 +18,40 @@ class Lampiran_Model extends Model {
         //echo 'ini adalah model</br>';
         parent::__construct();
     }
-    
-    public function addLampiran($data){
+
+    public function addLampiran($data) {
         return $this->insert('lampiran', $data);
     }
-    
-    public function deleteLampiran($where){
+
+    public function deleteLampiran($where) {
         return $this->delete('lampiran', $where);
     }
-    
-    public function editLampiran($data, $where){
+
+    public function editLampiran($data, $where) {
         return $this->update('lampiran', $data, $where);
     }
-    
-    public function getLampiran($id=null){
-        
-        if(!is_null($id)){
-            $sql = 'SELECT * FROM lampiran WHERE id_lamp='.$id;
-        }else{
+
+    public function getLampiran($id = null) {
+
+        if (!is_null($id)) {
+            $sql = 'SELECT * FROM lampiran WHERE id_lamp=' . $id;
+        } else {
             $sql = 'SELECT * FROM lampiran';
         }
-        
+
         return $this->select($sql);
     }
-    
-    public function getTypeLampiran(){
+
+    public function getLampiranSurat($id) {
+
+
+        $sql = 'SELECT * FROM lampiran WHERE id_surat=' . $id;
+
+
+        return $this->select($sql);
+    }
+
+    public function getTypeLampiran() {
         return $this->select('SELECT * FROM tipe_naskah');
     }
 
