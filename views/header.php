@@ -20,7 +20,7 @@
 	<script type="text/javascript" src="<?php echo URL; ?>public/js/jquery-ui-1.8.2.custom.min.js"></script>
         <link rel="stylesheet" href="<?php echo URL; ?>public/css/smoothness/jquery-ui-1.8.2.custom.css" /> -->
         
-       
+       <link rel="icon" type="image/png" href="<?php echo URL; ?>public/images/favicon.png" />
         <?php 
             if(isset($this->js)){
                 foreach($this->js as $js){

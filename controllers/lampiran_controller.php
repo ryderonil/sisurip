@@ -33,16 +33,30 @@ class Lampiran_Controller extends Controller{
     }
     
     public function addRekamLampiran(){
+        
+        $upload = new Upload('upload');
+        $upload->setDirTo('arsip/');
+        $tipe = $_POST['tipe'];
+        $nomor = $_POST['nomor'];
+        $asal = $_POST['asal'];
+        //nama baru akan terdiri dari tipe naskah_nomor surat_asal(asal/tetapi asal terlaku kepanjangan)
+        $ubahNama = array($tipe,$nomor);
+        $upload->setUbahNama($ubahNama);
+        $upload->changeFileName($upload->getFileName(), $ubahNama);
+        $namafile = $upload->getFileTo();
+        //$upload->init('upload');
         $data = array(
             'id_surat'=>$_POST['id'],
-            'tipe'=>$_POST['tipe'],
-            'nomor'=>$_POST['nomor'],
+            'tipe'=>$tipe,
+            'nomor'=>$nomor,
             'tanggal'=>  Tanggal::ubahFormatTanggal($_POST['tanggal']),
             'hal'=>$_POST['hal'],
-            'asal'=>$_POST['asal'],
-            'keterangan'=>$_POST['keterangan'] //upload belom diurus
+            'asal'=>$asal,
+            'keterangan'=>$_POST['keterangan'],
+            'file'=>$namafile//upload belom diurus
         );
-        
+        $upload->uploadFile();
+        //var_dump($data);
         $this->model->addLampiran($data);
         header('location:'.URL.'suratmasuk/detil/'.$data['id_surat']);
     }

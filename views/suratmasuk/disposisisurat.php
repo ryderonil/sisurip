@@ -12,7 +12,7 @@ class PDF extends FPDF {
 
     function Header() {
         // Logo
-        $this->Image('public/images/depkeu-kecil.jpg', 1.3, 1.3, 2, 2);
+        $this->Image('public/images/Logo_Depkeu.jpg', 1.2, 1.2, 2, 2);
         // Times bold 13
         $this->SetFont('Times', 'B', 9);
         // Move to the right

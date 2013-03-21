@@ -3,7 +3,9 @@
     padding:0;  
 }  
 
-
+/*html {
+    overflow-y: scroll;
+}*/
 body {
     background: silver;
     font: 14px 'trebuchet ms', arial, sans-serif;    
@@ -420,6 +422,7 @@ table th {
 }
 
 .CSSTableGenerator {
+    /*overflow-y: scroll;*/
     margin:0px;padding:0px;
     width:100%;
     /*box-shadow: 10px 10px 5px #888888; bayangan

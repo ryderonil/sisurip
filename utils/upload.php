@@ -11,16 +11,20 @@ class Upload{
     private $dirFrom;
     private $fileExt;
     private $fileName;
+    private $fileTo;
     private $ubahNama = array();
     
-    public function __construct() {
-        
+    public function __construct($fupload) {
+        $this->init($fupload);
     }
     
     public function init($fupload){
         $this->setDirFrom($_FILES[$fupload]['tmp_name']);
         $this->setFileExt($_FILES[$fupload]['type']);
         $this->setFileName($_FILES[$fupload]['name']);
+        echo $this->getDirFrom();
+        echo $this->getFileExt();
+        echo $this->getFileName();
     }
     
     public function cekFileExist(){
@@ -55,21 +59,34 @@ class Upload{
         for($i=0;$i<$length;$i++){
             $nama .= $ubahNama[$i]."_";
         }
-        
+               
         $nama .= $filename;
+        $nama = str_replace('/', '_', $nama); 
         $nama = trim($nama);
-        
-        return $nama;
+        $this->fileTo = $nama;
+        return $this->fileTo;
     }
     
     /*
      * param => dirTo, dan nama input file
      */
     public function uploadFile(){           
-        $this->cekFileExist();
-        $this->cekEkstensi($this->getFileExt());
+        if($this->cekFileExist()){
+            if($this->cekEkstensi($this->getFileExt())){
+                move_uploaded_file($this->getDirFrom(), $this->getDirTo().$this->getFileTo());
+            }else{
+                throw new Exception();
+                exit();
+            }
+        }else{
+            throw new Exception();
+            exit();
+        }
+        
         //memindah file
-        move_uploaded_file($this->getDirFrom(), $this->getDirTo());
+        //echo $this->getDirFrom().'</br>';
+        //echo $this->getDirTo().$this->getFileTo();
+        //move_uploaded_file($this->getDirFrom(), $this->getDirTo().$this->getFileTo());
     }   
      
     public function setDirTo($dirTo){
@@ -100,6 +117,6 @@ class Upload{
     
     public function getFileName() {return $this->fileName;}
     
-    public function getUbahNama() {return $this->ubahNama;}
+    public function getFileTo() {return $this->fileTo;}
 }
 ?>
