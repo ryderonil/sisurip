@@ -39,27 +39,28 @@
         
         <label>PERIHAL</label><input class="required" type="" name="perihal"></br>
         <label>STATUS</label><input type="text" name="status"></br>
-        <label>SIFAT</label><select>
-            <?php
-            var_dump($this->sifat);
+        <label>SIFAT</label><select name="sifat" class="required">
+            <option value="">--PILIH SIFAT SURAT--</option>
+            <?php            
                 foreach($this->sifat as $value){
-                    if($value[kode_sifat]=='BS') {
-                        echo "<option value=$value[kode_sifat] selected>$value[sifat_surat]</option>";
-                    }else{
+                    //if($value[kode_sifat]=='BS') {
+                       // echo "<option value=$value[kode_sifat] selected>$value[sifat_surat]</option>";
+                    //}else{
                         echo "<option value=$value[kode_sifat]>$value[sifat_surat]</option>";
-                    }
+                    //}
                     
                 }
             ?>
         </select></br>
-        <label>JENIS</label><select>
+        <label>JENIS</label><select name="jenis" class="required">
+            <option value="">--PILIH JENIS SURAT--</option>
             <?php 
                 foreach($this->jenis as $value){
-                    if($value[kode_klassurat]=='BS') {
-                        echo "<option value=$value[kode_klassurat] selected>$value[klasifikasi]</option>";
-                    }else{
+                    //if($value[kode_klassurat]=='BS') {
+                        //echo "<option value=$value[kode_klassurat] selected>$value[klasifikasi]</option>";
+                    //}else{
                         echo "<option value=$value[kode_klassurat]>$value[klasifikasi]</option>";
-                    }
+                    //}
                     
                 }
             ?>

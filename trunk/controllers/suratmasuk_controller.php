@@ -210,7 +210,8 @@ class Suratmasuk_Controller extends Controller {
             $this->view->disposisi = explode(',', $this->view->disp[3]);
             $this->view->petunjuk = explode(',', $this->view->disp[4]);
         }
-        $this->view->render('suratmasuk/ctkDisposisi');
+        $this->view->load('suratmasuk/disposisisurat.php');
+        //$this->view->render('suratmasuk/ctkDisposisi');
     }
 
     public function rekamdisposisi() {
@@ -238,8 +239,9 @@ class Suratmasuk_Controller extends Controller {
     }
     
     public function rekamCatatan(){
-        $id_disposisi;
-        $bagian;
+        $disposisi = new Disposisi();
+        $id_disposisi = $_POST['id_disp'];
+        $bagian = $_POST['bagian'];
         $peg = $_POST['peg'];
         $catatan = $_POST['catatan'];
         $data = array('id_disposisi'=>$id_disposisi,
@@ -247,12 +249,33 @@ class Suratmasuk_Controller extends Controller {
             'pelaksana'=>$peg,
             'catatan'=>$catatan);
         
-        $this->model->insert('catatan',$data);
+        $disposisi->addDisposisi($data);
+        //$this->model->insert('catatan',$data);
+        header('location:'.URL.'suratmasuk');
     }
     
-    public function catatan(){
+    public function catatan($id){
+        $disposisi = new Disposisi();
+        $this->view->datad = $disposisi->getDisposisi(array('id_surat'=>$id));
+        //var_dump($this->view->data);
+        //$bagian = explode($this->view->data->dist);
+        //var_dump($bagian);
+        $this->view->bagian = $this->view->datad->dist[0];
+        $datas = $this->model->select("SELECT * FROM suratmasuk WHERE id_suratmasuk=".$this->view->datad->id_surat);
+        foreach($datas as $value){
+            $this->view->data[0] = $value['id_suratmasuk'];
+            $this->view->data[1] = $value['no_agenda'];
+            $this->view->data[2] = $value['no_surat'];
+            $asal = $this->model->select('SELECT nama_satker FROM alamat WHERE kode_satker='.trim($value['asal_surat']));
+                foreach($asal as $alamat){
+                    $this->view->data[3] = $alamat['nama_satker'];
+                }
+            $this->view->data[4] = $value['perihal'];
+        }
         $this->view->render('suratmasuk/catatan');
     }
+    
+    
 
 }
 
