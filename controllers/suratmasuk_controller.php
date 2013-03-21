@@ -198,20 +198,25 @@ class Suratmasuk_Controller extends Controller {
         }
         $datad = $disposisi->getDisposisi(array('id_surat' => $id));
         $count = count($datad);
+        //var_dump($count);
         if ($count > 0) {
-            foreach ($datad as $value) {
-                $this->view->disp[0] = $value['id_disposisi'];
-                $this->view->disp[1] = $value['id_surat'];
-                $this->view->disp[2] = $value['sifat'];
-                $this->view->disp[3] = $value['disposisi'];
-                $this->view->disp[4] = $value['petunjuk'];
-                $this->view->disp[5] = $value['catatan'];
-            }
-            $this->view->disposisi = explode(',', $this->view->disp[3]);
-            $this->view->petunjuk = explode(',', $this->view->disp[4]);
+            
+            //foreach ($datad as $value) {
+                $this->view->disp[0] = $datad->id_disposisi;
+                $this->view->disp[1] = $datad->id_surat;
+                $this->view->disp[2] = $datad->sifat;
+                $this->view->disp[3] = $datad->dist;
+                $this->view->disp[4] = $datad->petunjuk;
+                $this->view->disp[5] = $datad->catatan;
+            //}
+            //$this->view->disposisi = explode(',', $this->view->disp[3]);
+            //$this->view->petunjuk = explode(',', $this->view->disp[4]);
         }
-        $this->view->load('suratmasuk/disposisisurat.php');
+        //var_dump($datad);
+        //var_dump($this->view->disp[4]);
+        //$this->view->load('suratmasuk/disposisisurat.php');
         //$this->view->render('suratmasuk/ctkDisposisi');
+        include_once('views/suratmasuk/disposisisurat.php');
     }
 
     public function rekamdisposisi() {
