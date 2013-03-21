@@ -12,7 +12,8 @@
                 <a href="<?php echo URL;?>suratkeluar/rekam/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="TANGGAPAN SURAT"></a>
                 <a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
                 <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="ARSIP"></a>
-                <a href="<?php echo URL;?>suratmasuk/edit/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="U B A H"></a></td></tr>
+                <a href="<?php echo URL;?>suratmasuk/edit/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="U B A H"></a>
+                <a href="<?php echo URL;?>suratmasuk/catatan/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="DISPOSISI KASI"></a></td></tr>
     </table>
     </div>
 <!-- menampilkan pdf hanya butuh iframe, cuman, browser harus embed ama pdf reader 

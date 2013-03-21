@@ -55,7 +55,7 @@ class Disposisi extends Model{
             case 'sifat':
                 return $this->sifat;
                 break;
-            case 'distribusi':
+            case 'dist':
                 return $this->dist;
                 break;
             case 'petunjuk':
@@ -70,8 +70,8 @@ class Disposisi extends Model{
         }
     }
     
-    public function addDisposisi(){
-        
+    public function addDisposisi($data){
+        $this->insert('catatan', $data);
     }
     
     public function getDisposisi($data=array()){
@@ -85,7 +85,18 @@ class Disposisi extends Model{
             }
         }
         
-        return $this->select($sql);
+        $disp = $this->select($sql);
+        
+        foreach($disp as $value){
+            $this->id_disposisi = $value['id_disposisi'];
+            $this->id_surat = $value['id_surat'];
+            $this->sifat = $value['sifat'];
+            $this->petunjuk = explode(',', trim($value['petunjuk']));
+            $this->dist = explode(',',trim($value['disposisi']));
+            $this->catatan = $value['catatan'];
+        }
+        
+        return $this;
     }
     
     public function printDisposisi(){
