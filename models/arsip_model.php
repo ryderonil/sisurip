@@ -18,5 +18,25 @@ class Arsip_Model extends Model {
             
         }
     }
+    
+    public function rekamArsip($data){
+        $this->insert('arsip', $data);
+    }
+
+
+    public function getRak(){
+        $sql = "SELECT * FROM lokasi WHERE tipe=1";
+        return $this->select($sql);
+    }
+    
+    public function getBaris(){
+        $sql = "SELECT * FROM lokasi WHERE tipe=2";
+        return $this->select($sql);
+    }
+    
+    public function getBox(){
+        $sql = "SELECT * FROM lokasi WHERE tipe=3";
+        return $this->select($sql);
+    }
 }
 ?>

@@ -283,6 +283,10 @@ class Suratmasuk_Controller extends Controller {
         $this->view->render('suratmasuk/catatan');
     }
     
+    public function ctkEkspedisi(){
+        $this->view->load('suratmasuk/expedisi.php');
+    }
+    
     
 
 }

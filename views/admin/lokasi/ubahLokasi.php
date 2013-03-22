@@ -3,18 +3,18 @@
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>admin/updateRekamLokasi">
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     
-    <label>BAGIAN</label><select class="required" name="bagian">
+    <label>BAGIAN</label><select class="required" id="bagian" name="bagian" onchange="pilihrak(this.value);">
         <option value="0">--PILIH BAGIAN--</option>
         <?php 
             foreach($this->bagian as $value){
-                if($this->data[1]==$value['id_bagian']){
-                    echo '<option value='.$value['id_bagian'].' selected>'.strtoupper($value['bagian']).'</option>';
+                if($this->data[1]==$value['kd_bagian']){
+                    echo '<option value='.$value['kd_bagian'].' selected>'.strtoupper($value['bagian']).'</option>';
                 }
-                echo '<option value='.$value['id_bagian'].'>'.strtoupper($value['bagian']).'</option>';
+                echo '<option value='.$value['kd_bagian'].'>'.strtoupper($value['bagian']).'</option>';
             }
         ?>
     </select></br>
-    <label>FILLING/RAK</label><select name="rak">
+    <label>FILLING/RAK</label><select id="rak" name="rak" onchange="pilihbaris(this.value);">
         <option value="0">--PILIH FILLING/RAK--</option>
         <?php 
             foreach($this->rak as $value){
@@ -25,7 +25,7 @@
             }
         ?>
     </select></br>
-    <label>BARIS</label><select name="baris">
+    <label>BARIS</label><select id="baris" name="baris">
         <option value="0">--PILIH BARIS--</option>
         <?php 
             foreach($this->baris as $value){
@@ -38,7 +38,7 @@
     </select></br>
     <label>LABEL</label><input class="required" type="text" name="nama" value="<?php echo $this->data[4];?>"></br>
     <!--<label>KETERANGAN</label><input type="text" name="keterangan" width="40"></textarea></br>-->
-    <label></label><input type="submit" name="simpan" value="SIMPAN"></br>
+    <label></label><input type="reset" onclick="location.href='<?php echo URL;?>admin/rekamLokasi'" name="batal" value="BATAL"><input type="submit" name="simpan" value="SIMPAN" onclick="return selesai();"></br>
     <p>Jika filling tidak dipilih, baris tidak dipilih->rekam filling</p>
     <p>Jika filling dipilih, baris tidak dipilih->rekam baris</p>
     <p>Jika filling dipilih, baris dipilih->rekam box</p>
@@ -62,3 +62,34 @@
         }
     ?>
 </table></div>
+<script type="text/javascript">
+    
+function pilihbaris(rak){
+
+    $.post("<?php echo URL;?>helper/pilihbaris", {queryString:""+rak+""},
+            function(data){                
+                $('#baris').html(data);
+            });
+}
+
+function pilihrak(bagian){
+
+    $.post("<?php echo URL;?>helper/pilihrak", {queryString:""+bagian+""},
+            function(data){                
+                $('#rak').html(data);
+            });
+}
+
+    function selesai()
+{
+    
+  var answer = confirm ("Anda yakin menyimpan perubahan?")
+    if (answer)
+        return true;
+    else
+        //window.location='<?php echo URL;?>admin/ubahLokasi/<?php echo $this->data[0];?>';
+        return false;
+    }
+    
+
+</script>

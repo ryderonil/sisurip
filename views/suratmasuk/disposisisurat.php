@@ -70,6 +70,7 @@ class PDF extends FPDF {
 
     function Footer() {
         $this->SetTextColor(015, 015, 015);
+        //$this->Cell('test');
         $this->SetFont('', 'U');
         $this->SetY(-2, 5);
     }
@@ -232,6 +233,7 @@ $pdf->Cell(13,0.4,'','RL',1,'L');
 $pdf->Cell(13,0.4,'','RL',1,'L');
 $pdf->Cell(13,0.4,'Tgl Penyelesaian :','TLR',1,'L');
 $pdf->Cell(13,0.4,'Penerima :','TBLR',1,'L');
+//$pdf->AddPage();
 $pdf->Output();
 
 

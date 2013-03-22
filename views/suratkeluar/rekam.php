@@ -57,5 +57,5 @@
         ?>
     </select></br>
     <label>LAMPIRAN</label><input type="" name="lampiran"></br>    
-    <label></label><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="reset" value="RESET"><input type="submit" name="submit" value="SIMPAN">
 </form></div>

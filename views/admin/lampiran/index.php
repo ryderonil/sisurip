@@ -5,7 +5,7 @@
         
     <label>TIPE NASKAH DINAS</label><input class="required" type="text" name="tipe_naskah"></br>
     <label>KODE SURAT</label><input class="required" type="text" name="kode_naskah"></br>
-    <label></label><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="reset" name="submit" value="RESET"><input type="submit" name="submit" value="SIMPAN">
 </form></div>
 </br>
 <hr>
@@ -17,7 +17,23 @@
     <tr><td><?php echo $no; ?></td>        
         <td><?php echo $value['tipe_naskah']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="HAPUS"></a></td></tr>
+            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai();"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
+
+<script type="text/javascript">
+
+function selesai(){
+    
+    var answer = 'anda yakin menyimpan perubahan?'
+    
+    if(confirm(answer)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+</script>

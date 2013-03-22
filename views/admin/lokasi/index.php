@@ -2,33 +2,33 @@
         <hr>
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamLokasi">
     
-    <label>BAGIAN</label><select class="required" name="bagian">
+    <label>BAGIAN</label><select class="required" id="bagian" name="bagian" onchange="pilihrak(this.value);">
         <option value="0">--PILIH BAGIAN--</option>
         <?php 
             foreach($this->bagian as $value){
-                echo '<option value='.$value['id_bagian'].'>'.strtoupper($value['bagian']).'</option>';
+                echo '<option value='.$value['kd_bagian'].'>'.strtoupper($value['bagian']).'</option>';
             }
         ?>
     </select></br>
-    <label>FILLING/RAK</label><select name="rak">
+    <label>FILLING/RAK</label><select id="rak" name="rak" onchange="pilihbaris(this.value);">
         <option value="0">--PILIH FILLING/RAK--</option>
         <?php 
-            foreach($this->rak as $value){
-                echo '<option value='.$value['id_lokasi'].'>'.$value['lokasi'].'</option>';
-            }
+            //foreach($this->rak as $value){
+                //echo '<option value='.$value['id_lokasi'].'>'.$value['lokasi'].'</option>';
+            //}
         ?>
     </select></br>
-    <label>BARIS</label><select name="baris">
+    <label>BARIS</label><select id="baris" name="baris">
         <option value="0">--PILIH BARIS--</option>
         <?php 
-            foreach($this->baris as $value){
-                echo '<option value='.$value['id_lokasi'].'>'.$value['lokasi'].'</option>';
-            }
+            //foreach($this->baris as $value){
+                //echo '<option value='.$value['id_lokasi'].'>'.$value['lokasi'].'</option>';
+            //}
         ?>
     </select></br>
     <label>LABEL</label><input class="required" type="text" name="nama"></br>
     <!--<label>KETERANGAN</label><input type="text" name="keterangan" width="40"></textarea></br>-->
-    <label></label><input type="submit" name="simpan" value="SIMPAN"></br>
+    <label></label><input type="reset" value="RESET"><input type="submit" name="simpan" value="SIMPAN"></br>
     <p>Jika filling tidak dipilih, baris tidak dipilih->rekam filling</p>
     <p>Jika filling dipilih, baris tidak dipilih->rekam baris</p>
     <p>Jika filling dipilih, baris dipilih->rekam box</p>
@@ -52,3 +52,23 @@
         }
     ?>
 </table></div>
+
+<script type="text/javascript">
+    
+function pilihbaris(rak){
+
+    $.post("<?php echo URL;?>helper/pilihbaris", {queryString:""+rak+""},
+            function(data){                
+                $('#baris').html(data);
+            });
+}
+
+function pilihrak(bagian){
+
+    $.post("<?php echo URL;?>helper/pilihrak", {queryString:""+bagian+""},
+            function(data){                
+                $('#rak').html(data);
+            });
+}
+
+</script>

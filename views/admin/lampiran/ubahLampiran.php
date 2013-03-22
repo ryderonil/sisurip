@@ -5,7 +5,7 @@
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <label>TIPE NASKAH DINAS</label><input class="required" type="text" name="tipe_naskah" value="<?php echo $this->data[1];?>"></br>
     <label>KODE SURAT</label><input class="required" type="text" name="kode_naskah" value="<?php echo $this->data[2];?>"></br>
-    <label></label><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="submit" name="submit" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamJenisLampiran';"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai();">
 </form></div>
 
 </br>
@@ -17,6 +17,22 @@
     <tr><td><?php echo $no; ?></td>        
         <td><?php echo $value['tipe_naskah']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="HAPUS"></a></td></tr>
+            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai();" ></a></td></tr>
     <?php $no++; }?>
 </table></div>
+
+<script type="text/javascript">
+
+function selesai(){
+    
+    var answer = 'anda yakin menyimpan perubahan?'
+    
+    if(confirm(answer)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+</script>

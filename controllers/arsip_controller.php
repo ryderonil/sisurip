@@ -19,7 +19,7 @@ class Arsip_Controller extends Controller{
         //echo "</br>kelas berhasil di bentuk";
     }
     
-    public function rekam($id){
+    public function rekam($id,$tipesurat=null){
         $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
                     FROM suratmasuk WHERE id_suratmasuk='.$id);
         foreach ($data as $value){
@@ -29,13 +29,30 @@ class Arsip_Controller extends Controller{
             $this->view->data[3] = $value['perihal'];
         }
         
-        $this->view->rak = '';
-        $this->view->baris = '';
-        $this->view->box = '';
+        if(!is_null($tipesurat)){
+            $this->view->tipe=$tipesurat;
+        }
+        
+        $this->view->rak = $this->model->getRak();
+        $this->view->baris = $this->model->getBaris();
+        $this->view->box = $this->model->getBox();
         $this->view->render('arsip/rekam');
     }
     
     public function rekamArsip(){
+        
+        $id_lokasi = $_POST['box'];
+        $id_surat = $_POST['id'];
+        $tipe_surat = $_POST['tipe'];
+        
+        $data = array(
+            'id_lokasi'=>$id_lokasi,
+            'id_surat'=>$id_surat,
+            'tipe_surat'=>$tipe_surat
+        );
+        
+        $this->model->rekamArsip($data);
+        header('location:'.URL.'suratmasuk/detil/'.$id_surat);
         
     }
 }
