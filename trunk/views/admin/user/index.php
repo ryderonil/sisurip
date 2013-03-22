@@ -26,7 +26,7 @@
             }
         ?>
     </select></br>   
-    <label></label><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="reset" name="submit" value="RESET"><input type="submit" name="submit" value="SIMPAN">
 </form></div>
 </br>
 <hr>
@@ -39,8 +39,23 @@
         <td><?php echo $value['namaPegawai']; ?></td>
         <td><?php echo $value['username']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="HAPUS"></a></td>
+            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai();"></a></td>
         <td><a href="<?php echo URL;?>admin/setAktifUser/<?php echo $value['id_user'].'/'.$value['active'];?>"><input class="btn" type="button" value="<?php echo $value['active']; ?>"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
+
+<script type="text/javascript">
+
+function selesai(){
+    var answer = 'anda yakin menyimpan perubahan?'
+    
+    if(confirm(answer)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+</script>

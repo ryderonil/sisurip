@@ -33,29 +33,52 @@ $html->br();
 
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>arsip/rekamArsip">
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
-    <label>FILLING/RAK</label><select class="required" name="rak">
+    <input type="hidden" name="tipe" value="<?php echo $this->tipe;?>">
+    <label>FILLING/RAK</label><select class="required" id="rak" name="rak" onchange="pilihbaris(this.value);">
         <option value="">--PILIH FILLING/RAK/LEMARI--</option>
-        <?php
-            //foreach ($this->tipe as $key=>$value){
-                //echo "<option value=$value[id_tipe]>$value[kode_naskah] $value[tipe_naskah]</option>";
-            //}
+        <?php 
+        foreach ($this->rak as $key=>$value){
+            echo "<option value='".$value['id_lokasi']."'>$value[bagian] $value[lokasi]</option>";
+        }
         ?>
     </select></br>
-    <label>BARIS</label><select class="required" name="baris">
+    <label>BARIS</label><select class="required" id="baris" name="baris" onchange="pilihbox(this.value);">
         <option value="">--PILIH BARIS--</option>
         <?php
-            //foreach ($this->tipe as $key=>$value){
-                //echo "<option value=$value[id_tipe]>$value[kode_naskah] $value[tipe_naskah]</option>";
-            //}
+            //foreach ($this->baris as $key=>$value){
+            //echo "<option value='".$value['id_lokasi']."'>$value[lokasi]</option>";
+        //}
+        
         ?>
     </select></br>
-    <label>BOX/ODNER</label><select class="required" name="box">
+    <label>BOX/ODNER</label><select class="required" id="box" name="box">
         <option value="">--PILIH BOX/ODNER--</option>
         <?php
-            //foreach ($this->tipe as $key=>$value){
-                //echo "<option value=$value[id_tipe]>$value[kode_naskah] $value[tipe_naskah]</option>";
-            //}
+            //foreach ($this->box as $key=>$value){
+            //echo "<option value='".$value['id_lokasi']."'>$value[lokasi]</option>";
+        //}
         ?>
     </select></br>    
     <label></label><input type="submit" name="submit" value="SIMPAN">
 </form></div>
+
+<script type="text/javascript">
+    
+function pilihbaris(rak){
+
+    $.post("<?php echo URL;?>helper/pilihbaris", {queryString:""+rak+""},
+            function(data){                
+                $('#baris').html(data);
+            });
+}
+
+function pilihbox(baris){
+
+    $.post("<?php echo URL;?>helper/pilihbox", {queryString:""+baris+""},
+            function(data){                
+                $('#box').html(data);
+            });
+}
+
+</script>
+

@@ -8,7 +8,7 @@
 }*/
 body {
     background: silver;
-    font: 14px 'trebuchet ms', arial, sans-serif;    
+    font: 12px 'trebuchet ms', arial, sans-serif;    
     text-align: center;
 }
 
@@ -20,6 +20,7 @@ body {
 }
 
 #header {
+    font-size: 14px;
     position: fixed;
     width: 100%;
     background: #12407f;
@@ -45,6 +46,7 @@ body {
     background: #12407f;
     height: 40px;
     border-bottom: 1px solid #154a93;
+    font:14px;
 
 }
 
@@ -101,6 +103,7 @@ body {
 }
 
 #footer {
+    font-size: 14px;
     background: #12407f;
     color: #fff;
     padding: 20px;
@@ -482,9 +485,9 @@ table th {
     border:1px solid #ffffff;
     border-width:0px 1px 1px 0px;
     text-align:left;
-    padding:7px;
-    font-size:14px;
-    font-family:Arial;
+    padding:4px;
+    font-size:12px;
+    font-family:'trebuchet ms';
     font-weight:normal;
     color:#000000;
 }.CSSTableGenerator tr:last-child td{
@@ -503,8 +506,8 @@ table th {
     border:0px solid #ffffff;
     text-align:center;
     border-width:0px 0px 1px 1px;
-    font-size:16px;
-    font-family:Arial;
+    font-size:14px;
+    font-family:'trebuchet ms';
     font-weight:bold;
     color:#ffffff;
 }
@@ -518,7 +521,7 @@ table th {
     border:0px solid #ffffff;
     text-align:center;
     border-width:0px 0px 1px 1px;
-    font-size:16px;
+    font-size:14px;
     font-family:Arial;
     font-weight:bold;
     color:#ffffff;
@@ -541,6 +544,7 @@ table th {
 .btn {
     height: 30px;
     min-width: 60px;
+    font-size: 12px;
     /*cursor: pointer;  */  
     background: purple;
     color: white;

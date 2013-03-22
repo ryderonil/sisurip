@@ -41,7 +41,7 @@
     <label>ASAL/PENANDA TANGAN</label><input class="required" type="text" name="asal"></br>
     <label>KETERANGAN</label><input type="text" name="keterangan"></br>
     <label>PILIH FILE</label><input class="required" type="file" name="upload"></br>
-    <label></label><input type="submit" name="submit" value="SIMPAN" onClick="return selesai()">
+    <label></label><input type="submit" name="submit" value="SIMPAN" onClick="return selesai();">
 </form></div>
 
 <script>

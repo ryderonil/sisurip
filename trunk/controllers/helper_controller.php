@@ -82,6 +82,56 @@ class Helper_Controller extends Controller{
         //flush();
     }
     
+    function pilihbaris(){
+        $q = $_POST['queryString'];              
+
+        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
+        mysql_select_db('sisurip');
+        
+        $rs = mysql_query("SELECT * FROM lokasi WHERE parent ='".$q."' and tipe=2", $dblink);
+        echo "<option value=>--PILIH BARIS--</option>";
+        if ($rs && mysql_num_rows($rs)) {
+            
+            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+                echo "<option value='".$row['id_lokasi']."'>$row[lokasi]</option>";
+            }
+        }
+        
+        
+    }
+    
+    function pilihbox(){
+        $q = $_POST['queryString'];              
+
+        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
+        mysql_select_db('sisurip');
+        
+        $rs = mysql_query("SELECT * FROM lokasi WHERE parent ='".$q."'", $dblink);
+        echo "<option value=>--PILIH BOX--</option>";
+        if ($rs && mysql_num_rows($rs)) {
+            
+            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+                echo "<option value='".$row['id_lokasi']."'>$row[lokasi]</option>";
+            }
+        }
+    }
+    
+    function pilihrak(){
+        $q = $_POST['queryString'];              
+
+        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
+        mysql_select_db('sisurip');
+        
+        $rs = mysql_query("SELECT * FROM lokasi WHERE bagian ='".$q."' AND tipe=1", $dblink);
+        echo "<option value=>--PILIH FILLING/RAK--</option>";
+        if ($rs && mysql_num_rows($rs)) {
+            
+            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+                echo "<option value='".$row['id_lokasi']."'>$row[lokasi]</option>";
+            }
+        }
+    }
+    
     function pilihalamat($var, $id=null){
         if((int)$var==1){
             $this->view->surat = 'suratmasuk/rekam';

@@ -37,7 +37,22 @@
     </select>
     <!--<input type="" name="jenis" value="<?php echo $value['jenis'] ?>">--></br>
     <label>LAMPIRAN</label><input type="" name="lampiran" value="<?php echo $value['lampiran'] ?>"></br>
-    <label></label><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="button" onclick="location.href='<?php echo URL;?>suratmasuk'" value="BATAL"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai();">
 </form></div>
 
 <?php } ?>
+
+<script type="text/javascript">
+
+function selesai(){
+    var answer = 'anda yakin menyimpan perubahan?'
+    
+    if(confirm(answer)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+</script>

@@ -21,7 +21,21 @@ class Suratmasuk_Model extends Model{
     
     public function showAll(){
         
-        $sql = "SELECT * FROM suratmasuk";        
+        //$sql = "SELECT * FROM suratmasuk";
+        $sql = "SELECT a.id_suratmasuk as id_suratmasuk,
+                a.no_agenda as no_agenda,
+                a.no_surat as no_surat,
+                a.tgl_terima as tgl_terima,
+                a.tgl_surat as tgl_surat,
+                b.nama_satker as asal_surat,
+                a.perihal as perihal,
+                a.status as status,
+                a.sifat as sifat,
+                a.jenis as jenis,
+                a.lampiran as lampiran 
+                FROM suratmasuk a JOIN alamat b 
+                ON a.asal_surat = b.kode_satker
+                ORDER BY no_surat DESC";
         
         return $this->select($sql);
     }

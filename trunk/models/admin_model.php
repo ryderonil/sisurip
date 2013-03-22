@@ -108,7 +108,7 @@ class Admin_Model extends Model{
     public function viewLokasi(){
         $data = array();
         $query = 'SELECT a.id_lokasi as id_lokasi, a.bagian, b.kd_bagian as bagian, a.lokasi as lokasi, a.status as status 
-            FROM lokasi a JOIN r_bagian b ON a.bagian = b.id_bagian WHERE a.tipe = 1';
+            FROM lokasi a JOIN r_bagian b ON a.bagian = b.kd_bagian WHERE a.tipe = 1';
         $rak = $this->select($query);
         $no = 1;
         foreach ($rak as $value){

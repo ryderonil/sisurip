@@ -6,7 +6,7 @@
        
     <label>KODE KLASIFIKASI</label><input class="required" type="text" name="kode"></br>
     <label>KLASIFIKASI</label><input class="required" type="text" name="klasifikasi"></br>
-    <label></label><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="reset" value="RESET"><input type="submit" name="submit" value="SIMPAN">
 </form></div>
 </br>
 <hr>

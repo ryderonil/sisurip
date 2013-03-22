@@ -18,7 +18,7 @@
         //echo '<td>' . $value['perihal'] . '</td>';
         echo '<td>
                 <a href="'.URL.'suratmasuk/edit/'.$value['id_suratmasuk'].'"><input class=btn type=button value=Ubah></a> 
-                <a href="'.URL.'suratmasuk/remove/'.$value['id_suratmasuk'].'"><input class=btn type=button value=Hapus></a>
+                <a href="'.URL.'suratmasuk/remove/'.$value['id_suratmasuk'].'"><input class=btn type=button value=Hapus onclick="return selesai()"></a>
                 <a href="'.URL.'suratmasuk/disposisi/'.$value['id_suratmasuk'].'"><input class=btn type=button value=Disposisi></a>
                 <a href="'.URL.'suratmasuk/ctkdisposisi/'.$value['id_suratmasuk'].'"><input class=btn type=button value="Cetak Disposisi"></a>
                 <!--<a href="'.URL.'suratmasuk/updatestatus/'.$value['id_suratmasuk'].'"><input class=btn type=button value=Status></a>
@@ -27,3 +27,18 @@
     }
 ?>
 </table></div>
+        
+<script type="text/javascript">
+
+function selesai(){
+    var answer = 'anda yakin menyimpan perubahan?'
+    
+    if(confirm(answer)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+</script>
