@@ -3,7 +3,8 @@
         <h2>Informasi Surat :</h2></br>
         <?php //foreach($this->data as $value) { ?>
         <input type="hidden" name="id_surat" value="<?php echo $this->data['id_suratmasuk']; ?>">
-        <table border="0">
+        <table class="CSSTableGenerator">
+            <tr><td colspan="9"></td></tr>
             <tr><td>No Surat </td><td> : </td><td><b><?php echo $this->data['no_surat']; ?></b> </td>
                 <td>Status </td><td> : </td><td><b><?php echo $this->data['status']; ?></b> </td>
                 <td>Diterima Tgl </td><td> : </td><td><b><?php echo $this->data['tgl_terima']; ?> </b></td></tr>   

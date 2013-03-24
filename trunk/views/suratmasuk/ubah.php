@@ -4,7 +4,8 @@
     <label>AGENDA</label><input type="text" name="no_agenda" value="<?php echo $value['no_agenda'] ?>"></br>
     <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima" value="<?php echo $value['tgl_terima'] ?>" readonly></br>
     <label>TANGGAL SURAT</label><input id="datepicker" type="text" name="tgl_surat" value="<?php echo $value['tgl_surat'] ?>"></br>
-    <label>NOMOR SURAT</label><input type="text" name="no_surat" value="<?php echo $value['no_surat'] ?>"></br>
+    <label>NOMOR SURAT</label><input type="text" name="no_surat" value="<?php echo $value['no_surat'] ?>">
+    <!--<label class="right"><?php echo $value['no_surat'] ?></label>--></br>
     <label>ASAL</label><input type="text" name="asal_surat" value="<?php echo isset($this->alamat)?$this->alamat:$value['asal_surat']; ?>">
     <a href="<?php echo URL;?>helper/pilihalamat/3<?php 
                      echo "/".$value['id_suratmasuk'];?>"><input type="button" name="" value="+"></a></br>

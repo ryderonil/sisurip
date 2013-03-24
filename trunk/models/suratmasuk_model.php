@@ -56,11 +56,12 @@ class Suratmasuk_Model extends Model{
             "tgl_surat"=>  Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
             "no_surat"=>$_POST['no_surat'],
             "asal_surat"=>$asal[0],
-            "perihal"=>$_POST['perihal']
-            //"status"=>$_POST['status'],
-            //"sifat"=>$_POST['sifat'],
-            //"jenis"=>$_POST['jenis'],
-            //"lampiran"=>$_POST['lampiran']
+            "perihal"=>$_POST['perihal'],            
+            "status"=>$_POST['status'],
+            "sifat"=>$_POST['sifat'],
+            "jenis"=>$_POST['jenis'],
+            "lampiran"=>$_POST['lampiran'],
+            "stat"=>'1'
         );
         //var_dump($data);
         $this->insert('suratmasuk', $data);
@@ -127,6 +128,11 @@ class Suratmasuk_Model extends Model{
             );
             $this->insert('distribusi', $dataInsert);
         }
+    }
+    
+    public function uploadFile($data,$where){
+    
+        $this->update('suratmasuk', $data, $where);
     }
 }
 

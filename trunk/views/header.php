@@ -55,6 +55,7 @@
                         <li><a href="">Pengaturan</a>
                             <ul>
                                 <li><a href="<?php echo URL;?>admin/rekamKantor">Kantor</a></li>
+                                <li><a href="<?php echo URL;?>admin/rekamAlamat">Alamat Surat</a></li>
                                 <li><a href="<?php echo URL;?>admin/rekamLokasi">Lokasi Arsip</a></li>
                                 <li><a href="<?php echo URL;?>admin/rekamKlasifikasiArsip">Klasifikasi Arsip</a></li>
                                 <li><a href="<?php echo URL;?>admin/rekamJenisLampiran">Lampiran</a></li>

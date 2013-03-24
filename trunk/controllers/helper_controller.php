@@ -15,48 +15,6 @@ class Helper_Controller extends Controller{
         //echo "</br>kelas berhasil di bentuk";
     }
 
-    /* public function alamat() {
-      $keyword = $_POST['asal_surat'];
-      $data = array();
-      $data['response'] = false;
-      $query = $this->model->lookup($keyword);
-      if(!empty($query)){
-      $data['response']=true;
-      $data['message']=array();
-      foreach($query as $row){
-      $data['message'][] = array(
-      'kode_satker'=>$row['kode_satker'],
-      'nama_satker'=>$row['nama_satker'],
-      ''
-      );
-      }
-      }
-
-      if('IS_AJAX'){
-      echo json_encode($data);
-      }else{
-      $this->view->render('suratmasuk/rekam');
-      }
-
-      mysql_connect('localhost', 'root', '') or die('$&^%*%$^#&^%');
-      mysql_select_db('sisurip');
-
-      $q = $_REQUEST['term'];
-      if (!$q)
-      return;
-
-
-      $sql = mysql_query("SELECT kode_satker, nama_satker FROM alamat WHERE nama_satker LIKE '%$q%'");
-      $result = array();
-      while ($r = mysql_fetch_array($sql)) {
-      //$satker = $r['kode_satker'] . ' ' . $r['nama_satker'];
-      //echo "$satker \n";
-      $results[] = array('nama_satker' => $row['nama_satker']);
-      }
-
-      echo json_encode($results);
-      } */
-
     function alamat() {
         $q = $_POST['queryString'];              
 
@@ -82,7 +40,33 @@ class Helper_Controller extends Controller{
         //flush();
     }
     
-    function pilihbaris(){
+    function cekalamat() {
+        $q = $_POST['queryString'];              
+
+        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
+        mysql_select_db('sisurip');
+        
+        $rs = mysql_query("SELECT kode_satker, nama_satker FROM alamat WHERE kode_satker LIKE '%$q%' ", $dblink);
+
+        //$data = array();
+        if ($rs && mysql_num_rows($rs)) {
+            $no=1;
+            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+                if($no==1){
+                    echo "<input type=text name=nmsatker value='".$row['nama_satker']."'></br>";
+                }else{
+                    echo "<label></label><input type=text name=nmsatker value='".$row['nama_satker']."'></br>";
+                }
+                
+                //echo '<a href=#>'.$row['kode_satker'].' '.$row['nama_satker'].'</a></br>';
+                $no++;
+            }
+        }
+
+       
+    }
+    
+    function pilihbaris(){ //selesai
         $q = $_POST['queryString'];              
 
         $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
@@ -100,7 +84,7 @@ class Helper_Controller extends Controller{
         
     }
     
-    function pilihbox(){
+    function pilihbox(){ //selesai
         $q = $_POST['queryString'];              
 
         $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
@@ -116,7 +100,7 @@ class Helper_Controller extends Controller{
         }
     }
     
-    function pilihrak(){
+    function pilihrak(){ //selesai
         $q = $_POST['queryString'];              
 
         $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
@@ -132,7 +116,7 @@ class Helper_Controller extends Controller{
         }
     }
     
-    function pilihalamat($var, $id=null){
+    function pilihalamat($var, $id=null){ //selesai
         if((int)$var==1){
             $this->view->surat = 'suratmasuk/rekam';
         }elseif((int)$var==2){
@@ -148,6 +132,93 @@ class Helper_Controller extends Controller{
         $this->view->alamat = $this->model->getAlamat();  
         //var_dump($this->view->alamat)   ; 
         $this->view->render('helper/alamat');
+    }
+    
+    function pilihkppn(){
+        $q = $_POST['queryString'];              
+
+        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
+        mysql_select_db('sisurip');
+        
+        $rs = mysql_query("SELECT * FROM t_kppn WHERE kdkanwil='".$q."'", $dblink);
+        echo "<option value=>-- PILIH KPPN --</option>";
+        if ($rs && mysql_num_rows($rs)) {
+            
+            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+                echo "<option value='".$row['kdkppn']."'>Kantor Pelayanan Perbendaharaan Negara $row[nmkppn]</option>";
+            }
+        }
+    }
+    
+    function pilihsatker(){
+        $this->view->data = $this->model->getKodeSatker();
+        $this->view->lokasi = $this->model->select("SELECT * FROM t_lokasi");
+        $this->view->dept = $this->model->select("SELECT * FROM t_dept");
+        $this->view->kab = $this->model->select("SELECT * FROM t_kabkota");
+        $this->view->render('helper/pilihsatker');
+    }
+    
+    function lookupSatker(){
+        $filter = $_POST['queryString'];
+        $fil = explode(',', $filter);
+        //$length = strlen($filter);
+        //if($length==2){
+        //    $sql="SELECT kdsatker,nmsatker FROM t_satker WHERE kdlokasi=".$filter;
+        //}else{
+        //    $sql="SELECT kdsatker,nmsatker FROM t_satker WHERE kddept=".$filter;
+        //}
+        
+        $sql="SELECT kdsatker,nmsatker FROM t_satker WHERE kdkabkota=".$fil[0]." AND kdlokasi=".$fil[1];
+        $data = $this->model->select($sql);
+        $no=1;
+        echo "<tr><td>NO</td>
+                    <td>KODE</td>
+                    <td>NAMA SATKER</td>
+                    <td>AKSI</td></tr>";
+        foreach($data as $value){
+            echo "<tr><td>$no</td>
+                    <td>$value[kdsatker]</td>
+                    <td>$value[nmsatker]</td>
+                    <td><a href=".URL."admin/rekamAlamat/$value[kdsatker]><input id=btn type=button value=PILIH></a></td></tr>";
+            $no++;
+        }
+    }
+    
+    function lookupSatker2(){
+        $filter = $_POST['queryString'];
+        $filter=explode(',',$filter);        
+        //if($filter[1]!=''){
+            $sql="SELECT kdsatker,nmsatker FROM t_satker WHERE kdlokasi=".$filter[1]." AND kddept=".$filter[0];
+        //}else{
+            //$sql="SELECT kdsatker,nmsatker FROM t_satker WHERE kddept=".$filter[0];
+        //}
+        
+        $data = $this->model->select($sql);
+        $no=1;
+        echo "<tr><td>NO</td>
+                    <td>KODE</td>
+                    <td>NAMA SATKER</td>
+                    <td>AKSI</td></tr>";
+        foreach($data as $value){
+            echo "<tr><td>$no</td>
+                    <td>$value[kdsatker]</td>
+                    <td>$value[nmsatker]</td>
+                    <td><a href=".URL."admin/rekamAlamat/$value[kdsatker]><input id=btn type=button value=PILIH></a></td></tr>";
+            $no++;
+        }
+    }
+    
+    function lookupkab(){
+        $filter = $_POST['queryString'];        
+            $sql="SELECT kdkabkota,nmkabkota FROM t_kabkota WHERE kdlokasi=".$filter;
+        
+        
+        $data = $this->model->select($sql);
+        $no=1;        
+        foreach($data as $value){
+            echo "<option value=$value[kdkabkota]>$value[nmkabkota]</option>";
+            $no++;
+        }
     }
 
 }
