@@ -74,6 +74,7 @@ class Admin_Controller extends Controller {
     public function ubahAlamat($kd, $satker = null){
         $alamat = $this->model->getAlamat($kd);
         foreach($alamat as $value){
+            $this->view->id = $value['id_alamat'];
             $this->view->kode_satker = $value['kode_satker'];
             $this->view->nama_satker = $value['nama_satker'];
             $this->view->jabatan = $value['jabatan'];
@@ -81,6 +82,7 @@ class Admin_Controller extends Controller {
             $this->view->telepon = $value['telepon'];
             $this->view->email = $value['email'];
         }
+        //var_dump($this->view->id);
         if (!is_null($satker)) {
             $this->view->satker = $satker;
             $nm = $this->model->select('SELECT nmsatker FROM t_satker WHERE kdsatker=' . $satker);
@@ -496,6 +498,26 @@ class Admin_Controller extends Controller {
         $this->rekamAlamat();
         
     }
+    
+    public function updateRekamAlamat(){
+        $data = array(
+            'kode_satker'=>$_POST['kode_satker'],
+            'nama_satker'=>$_POST['nama_satker'],
+            'jabatan'=>$_POST['jabatan'],
+            'alamat'=>$_POST['alamat'],
+            'telepon'=>$_POST['telepon'],
+            'email'=>$_POST['email']
+        );
+        
+        $where = ' id_alamat='.$_POST['id'];
+        //echo $where;
+        //var_dump($data);
+        //$this->model->updateAlamatSurat($data, $where);
+        //$this->rekamAlamat();
+        
+    }
+    
+    
 
 }
 

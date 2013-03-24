@@ -150,7 +150,11 @@ class Helper_Controller extends Controller{
         }
     }
     
-    function pilihsatker(){
+    function pilihsatker($id=null){
+        if(!is_null($id)) {
+            $this->view->id=$id;
+        }
+        //var_dump($this->view->id);
         $this->view->data = $this->model->getKodeSatker();
         $this->view->lokasi = $this->model->select("SELECT * FROM t_lokasi");
         $this->view->dept = $this->model->select("SELECT * FROM t_dept");
@@ -178,8 +182,13 @@ class Helper_Controller extends Controller{
         foreach($data as $value){
             echo "<tr><td>$no</td>
                     <td>$value[kdsatker]</td>
-                    <td>$value[nmsatker]</td>
-                    <td><a href=".URL."admin/rekamAlamat/$value[kdsatker]><input id=btn type=button value=PILIH></a></td></tr>";
+                    <td>$value[nmsatker]</td>";
+            if(isset($fil[2])){
+                echo "<td><a href=".URL."admin/ubahAlamat/$fil[2]/$value[kdsatker]><input id=btn type=button value=PILIH></a></td></tr>";
+            }else{
+                echo "<td><a href=".URL."admin/rekamAlamat/$value[kdsatker]><input id=btn type=button value=PILIH></a></td></tr>";
+            }
+                    
             $no++;
         }
     }
