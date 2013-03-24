@@ -113,6 +113,7 @@ class Suratmasuk_Controller extends Controller {
             $this->view->data[4] = $value['no_surat'];
             $this->view->data[5] = $value['asal_surat'];
             $this->view->data[6] = $value['perihal'];
+            $this->view->data[7] = $value['file'];
         }
         $lamp = new Lampiran_Model();
         $this->view->lampiran = $lamp->getLampiranSurat($this->view->data[0]);
@@ -284,7 +285,43 @@ class Suratmasuk_Controller extends Controller {
     }
     
     public function ctkEkspedisi(){
+        $this->view->data = $this->model->showAll();
+        
         $this->view->load('suratmasuk/expedisi.php');
+    }
+    
+    public function upload($id){
+        
+        $data = $this->model->getSuratMasukById($id);
+        foreach ($data as $value){
+            $this->view->id = $value['id_suratmasuk'];
+            $this->view->no_surat = $value['no_surat'];
+            $this->view->no_agenda = $value['no_agenda'];
+            $this->view->tgl_surat = $value['tgl_surat'];
+            $this->view->satker = $value['asal_surat'];
+        }
+        
+        $this->view->render('suratmasuk/upload');
+    }
+    public function uploadFileSurat(){
+        $upload = new Upload('upload');
+        $upload->setDirTo('arsip/');
+        $tipe='M';
+        $satker = $_POST['satker'];
+        $nomor = $_POST['nomor'];
+        //nama baru akan terdiri dari tipe naskah_nomor surat_asal(asal/tetapi asal terlaku kepanjangan)
+        $ubahNama = array($tipe,$nomor,$satker);
+        $upload->setUbahNama($ubahNama);
+        $upload->changeFileName($upload->getFileName(), $ubahNama);
+        $namafile = $upload->getFileTo();
+        $where = ' id_suratmasuk='.$_POST['id'];
+        $data = array(
+            'file'=>$namafile
+        );
+        $upload->uploadFile();
+        $this->model->uploadFile($data,$where);
+        header('location:'.URL.'suratmasuk');
+        
     }
     
     

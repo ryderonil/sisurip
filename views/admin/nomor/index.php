@@ -10,13 +10,13 @@
         <option value="<?php echo $value['kd_bagian'];?>"> <?php echo strtoupper($value['bagian']);?></option>
         <?php } ?>
     </select></br>
-    <label></label><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="reset" value="RESET"><input type="submit" name="submit" value="SIMPAN">
 </form></div>
 </br>
 <hr>
 </br>
 <?php if($this->count>0) { $no=1;?>
-<div class="CSSTableGenerator"><table border="1">
+<div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><th>NO</th><th>BAGIAN</th><th>KODE NOMOR</th><th>AKSI</th></tr>
     <?php foreach($this->nomor as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>

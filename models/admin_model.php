@@ -144,7 +144,14 @@ class Admin_Model extends Model{
     
     public function getAlamat($kd=null){
         if(is_null($kd)) return $this->select('SELECT * FROM alamat');
-        return $this->select('SELECT * FROM alamat WHERE kode_satker='.$kd);
+        if(strlen($kd)>1){
+            return $this->select('SELECT * FROM alamat WHERE kode_satker='.$kd);
+        }
+        return $this->select('SELECT * FROM alamat WHERE id_alamat='.$kd);
+    }
+    
+    public function addAlamatSurat($data){
+        $this->insert('alamat', $data);
     }
 }
 ?>

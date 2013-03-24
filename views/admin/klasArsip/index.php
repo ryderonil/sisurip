@@ -12,7 +12,7 @@
 <hr>
 </br>
 <?php if($this->count>0) { $no=1;?>
-<div class="CSSTableGenerator"><table border="1">
+<div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><th>NO</th><th>KODE</th><th>KLASIFIKASI</th><th>AKSI</th></tr>
     <?php foreach($this->klasArsip as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>

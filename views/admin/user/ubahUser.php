@@ -49,7 +49,7 @@
 </br>
 <hr>
 </br>
-<div class="CSSTableGenerator"><table border="1">
+<<div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><th>NO</th><th>NAMA PEGAWAI</th><th>NAMA USER</th><th>AKSI</th><th>AKTIF</th></tr>
     <?php $no=1; foreach($this->user as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>

@@ -10,13 +10,13 @@
             <?php echo strtoupper($value['bagian']);?></option>
         <?php } ?>
     </select></br>
-    <label></label><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamNomor'" value="BATAL"><input type="submit" name="submit" value="SIMPAN">
 </form></div>
 
 </br>
 <hr>
 </br>
-<div class="CSSTableGenerator"><table border="1">
+<div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><th>NO</th><th>BAGIAN</th><th>KODE NOMOR</th><th>AKSI</th></tr>
     <?php $no=1; foreach($this->nomor as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>

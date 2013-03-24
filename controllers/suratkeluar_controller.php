@@ -21,7 +21,12 @@ class Suratkeluar_Controller extends Controller {
     //put your code here
 
     public function index() {
-        $this->view->render('suratkeluar/index');
+        $this->showAll();
+    }
+
+    public function showAll() {
+        $this->view->data = $this->model->showAll();
+        $this->view->render('suratkeluar/suratkeluar');
     }
 
     public function rekam($id_sm = null, $ids = null) {
@@ -68,6 +73,46 @@ class Suratkeluar_Controller extends Controller {
         //var_dump($this->view->data);
 
         $this->view->render('suratkeluar/rekam');
+    }
+
+    public function input() {
+
+        $data = array(
+            'rujukan' => $_POST['rujukan'],
+            'no_surat' => $_POST['nomor'],
+            'tgl_surat' => Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
+            'tujuan' => substr($_POST['tujuan'],0,6),
+            'perihal' => $_POST['perihal'],
+            'sifat' => $_POST['sifat'],
+            'jenis' => $_POST['jenis'],
+            'lampiran' => $_POST['lampiran'],
+            'file' => $_POST['upload'], //belum ditangani
+            'status' => '1'
+        );
+        
+        //var_dump($data);
+        $this->model->rekamSurat($data);
+    }
+    
+    public function detil($id){
+        $data = $this->model->getSuratKeluarById($id);
+        foreach($data as $value){
+            $this->view->id = $value['id_suratkeluar'];
+            $this->view->rujukan = $value['rujukan'];
+            $this->view->tipe = $value['tipe'];
+            $this->view->no_surat = $value['no_surat'];
+            $this->view->tgl_surat = $value['tgl_surat'];
+            $this->view->tujuan = $value['tujuan'];
+            $this->view->perihal = $value['perihal'];
+            $this->view->sifat = $value['sifat'];
+            $this->view->jenis = $value['jenis'];
+            $this->view->lampiran = $value['lampiran'];
+            $this->view->file = $value['file'];
+            $this->view->status = $value['status'];
+        }
+        $this->view->count=0;
+        
+        $this->view->render('suratkeluar/detilsurat');
     }
 
 }

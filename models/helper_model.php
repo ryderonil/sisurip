@@ -23,5 +23,10 @@ class Helper_Model extends Model{
         return $admin->getAlamat();
     }
     
+    function getKodeSatker($data=null){
+        $sql = "SELECT kdsatker,nmsatker FROM t_satker LIMIT 0,30";
+        return $this->select($sql);
+    }
+    
 }
 ?>

@@ -11,7 +11,7 @@
 </br>
 <hr>
 </br>
-<div class="CSSTableGenerator"><table border="1">
+<div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><th>NO</th><th>TIPE NASKAH</th><th>AKSI</th></tr>
     <?php $no=1; foreach($this->lampiran as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>        
