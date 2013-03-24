@@ -153,5 +153,9 @@ class Admin_Model extends Model{
     public function addAlamatSurat($data){
         $this->insert('alamat', $data);
     }
+    
+    public function updateAlamatSurat($data,$where){
+        $this->update('alamat', $data, $where);
+    }
 }
 ?>

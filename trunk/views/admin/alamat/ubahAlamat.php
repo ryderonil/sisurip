@@ -1,11 +1,12 @@
-<h2>Rekam Alamat Surat</h2>            
+<h2>Ubah Alamat Surat</h2>            
 <hr>
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamAlamat">
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>admin/updateRekamAlamat">
+        <input type="hidden" name="id" value="<?php echo $this->id;?>">
         <!--<label>KEMENTERIAN/LEMBAGA</label><select></select></br>
         <label>UNIT</label><select></select></br>-->
         <label>KODE SATKER</label><input type="text" id="kdsatker" name="kode_satker" 
                                          value="<?php echo isset($this->satker)?$this->satker:$this->kode_satker;?>">
-        <a href="<?php echo URL;?>helper/pilihsatker"><input type="button" value="+"></a></br>
+        <a href="<?php echo URL;?>helper/pilihsatker/<?php echo $this->id;?>"><input type="button" value="+"></a></br>
         <label>NAMA ALAMAT</label><input class="required" type="text" id="nmsatker" name="nama_satker" 
                                          value="<?php echo isset($this->nm_satker)?$this->nm_satker :$this->nama_satker;?>">
         <!--<div id="nmsatker"></div>--></br>
@@ -13,7 +14,7 @@
         <label>ALAMAT</label><input class="required" type="text" name="alamat" value="<?php echo $this->alamat;?>"></br>
         <label>TELEPON</label><input type="text" name="telepon" value="<?php echo $this->telepon;?>"></br>
         <label>EMAIL</label><input type="text" name="email" value="<?php echo $this->email;?>"></br>
-        <label></label><input type="reset" value="RESET"><input type="submit" name="submit" value="SIMPAN">
+        <label></label><input type="button" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamAlamat'"><input type="submit" name="submit" value="SIMPAN">
 </form>
 </div>
 </br>

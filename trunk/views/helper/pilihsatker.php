@@ -10,7 +10,11 @@
         }
         ?>
     </select>
-    <select id="kab" onchange="lookuplokasi(this.value,document.getElementById('lokasi').value)"> 
+    <?php if(isset($this->id)) {?>
+    <select id="kab" onchange="lookuplokasi1(this.value,document.getElementById('lokasi').value,<?php echo $this->id; ?>)">
+        <?php }else{ ?>
+        <select id="kab" onchange="lookuplokasi(this.value,document.getElementById('lokasi').value)">
+            <?php } ?>
         <option>-- PILIH KAB/ KOTA --</option>
         <?php
         foreach ($this->kab as $value) {
@@ -38,8 +42,16 @@
         foreach ($this->data as $value) {
             echo "<tr><td>$no</td>
                     <td>$value[kdsatker]</td>
-                    <td>$value[nmsatker]</td>
-                    <td><a href=" . URL . "admin/rekamAlamat/$value[kdsatker]><input id=btn type=button value=PILIH></a></td></tr>";
+                    <td>$value[nmsatker]</td>";
+            if(!isset($this->id)){
+                echo "<td><a href=" . URL . "admin/rekamAlamat/$value[kdsatker]>";
+            }else{
+                //echo $this->id;
+                echo "<td><a href=" . URL . "admin/ubahAlamat/$this->id/$value[kdsatker]>";
+            }        
+            
+            
+            echo "<input id=btn type=button value=PILIH></a></td></tr>";
             $no++;
         }
         ?>
@@ -49,6 +61,15 @@
 
     function lookuplokasi(val,value2){
         $.post("<?php echo URL; ?>helper/lookupSatker", {queryString:""+val+","+value2+""},
+        function(data){                
+            $('#table').fadeIn();
+            $('#table').html(data);
+        });
+        
+    }
+    
+    function lookuplokasi1(val,val2, val3){
+        $.post("<?php echo URL; ?>helper/lookupSatker", {queryString:""+val+","+val2+","+val3+""},
         function(data){                
             $('#table').fadeIn();
             $('#table').html(data);
