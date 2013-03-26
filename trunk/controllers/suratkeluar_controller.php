@@ -95,7 +95,7 @@ class Suratkeluar_Controller extends Controller {
     }
     
     public function detil($id){
-        $data = $this->model->getSuratKeluarById($id);
+        $data = $this->model->getSuratKeluarById($id,'detil');
         foreach($data as $value){
             $this->view->id = $value['id_suratkeluar'];
             $this->view->rujukan = $value['rujukan'];
@@ -113,6 +113,84 @@ class Suratkeluar_Controller extends Controller {
         $this->view->count=0;
         
         $this->view->render('suratkeluar/detilsurat');
+    }
+    
+    public function edit($id_sk = null, $ids = null) {
+        if (!is_null($id_sk)) {
+//cek id_sm jika panjang=5 maka kode satker
+            $length = strlen($id_sk);
+            //echo $length . " " . $id_sm;
+            if ($length == 6) {
+                $this->view->alamat = $id_sk;
+                $almt = new Admin_Model();
+                $alamat = $almt->getAlamat($id_sk);
+                //$this->view->alamat
+                foreach ($alamat as $value) {
+                    $this->view->alamat .= ' ' . $value['nama_satker'];
+                }
+                //echo $this->view->alamat;
+                if (!is_null($ids)) {
+                    $this->view->data = $this->model->getSuratKeluarById($ids,'ubah');
+                    $this->view->sifat = $this->model->get('sifat_surat');
+                    $this->view->jenis = $this->model->get('klasifikasi_surat');
+                    $this->view->tipe = $this->model->select('SELECT * FROM tipe_naskah');
+                    //var_dump($this->view->jenis);
+                }
+            } else {
+
+
+                $this->view->data = $this->model->getSuratKeluarById($id_sk,'ubah');
+                $this->view->sifat=$this->model->get('sifat_surat');
+                $this->view->jenis=$this->model->get('klasifikasi_surat');
+                $this->view->tipe = $this->model->select('SELECT * FROM tipe_naskah');
+                //var_dump($this->view->jenis);
+            }
+        }
+        
+        foreach ($this->view->data as $value){
+            $this->view->id = $value['id_suratkeluar'];
+            $this->view->tipe1 = $value['tipe'];
+            $this->view->no_surat = $value['no_surat'];
+            $this->view->tgl_surat = $value['tgl_surat'];
+            $this->view->tujuan = $value['tujuan'];
+            $this->view->perihal = $value['perihal'];
+            $this->view->sifat1 = $value['sifat'];
+            $this->view->jenis1 = $value['jenis'];
+            $this->view->lampiran = $value['lampiran'];
+            //$this->view->file = $value['file'];            
+        }
+        /** **/
+        //$this->view->data = $this->model->getSuratMasukById($ids);
+        $this->view->render('suratkeluar/ubah');
+    }
+    
+    public function editSurat(){
+        $temp = explode(' ',$_POST['tujuan']);
+        $tujuan = $temp[0];
+        $data = array(
+            "tipe"=>$_POST['tipe'],
+            "tgl_surat"=>  Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
+            "no_surat"=>$_POST['nomor'],
+            "tujuan"=>$tujuan,
+            "perihal"=>$_POST['perihal'],
+            "sifat"=>$_POST['sifat'],
+            "jenis"=>$_POST['jenis'],
+            "lampiran"=>$_POST['lampiran']
+        );
+        
+        $id = $_POST['id'];
+        $where = "id_suratkeluar = '".$id."'";
+        //var_dump($data);
+        //var_dump($where);
+        //echo $where;
+        $this->model->editSurat($data, $where);
+        header('location:'.URL.'suratkeluar');
+        
+    }
+    
+    public function remove($id){
+        $where = ' id_suratkeluar='.$id;
+        $this->model->remove($where);
     }
 
 }

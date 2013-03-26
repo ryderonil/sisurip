@@ -82,7 +82,49 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function input() {
-        $this->model->input();
+        $tglagenda = date('Y-m-d');
+        $asal = trim($_POST['asal_surat']);
+        $asal = explode(' ', $asal);
+        $start = date('Y-m-d h:m:s');
+        $data = array(
+            "no_agenda"=>$_POST['no_agenda'],
+            "tgl_terima"=> $tglagenda,
+            "tgl_surat"=>  Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
+            "no_surat"=>$_POST['no_surat'],
+            "asal_surat"=>$asal[0],
+            "perihal"=>$_POST['perihal'],            
+            "status"=>$_POST['status'],
+            "sifat"=>$_POST['sifat'],
+            "jenis"=>$_POST['jenis'],
+            "lampiran"=>$_POST['lampiran'],
+            "stat"=>'1',
+            "start"=>$start
+        );
+        if( $this->model->input($data)){
+            $this->view->error = 'rekam data tidak berhasil';
+            $this->view->render('suratmasuk/rekam');
+        }else{
+            $notif = new Notifikasi();
+            $datakk = $this->model->select("SELECT id_user FROM user WHERE role=1 AND bagian =1 AND active='Y'");
+            foreach($datakk as $val){
+                $kk = $val['id_user'];
+            }
+            $id_surat = $this->model->lastIdInsert();
+            $jenis_surat = 'SM';
+            $stat_notif = 1;
+            $data1 =array(
+                'id_surat'=>$id_surat,
+                'jenis_surat'=>$jenis_surat,
+                'id_user'=>$kk,
+                'stat_notif'=>$stat_notif
+            );
+            //var_dump($data1);
+            $notif->addNotifikasi($data1);
+            $this->view->success = 'rekam data berhasil';
+            $this->view->render('suratmasuk/rekam');
+        }
+       
+        //header('location:'.URL.'suratmasuk');
     }
 
     public function rekam($s = null) {

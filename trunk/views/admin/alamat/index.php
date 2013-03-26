@@ -11,8 +11,8 @@
         <!--<div id="nmsatker"></div>--></br>
         <label>JABATAN</label><input type="text" name="jabatan"></br>
         <label>ALAMAT</label><input class="required" type="text" name="alamat"></br>
-        <label>TELEPON</label><input type="text" name="telepon"></br>
-        <label>EMAIL</label><input type="text" name="email"></br>
+        <label>TELEPON</label><input class="number" type="text" name="telepon"></br>
+        <label>EMAIL</label><input class="email"type="text" name="email"></br>
         <label></label><input type="reset" value="RESET"><input type="submit" name="submit" value="SIMPAN">
 </form>
 </div>

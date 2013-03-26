@@ -8,6 +8,9 @@
 class Tanggal{
     
     public static function ubahFormatTanggal($tgl){
+        if(substr($tgl, 4, 1)=='-'){
+            return $tgl;
+        }        
         $tgl = explode('/', $tgl);
         $temp = array(
             $tgl[2],
@@ -17,6 +20,8 @@ class Tanggal{
         
         $tgl = implode('-',$temp);
         
+        //list($month, $day, $year) = split('[/.-]',$tgl);
+        //$tgl = $year.'-'.$month.'-'.$day;
         return $tgl;
     }
     

@@ -31,6 +31,8 @@ $html->br();
 
 ?>
 
+<div id="error"><?php echo isset($this->warning)?$this->warning:'';?></div>
+<?php if(!isset($this->warning)) { ?>
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>arsip/rekamArsip">
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <input type="hidden" name="tipe" value="<?php echo $this->tipe;?>">
@@ -60,7 +62,7 @@ $html->br();
         ?>
     </select></br>    
     <label></label><input type="submit" name="submit" value="SIMPAN">
-</form></div>
+</form></div> <?php } ?>
 
 <script type="text/javascript">
     

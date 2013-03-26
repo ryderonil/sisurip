@@ -23,7 +23,30 @@ class Login_Controller extends Controller{
     }
     
     public function auth(){
-        $this->model->auth();
+        $username = $_POST['username'];
+        $password = Hash::create('md5', $_POST['password'], HASH_SALT_KEY);
+        //$password = $_POST['password'];
+        $data = $this->model->auth($username, $password);
+        foreach($data as $value){
+            $this->nama = $value['namaPegawai'];
+            $this->role = $value['role']; 
+            $this->bagian = $value['bagian']; 
+        }
+        
+        $int = count($data);
+        $this->view->error=array();
+        if($int>0){
+            @Session::createSession();
+            Session::set('loggedin',true);
+            Session::set('user',$this->nama);
+            Session::set('role',$this->role);
+            Session::set('bagian', $this->bagian);
+            header('location:../suratmasuk');
+        }else{
+            $this->view->error['invalid'] = 'Akun tidak ditemukan';
+            //header('location:../login');
+            $this->view->render('login/index');
+        }
     }
     
     public function logout(){
@@ -32,7 +55,7 @@ class Login_Controller extends Controller{
         Session::createSession();
         Session::destroySession();
         //session_destroy();
-        header('location:../login');
+        header('location:'.URL.'login');
         exit();
     }
     

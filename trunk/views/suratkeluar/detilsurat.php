@@ -1,3 +1,4 @@
+
 <div class="left">
     <h2>INFORMASI SURAT :</h>
     <hr>
@@ -18,10 +19,10 @@
         <!--<tr><td>JENIS</td><td><?php echo $this->jenis; ?></td></tr>        
         <tr><td>STATUS</td><td><?php echo $this->status; ?></td></tr>-->        
         <tr><td></td><td>                
-                <a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->id; ?>"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
+                <?php if(Auth::isRole($role, 3)) { ?><a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->id; ?>/SK"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
                 <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->id; ?>/SK"><input class="btn" type="button" value="ARSIP"></a>
-                <a href="<?php echo URL;?>suratkeluar/edit/<?php echo $this->id; ?>"><input class="btn" type="button" value="U B A H"></a>
-                <a href="<?php echo URL;?>suratkeluar/catatan/<?php echo $this->id; ?>"><input class="btn" type="button" value="DISPOSISI KASI"></a></td></tr>
+                <a href="<?php echo URL;?>suratkeluar/edit/<?php echo $this->id; ?>"><input class="btn" type="button" value="U B A H"></a><?php } ?>
+                <?php if(Auth::isRole($role, 2)) { ?><a href="<?php echo URL;?>suratkeluar/catatan/<?php echo $this->id; ?>"><input class="btn" type="button" value="DISPOSISI KASI"></a><?php } ?></td></tr>
     </table></div>
     
     <?php if($this->count>0){?>

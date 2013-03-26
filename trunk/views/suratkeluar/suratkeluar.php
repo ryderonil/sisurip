@@ -2,7 +2,7 @@
 
         <hr>
         </br>
-        <a href="<?php echo URL;?>suratkeluar/rekam"><input class="btn" type="button" value="R E K A M"></a>
+        <?php if(Auth::isRole($role, 3)) {?><a href="<?php echo URL;?>suratkeluar/rekam"><input class="btn" type="button" value="R E K A M"></a><?php } ?>
         <div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><td >NOMOR</td><td >INFORMASI SURAT</td><td >AKSI</td></tr>
 <?php
@@ -22,10 +22,10 @@
         //echo '<td>' . $value['tgl_surat'] . '</td>';
         //echo '<td>' . $value['asal_surat'] . '</td>';
         //echo '<td>' . $value['perihal'] . '</td>';
-        echo '<td>
-                <a href="'.URL.'suratkeluar/edit/'.$value['id_suratkeluar'].'"><input class=btn type=button value=Ubah></a> 
-                <a href="'.URL.'suratkeluar/remove/'.$value['id_suratkeluar'].'"><input class=btn type=button value=Hapus onclick="return selesai()"></a>
-                    <a href="'.URL.'suratkeluar/upload/'.$value['id_suratkeluar'].'"><input class=btn type=button value="Upload File"></a></td>';
+        echo '<td>';
+                if(Auth::isRole($role, 2)) echo '<a href="'.URL.'suratkeluar/edit/'.$value['id_suratkeluar'].'"><input class=btn type=button value=Ubah></a> 
+                <a href="'.URL.'suratkeluar/remove/'.$value['id_suratkeluar'].'"><input class=btn type=button value=Hapus onclick="return selesai()"></a>';
+                if(!Auth::isRole($role, 5) AND !Auth::isRole($role, 4))echo '<a href="'.URL.'suratkeluar/upload/'.$value['id_suratkeluar'].'"><input class=btn type=button value="Upload File"></a></td>';
         echo '</tr>';
     }
 ?>
