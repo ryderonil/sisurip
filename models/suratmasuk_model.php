@@ -12,6 +12,7 @@
  */
 class Suratmasuk_Model extends Model{
     //put your code here
+    var $lastId;
     
     public function __construct() {
         //echo 'ini adalah model</br>';
@@ -46,26 +47,16 @@ class Suratmasuk_Model extends Model{
         header('location:'.URL.'suratmasuk');
     }
     
-    public function input(){
-        $tglagenda = date('Y-m-d');
-        $asal = trim($_POST['asal_surat']);
-        $asal = explode(' ', $asal);
-        $data = array(
-            "no_agenda"=>$_POST['no_agenda'],
-            "tgl_terima"=> $tglagenda,
-            "tgl_surat"=>  Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
-            "no_surat"=>$_POST['no_surat'],
-            "asal_surat"=>$asal[0],
-            "perihal"=>$_POST['perihal'],            
-            "status"=>$_POST['status'],
-            "sifat"=>$_POST['sifat'],
-            "jenis"=>$_POST['jenis'],
-            "lampiran"=>$_POST['lampiran'],
-            "stat"=>'1'
-        );
+    public function input($data){
+        
         //var_dump($data);
-        $this->insert('suratmasuk', $data);
-        header('location:'.URL.'suratmasuk');
+        $insert = $this->insert('suratmasuk', $data);
+        if($insert){
+            //$this->lastId = $this->lastInsertId(); //mengembalikan nilai yg benar klo dipanggil sebelum commit()
+            return true;
+        }
+        
+        return false;
     }
     
     public function editSurat(){
@@ -86,8 +77,22 @@ class Suratmasuk_Model extends Model{
         //echo $where;
         $this->update("suratmasuk", $data, $where);
         header('location:'.URL.'suratmasuk');
+        
     }
     
+    public function lastIdInsert(){
+        $sql = "SELECT MAX(id_suratmasuk) as id FROM suratmasuk";
+        $data = $this->select($sql);
+        
+        foreach ($data as $val){
+            $this->lastId = $val['id'];
+        }
+        
+        return $this->lastId;
+        
+    }
+
+
     public function getSuratMasukById($id){ //fungsi ini mgkn tidak diperlukan
         
         return $this->select("SELECT * FROM suratmasuk WHERE id_suratmasuk=:id", array("id"=>$id));

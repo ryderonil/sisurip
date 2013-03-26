@@ -18,12 +18,23 @@ class Auth{
     }
     
     public static function getRole(){
-        return $_SESSION['userrole'];
+        return $_SESSION['role'];
     }
     
     public static function setRole($session, $value){        
         $_SESSION[$session] = $value;
     }
+    
+    public static function isRole($value,$role){
+        if($value==$role) return true;
+        return false;
+    }
+    
+    public static function isBagian($value,$bagian){
+        if($value==$bagian) return true;
+        return false;
+    }
+    
         
 }
 ?>

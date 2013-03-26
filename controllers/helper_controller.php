@@ -124,6 +124,9 @@ class Helper_Controller extends Controller{
         }elseif((int)$var==3){
             $this->view->surat = 'suratmasuk/edit';
             
+        }elseif((int)$var==4){
+            $this->view->surat = 'suratkeluar/edit';
+            
         }
         
         if(!is_null($id)) $this->view->ids = $id;

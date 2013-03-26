@@ -385,7 +385,7 @@ class Admin_Controller extends Controller {
             'namaPegawai' => $_POST['namaPegawai'],
             'NIP' => $_POST['NIP'],
             'username' => $_POST['username'],
-            'password' => $_POST['password'],
+            'password' => Hash::create('md5', $_POST['password'], HASH_SALT_KEY),
             'bagian' => $_POST['bagian'],
             'jabatan' => $_POST['jabatan'],
             'role' => $_POST['role'],
@@ -400,7 +400,7 @@ class Admin_Controller extends Controller {
             'namaPegawai' => $_POST['namaPegawai'],
             'NIP' => $_POST['NIP'],
             'username' => $_POST['username'],
-            'password' => $_POST['password'],
+            'password' => Hash::create('md5', $_POST['password'], HASH_SALT_KEY),
             'bagian' => $_POST['bagian'],
             'jabatan' => $_POST['jabatan'],
             'role' => $_POST['role'],
@@ -512,8 +512,8 @@ class Admin_Controller extends Controller {
         $where = ' id_alamat='.$_POST['id'];
         //echo $where;
         //var_dump($data);
-        //$this->model->updateAlamatSurat($data, $where);
-        //$this->rekamAlamat();
+        $this->model->updateAlamatSurat($data, $where);
+        $this->rekamAlamat();
         
     }
     

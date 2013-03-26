@@ -26,9 +26,11 @@
 		//});
     
 </script>
+<div id="error"><?php echo isset($this->error)?$this->error:'';?></div>
+<div id="success"><?php echo isset($this->success)?$this->success:'';?></div>
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL; ?>suratmasuk/input">
         
-        <label>AGENDA</label><input type="text" name="no_agenda" value="<?php echo $this->agenda; ?>" readonly></br>
+        <label>AGENDA</label><input type="text" name="no_agenda" value="<?php echo @$this->agenda; ?>" readonly></br>
         <!--<label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->
         <label>TANGGAL SURAT</label><input type="text" id="datepicker" name="tgl_surat" class="required" ></br>
         <label>NOMOR SURAT</label><input class="required" type="text" name="no_surat"></br>

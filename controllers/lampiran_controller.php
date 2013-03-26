@@ -19,8 +19,9 @@ class Lampiran_Controller extends Controller{
         //echo "</br>kelas berhasil di bentuk";
     }
     
-    public function rekam($id){
-        $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
+    public function rekam($id,$tipe){
+        if($tipe=='SM'){
+            $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
                     FROM suratmasuk WHERE id_suratmasuk='.$id);
         foreach ($data as $value){
             $this->view->data[0] = $value['id_suratmasuk'];
@@ -28,10 +29,25 @@ class Lampiran_Controller extends Controller{
             $this->view->data[2] = $value['asal_surat'];
             $this->view->data[3] = $value['perihal'];
         }
+        }elseif ($tipe=='SK') {
+            $data = $this->model->select('SELECT id_suratkeluar,no_surat, tujuan, perihal
+                    FROM suratkeluar WHERE id_suratkeluar='.$id);
+            foreach ($data as $value){
+            $this->view->data[0] = $value['id_suratkeluar'];
+            $this->view->data[1] = $value['no_surat'];
+            $this->view->data[2] = $value['tujuan'];
+            $this->view->data[3] = $value['perihal'];
+        }
+        }
+        
         $this->view->tipe = $this->model->getTypeLampiran();
         $this->view->render('lampiran/lampiran');
     }
     
+    /*
+     * mgkn tipe surat=>surat masuk, surat keluar dibutuhkan
+     * sebagai pembeda
+     */
     public function addRekamLampiran(){
         
         $upload = new Upload('upload');
@@ -55,6 +71,7 @@ class Lampiran_Controller extends Controller{
             'keterangan'=>$_POST['keterangan'],
             'file'=>$namafile//upload belom diurus
         );
+        
         $upload->uploadFile();
         //var_dump($data);
         $this->model->addLampiran($data);

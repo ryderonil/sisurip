@@ -65,13 +65,13 @@ class Nomor extends Model{
      */
     public function generateNumber($tipeNomor, $tipeSurat = null){
         
-        $tipe = null;
+        $tipe = $tipeSurat;
         $this->setTanggal();
         //$this->getKodeSuratKeluar();
         if($tipeNomor=='SM'){
             $this->nomor = $this->createAgendaSuratMasuk();
         }else{
-            $this->nomor = $this->createAgendaSuratKeluar($tipeSurat);
+            $this->nomor = $this->createAgendaSuratKeluar($tipe);
         }
         return $this->nomor;
     }
@@ -108,6 +108,24 @@ class Nomor extends Model{
     }
     
     private function createAgendaSuratKeluar($tipeSurat){
+        $lastid = $this->select('SELECT MAX(id_suratkeluar) as id FROM suratkeluar WHERE tipe='.$tipeSurat);
+        foreach ($lastid as $id){
+            $lastid = $id['id'];
+        }
+        
+        //$data = $this->select('SELECT no_agenda FROM suratmasuk WHERE id_suratmasuk='.$lastid);
+        $data = $this->select('SELECT no_surat FROM surakeluar
+                    WHERE id_suratkeluar = '.$lastid);
+        $agenda = null;
+        foreach ($data as $value){
+            $agenda = $value['no_surat'];
+        }       
+        
+        $agenda = (int) $agenda;        
+        
+        $agenda = $agenda+1;        
+        
+        return $agenda;
         
     }
     

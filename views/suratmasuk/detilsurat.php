@@ -12,11 +12,11 @@
         <tr><td>ASAL</td><td><?php echo $this->data[5]; ?></td></tr>
         <tr><td>PERIHAL</td><td><?php echo $this->data[6]; ?></td></tr>-->
         <tr><td></td><td>
-                <a href="<?php echo URL;?>suratkeluar/rekam/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="TANGGAPAN SURAT"></a>
-                <a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
-                <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->data[0]; ?>/SM"><input class="btn" type="button" value="ARSIP"></a>
-                <a href="<?php echo URL;?>suratmasuk/edit/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="U B A H"></a>
-                <a href="<?php echo URL;?>suratmasuk/catatan/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="DISPOSISI KASI"></a></td></tr>
+                <?php if(Auth::isRole($role, 3)) { ?><a href="<?php echo URL;?>suratkeluar/rekam/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="TANGGAPAN SURAT"></a>
+                <a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->data[0]; ?>/SM"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
+                <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->data[0]; ?>/SM"><input class="btn" type="button" value="ARSIP"></a><?php }?>
+                <?php if(Auth::isRole($role, 2)) { ?><a href="<?php echo URL;?>suratmasuk/edit/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="U B A H"></a>
+                <a href="<?php echo URL;?>suratmasuk/catatan/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="DISPOSISI KASI"></a><?php }?></td></tr>
     </table></div>
     
     <?php if($this->count>0){?>

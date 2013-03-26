@@ -2,7 +2,7 @@
 <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamUser">
     
     <label>NAMA PEGAWAI</label><input class="required" type="text" name="namaPegawai"></br>
-    <label>NIP</label><input class="required" type="text" name="NIP"></br>
+    <label>NIP</label><input class="required number" type="text" name="NIP"></br>
     <label>NAMA USER</label><input class="required" type="text" name="username"></br>
     <label>PASSWORD</label><input class="required" type="text" name="password"></br>
     <label>BAGIAN</label><select class="required" name="bagian">
