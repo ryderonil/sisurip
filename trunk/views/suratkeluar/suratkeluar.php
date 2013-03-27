@@ -24,7 +24,7 @@
         //echo '<td>' . $value['perihal'] . '</td>';
         echo '<td>';
                 if(Auth::isRole($role, 2)) echo '<a href="'.URL.'suratkeluar/edit/'.$value['id_suratkeluar'].'"><input class=btn type=button value=Ubah></a> 
-                <a href="'.URL.'suratkeluar/remove/'.$value['id_suratkeluar'].'"><input class=btn type=button value=Hapus onclick="return selesai()"></a>';
+                <a href="'.URL.'suratkeluar/remove/'.$value['id_suratkeluar'].'"><input class=btn type=button value=Hapus onclick="return selesai()"></a> ';
                 if(!Auth::isRole($role, 5) AND !Auth::isRole($role, 4))echo '<a href="'.URL.'suratkeluar/upload/'.$value['id_suratkeluar'].'"><input class=btn type=button value="Upload File"></a></td>';
         echo '</tr>';
     }

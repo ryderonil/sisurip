@@ -107,19 +107,19 @@ class Suratmasuk_Controller extends Controller {
             $notif = new Notifikasi();
             $datakk = $this->model->select("SELECT id_user FROM user WHERE role=1 AND bagian =1 AND active='Y'");
             foreach($datakk as $val){
-                $kk = $val['id_user'];
+                $notif->set('id_user',$val['id_user']);
             }
-            $id_surat = $this->model->lastIdInsert();
-            $jenis_surat = 'SM';
-            $stat_notif = 1;
-            $data1 =array(
-                'id_surat'=>$id_surat,
-                'jenis_surat'=>$jenis_surat,
-                'id_user'=>$kk,
-                'stat_notif'=>$stat_notif
-            );
+            $notif->set('id_surat',$this->model->lastIdInsert());
+            $notif->set('jenis_surat','SM');
+            $notif->set('stat_notif',1);
+            //$data1 =array(
+                //'id_surat'=>$id_surat,
+                //'jenis_surat'=>$jenis_surat,
+                //'id_user'=>$kk,
+                //'stat_notif'=>$stat_notif
+            //);
             //var_dump($data1);
-            $notif->addNotifikasi($data1);
+            $notif->addNotifikasi();
             $this->view->success = 'rekam data berhasil';
             $this->view->render('suratmasuk/rekam');
         }

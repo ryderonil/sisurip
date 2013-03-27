@@ -16,6 +16,7 @@ class View {
         $this->js = array();
         $this->form=new Form_Generator();
         $this->html=new Html();
+        $this->notif = new Notifikasi();
     }
     
     public function render($view){

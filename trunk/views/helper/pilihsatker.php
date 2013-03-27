@@ -62,7 +62,7 @@
     function lookuplokasi(val,value2){
         $.post("<?php echo URL; ?>helper/lookupSatker", {queryString:""+val+","+value2+""},
         function(data){                
-            $('#table').fadeIn();
+            $('#table').fadeIn(100);
             $('#table').html(data);
         });
         
@@ -71,7 +71,7 @@
     function lookuplokasi1(val,val2, val3){
         $.post("<?php echo URL; ?>helper/lookupSatker", {queryString:""+val+","+val2+","+val3+""},
         function(data){                
-            $('#table').fadeIn();
+            $('#table').fadeIn(slow);
             $('#table').html(data);
         });
         
