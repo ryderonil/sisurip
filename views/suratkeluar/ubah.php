@@ -73,7 +73,7 @@ if (isset($this->datasm)) {
         </select></br>
         <label>LAMPIRAN</label><input type="" name="lampiran" value="<?php echo $this->lampiran;?>"></br>
         <label>FILE SURAT</label><input type="file" name="upload"></br>
-        <label></label><input type="reset" value="RESET"><input type="submit" name="submit" value="SIMPAN">
+        <label></label><input type="button" onclick="location.href='<?php echo URL; ?>suratkeluar'" value="BATAL"><input type="submit" name="submit" value="SIMPAN">
     </form></div>
 
 <script>

@@ -2,5 +2,6 @@
     <label>Nama Pengguna</label><input class="required" id="" type="text" name="username" placeholder="username anda"></br>
     <label>Password</label><input class="required" id="" type="password" name="password"></br>
     <label></label><input type="submit" name="submit" value="LOGIN"></br>
-    <div id="error"><?php echo isset($this->error['invalid'])? $this->error['invalid']:'';?></div>
+    <?php if(isset($this->error['invalid'])) {?>
+    <div class="error"><?php echo $this->error['invalid'];?></div> <?php }?>
 </form></div></div>
