@@ -42,11 +42,12 @@
             
                 <!-- menu atas -->
                 <div id="menu">
-                    <div id="depkeu-logo"><img border="1" src="<?php echo URL; ?>public/images/depkeu-kecil.jpg"></div>
+                    <div id="depkeu-logo"><img border="1" src="<?php echo URL; ?>public/images/depkeu-kecil2.jpg"></div>
+                    <!--<div id="depkeu-logo"></div>-->
                     <div id="brand"> <?php echo $this->kantor;?></div>
                     <!--<div id="pull-right"><img id="user-icon" src="<?php echo URL;?>public/images/User-Executive.png"> <b><?php echo Session::get('user'); ?></b>-->
-                    <?php if($notif>0) {?><a href="<?php echo URL;?>helper/notif/<?php echo $role.'/'.$bagian;?>"><div id="notif"><font color="red"><?php echo $notif>0?$notif:'';?></font></div></a><?php }?>
-                    <div id="user"> <b><?php echo $user; ?></b> | </div>
+                    <?php if($notif>0) {?><a href="<?php echo URL;?>helper/notif/<?php echo $user;?>"><div id="notif"><font color="white"><?php echo $notif>0?$notif:'';?></font></div></a><?php }?>
+                    <div id="user"> <b><?php echo $user; ?></b></div>
                     
                     <div>
                     <ul id="trans-nav">
