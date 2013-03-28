@@ -13,7 +13,7 @@ body {
 }
 
 div {
-    /*    border: 1px solid black;*/
+/*        border: 1px solid black;*/
 }
 
 /** Structure */
@@ -318,7 +318,7 @@ iframe {
 
 #brand {
 
-    padding: 5px 15px;
+    padding: 5px 5px;
     float: right;
     position: relative;
     font-weight: bolder;
@@ -344,41 +344,66 @@ iframe {
 #user {
     padding: 11px 11px;
     float: right;
-    position: relative;   
+    position: relative;    
 
+}
+
+#trans { 
+    float: right; 
+/*    position: relative; */
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 40px; 
+/*    background: #4d8add;*/
+/*    repeat-x: 0 0;*/
+    
+}
+#trans:hover {
+    background: #4d8add;
+    background-position: 0 -40px; 
 }
 
 #notif {
     float: right;
-    padding:5px 0px 0px 22px;
+    padding-top: 2px ;
+    padding-left: 7px ;
+    padding-right: 7px ;
+    padding-bottom: 2px;
+/*    height: 20px;*/
+    border-radius: 3px;
+    margin-top: 8px;
+    margin-bottom: 7px;
 /*    float: right;*/
     font: 16px 'arial';
     font-weight: bold;
-    color:red;
+    color:white;
     position: relative;
-    background-repeat: no-repeat;
-    margin: 10px 0px;    
-    background-image: url('../images/mailblue-30bw.png');
+/*    background-repeat: no-repeat;*/
+    background: #e51717;
+/*    background-image: url('../images/mailblue-30bw.png');*/
+    border: 1px solid darkslategrey;
 }
 
 #notif:hover{
-    float: right;
-    padding:5px 0px 0px 22px;
 /*    float: right;*/
-    font: 16px 'arial';
-    font-weight: bold;
-    color:red;
-    position: relative;
-    background-repeat: no-repeat;
-    margin: 10px 0px; 
-    background-image: url('../images/mailblue-30.png');
+/*    padding:5px 0px 0px 22px;*/
+/*    float: right;*/
+/*    font: 16px 'arial';*/
+/*    font-weight: bold;*/
+    background: #eb3838;
+/*    position: relative;*/
+/*    background-repeat: no-repeat;*/
+/*    margin: 10px 0px; */
+/*    background-image: url('../images/mailblue-30.png');*/
 }
 
 #depkeu-logo {
-    padding: 0.5px 15px;
+    padding: 0px 2px 0px 0px;
     float: right;
+    height: 40px;
     position: relative;    
-    color: red;
+    color: #0b2348;
+/*    background-image: url('../images/depkeu-kecil.jpg');*/
 }
 
 #pull-left {

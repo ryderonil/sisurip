@@ -75,6 +75,15 @@ class Notifikasi extends Model{
         
     }
     
+    public function setNotif(){
+        $data = array('stat_notif'=>$this->get('stat_notif'));
+        $where = 'id_notif='.$this->get('id_notif');
+        $update = $this->update('notifikasi', $data, $where);
+        if($update) return true;
+        return false;
+    }
+
+
     public function isRead($id_surat, $user, $jenis_surat){
         $id_user=0;
         if(is_numeric($user)){
@@ -114,7 +123,7 @@ class Notifikasi extends Model{
         $sql ='';
         $count = 0;
         if(is_numeric($id_user)){
-            $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE id_user=:id_user";
+            $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE id_user=:id_user AND stat_notif=1";
         }else{
             $sql = "SELECT id_user FROM user WHERE username = :username";            
             $sth = $pdo->prepare($sql);
@@ -124,7 +133,7 @@ class Notifikasi extends Model{
             foreach ($data as $value) {
                 $id_user = $value->id_user;
             }
-            $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE id_user=:id_user";
+            $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE id_user=:id_user AND stat_notif=1";
         }
         
         $sth = $pdo->prepare($sql);
@@ -134,7 +143,7 @@ class Notifikasi extends Model{
         foreach ($data as $value) {
             $count = $value->jml;
         }
-        
+        //var_dump($data);
         return $count;
     }
     

@@ -232,6 +232,58 @@ class Helper_Controller extends Controller{
             $no++;
         }
     }
+    
+    function notif($user){
+        //$sm = new Suratmasuk_Model();
+        //$sk = new Suratkeluar_Model();
+        $notif = new Notifikasi();
+        $id_user = 0;
+        $sql = "SELECT id_user FROM user WHERE username=:user";
+        $param = array(':user'=>$user);
+        $data = $this->model->select($sql, $param);
+        //var_dump($data);
+        foreach($data as $val){
+            $id_user = $val['id_user'];
+        }
+        //echo $id_user;
+        $sql = "SELECT id_notif, id_surat, jenis_surat FROM notifikasi WHERE id_user=:id_user AND stat_notif=1";
+        $param = array(':id_user'=>$id_user);
+        $data = $this->model->select($sql, $param);
+        $this->view->jmlnotif = count($data);
+        //var_dump($data);
+        $notifsm = array();
+        $notifsk=array();
+        $id_notif = array();
+        foreach ($data as $val){
+            if($val['jenis_surat']=='SM'){
+                $sql = "SELECT * FROM suratmasuk WHERE id_suratmasuk=:id_surat"; //ambil dari suratmasuk model
+                $param= array(':id_surat'=>$val['id_surat']);
+                $notifsm[]=$this->model->select($sql,$param);
+                //$notifsm = $sm->getSuratMasukById($val['id_surat']);
+                $id_notif[]=$val['id_notif'];
+                $notif->set('id_notif', $val['id_notif']);
+                $notif->set('stat_notif', 0);
+                $notif->setNotif();
+            }elseif($val['jenis_surat']=='SK'){
+                $sql = "SELECT * FROM suratkeluar WHERE id_suratkeluar=:id_surat"; //ambil dari suratmasuk model
+                $param= array(':id_surat'=>$val['id_surat']);
+                $notifsk[]=$this->model->select($sql,$param);
+                //$notifsk = $sk->getSuratKeluarById($val['id_surat'],'detil');
+                $id_notif[]=$val['id_notif'];
+                $notif->set('id_notif', $val['id_notif']);
+                $notif->set('stat_notif', 0);
+                $notif->setNotif();
+            }
+        }
+        
+        //var_dump($id_notif);
+        
+        
+        $this->view->notifsm = $notifsm;
+        $this->view->notifsk = $notifsk;
+        //var_dump($notifsm);
+        $this->view->render('notifikasi/notifikasi');
+    }
 
 }
 
