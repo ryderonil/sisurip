@@ -69,6 +69,9 @@ class Arsip_Controller extends Controller{
         
         $this->model->rekamArsip($data);
         if($tipe_surat=='SM'){
+            $datastat = array('stat'=>'15');
+            $where = 'id_suratmasuk='.$id_surat;
+            $this->model->update('suratmasuk',$datastat,$where); //update status -> arsip
             header('location:'.URL.'suratmasuk/detil/'.$id_surat);
         }elseif($tipe_surat=='SK'){
             header('location:'.URL.'suratkeluar/detil/'.$id_surat);

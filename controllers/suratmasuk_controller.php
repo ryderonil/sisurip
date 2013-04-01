@@ -97,7 +97,7 @@ class Suratmasuk_Controller extends Controller {
             "sifat"=>$_POST['sifat'],
             "jenis"=>$_POST['jenis'],
             "lampiran"=>$_POST['lampiran'],
-            "stat"=>'1',
+            "stat"=>'11',
             "start"=>$start
         );
         if( $this->model->input($data)){
@@ -266,7 +266,61 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function rekamdisposisi() {
-        $this->model->rekamdisposisi();
+        $id_surat = $_POST['id_surat'];
+        $sifat = $_POST['sifat'];
+        $petunjuk = $_POST['petunjuk'];
+        $catatan = $_POST['catatan'];
+        $disposisi = $_POST['disposisi'];
+        $disp = implode(',',$disposisi);
+        $petunjuk = implode(',',$petunjuk);
+        
+        $data = array(
+            'id_surat'=>$id_surat,
+            'sifat'=>$sifat,
+            'disposisi'=>$disp,
+            'petunjuk'=>$petunjuk,
+            'catatan'=>$catatan
+            );
+        
+        $rekam = $this->model->rekamdisposisi($data);
+        //var_dump($rekam);
+        if($rekam){ //baris ini berhasil
+            echo "error";
+            $this->view->error = "data tidak berhasil disimpan!";
+            
+            
+        }else{
+            $this->model->distribusi($id_surat, $disposisi); 
+            $notif = new Notifikasi();
+            $notif->set('id_surat', $id_surat);
+            $notif->set('jenis_surat', 'SM');
+            $notif->set('stat_notif', 1);
+            $len = count($disposisi);
+            //echo $len;
+            //foreach ($disposisi as $val){
+            for($i=0;$i<$len;$i++){
+                echo $disposisi[$i];
+                $sql = "SELECT id_bagian FROM r_bagian WHERE kd_bagian='".$disposisi[$i]."'";
+                $data = $this->model->select($sql);
+                //var_dump($data);
+                foreach($data as $value){
+                    $id_bagian = $value['id_bagian'];
+                    $sql1 = "SELECT id_user FROM user WHERE bagian=$id_bagian AND role=2";
+                    $data1 = $this->model->select($sql1);
+                    //var_dump($data1);
+                    foreach($data1 as $value1){
+                        $id_user = $value1['id_user'];                        
+                        $notif->set('id_user', $id_user);                        
+                        $notif->addNotifikasi(); //notifikasi kasi
+                    }
+                }
+            }
+            $datastat = array('stat'=>'12');
+            $where = 'id_suratmasuk='.$id_surat;
+            $this->model->update('suratmasuk',$datastat,$where); //update status -> disposisi
+            header('location:'.URL.'suratmasuk');
+        }       
+        
     }
 
     public function distribusi($id) {
@@ -291,27 +345,40 @@ class Suratmasuk_Controller extends Controller {
     
     public function rekamCatatan(){
         $disposisi = new Disposisi();
+        $id_surat = $_POST['id_surat'];
         $id_disposisi = $_POST['id_disp'];
         $bagian = $_POST['bagian'];
         $peg = $_POST['peg'];
-        $catatan = $_POST['catatan'];
+        $catatan = $_POST['catatan'];        
         $data = array('id_disposisi'=>$id_disposisi,
             'bagian'=>$bagian,
             'pelaksana'=>$peg,
             'catatan'=>$catatan);
         
-        $disposisi->addDisposisi($data);
+        //var_dump($data);
+        $disposisi->addDisposisiKasi($data);
+        $notif = new Notifikasi();        
+        $notif->set('id_surat', $id_surat);
+        $notif->set('jenis_surat', 'SM');
+        $notif->set('id_user', $peg);
+        $notif->set('stat_notif',1);        
+        $notif->addNotifikasi(); //notifikasi pelaksana
+        $datastat = array('stat'=>'13');
+        $where = 'id_suratmasuk='.$id_surat;
+        $this->model->update('suratmasuk',$datastat,$where); //update status surat -> disposisi kasi
         //$this->model->insert('catatan',$data);
         header('location:'.URL.'suratmasuk');
     }
     
     public function catatan($id){
         $disposisi = new Disposisi();
-        $this->view->datad = $disposisi->getDisposisi(array('id_surat'=>$id));
-        //var_dump($this->view->data);
-        //$bagian = explode($this->view->data->dist);
-        //var_dump($bagian);
-        $this->view->bagian = $this->view->datad->dist[0];
+        $this->view->datad = $disposisi->getDisposisi(array('id_surat'=>$id));      
+        //$this->view->bagian = $this->view->datad->dist[0];
+        $sql = "SELECT kd_bagian FROM r_bagian WHERE id_bagian=".Session::get('bagian');
+        $bagian = $this->model->select($sql);
+        foreach ($bagian as $val){
+            $this->view->bagian = $val['kd_bagian'];
+        }
         $datas = $this->model->select("SELECT * FROM suratmasuk WHERE id_suratmasuk=".$this->view->datad->id_surat);
         foreach($datas as $value){
             $this->view->data[0] = $value['id_suratmasuk'];
@@ -323,6 +390,9 @@ class Suratmasuk_Controller extends Controller {
                 }
             $this->view->data[4] = $value['perihal'];
         }
+        $sql ="SELECT id_user, namaPegawai FROM user WHERE jabatan = 6 AND bagian = ".Session::get('bagian');
+        $this->view->peg = $this->model->select($sql);
+        //var_dump($this->view->peg);
         $this->view->render('suratmasuk/catatan');
     }
     
@@ -362,6 +432,8 @@ class Suratmasuk_Controller extends Controller {
         );
         $upload->uploadFile();
         $this->model->uploadFile($data,$where);
+        $datastat = array('stat'=>'14');        
+        $this->model->update('suratmasuk',$datastat,$where); //update status -> pelaksana
         header('location:'.URL.'suratmasuk');
         
     }

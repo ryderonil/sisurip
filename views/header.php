@@ -1,8 +1,10 @@
 <?php 
     $role = Session::get('role');
     $bagian = Session::get('bagian');
+    $nama = Session::get('nama');
     $user = Session::get('user');
     $notif = Notifikasi::getJumlahNotifikasi($user);
+    //echo $user.$notif;
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,9 +47,9 @@
                     <div id="depkeu-logo"><img border="1" src="<?php echo URL; ?>public/images/depkeu-kecil2.jpg"></div>
                     <!--<div id="depkeu-logo"></div>-->
                     <div id="brand"> <?php echo $this->kantor;?></div>
-                    <!--<div id="pull-right"><img id="user-icon" src="<?php echo URL;?>public/images/User-Executive.png"> <b><?php echo Session::get('user'); ?></b>-->
+                    <!--<div id="pull-right"><img id="user-icon" src="<?php echo URL;?>public/images/User-Executive.png"> <b><?php echo Session::get('nama'); ?></b>-->
                     <?php if($notif>0) {?><a href="<?php echo URL;?>helper/notif/<?php echo $user;?>"><div id="notif"><font color="white"><?php echo $notif>0?$notif:'';?></font></div></a><?php }?>
-                    <div id="user"> <b><?php echo $user; ?></b></div>
+                    <div id="user"> <b><?php echo $nama; ?></b></div>
                     
                     <div>
                     <ul id="trans-nav">
@@ -79,7 +81,8 @@
                                 <li><a href="<?php echo URL;?>admin/restore">Restore</a></li><?php } ?>
                             </ul>
                         </li> <?php } ?>
-                        <!--<li><a href="<?php echo URL; ?>bantuan">Bantuan</a></li>-->                        
+                        <!--<li><a href="<?php echo URL; ?>bantuan">Bantuan</a></li>-->
+                        <li><a href="<?php echo URL; ?>cari">Pencarian</a></li>
                         <li><a href="<?php echo URL; ?>login/logout">Logout</a></li>
                         <?php endif; ?>
                     </ul>
@@ -92,7 +95,7 @@
                 <div id="sisurip">
                     <?php if(Session::get('loggedin')==true):?><h1>SiSuRIP</h1><?php endif; ?></div>
                 
-                <div id="">  <?php if(Session::get('loggedin')==true):?>                  
+                <!--<div id="">  <?php if(Session::get('loggedin')==true):?>                  
                     <form method="POST" action="<?php echo URL;?>cari">
                         <p><input id="search" type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian">
                         <input  type="submit" name="submit" value="CARI"></p>
@@ -106,8 +109,8 @@
                             <li><input type="checkbox"/><label for="sk">Surat Keluar</label></li>
                             <li><input type="checkbox"/><label for="lamp">Lampiran</label></li>                            
                         </ul>-->
-                    </form><?php endif; ?>
-                </div>
+                    <!--</form><?php endif; ?>
+                </div>-->
                 
                 <!-- end of pencarian -->
                 

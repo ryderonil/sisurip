@@ -16,7 +16,35 @@ class CatatanKasie extends Model{
         parent::__construct();
     }
     
-    public function add($data){
+    public function set($attr, $val){
+        switch ($attr){
+            case 'catatan':
+                $this->catatan = $val;
+                break;
+            case 'id_surat':
+                $this->id_surat = $val;
+                break;
+            case 'userPejabat':
+                $this->userPejabat = $val;
+                break;
+        }
+    }
+
+    public function get($attr){
+        switch ($attr){
+            case 'catatan':
+                return $this->catatan;
+                break;
+            case 'id_surat':
+                return $this->id_surat;
+                break;
+            case 'userPejabat':
+                return $this->userPejabat;
+                break;
+        }
+    }
+
+    public function add(){
         
     }
     

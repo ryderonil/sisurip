@@ -64,6 +64,7 @@ class Notifikasi extends Model{
                 'id_user'=>$this->get('id_user'),
                 'stat_notif'=>$this->get('stat_notif')
             );
+            var_dump($data);
         $insert = $this->insert('notifikasi', $data);
         if($insert){
             return true;

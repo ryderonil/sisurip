@@ -31,7 +31,7 @@ $html->br();
 
 ?>
 
-<?php if(isset($this->warning)) { ?><div class="warning"><?php echo $this->warning;?></div><?php } ?>
+<?php if(isset($this->warning)) { ?><div id="warning"><?php echo $this->warning;?></div><?php } ?>
 <?php if(!isset($this->warning)) { ?>
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>arsip/rekamArsip">
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">

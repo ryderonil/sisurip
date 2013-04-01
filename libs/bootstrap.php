@@ -30,7 +30,7 @@ class Bootstrap {
         $this->url = explode('/',$url);
         //print_r($url);
         //isset($url[0])?$url[0]:null;        
-        
+        //var_dump($this->url);
         $this->createController();
         $this->loadMethod($this->url);  
                 

@@ -28,6 +28,7 @@ class Login_Controller extends Controller{
         //$password = $_POST['password'];
         $data = $this->model->auth($username, $password);
         foreach($data as $value){
+            $this->user = $value['username'];
             $this->nama = $value['namaPegawai'];
             $this->role = $value['role']; 
             $this->bagian = $value['bagian']; 
@@ -38,7 +39,8 @@ class Login_Controller extends Controller{
         if($int>0){
             @Session::createSession();
             Session::set('loggedin',true);
-            Session::set('user',$this->nama);
+            Session::set('user', $this->user);
+            Session::set('nama',$this->nama);
             Session::set('role',$this->role);
             Session::set('bagian', $this->bagian);
             header('location:../suratmasuk');

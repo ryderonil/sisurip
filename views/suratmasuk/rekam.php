@@ -26,8 +26,9 @@
 		//});
     
 </script>
-<div id="error"><?php echo isset($this->error)?$this->error:'';?></div>
-<div id="success"><?php echo isset($this->success)?$this->success:'';?></div>
+<?php if(isset($this->error)) {?>
+<div id="error"><?php echo $this->error;?></div><?php } ?>
+<?php if(isset($this->success)) {?><div id="success"><?php echo $this->success;?></div><?php }?>
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL; ?>suratmasuk/input">
         
         <label>AGENDA</label><input type="text" name="no_agenda" value="<?php echo @$this->agenda; ?>" readonly></br>

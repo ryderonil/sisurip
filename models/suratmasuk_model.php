@@ -102,26 +102,13 @@ class Suratmasuk_Model extends Model{
         return $this->select("SELECT * FROM ".$table);
     }
     
-    public function rekamdisposisi(){
-        $id_surat = $_POST['id_surat'];
-        $sifat = $_POST['sifat'];
-        $petunjuk = $_POST['petunjuk'];
-        $catatan = $_POST['catatan'];
-        $disposisi = $_POST['disposisi'];
-        $disp = implode(',',$disposisi);
-        $petunjuk = implode(',',$petunjuk);
+    public function rekamdisposisi($data){ 
+        $insert = $this->insert('disposisi', $data);
+        if($insert){
+            return true;
+        }                
+        return false;
         
-        $data = array(
-            'id_surat'=>$id_surat,
-            'sifat'=>$sifat,
-            'disposisi'=>$disp,
-            'petunjuk'=>$petunjuk,
-            'catatan'=>$catatan
-            );
-        
-        $this->insert('disposisi', $data);        
-        $this->distribusi($id_surat, $disposisi);
-        header('location:'.URL.'suratmasuk');
     }
     
     public function distribusi($id, $data){
@@ -131,6 +118,7 @@ class Suratmasuk_Model extends Model{
                 'id_surat'=>$id,
                 'id_bagian'=>$data[$i]
             );
+            //var_dump($dataInsert);
             $this->insert('distribusi', $dataInsert);
         }
     }
