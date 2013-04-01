@@ -61,8 +61,8 @@
                         <?php if(Auth::isRole(Session::get('role'), 1) || Auth::isRole(Session::get('role'), 2) ) { ?>
                         <li><a href="">Monitoring</a>
                             <ul>
-                                <li><a href="">Kinerja Pegawai</a></li>
-                                <li><a href="">Laporan</a></li>
+                                <li><a href="<?php echo URL;?>monitoring/kinerja">Kinerja</a></li>
+                                <li><a href="<?php echo URL;?>monitoring/ikhtisar">Laporan</a></li>
                             </ul>
                         </li>
                         <?php } ?>
