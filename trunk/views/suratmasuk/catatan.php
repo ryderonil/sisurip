@@ -33,10 +33,16 @@ if(isset($this->data)){
 ?>
 
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL; ?>suratmasuk/rekamCatatan">
+        <input type="hidden" name="id_surat" value="<?php echo $this->data[0];?>">
         <input type="hidden" name="id_disp" value="<?php echo $this->datad->id_disposisi;?>">
         <input type="hidden" name="bagian" value="<?php echo $this->bagian;?>">
         <label>KEPADA :</label><select  name="peg" class="required">
-            <option value="1">--PILIH PEGAWAI--</option>
+            <option value="">--PILIH PEGAWAI--</option>
+            <?php 
+                foreach ($this->peg as $val){
+                    echo "<option value=$val[id_user]>$val[namaPegawai]</option>";
+                }
+            ?>
         </select></br>
         <label>PETUNJUK :</label><textarea class="required" name="catatan" rows="10" cols="50"></textarea></br>
         <label></label><input type="submit" name ="submit" value="SIMPAN" >

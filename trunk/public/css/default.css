@@ -56,10 +56,10 @@ div {
 
 #content {
     background: #fff;
-    padding-top: 100px;
+    padding-top: 90px;
     padding-left: 20px;
     padding-right: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 #cwrapper-gradien {
@@ -295,7 +295,7 @@ iframe {
     min-height: 400px;
 }
 
-#error{
+/*#error{
     background: red;
     width:75%;
     border-radius: 4px;
@@ -303,7 +303,7 @@ iframe {
     margin-top: 5px;
     text-align: center;
     font-size: 14px;
-}
+}*/
 
 #success{
     background: greenyellow;
@@ -366,15 +366,15 @@ iframe {
 #notif {
     float: right;
     padding-top: 2px ;
-    padding-left: 7px ;
-    padding-right: 7px ;
+    padding-left: 5px ;
+    padding-right: 5px ;
     padding-bottom: 2px;
 /*    height: 20px;*/
     border-radius: 3px;
-    margin-top: 8px;
-    margin-bottom: 7px;
+    margin-top: 11px;
+    margin-bottom: 10px;
 /*    float: right;*/
-    font: 16px 'arial';
+    font: 10px 'arial';
     font-weight: bold;
     color:white;
     position: relative;
@@ -887,35 +887,35 @@ form input.sb_input {
 }
 
 /*-- info, success, warning, error --*/
-.info, .success, .warning, .error, .validation {
+#info, #success, #warning, #error, #validation {
     border: 1px solid;
     margin: 10px 0px;
     padding:15px 10px 15px 50px;
     background-repeat: no-repeat;
     background-position: 10px center;
 }
-.info {
+#info {
     color: #00529B;
     background-color: #BDE5F8;
     background-image: url('../images/icons/info.png');
 }
-.success {
+#success {
     color: #4F8A10;
     background-color: #DFF2BF;
     background-image:url('../images/icons/success.png');
 }
-.warning {
+#warning {
     color: #9F6000;
     background-color: #FEEFB3;
     background-image: url('../images/icons/warning.png');
 }
-.error {
+#error {
     color: #D8000C;
     background-color: #FFBABA;
     background-image: url('../images/icons/error.png');
 }
 
-.validation {
+#validation {
     color: #D63301;
     background-color: #FFCCBA;
     background-image: url('../images/icons/validation.png');

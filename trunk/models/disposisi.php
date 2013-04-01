@@ -70,7 +70,7 @@ class Disposisi extends Model{
         }
     }
     
-    public function addDisposisi($data){
+    public function addDisposisiKasi($data){
         $this->insert('catatan', $data);
     }
     

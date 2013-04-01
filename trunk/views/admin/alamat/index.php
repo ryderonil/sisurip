@@ -49,7 +49,7 @@
         }else{
             $.post("<?php echo URL;?>helper/cekalamat", {queryString:""+alamat+""},
             function(data){
-                $('#nmsatke').fadeIn();
+                $('#nmsatke').fadeIn(500);
                 $('#nmsatke').html(data);
             });
         }
