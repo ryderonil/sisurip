@@ -51,6 +51,23 @@ class Login_Controller extends Controller{
         }
     }
     
+    public function changeRole($role){        
+        Session::createSession();
+        $user = Session::get('user');
+        $nama = Session::get('nama');        
+        $role = explode("-", $role);
+        
+        Session::destroySession();        
+        Session::createSession();
+        Session::set('loggedin',true);
+        Session::set('user', $user);
+        Session::set('nama',$nama);
+        Session::set('role',$role[0]);
+        Session::set('bagian', $role[1]);        
+        header('location:'.URL.'suratmasuk');
+    }
+
+
     public function logout(){
         //$this->model->logout();
         //Session::unsetAll();

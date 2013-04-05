@@ -13,6 +13,7 @@ class Upload{
     private $fileName;
     private $fileTo;
     private $ubahNama = array();
+    private $fileEkst;
     
     public function __construct($fupload) {
         $this->init($fupload);
@@ -21,10 +22,10 @@ class Upload{
     public function init($fupload){
         $this->setDirFrom($_FILES[$fupload]['tmp_name']);
         $this->setFileExt($_FILES[$fupload]['type']);
-        $this->setFileName($_FILES[$fupload]['name']);
+        $this->setFileName($_FILES[$fupload]['name']);        
         echo $this->getDirFrom();
         echo $this->getFileExt();
-        echo $this->getFileName();
+        echo $this->getFileName();        
     }
     
     public function cekFileExist(){
@@ -36,12 +37,12 @@ class Upload{
     }
     
     public function cekEkstensi($fileExt){
-        $this->setFileExt($fileExt);
+        //$this->setFileExt($fileExt);
         
-        if($this->getFileExt() != __EXT_FILE__){
-            return false;
-        }else{
+        if($fileExt == __EXT_FILE__ OR $fileExt == 'application/msword' OR $fileExt == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
             return true;
+        }else{
+            return false;
         }
     }
     
@@ -59,8 +60,10 @@ class Upload{
         for($i=0;$i<$length;$i++){
             $nama .= $ubahNama[$i]."_";
         }
-               
-        $nama .= $filename;
+        $ekst = end(explode(".", $filename));
+        $nama = rtrim($nama, "_");
+        //$nama .= $filename;
+        $nama .= ".".$ekst;
         $nama = str_replace('/', '_', $nama); 
         $nama = trim($nama);
         $this->fileTo = $nama;
@@ -107,6 +110,10 @@ class Upload{
     
     public function setUbahNama($ubahNama){
         $this->ubahNama = $ubahNama;
+    }
+    
+    public function setFileTo($filename){
+        $this->fileTo = $filename;
     }
     
     public function getDirTo() {return $this->dirTo;}

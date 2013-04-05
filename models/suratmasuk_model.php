@@ -33,7 +33,9 @@ class Suratmasuk_Model extends Model{
                 a.status as status,
                 a.sifat as sifat,
                 a.jenis as jenis,
-                a.lampiran as lampiran 
+                a.lampiran as lampiran,
+                a.start as start,
+                a.end as end
                 FROM suratmasuk a JOIN alamat b 
                 ON a.asal_surat = b.kode_satker
                 ORDER BY id_suratmasuk DESC";

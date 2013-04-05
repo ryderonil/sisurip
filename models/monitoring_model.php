@@ -7,6 +7,9 @@
 date_default_timezone_set("UTC");
 
 class Monitoring_Model extends Model {
+    
+    var $jampulang = '17:00:00';
+    var $jammasuk = '07:30:00';
 
     public function __construct() {
         parent::__construct();
@@ -16,44 +19,88 @@ class Monitoring_Model extends Model {
         $sql = "SELECT no_agenda, tgl_terima, start, end FROM suratmasuk";
         $data = $this->select($sql);
         foreach ($data as $value) {
-            
+            $selisihhari = $this->cekSelisihHari($value['start'], $value['end']);
+            $start = explode(" ", $value['start']);
+            $start = trim($start[1]);
+            $end = explode(" ", $value['end']);
+            $end = trim($end[1]);
+            if($selisihhari>0){                
+                $hari1 = $this->cekSelisihJam($this->jampulang,$start);                
+                $hari2 = $this->cekSelisihJam($end,$this->jammasuk);
+                $selisihjam = $hari1+$hari2;                
+            }else{
+                $selisihjam = $this->cekSelisihJam($end,$start);
+            }
+            $kinerja = ceil(($selisihjam/4)*100);
         }
     }
 
-    private function selisihJam($start, $end) {
-        $cekhari = $this->cekSelisihHari($start, $end);
+    public function selisihJam($end, $start) {
+        $time1 = explode(":", $end);
+        $jam1 = $time1[0];
+        $min1 = $time1[1];
+        $sec1 = $time1[2];
+        $time2 = explode(":", $start);
+        $jam2 = $time2[0];
+        $min2 = $time2[1];
+        $sec2 = $time2[2];
+        //dst tidur dulu :D ------------ NGANTUK PAKDE, CAPEK JUGA
+        
+        $data1 = mktime($jam1, $min1, $sec1);
+        $data2 = mktime($jam2, $min2, $sec2);
+        $hasil = $data1-$data2;
+        
+        return $hasil/3600;
+        
     }
 
     /*
      * menghasilkan nilai selisih hari pertama dan kedua
      */
 
-    private function cekSelisihHari($start, $end) {
-        $hari1 = explode(" ", $start);
+    public function cekSelisihHari($start, $end) {
+        $hari1 = explode(" ", $start); //memisahkan date dengan time
         $tgl1 = $hari1[0];
-        $tgl1 = explode("-", $tgl1);
+        $tgl1 = explode("-", $tgl1);//memisahkan tahun, bulan dan tanggal
 
         $hari2 = explode(" ", $end);
         $tgl2 = $hari2[0];
         $tgl2 = explode("-", $tgl2);
-        if (($tgl2[0] - $tgl1[0]) == 0) {
-            if (($tgl2[1] - $tgl1[1]) == 0) {
-                if (($tgl2[2] - $tgl1[2]) == 0) {
+        if (((int)$tgl2[0] - (int)$tgl1[0]) == 0) {
+            if (((int)$tgl2[1] - (int)$tgl1[1]) == 0) {
+                if (((int)$tgl2[2] - (int)$tgl1[2]) == 0) {
                     return 0;
                 } else {
-                    return $tgl2[2] - $tgl1[2];
+                    return (int)$tgl2[2] - (int)$tgl1[2];
                 }
-            } else {
-                //cari fungsi mendapatkan tgl maksimal pada bulan t3
-                $temp = 30 - $tgl1[2];
-                return $temp + $tgl2[2];
+            } else { 
+                if(((int)$tgl2[1]-(int)$tgl1[1])>0){
+                    $num = cal_days_in_month(CAL_GREGORIAN, $tgl1[1], $tgl1[0]);
+                   
+                    for($i=1; $i<((int)$tgl2[1]-(int)$tgl1[1]);$i++){
+                        
+                        $num += cal_days_in_month(CAL_GREGORIAN, (int)$tgl1[1]+1, $tgl1[0]);
+                        
+                    }
+                    
+                }                
+                $temp = $num - (int)$tgl1[2];
+                return $temp + (int)$tgl2[2];
             }
         } else {
-            $temp = 30 - $tgl1[2];
-            return $temp + $tgl2[2];
+            $num = cal_days_in_month(CAL_GREGORIAN, $tgl1[1], $tgl1[0]);
+            echo $num;
+            $temp = $num - (int)$tgl1[2];
+            return $temp + (int)$tgl2[2];
         }
 
         return 0;
+    }
+    
+    public function cekSelisihJam(){
+        $hari1 = explode(" ", $start); //memisahkan date dengan time
+        $tgl1 = $hari1[0];
+        $tgl1 = explode("-", $tgl1);//memisahkan tahun, bulan dan tanggal
     }
 
     // Set timezone
@@ -124,7 +171,7 @@ class Monitoring_Model extends Model {
 }
 
 /*
- * tes aja
+ * tes aja======================================================
  */
 
 $tgl1 = "2009-10-01";  // 1 Oktober 2009
@@ -154,5 +201,5 @@ $jd2 = GregorianToJD($month2, $date2, $year2);
 
 $selisih = $jd2 - $jd1;
 
-echo "Selisih kedua tanggal adalah " . $selisih . " hari";
+//echo "Selisih kedua tanggal adalah " . $selisih . " hari";
 ?>

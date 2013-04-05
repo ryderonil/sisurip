@@ -67,6 +67,15 @@ class Cari_Controller extends Controller {
                 echo "<tr><td>$val[0]</td><td>".Tanggal::tgl_indo($val[1])."</td><td>$val[2]</td><td>$val[3]</td></tr>";
             }
             echo "</table>";
+        }else if($this->model->filter="nosuratmasuk"){
+            $hasil = $this->model->findNoSuratMasuk($this->model->keyword);
+            $count = count($hasil);
+            $pesan = "Ditemukan : $count hasil pencarian dengan kata kunci ".$this->model->keyword;
+            echo "<table class=CSSTableGenerator><tr><td colspan=4 halign=left>$pesan</td></tr>";
+            foreach ($hasil as $val) {
+                echo "<tr><td>$val[0]</td><td>".Tanggal::tgl_indo($val[1])."</td><td>$val[2]</td><td>$val[3]</td></tr>";
+            }
+            echo "</table>";
         }
     }
 
