@@ -80,8 +80,19 @@ class Suratkeluar_Model extends Model {
          * ntar hapus juga menghapus semua hal yg 
          * berhubungan dengan surat ini, termasuk lampiran dsb
          */
-        $this->delete('suratmasuk', $where);
+        $this->delete('suratkeluar', $where);
     }
+    
+    public function uploadFile($data,$where){
+    
+        $this->update('suratkeluar', $data, $where);
+    }
+    
+    public function addRevisi($data){
+        $this->insert('revisisurat', $data);
+    }
+    
+    
 
 }
 

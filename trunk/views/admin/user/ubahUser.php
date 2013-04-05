@@ -44,7 +44,8 @@
             }
         ?>
     </select></br>   
-    <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamUser'"value="BATAL" ><input type="submit" name="submit" value="SIMPAN" onclick="return selesai();">
+    <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamUser'" value="BATAL" ><input type="submit" name="submit" value="SIMPAN" onclick="return selesai();">
+                    <input type="button" onclick="location.href='<?php echo URL;?>admin/rekamPjs/<?php echo $this->data[1];?>'" value="REKAM PJS">
 </form></div>
 </br>
 <hr>

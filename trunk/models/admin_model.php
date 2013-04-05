@@ -157,5 +157,50 @@ class Admin_Model extends Model{
     public function updateAlamatSurat($data,$where){
         $this->update('alamat', $data, $where);
     }
+    
+    public function getBagianLain($user){
+        $sql = "SELECT id_bagian, bagian FROM r_bagian WHERE id_bagian <> (SELECT bagian FROM user WHERE username='".$user."')";
+        //echo $sql;
+        return $this->select($sql);
+    }
+    
+    public function getJabatan(){
+        $sql = "SELECT id_jabatan, nama_jabatan FROM jabatan";
+        return $this->select($sql);
+    }
+    
+    public function getRole(){
+        $sql = "SELECT id_role, role FROM role";
+        return $this->select($sql);
+    }
+    
+    public function cekPejabatLama($bagian, $jabatan){
+        
+        $sql = "SELECT * FROM user WHERE bagian=$bagian AND jabatan=$jabatan AND active='Y'";
+        $data = count($this->select($sql));
+        if($data>0){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+    
+    public function rekamPjs($data){
+        $this->insert('pjs', $data);        
+    }
+    
+    public function getPjs(){
+        $sql = "SELECT a.id_pjs as id_pjs, 
+            b.namaPegawai as user, 
+            c.bagian as bagian, 
+            d.role as jabatan
+            FROM pjs a JOIN user b ON a.user = b.username
+            JOIN r_bagian c ON a.bagian = c.id_bagian 
+            JOIN role d ON a.jabatan = d.id_role";
+        
+        return $this->select($sql);
+    }   
+   
 }
 ?>

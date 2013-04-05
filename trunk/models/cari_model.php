@@ -80,6 +80,21 @@ class Cari_Model extends Model{
         
     }
     
+    public function findNoSuratMasuk($keyword){
+        $sql = "SELECT id_suratmasuk, tgl_surat, no_surat, perihal, file FROM suratmasuk WHERE no_surat LIKE '%$keyword%'";
+        $data = $this->select($sql);
+        $result = array();
+        $int = 0;
+        foreach ($data as $val){
+            $result[$int][0] = $val['id_suratmasuk'];
+            $result[$int][1] = $val['tgl_surat'];
+            $result[$int][2] = $val['no_surat'];
+            $result[$int][3] = $val['perihal'];
+            $int++;
+        }
+        return $result;
+    }
+    
     
 }
 ?>

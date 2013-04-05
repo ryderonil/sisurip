@@ -111,6 +111,8 @@ class Suratmasuk_Controller extends Controller {
             }
             $notif->set('id_surat',$this->model->lastIdInsert());
             $notif->set('jenis_surat','SM');
+            $notif->set('role',1);
+            $notif->set('bagian',1);
             $notif->set('stat_notif',1);
             //$data1 =array(
                 //'id_surat'=>$id_surat,
@@ -146,7 +148,14 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function detil($id) {
-        $this->view->dataSurat = $this->model->getSuratMasukById($id);
+        $agenda = substr($id, 0, 1);
+        
+        if($agenda != 'S'){
+            $this->view->dataSurat = $this->model->getSuratMasukById($id);
+        }else{
+            $sql = "SELECT * FROM suratmasuk WHERE no_agenda='".$id."'";            
+            $this->view->dataSurat = $this->model->select($sql);
+        }        
         foreach ($this->view->dataSurat as $key => $value) {
             $this->view->data[0] = $value['id_suratmasuk'];
             $this->view->data[1] = $value['no_agenda'];
@@ -157,6 +166,7 @@ class Suratmasuk_Controller extends Controller {
             $this->view->data[6] = $value['perihal'];
             $this->view->data[7] = $value['file'];
         }
+        //var_dump($this->view->dataSurat);
         $lamp = new Lampiran_Model();
         $this->view->lampiran = $lamp->getLampiranSurat($this->view->data[0]);
         $this->view->count = count($this->view->lampiran);
@@ -310,7 +320,9 @@ class Suratmasuk_Controller extends Controller {
                     //var_dump($data1);
                     foreach($data1 as $value1){
                         $id_user = $value1['id_user'];                        
-                        $notif->set('id_user', $id_user);                        
+                        $notif->set('id_user', $id_user);
+                        $notif->set('role', 2);
+                        $notif->set('bagian', $id_bagian);
                         $notif->addNotifikasi(); //notifikasi kasi
                     }
                 }

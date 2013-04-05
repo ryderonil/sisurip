@@ -235,6 +235,77 @@ class Admin_Controller extends Controller {
         $this->view->render('admin/user/ubahUser');
     }
 
+    public function rekamPjs($user){
+        $this->view->user = $user;
+        //var_dump($user);
+        $this->view->bagian = $this->model->getBagianLain($user);
+        //var_dump($this->view->bagian);
+        $this->view->role = $this->model->getRole();
+        //var_dump($this->view->jabatan);
+        $this->view->pjs = $this->model->getPjs();
+        $dnama = $this->model->select("SELECT namaPegawai, NIP FROM user WHERE username='".$user."'");
+        $this->view->nama = '';
+        foreach ($dnama as $val){
+            $this->view->nama .= $val['namaPegawai'].'/'.$val['NIP'];
+        }
+        $this->view->render('admin/user/pjs');
+    }
+    
+    public function inputRekamPjs(){
+        $bagian = $_POST['bagian'];
+        $jabatan = $_POST['jabatan'];
+        $user = $_POST['id'];
+        $this->view->user = $user;         
+        $this->view->bagian = $this->model->getBagianLain($user);           
+        $this->view->role = $this->model->getRole();        
+        if($this->model->cekPejabatLama($bagian, $jabatan)){
+            $this->view->warning = "Pejabat lama masih aktif, nonaktifkan terlebih dahulu!";         
+        }else{
+            $data = array(
+                'user'=>$user,
+                'bagian'=>$bagian,
+                'jabatan'=>$jabatan
+            );
+            
+            $this->model->rekamPjs($data);
+            $this->view->success = "Input data pejabat sementara berhasil!";     
+        }
+        $this->view->pjs = $this->model->getPjs();
+        //var_dump($this->view->pjs);
+        $dnama = $this->model->select("SELECT namaPegawai, NIP FROM user WHERE username='".$user."'");
+        $this->view->nama = '';
+        foreach ($dnama as $val){
+            $this->view->nama .= $val['namaPegawai'].'/'.$val['NIP'];
+        }
+        $this->view->render('admin/user/pjs');
+            
+    
+    }
+    
+    public function hapuspjs($id){
+        $where = ' id_pjs='.$id;
+        $duser = $this->model->select("SELECT user FROM pjs WHERE id_pjs=".$id);
+        $user = '';
+        foreach ($duser as $val){
+            $user = $val['user'];
+        }
+        $this->model->delete('pjs',$where);
+        $this->view->success = "Hapus data pejabat sementara berhasil!";
+        
+        $this->view->user = $user;         
+        $this->view->bagian = $this->model->getBagianLain($user);           
+        $this->view->role = $this->model->getRole();
+        $this->view->pjs = $this->model->getPjs();
+        $dnama = $this->model->select("SELECT namaPegawai, NIP FROM user WHERE username='".$user."'");
+        $this->view->nama = '';
+        foreach ($dnama as $val){
+            $this->view->nama .= $val['namaPegawai'].'/'.$val['NIP'];
+        }
+        $this->view->render('admin/user/pjs');
+        //header('location:'.URL.'admin/rekamUser');
+    }
+
+
     public function inputRekamKantor() {
         $data = array(
             //'ba'=>$_POST['ba'],

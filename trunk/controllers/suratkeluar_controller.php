@@ -76,27 +76,49 @@ class Suratkeluar_Controller extends Controller {
     }
 
     public function input() {
-
+        $upload = new Upload('upload');
         $data = array(
             'rujukan' => $_POST['rujukan'],
             'no_surat' => $_POST['nomor'],
+            'tipe' => $_POST['tipe'],
             'tgl_surat' => Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
-            'tujuan' => substr($_POST['tujuan'],0,6),
+            'tujuan' => substr($_POST['tujuan'], 0, 6),
             'perihal' => $_POST['perihal'],
             'sifat' => $_POST['sifat'],
             'jenis' => $_POST['jenis'],
             'lampiran' => $_POST['lampiran'],
-            'file' => $_POST['upload'], //belum ditangani
-            'status' => '1'
+            'status' => '21'
         );
-        
-        //var_dump($data);
+
+        //var_dump($data);       
+        //upload file surat, sementara di temp folder krn belom dapat nomor
         $this->model->rekamSurat($data);
+        $upload->setDirTo('arsip/temp/');
+        $tipe = 'K';
+        $satker = substr($_POST['tujuan'], 0, 6);
+        $id = 0;
+        $sql = "SELECT MAX(id_suratkeluar) as id FROM suratkeluar";
+        $did = $this->model->select($sql);
+        foreach ($did as $valid) {
+            $id = $valid['id'];
+        }
+        //nama baru akan terdiri dari tipe naskah_nomor surat_asal(asal/tetapi asal terlaku kepanjangan)
+        $ubahNama = array($tipe, $id, $satker);
+        $upload->setUbahNama($ubahNama);
+        $upload->changeFileName($upload->getFileName(), $ubahNama);
+        $namafile = $upload->getFileTo();
+        $where = ' id_suratkeluar=' . $id;
+
+        $data = array(
+            'file' => $namafile
+        );
+        $upload->uploadFile();
+        $this->model->uploadFile($data, $where);
     }
-    
-    public function detil($id){
-        $data = $this->model->getSuratKeluarById($id,'detil');
-        foreach($data as $value){
+
+    public function detil($id) {
+        $data = $this->model->getSuratKeluarById($id, 'detil');
+        foreach ($data as $value) {
             $this->view->id = $value['id_suratkeluar'];
             $this->view->rujukan = $value['rujukan'];
             $this->view->tipe = $value['tipe'];
@@ -110,11 +132,11 @@ class Suratkeluar_Controller extends Controller {
             $this->view->file = $value['file'];
             $this->view->status = $value['status'];
         }
-        $this->view->count=0;
-        
+        $this->view->count = 0;
+
         $this->view->render('suratkeluar/detilsurat');
     }
-    
+
     public function edit($id_sk = null, $ids = null) {
         if (!is_null($id_sk)) {
 //cek id_sm jika panjang=5 maka kode satker
@@ -130,7 +152,7 @@ class Suratkeluar_Controller extends Controller {
                 }
                 //echo $this->view->alamat;
                 if (!is_null($ids)) {
-                    $this->view->data = $this->model->getSuratKeluarById($ids,'ubah');
+                    $this->view->data = $this->model->getSuratKeluarById($ids, 'ubah');
                     $this->view->sifat = $this->model->get('sifat_surat');
                     $this->view->jenis = $this->model->get('klasifikasi_surat');
                     $this->view->tipe = $this->model->select('SELECT * FROM tipe_naskah');
@@ -139,15 +161,15 @@ class Suratkeluar_Controller extends Controller {
             } else {
 
 
-                $this->view->data = $this->model->getSuratKeluarById($id_sk,'ubah');
-                $this->view->sifat=$this->model->get('sifat_surat');
-                $this->view->jenis=$this->model->get('klasifikasi_surat');
+                $this->view->data = $this->model->getSuratKeluarById($id_sk, 'ubah');
+                $this->view->sifat = $this->model->get('sifat_surat');
+                $this->view->jenis = $this->model->get('klasifikasi_surat');
                 $this->view->tipe = $this->model->select('SELECT * FROM tipe_naskah');
                 //var_dump($this->view->jenis);
             }
         }
-        
-        foreach ($this->view->data as $value){
+
+        foreach ($this->view->data as $value) {
             $this->view->id = $value['id_suratkeluar'];
             $this->view->tipe1 = $value['tipe'];
             $this->view->no_surat = $value['no_surat'];
@@ -159,38 +181,91 @@ class Suratkeluar_Controller extends Controller {
             $this->view->lampiran = $value['lampiran'];
             //$this->view->file = $value['file'];            
         }
-        /** **/
+        /**         * */
         //$this->view->data = $this->model->getSuratMasukById($ids);
         $this->view->render('suratkeluar/ubah');
     }
-    
-    public function editSurat(){
-        $temp = explode(' ',$_POST['tujuan']);
+
+    public function editSurat() {
+        $temp = explode(' ', $_POST['tujuan']);
         $tujuan = $temp[0];
         $data = array(
-            "tipe"=>$_POST['tipe'],
-            "tgl_surat"=>  Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
-            "no_surat"=>$_POST['nomor'],
-            "tujuan"=>$tujuan,
-            "perihal"=>$_POST['perihal'],
-            "sifat"=>$_POST['sifat'],
-            "jenis"=>$_POST['jenis'],
-            "lampiran"=>$_POST['lampiran']
+            "tipe" => $_POST['tipe'],
+            "tgl_surat" => Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
+            "no_surat" => $_POST['nomor'],
+            "tujuan" => $tujuan,
+            "perihal" => $_POST['perihal'],
+            "sifat" => $_POST['sifat'],
+            "jenis" => $_POST['jenis'],
+            "lampiran" => $_POST['lampiran']
         );
-        
+
         $id = $_POST['id'];
-        $where = "id_suratkeluar = '".$id."'";
+        $where = "id_suratkeluar = '" . $id . "'";
         //var_dump($data);
         //var_dump($where);
         //echo $where;
         $this->model->editSurat($data, $where);
-        header('location:'.URL.'suratkeluar');
+        header('location:' . URL . 'suratkeluar');
+    }
+
+    public function remove($id) {
+        $where = ' id_suratkeluar=' . $id;
+        $this->model->remove($where);
+    }
+
+    public function download($id) {
+        // membaca informasi file dari tabel berdasarkan id nya        
+        $datas = $this->model->getSuratKeluarById($id, 'ubah');
+        foreach ($datas as $data) {
+            // header yang menunjukkan nama file yang akan didownload
+            header("Content-Disposition: attachment; filename=" . $data['file']);
+
+            //header("Content-length: " . $data['size']);
+            //header("Content-type: " . $data['type']);
+            // proses membaca isi file yang akan didownload dari folder 'data'
+            $fp = fopen("arsip/temp/" . $data['file'], 'r');
+            $content = fread($fp, filesize('arsip/temp/' . $data['file']));
+            fclose($fp);
+
+            // menampilkan isi file yang akan didownload
+            echo $content;
+        }
+        exit;
+    }
+    
+    public function rekamrev($id){
+        
+        $this->view->data = $this->model->getSuratKeluarById($id, 'detil');
+        
+        $this->view->render('suratkeluar/revisi');
         
     }
     
-    public function remove($id){
-        $where = ' id_suratkeluar='.$id;
-        $this->model->remove($where);
+    public function uploadrev(){
+        $id = $_POST['id'];
+        $catatan = $_POST['catatan'];
+        $user = $_POST['user'];
+        $time = date('Y-m-d H:i:s');
+        $data = array(
+            'id_surat'=>$id,
+            'catatan'=>$catatan,
+            'user'=>$user,
+            'time'=>$time
+        );
+        
+        $this->model->addRevisi($data);
+        $filename ='';
+        $datas = $this->model->getSuratKeluarById($id, 'detil');
+        foreach ($datas as $val){
+            $filename = $val['file'];
+        }
+        $upload = new Upload('upload');
+        
+        $upload->setDirTo('arsip/temp/');
+        $upload->setFileTo($filename);        
+        $upload->uploadFile();
+        
     }
 
 }
