@@ -40,14 +40,18 @@ class Monitoring_Controller extends Controller {
     public function kinerjaSuratMasuk() {
 
         $q = $_POST['queryString'];
+        //echo $q;
         if ($q != '') {
             $param = explode(",", $q);
-            if (!is_null($param[1])) {
+            //var_dump($param);
+            if (!is_null($param[0]) AND isset($param[1])) {
                 $sql = "SELECT * FROM suratmasuk WHERE MONTH(tgl_terima)='" . $param[0] . "' AND DATE(tgl_terima)='" . $param[1] . "'";
                 $data = $this->model->kinerjaSMHari($sql);
             } else if (!is_null($param[0])) {
-                $sql = "SELECT * FROM suratmasuk WHERE MONTH(tgl_terima)='" . $param[0] . "'";
-                $data = $this->model->kinerjaSMBulan($sql);
+                $sql = "SELECT no_agenda, MONTH(tgl_terima) as bulan, start, end FROM suratmasuk ";
+                //echo $sql;
+                $arraydata = $this->model->kinerjaSMBulan($sql);
+                //var_dump($arraydata);
             }
         } else {
             $surat = new Suratmasuk_Model();
@@ -79,8 +83,9 @@ class Monitoring_Controller extends Controller {
         }
 
         $max = max($arraydata);
+        $masa = 'Bulan : Maret 2013';
         echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Masuk</font></h2>";
-        echo "<h3 align=center>Bulan : Maret 2013</h3>";
+        echo "<h3 align=center>$masa</h3>";
         echo "</br><div id=chart-wrapper><table>";
         echo "<tr><td><font color=black><b>agenda</b></font></td><td></td><td></td></tr>";
         foreach ($arraydata as $key => $value) {

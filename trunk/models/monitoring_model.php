@@ -7,7 +7,7 @@
 date_default_timezone_set("UTC");
 
 class Monitoring_Model extends Model {
-    
+
     var $jampulang = '17:00:00';
     var $jammasuk = '07:30:00';
 
@@ -24,15 +24,68 @@ class Monitoring_Model extends Model {
             $start = trim($start[1]);
             $end = explode(" ", $value['end']);
             $end = trim($end[1]);
-            if($selisihhari>0){                
-                $hari1 = $this->cekSelisihJam($this->jampulang,$start);                
-                $hari2 = $this->cekSelisihJam($end,$this->jammasuk);
-                $selisihjam = $hari1+$hari2;                
-            }else{
-                $selisihjam = $this->cekSelisihJam($end,$start);
+            if ($selisihhari > 0) {
+                $hari1 = $this->cekSelisihJam($this->jampulang, $start);
+                $hari2 = $this->cekSelisihJam($end, $this->jammasuk);
+                $selisihjam = $hari1 + $hari2;
+            } else {
+                $selisihjam = $this->cekSelisihJam($end, $start);
             }
-            $kinerja = ceil(($selisihjam/4)*100);
+            $kinerja = ceil(($selisihjam / 4) * 100);
         }
+    }
+    
+    /*
+     * masih kebalik, method di bawah seharusnya melihat pertanggal, bukan perbulan
+     */
+    public function kinerjaSMBulan($sql) {
+        $data = $this->select($sql);
+        //var_dump($data);
+        $arraydata = array();
+        $krj = array();
+        $count = 1;
+        $bulan = '';
+        foreach ($data as $value) {
+            $tgl1 = $value['start'];
+            $tgl2 = $value['end'];
+            $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
+            $start = explode(" ", $value['start']);
+            $start = trim($start[1]);
+            $end = explode(" ", $value['end']);
+            $end = trim($end[1]);
+            if ($selisihhari > 0) {
+                $hari1 = $this->selisihJam($this->jampulang, $start);
+                $hari2 = $this->selisihJam($end, $this->jammasuk);
+                $selisihjam = $hari1 + $hari2;
+            } else {
+                $selisihjam = $this->selisihJam($end, $start);
+            }            
+            $kinerja = ceil(($selisihjam / 4) * 100);
+            //echo $kinerja."*</br>";
+            if($value['bulan']==$bulan AND $count>1){             
+                $krj[] = $kinerja;                
+                $sum = array_sum($krj)/($count); 
+                $arraydata[$value['bulan']] = $sum;                
+                $count++;
+            }else if($value['bulan']!=$bulan AND $count>1){              
+                $krj = null;                
+                $krj = array();
+                $krj[] = $kinerja;
+                $count = 1;
+                $sum = array_sum($krj)/($count); 
+                $arraydata[$value['bulan']] = $sum;                          
+            }else if($count==1){                
+                $krj[] = $kinerja;
+                $sum = array_sum($krj)/($count); 
+                $arraydata[$value['bulan']] = $sum;                
+                $count++;
+            }
+            //var_dump($krj);
+            //var_dump($count);           
+            
+            $bulan = $value['bulan'];            
+        }
+        return $arraydata;
     }
 
     public function selisihJam($end, $start) {
@@ -45,13 +98,12 @@ class Monitoring_Model extends Model {
         $min2 = $time2[1];
         $sec2 = $time2[2];
         //dst tidur dulu :D ------------ NGANTUK PAKDE, CAPEK JUGA
-        
+
         $data1 = mktime($jam1, $min1, $sec1);
         $data2 = mktime($jam2, $min2, $sec2);
-        $hasil = $data1-$data2;
-        
-        return $hasil/3600;
-        
+        $hasil = $data1 - $data2;
+
+        return $hasil / 3600;
     }
 
     /*
@@ -61,46 +113,44 @@ class Monitoring_Model extends Model {
     public function cekSelisihHari($start, $end) {
         $hari1 = explode(" ", $start); //memisahkan date dengan time
         $tgl1 = $hari1[0];
-        $tgl1 = explode("-", $tgl1);//memisahkan tahun, bulan dan tanggal
+        $tgl1 = explode("-", $tgl1); //memisahkan tahun, bulan dan tanggal
 
         $hari2 = explode(" ", $end);
         $tgl2 = $hari2[0];
         $tgl2 = explode("-", $tgl2);
-        if (((int)$tgl2[0] - (int)$tgl1[0]) == 0) {
-            if (((int)$tgl2[1] - (int)$tgl1[1]) == 0) {
-                if (((int)$tgl2[2] - (int)$tgl1[2]) == 0) {
+        if (((int) $tgl2[0] - (int) $tgl1[0]) == 0) {
+            if (((int) $tgl2[1] - (int) $tgl1[1]) == 0) {
+                if (((int) $tgl2[2] - (int) $tgl1[2]) == 0) {
                     return 0;
                 } else {
-                    return (int)$tgl2[2] - (int)$tgl1[2];
+                    return (int) $tgl2[2] - (int) $tgl1[2];
                 }
-            } else { 
-                if(((int)$tgl2[1]-(int)$tgl1[1])>0){
+            } else {
+                if (((int) $tgl2[1] - (int) $tgl1[1]) > 0) {
                     $num = cal_days_in_month(CAL_GREGORIAN, $tgl1[1], $tgl1[0]);
-                   
-                    for($i=1; $i<((int)$tgl2[1]-(int)$tgl1[1]);$i++){
-                        
-                        $num += cal_days_in_month(CAL_GREGORIAN, (int)$tgl1[1]+1, $tgl1[0]);
-                        
+
+                    for ($i = 1; $i < ((int) $tgl2[1] - (int) $tgl1[1]); $i++) {
+
+                        $num += cal_days_in_month(CAL_GREGORIAN, (int) $tgl1[1] + 1, $tgl1[0]);
                     }
-                    
-                }                
-                $temp = $num - (int)$tgl1[2];
-                return $temp + (int)$tgl2[2];
+                }
+                $temp = $num - (int) $tgl1[2];
+                return $temp + (int) $tgl2[2];
             }
         } else {
             $num = cal_days_in_month(CAL_GREGORIAN, $tgl1[1], $tgl1[0]);
             echo $num;
-            $temp = $num - (int)$tgl1[2];
-            return $temp + (int)$tgl2[2];
+            $temp = $num - (int) $tgl1[2];
+            return $temp + (int) $tgl2[2];
         }
 
         return 0;
     }
-    
-    public function cekSelisihJam(){
+
+    public function cekSelisihJam() {
         $hari1 = explode(" ", $start); //memisahkan date dengan time
         $tgl1 = $hari1[0];
-        $tgl1 = explode("-", $tgl1);//memisahkan tahun, bulan dan tanggal
+        $tgl1 = explode("-", $tgl1); //memisahkan tahun, bulan dan tanggal
     }
 
     // Set timezone
