@@ -1,4 +1,4 @@
-<div><input type="button" onclick="srmasuk();" value="SURAT MASUK">
+<div><input type="button" onclick="srmasukbulan();" value="SURAT MASUK">
     <input type="button" onclick="srkeluar();" value="SURAT KELUAR"></div>
 </br>
 <hr>
@@ -16,7 +16,7 @@ function srmasuk(val){
 }
 
 function srmasukbulan(val){
-    $.post("<?php echo URL;?>monitoring/kinerjaSuratMasuk", {queryString:""+val+""},
+    $.post("<?php echo URL;?>monitoring/kinerjaSuratMasuk", {queryString:"03"},
             function(data){
                 $('#report').fadeIn(500);
                 $('#report').html(data);
