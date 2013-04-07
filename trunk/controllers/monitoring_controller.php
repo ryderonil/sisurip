@@ -37,67 +37,138 @@ class Monitoring_Controller extends Controller {
         $this->view->render('monitoring/ikhtisar');
     }
 
-    public function kinerjaSuratMasuk() {
+    public function kinerjaSMTahun() {
 
         $q = $_POST['queryString'];
         //echo $q;
-        if ($q != '') {
-            $param = explode(",", $q);
-            //var_dump($param);
-            if (!is_null($param[0]) AND isset($param[1])) {
-                $sql = "SELECT * FROM suratmasuk WHERE MONTH(tgl_terima)='" . $param[0] . "' AND DATE(tgl_terima)='" . $param[1] . "'";
-                $data = $this->model->kinerjaSMHari($sql);
-            } else if (!is_null($param[0])) {
-                $sql = "SELECT no_agenda, MONTH(tgl_terima) as bulan, start, end FROM suratmasuk ";
-                //echo $sql;
-                $arraydata = $this->model->kinerjaSMBulan($sql);
-                //var_dump($arraydata);
-            }
-        } else {
-            $surat = new Suratmasuk_Model();
-            $data = $surat->showAll();
-
-            $arraydata = array();
-            foreach ($data as $value) {
-
-                $tgl1 = $value['start'];
-                $tgl2 = $value['end'];
-                $selisihhari = $this->model->cekSelisihHari($tgl1, $tgl2);
-                $start = explode(" ", $value['start']);
-                $start = trim($start[1]);
-                $end = explode(" ", $value['end']);
-                $end = trim($end[1]);
-                if ($selisihhari > 0) {
-                    $hari1 = $this->model->selisihJam($this->model->jampulang, $start);
-                    $hari2 = $this->model->selisihJam($end, $this->model->jammasuk);
-                    $selisihjam = $hari1 + $hari2;
-                } else {
-                    $selisihjam = $this->model->selisihJam($end, $start);
-                }
-
-                $kinerja = ceil(($selisihjam / 4) * 100);
-                $arraydata[$value['no_agenda']] = $kinerja;
-            }
-
-            //var_dump($arraydata);
-        }
+        
+            
+        $year = DATE('Y');
+        $sql = "SELECT no_agenda, MONTH(tgl_terima) as bulan, start, end FROM suratmasuk WHERE YEAR(tgl_terima)='".$year."'";
+        //echo $sql;
+        $arraydata = $this->model->kinerjaSMTahun($sql);
+        //var_dump($arraydata);
+        $masa = "TAHUN ".$year;
+            
+        
 
         $max = max($arraydata);
-        $masa = 'Bulan : Maret 2013';
+        //$masa = 'Bulan : Maret 2013';
+        echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Masuk</font></h2>";
+        echo "<h3 align=center>$masa</h3>";
+        echo "</br><div id=chart-wrapper><table>";
+        echo "<tr><td><font color=black><b>bulan</b></font></td><td></td><td></td></tr>";
+        foreach ($arraydata as $key => $value) {
+            //echo $key;
+            $bulan = Tanggal::bulan_indo($key);
+            echo "<tr><td width=10%><font color=grey>$bulan</font></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+            echo "<td width=50%><div class='progress'>";
+            $val = round(($value / $max) * 100, 0);
+            if ($value > 100) {
+                echo "<a href=#><div class='bar bar-danger' style='width:$val%;' onclick='srmasukbulan(".$key.");'></div></a>";
+            } else if ($value < 50) {
+                echo "<a href=#><div class='bar bar-success' style='width:$val%;' onclick='srmasukbulan(".$key.");'></div></a>";
+            } else {
+                echo "<a href=#><div class='bar' style='width:$val%;' onclick='srmasukbulan(".$key.");'></div></a>";
+            }
+
+            echo "</td><td>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
+        }
+        echo "</table></div></div>";
+    }
+    
+    public function kinerjaSMBulan(){
+        $q = $_POST['queryString'];
+        //echo $q;
+        $bulan = substr($q, 0,1);
+        if($bulan=='1'){
+            $cek = substr($q,1, 1);
+            if(is_int($cek)){            
+                $bulan .= substr($q, 1,1);
+            }            
+        }
+        //echo $bulan;
+        $year = date('Y');
+        $sql = "SELECT no_agenda, DATE(tgl_terima) as tanggal, start, end FROM suratmasuk WHERE MONTH(tgl_terima)='".$q."' AND YEAR(tgl_terima)='".$year."'";
+        //echo $sql;
+        $arraydata = $this->model->kinerjaSMBulan($sql);
+        //var_dump($arraydata);
+        $bulan = Tanggal::bulan_indo($bulan);
+        $masa = "BULAN ".strtoupper($bulan)." TAHUN ".$year;
+            
+        
+
+        $max = max($arraydata);
+        //$masa = 'Bulan : Maret 2013';
+        echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Masuk</font></h2>";
+        echo "<h3 align=center>$masa</h3>";
+        echo "</br><div id=chart-wrapper><table>";
+        echo "<tr><td><font color=black><b>tanggal</b></font></td><td></td><td></td></tr>";
+        foreach ($arraydata as $key => $value) {
+            //echo $key;
+            //$param=  explode("-", $key);
+            //var_dump($param);
+            $js = str_replace("-", "", $key);
+            //$js = $param[2]."-".$param[1];
+            //var_dump($js);
+            $tanggal = Tanggal::tgl_indo($key);
+            echo "<tr><td width=15%><font color=grey>$tanggal</font></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+            echo "<td width=50%><div class='progress'>";
+            $val = round(($value / $max) * 100, 0);
+            if ($value > 100) {
+                echo "<a href=#><div class='bar bar-danger' style='width:$val%;' onclick='srmasuk(".$js.");'></div></a>";
+            } else if ($value < 50) {
+                echo "<a href=#><div class='bar bar-success' style='width:$val%;' onclick='srmasuk(".$js.");'></div></a>";
+            } else {
+                echo "<a href=#><div class='bar' style='width:$val%;' onclick='srmasukhari(".$js.");'></div></a>";
+            }
+
+            echo "</td><td>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
+        }
+        echo "</table></div></div>";
+        
+    }
+    
+    public function kinerjaSMHari(){
+        $q = $_POST['tanggal'];
+        //echo $q;
+        $tgl=  substr($q, 6,2);
+        //var_dump($tgl);
+        $bln = substr($q, 4,2);
+        //var_dump($bln);
+        //bulan=;
+        //var_dump($param);
+        $year = substr($q, 0,4);
+        //var_dump($year);
+        $tgl = $year."-".$bln."-".$tgl;
+        //var_dump($tgl);
+        
+        $sql = "SELECT no_agenda, start, end FROM suratmasuk WHERE tgl_terima='".$tgl."'";
+        //echo $sql;
+        $arraydata = $this->model->kinerjaSMHari($sql);
+        //var_dump($arraydata);
+        //$bulan = Tanggal::bulan_indo($q);
+        $masa = "TANGGAL ".  Tanggal::tgl_indo($tgl);
+            
+        
+
+        $max = max($arraydata);
+        //$masa = 'Bulan : Maret 2013';
         echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Masuk</font></h2>";
         echo "<h3 align=center>$masa</h3>";
         echo "</br><div id=chart-wrapper><table>";
         echo "<tr><td><font color=black><b>agenda</b></font></td><td></td><td></td></tr>";
         foreach ($arraydata as $key => $value) {
-            echo "<tr><td width=5%><a href=" . URL . "suratmasuk/detil/$key><font color=grey>$key</font></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+            //$bulan = Tanggal::tgl_indo($key);
+            echo "<tr><td width=15%><a href=".URL."suratmasuk/detil/$key><font color=grey>$key</font></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
             echo "<td width=50%><div class='progress'>";
             $val = round(($value / $max) * 100, 0);
             if ($value > 100) {
-                echo "<div class='bar bar-danger' style='width:$val%;'></div>";
+                echo "<a href=#><div class='bar bar-danger' style='width:$val%;' onclick='srmasukhari(".$key.");'></div></a>";
             } else if ($value < 50) {
-                echo "<div class='bar bar-success' style='width:$val%;'></div>";
+                echo "<a href=#><div class='bar bar-success' style='width:$val%;' onclick='srmasukhari(".$key.");'></div></a>";
             } else {
-                echo "<div class='bar' style='width:$val%;'></div>";
+                echo "<a href=#><div class='bar' style='width:$val%;' onclick='srmasukhari(".$key.");'></div></a>";
             }
 
             echo "</td><td>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";

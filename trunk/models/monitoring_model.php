@@ -36,9 +36,9 @@ class Monitoring_Model extends Model {
     }
     
     /*
-     * masih kebalik, method di bawah seharusnya melihat pertanggal, bukan perbulan
+     * tahun yang berjalan->per bulan
      */
-    public function kinerjaSMBulan($sql) {
+    public function kinerjaSMTahun($sql) {
         $data = $this->select($sql);
         //var_dump($data);
         $arraydata = array();
@@ -84,6 +84,108 @@ class Monitoring_Model extends Model {
             //var_dump($count);           
             
             $bulan = $value['bulan'];            
+        }
+        return $arraydata;
+    }
+    
+    public function kinerjaSMBulan($sql){
+        $data = $this->select($sql);
+        //var_dump($data);
+        $arraydata = array();
+        $krj = array();
+        $count = 1;
+        $tanggal = '';
+        foreach ($data as $value) {
+            $tgl1 = $value['start'];
+            $tgl2 = $value['end'];
+            $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
+            $start = explode(" ", $value['start']);
+            $start = trim($start[1]);
+            $end = explode(" ", $value['end']);
+            $end = trim($end[1]);
+            if ($selisihhari > 0) {
+                $hari1 = $this->selisihJam($this->jampulang, $start);
+                $hari2 = $this->selisihJam($end, $this->jammasuk);
+                $selisihjam = $hari1 + $hari2;
+            } else {
+                $selisihjam = $this->selisihJam($end, $start);
+            }            
+            $kinerja = ceil(($selisihjam / 4) * 100);
+            //echo $kinerja."*</br>";
+            if($value['tanggal']==$tanggal AND $count>1){
+                //echo $value['tanggal']."-".$tanggal;
+                $krj[] = $kinerja;                
+                $sum = array_sum($krj)/($count); 
+                $arraydata[$value['tanggal']] = $sum;                
+                $count++;
+            }else if($value['tanggal']!=$tanggal AND $count>1){              
+                $krj = null;                
+                $krj = array();
+                $krj[] = $kinerja;
+                $count = 1;
+                $sum = array_sum($krj)/($count); 
+                $arraydata[$value['tanggal']] = $sum;                          
+            }else if($count==1){                
+                $krj[] = $kinerja;
+                $sum = array_sum($krj)/($count); 
+                $arraydata[$value['tanggal']] = $sum;                
+                $count++;
+            }
+            //var_dump($krj);
+            //var_dump($count);           
+            
+            $tanggal = $value['tanggal'];            
+        }
+        return $arraydata;
+    }
+    
+    public function kinerjaSMHari($sql){
+        $data = $this->select($sql);
+        //var_dump($data);
+        $arraydata = array();
+        $krj = array();
+        $count = 1;
+        $agenda = '';
+        foreach ($data as $value) {
+            $tgl1 = $value['start'];
+            $tgl2 = $value['end'];
+            $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
+            $start = explode(" ", $value['start']);
+            $start = trim($start[1]);
+            $end = explode(" ", $value['end']);
+            $end = trim($end[1]);
+            if ($selisihhari > 0) {
+                $hari1 = $this->selisihJam($this->jampulang, $start);
+                $hari2 = $this->selisihJam($end, $this->jammasuk);
+                $selisihjam = $hari1 + $hari2;
+            } else {
+                $selisihjam = $this->selisihJam($end, $start);
+            }            
+            $kinerja = ceil(($selisihjam / 4) * 100);
+            //echo $kinerja."*</br>";
+            if($value['no_agenda']==$agenda AND $count>1){
+                //echo $value['tanggal']."-".$tanggal;
+                $krj[] = $kinerja;                
+                $sum = array_sum($krj)/($count); 
+                $arraydata[$value['no_agenda']] = $sum;                
+                $count++;
+            }else if($value['no_agenda']!=$agenda AND $count>1){              
+                $krj = null;                
+                $krj = array();
+                $krj[] = $kinerja;
+                $count = 1;
+                $sum = array_sum($krj)/($count); 
+                $arraydata[$value['no_agenda']] = $sum;                          
+            }else if($count==1){                
+                $krj[] = $kinerja;
+                $sum = array_sum($krj)/($count); 
+                $arraydata[$value['no_agenda']] = $sum;                
+                $count++;
+            }
+            //var_dump($krj);
+            //var_dump($count);           
+            
+            $agenda = $value['no_agenda'];            
         }
         return $arraydata;
     }
