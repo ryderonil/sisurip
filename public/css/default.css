@@ -1011,3 +1011,39 @@ table {
 tr {
     width: 100%;
 }
+
+/*------------menu-tab---------------*/
+.tab-menu { 
+    padding: 0; 
+    clear: both; 
+}
+
+.tab-menu li { 
+    display: inline; 
+}
+
+.tab-menu li a { 
+    background: #ccf; 
+    padding: 10px; 
+    float:left; 
+    border-right: 1px solid #ccf; 
+    border-bottom: none; 
+    text-decoration: none; 
+    color: #000; 
+    font-weight: bold;
+}
+
+.tab-menu li.active a { 
+    background: #eef; 
+}
+
+.content-tab { 
+    float: left; 
+    clear: both; 
+    border: 1px solid #ccf; 
+    border-top: none; 
+    border-left: none; 
+    background: #eef; 
+    padding: 10px 20px 20px; 
+    width: 95%; 
+}

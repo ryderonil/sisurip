@@ -22,7 +22,7 @@
         <input type="hidden" name="id" value="<?php echo $id;?>">
         <input type="hidden" name="user" value="<?php echo $user;?>">       
         <table>
-            <tr><td valign="top"><label>CATATAN REVISI</label></td><td><textarea name="catatan" cols="60" rows="20"></textarea></td></tr>
+            <tr><td valign="top"><label>CATATAN REVISI</label></td><td><textarea id="input" name="catatan" cols="60" rows="20"></textarea></td></tr>
             <tr><td><label>UPLOAD</label></td><td><input type="file" name="upload"></td></tr>
             <tr><td></td><td><input type="submit" name="submit" value="SIMPAN"></td></tr>
         </table>
