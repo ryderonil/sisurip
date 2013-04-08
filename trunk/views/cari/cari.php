@@ -14,11 +14,13 @@
 </div>
 <br>
 
-<div id="result"></div>
+<div id="table-wrapper"><div id="result"></div></div>
 
 <script type="text/javascript">
 
-    
+$(document).ready(function(){
+    document.search.focus();
+});
 function cari(val){    
             $.post("<?php echo URL;?>cari/find", {queryString:""+val+""},
             function(data){

@@ -23,6 +23,13 @@ $roleuser = Helper_Model::getRoleUser($user);
         <script src="<?php echo URL; ?>public/js/jquery-ui-1.10.1.custom.js"></script>
 
         <script src="<?php echo URL; ?>public/js/jquery.validate.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo URL;?>public/css/jquery.cleditor.css" />        
+        <script type="text/javascript" src="<?php echo URL;?>public/js/jquery.cleditor.min.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $("#input").cleditor();
+        });
+        </script>
         <!--<script src="<?php echo URL; ?>public/js/jquery.js"></script>
         <script src="<?php echo URL; ?>public/js/jquery.autocomplete.js"></script>-->
 

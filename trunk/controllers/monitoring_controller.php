@@ -164,11 +164,11 @@ class Monitoring_Controller extends Controller {
             echo "<td width=50%><div class='progress'>";
             $val = round(($value / $max) * 100, 0);
             if ($value > 100) {
-                echo "<a href=#><div class='bar bar-danger' style='width:$val%;' onclick='srmasukhari(".$key.");'></div></a>";
+                echo "<a href=".URL."suratmasuk/detil/$key><div class='bar bar-danger' style='width:$val%;' ></div></a>";
             } else if ($value < 50) {
-                echo "<a href=#><div class='bar bar-success' style='width:$val%;' onclick='srmasukhari(".$key.");'></div></a>";
+                echo "<a href=".URL."suratmasuk/detil/$key><div class='bar bar-success' style='width:$val%;' ></div></a>";
             } else {
-                echo "<a href=#><div class='bar' style='width:$val%;' onclick='srmasukhari(".$key.");'></div></a>";
+                echo "<a href=".URL."suratmasuk/detil/$key><div class='bar' style='width:$val%;' ></div></a>";
             }
 
             echo "</td><td>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
@@ -177,7 +177,7 @@ class Monitoring_Controller extends Controller {
     }
 
     public function kinerjaSuratKeluar() {
-        
+        echo "<div><input type=button value=tombol><input type=button value=tombol_juga></div>";
     }
 
 }

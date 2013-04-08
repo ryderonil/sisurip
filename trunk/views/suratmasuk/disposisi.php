@@ -89,7 +89,7 @@ if ($this->count > 0) {
         </table>    
         <hr>
         <h2>Catatan :</h2></br>
-        <textarea name="catatan" rows="10" cols="60"><?php if($this->count > 0) echo $this->disp[5];?></textarea>
+        <textarea id="input" name="catatan" rows="10" cols="60"><?php if($this->count > 0) echo $this->disp[5];?></textarea>
         <hr>
         <!--<table>
             <tr><td>Tgl Penyelesaian :</td><td><input type="text" name="" value=""></td>
