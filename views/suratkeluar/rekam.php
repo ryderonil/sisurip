@@ -27,6 +27,16 @@ if (isset($this->data)) {
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL; ?>suratkeluar/input" enctype="multipart/form-data">
     <!--<label>AGENDA</label><input type="text" name="no_agenda" value=""></br>
     <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->
+        <?php 
+            if(isset($this->success)){
+                echo "<div id=success>".$this->success."</div>";
+            }
+            
+            if(isset($this->error)){
+                echo "<div id=warning>".$this->error."</div>";
+            }
+            
+        ?>
         <input type="hidden" name="rujukan" value="<?php if (isset($this->data[0])) echo $this->data[0];?>">
         <label>TANGGAL SURAT</label><input type="text" id="datepicker" name="tgl_surat" class="required" ></br>
         <label>TIPE NASKAH DINAS</label><select name="tipe" id="tipe" class="required">

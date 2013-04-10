@@ -8,6 +8,7 @@
 class Suratkeluar_Model extends Model {
 
     //put your code here
+    var $lastId;
 
     public function __construct() {
         //echo 'ini adalah model</br>';
@@ -31,13 +32,19 @@ class Suratkeluar_Model extends Model {
           JOIN sifat_surat c ON a.sifat = c.kode_sifat
           JOIN klasifikasi_surat d ON a.jenis = d.kode_klassurat
           JOIN status e ON a.status = e.id_status
-          JOIN tipe_naskah f ON a.tipe = f.id_tipe";
+          JOIN tipe_naskah f ON a.tipe = f.id_tipe ORDER BY a.id_suratkeluar DESC";
 
         return $this->select($sql);
     }
 
     public function rekamSurat($data) {
-        $this->insert('suratkeluar', $data);
+        
+        $rekam = $this->insert('suratkeluar', $data);
+        if($rekam){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function getSuratKeluarById($id, $aksi) {
@@ -90,6 +97,35 @@ class Suratkeluar_Model extends Model {
     
     public function addRevisi($data){
         $this->insert('revisisurat', $data);
+    }
+    
+    public function lastIdInsert($tipe){
+        $sql = "SELECT MAX(id_suratkeluar) as id FROM suratkeluar WHERE tipe=".$tipe;
+        $data = $this->select($sql);
+        
+        foreach ($data as $val){
+            $this->lastId = $val['id'];
+        }
+        
+        return $this->lastId;
+        
+    }
+    
+    public function getUser($id){
+        $user = '';
+        $datas = $this->select("SELECT user FROM suratkeluar WHERE id_suratkeluar=".$id);
+        foreach ($datas as $val){
+            $user = $val['user'];
+        }
+        $datab = $this->select("SELECT id_user, role, bagian FROM user WHERE username='".$user."'");
+        $user =array();
+        foreach ($datab as $val){
+            $user[0] = $val['id_user'];
+            $user[1] = $val['role'];
+            $user[2] = $val['bagian'];
+        }
+        
+        return $user;
     }
     
     

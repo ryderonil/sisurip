@@ -1,14 +1,16 @@
 <div >
     <ul id="menu-tab" class="tab-menu">
         <li class="active" onclick="srmasuktahun();"><a href="#suratmasuk">SURAT MASUK</a></li>
-        <li><a href="#suratkeluar">SURAT KELUAR</a></li>
+        <li onclick="srkeluar();"><a href="#suratkeluar">SURAT KELUAR</a></li>
     </ul>
     
     <div id="suratmasuk" class="content-tab">
         
         <div id="report"></div>
     </div>
-    <div id="suratkeluar" class="content-tab"></div>
+    <div id="suratkeluar" class="content-tab">
+        <div id="reportsr"></div>
+    </div>
 </div>
 
 
@@ -58,11 +60,11 @@ function srmasuk(val){
 }
 
 function srkeluar(val){
-    $.post("<?php echo URL;?>monitoring/kinerjaSMHari", {tanggal:""+val+""},
+    $.post("<?php echo URL;?>monitoring/kinerjaSuratKeluar", {tanggal:""+val+""},
             function(data){
 //                document.write(val);
-                $('#report').fadeIn(500);
-                $('#report').html(data);
+                $('#reportsr').fadeIn(500);
+                $('#reportsr').html(data);
             });
     
 }

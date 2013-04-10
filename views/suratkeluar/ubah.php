@@ -41,7 +41,7 @@ if (isset($this->datasm)) {
                 
             }
             ?></select></br>
-        <label>NOMOR</label><input type="text" name="nomor" id="nomor" <?php echo $this->no_surat;?>> <input type="button" value="+" onclick=""></br>    
+        <label>NOMOR</label><input type="text" name="nomor" id="nomor" <?php echo $this->no_surat;?>> <input type="button" value="+" onclick="ambilNomor(document.getElementById('tipe').value);"></br>    
         <label>ALAMAT TUJUAN</label><input class="required" type="text" name="tujuan" value="<?php echo isset($this->alamat)?$this->alamat:$this->tujuan; ?>">
         <a href="<?php echo URL; ?>helper/pilihalamat/4<?php if (isset($this->id)) echo "/" . $this->id; ?>"><input type="button" name="" value="+"></input></a></br>
         <label>PERIHAL</label><input class="required" type="text" name="perihal" value="<?php echo $this->perihal;?>"></br>
@@ -75,10 +75,17 @@ if (isset($this->datasm)) {
         <label>FILE SURAT</label><input type="file" name="upload"></br>
         <label></label><input type="button" onclick="location.href='<?php echo URL; ?>suratkeluar'" value="BATAL"><input type="submit" name="submit" value="SIMPAN">
     </form></div>
+<div id="test"></div>
 
 <script>
         
         function ambilNomor(tipe){
-            
+//            document.write(tipe);
+            $.post("<?php echo URL;?>suratkeluar/nomorSurat", {queryString:""+tipe+""},
+            function(data){
+                $('input#nomor').fadeIn(500);
+                $('input#nomor').val(data);
+//                $('#test').html(data);
+            });
         }
 </script>
