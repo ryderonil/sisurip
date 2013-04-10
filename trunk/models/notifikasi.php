@@ -66,7 +66,7 @@ class Notifikasi extends Model{
                 return $this->role;
                 break;
             case 'bagian':
-                return $this->bagiane;
+                return $this->bagian;
                 break;
         }
     }
@@ -80,7 +80,7 @@ class Notifikasi extends Model{
                 'bagian'=>$this->get('bagian'),
                 'stat_notif'=>$this->get('stat_notif')
             );
-            var_dump($data);
+            //var_dump($data);
         $insert = $this->insert('notifikasi', $data);
         if($insert){
             return true;

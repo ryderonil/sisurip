@@ -38,7 +38,7 @@ class Suratmasuk_Model extends Model{
                 a.end as end
                 FROM suratmasuk a JOIN alamat b 
                 ON a.asal_surat = b.kode_satker
-                ORDER BY id_suratmasuk DESC";
+                ORDER BY a.id_suratmasuk DESC";
         
         return $this->select($sql);
     }

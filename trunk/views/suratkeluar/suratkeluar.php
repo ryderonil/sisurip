@@ -14,10 +14,19 @@
         }
         echo '<tr valign=top>';
         //echo '<td>' . $value['no_agenda'] . '</td>';
-        echo '<td>' . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'.$no_surat. '</td>';
-        echo '<td>' . $value['tipe'] . ' 
+        
+        if($this->notif->isRead($value['id_suratkeluar'],$user,'SK')){
+            echo '<td><font color=blue><b>' . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'.$no_surat. '</td>';
+            echo '<td>' . $value['tipe'] . ' 
+            </br><a href="'.URL.'suratkeluar/detil/'.$value['id_suratkeluar'].'">'. $value['tujuan'] . '</br>'. $value['perihal'] .
+             '</a></b></font></td>';
+        }else{
+            echo '<td>' . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'.$no_surat. '</td>';
+            echo '<td>' . $value['tipe'] . ' 
             </br><a href="'.URL.'suratkeluar/detil/'.$value['id_suratkeluar'].'">'. $value['tujuan'] . '</br>'. $value['perihal'] .
              '</a></td>';
+        }
+        
         //echo '<td>' . $value['tgl_terima'] . '</td>';
         //echo '<td>' . $value['tgl_surat'] . '</td>';
         //echo '<td>' . $value['asal_surat'] . '</td>';

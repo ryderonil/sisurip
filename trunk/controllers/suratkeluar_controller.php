@@ -26,10 +26,12 @@ class Suratkeluar_Controller extends Controller {
 
     public function showAll() {
         $this->view->data = $this->model->showAll();
+        //var_dump($this->view->data);
         $this->view->render('suratkeluar/suratkeluar');
     }
 
     public function rekam($id_sm = null, $ids = null) {
+        
         if (!is_null($id_sm)) {
 //cek id_sm jika panjang=5 maka kode satker
             $length = strlen($id_sm);
@@ -76,7 +78,9 @@ class Suratkeluar_Controller extends Controller {
     }
 
     public function input() {
+        $notif = new Notifikasi();
         $upload = new Upload('upload');
+        $time = date('Y-m-d H:i:s');
         $data = array(
             'rujukan' => $_POST['rujukan'],
             'no_surat' => $_POST['nomor'],
@@ -87,12 +91,19 @@ class Suratkeluar_Controller extends Controller {
             'sifat' => $_POST['sifat'],
             'jenis' => $_POST['jenis'],
             'lampiran' => $_POST['lampiran'],
-            'status' => '21'
+            'user' => Session::get('user'),
+            'status' => '21',
+            'start' => $time
         );
 
         //var_dump($data);       
         //upload file surat, sementara di temp folder krn belom dapat nomor
-        $this->model->rekamSurat($data);
+        if($this->model->rekamSurat($data)!=true){
+            $this->view->success = "rekam data surat keluar berhasil";
+        }else{
+            $this->view->error = "rekam data surat keluar tidak berhasil";
+        }        
+        
         $upload->setDirTo('arsip/temp/');
         $tipe = 'K';
         $satker = substr($_POST['tujuan'], 0, 6);
@@ -111,9 +122,22 @@ class Suratkeluar_Controller extends Controller {
 
         $data = array(
             'file' => $namafile
-        );
+        );        
+        $bagianu = Session::get('bagian');
         $upload->uploadFile();
         $this->model->uploadFile($data, $where);
+        $dataks = $this->model->select("SELECT id_user FROM user WHERE role=2 AND bagian =".$bagianu." AND active='Y'");
+        foreach($dataks as $val){
+            $notif->set('id_user',$val['id_user']);
+        }
+        $notif->set('id_surat',$this->model->lastIdInsert($_POST['tipe']));
+        $notif->set('jenis_surat','SK');
+        $notif->set('role',2);
+        $notif->set('bagian',$bagianu);
+        $notif->set('stat_notif',1);        
+        $notif->addNotifikasi();        
+        
+        $this->view->render('suratkeluar/rekam');
     }
 
     public function detil($id) {
@@ -206,6 +230,12 @@ class Suratkeluar_Controller extends Controller {
         //var_dump($where);
         //echo $where;
         $this->model->editSurat($data, $where);
+        if($_POST['nomor']!=''){
+            $data = array('status'=>22);            
+            $this->model->editSurat($data, $where);
+        }
+        //mgkn bisa pake js untuk pesan berhasil atau gagal, dan dimunculkan di halaman yg sama
+        //atau dimunculkan di halaman lihat data surat keluar
         header('location:' . URL . 'suratkeluar');
     }
 
@@ -243,6 +273,7 @@ class Suratkeluar_Controller extends Controller {
     }
     
     public function uploadrev(){
+        $notif = new Notifikasi();
         $id = $_POST['id'];
         $catatan = $_POST['catatan'];
         $user = $_POST['user'];
@@ -264,7 +295,50 @@ class Suratkeluar_Controller extends Controller {
         
         $upload->setDirTo('arsip/temp/');
         $upload->setFileTo($filename);        
-        $upload->uploadFile();
+        $upload->uploadFile(); //upload dengan nama beda jika sudah terdapat file di arsip
+        $role = Session::get('role'); 
+        /*
+         * alurnya klo revisi kasi->pelaksana
+         * revisi kk -> kasi dan pelaksana :siiip
+         * otak atik dari awak lagi, ternyata butuh field user/creator surat keluar yg berisi pelaksananya siapa
+         */
+        //var_dump($id);
+        $notif->set('id_surat',$id); //cek lagi
+        $notif->set('jenis_surat','SK');
+        $notif->set('stat_notif',1);  
+        $user = $this->model->getUser($id);
+        //var_dump($user);
+        $notif->set('bagian',$user[2]); 
+        if($role==1){
+            $dataks = $this->model->select("SELECT id_user FROM user WHERE role=2 AND bagian =".$user[2]." AND active='Y'");
+            foreach($dataks as $val){
+                $notif->set('id_user',$val['id_user']);
+            }
+            $notif->set('role',2);                             
+            $notif->addNotifikasi();
+        }
+        $notif->set('id_user', $user[0]);
+        $notif->set('role',$user[1]);
+        $notif->addNotifikasi();
+               
+        $this->showAll();
+        
+    }
+    
+    public function nomorSurat(){
+        $tipe = $_POST['queryString'];
+        $bagian = Session::get('bagian');
+        //var_dump($bagian);
+        $sql = "SELECT kd_bagian FROM r_bagian WHERE id_bagian=".$bagian;
+        $datab = $this->model->select($sql);
+        foreach ($datab as $val){
+            $bagian = $val['kd_bagian'];
+        }
+        //var_dump($bagian);
+        //var_dump($tipe);
+        $no = new Nomor();
+        $nosurat = $no->generateNumber($tipe, $bagian);
+        echo $nosurat;    
         
     }
 

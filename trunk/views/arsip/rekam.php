@@ -31,11 +31,12 @@ $html->br();
 
 ?>
 
-<?php if(isset($this->warning)) { ?><div id="warning"><?php echo $this->warning;?></div><?php } ?>
-<?php if(!isset($this->warning)) { ?>
+
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>arsip/rekamArsip">
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <input type="hidden" name="tipe" value="<?php echo $this->tipe;?>">
+    <?php if(isset($this->warning)) { ?><div id="warning"><?php echo $this->warning;?></div><?php } ?>
+<?php if(!isset($this->warning)) { ?>
     <label>FILLING/RAK</label><select class="required" id="rak" name="rak" onchange="pilihbaris(this.value);">
         <option value="">--PILIH FILLING/RAK/LEMARI--</option>
         <?php 

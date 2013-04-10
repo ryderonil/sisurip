@@ -200,7 +200,18 @@ class Admin_Model extends Model{
             JOIN role d ON a.jabatan = d.id_role";
         
         return $this->select($sql);
-    }   
+    }
+    
+    public function getNomor($bagian){
+        $sql = "SELECT kd_nomor FROM nomor WHERE bagian='".$bagian."'";
+        $datan = $this->select($sql);
+        $nomor = '';
+        foreach ($datan as $val){
+            $nomor = $val['kd_nomor'];
+        }
+        
+        return $nomor;
+    }
    
 }
 ?>
