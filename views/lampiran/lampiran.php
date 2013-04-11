@@ -27,6 +27,7 @@
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>lampiran/addRekamLampiran"
                              enctype="multipart/form-data">
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
+    <input type="hidden" name="jenis" value="<?php echo $this->data[4];?>">
     <label>TIPE NASKAH DINAS</label><select class="required" name="tipe">
         <option value="0">--PILIH TIPE NASKAH DINAS--</option>
         <?php

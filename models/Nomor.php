@@ -77,7 +77,8 @@ class Nomor extends Model{
     }
     
     private function createAgendaSuratMasuk(){
-        $lastid = $this->select('SELECT MAX(id_suratmasuk) as id FROM suratmasuk');
+        $lastid = $this->select('SELECT MAX(id_suratmasuk) as id FROM suratmasuk');     
+        
         foreach ($lastid as $id){
             $lastid = $id['id'];
         }
@@ -115,28 +116,43 @@ class Nomor extends Model{
         $datat = $this->select($kd_tipe);
         foreach ($datat as $val){
             $kd_tipe = $val['kode_naskah'];
-        } 
-        $lastid = $this->select('SELECT MAX(id_suratkeluar) as id FROM suratkeluar WHERE tipe='.$tipeSurat);
-        $count = count($lastid);
+        }
+        $sql = "SELECT no_surat FROM suratkeluar WHERE tipe=".$tipeSurat." AND no_surat<>''";
+        $datan = $this->select($sql);
+        $arr_no = array();
+        foreach ($datan as $val){
+            $temp = explode("-", $val['no_surat']);
+            $temp = $temp[1];
+            $no = explode("/", $temp);
+            $no = $no[0];
+            $arr_no[] = (int) $no;
+        }
+        //var_dump($arr_no);
+//        $agenda = max($arr_no);
+        //var_dump($agenda);
+//        $lastid = $this->select('SELECT MAX(id_suratkeluar) as id FROM suratkeluar WHERE tipe='.$tipeSurat);
+//        $count = count($lastid);
+        $count = count($arr_no);
         if($count>0){
-            foreach ($lastid as $id){
-                $lastid = $id['id']; //cek apakah hasilnya null, jika null maka agenda=1
-            }
+            $agenda = max($arr_no);
+//            foreach ($lastid as $id){
+//                $lastid = $id['id']; //cek apakah hasilnya null, jika null maka agenda=1
+//            }
             
-            $data = $this->select('SELECT no_surat FROM suratkeluar
-                    WHERE id_suratkeluar = '.$lastid);
-            $count = count($data);
-            if($count>0){
-                foreach ($data as $val){
-                    $data = $val['no_surat']; //cek apakah hasilnya null, jika null maka nilai agenda=1;
-                }
-                $temp = explode("-", $data);
-                $temp = explode("/", $temp[1]);
+//            $data = $this->select('SELECT no_surat FROM suratkeluar
+//                    WHERE id_suratkeluar = '.$lastid);
+//            $count = count($data);
+//            if($count>0){
+//                foreach ($data as $val){
+//                    $data = $val['no_surat']; //cek apakah hasilnya null, jika null maka nilai agenda=1;
+//                }
+//                $temp = explode("-", $data);
+//                $temp = explode("/", $temp[1]);
                 //var_dump($temp);
-                $agenda = $temp[0];           
+//                $agenda = $temp[0];           
 
-                $agenda = (int) $agenda;
-            }
+//                $agenda = (int) $agenda;
+//            }
             
         }
         //var_dump($lastid);

@@ -42,11 +42,9 @@ class Lampiran_Model extends Model {
         return $this->select($sql);
     }
 
-    public function getLampiranSurat($id) {
+    public function getLampiranSurat($id, $tipe) {
 
-
-        $sql = 'SELECT * FROM lampiran WHERE id_surat=' . $id;
-
+        $sql = "SELECT * FROM lampiran WHERE id_surat=" . $id . " AND jns_surat='" . $tipe . "'";
 
         return $this->select($sql);
     }

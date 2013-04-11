@@ -1,6 +1,6 @@
 <div><form>
-    <p><input id="search" type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian" onkeyup="cari(this.value);">
-        <!--<input  type="button" name="submit" value="CARI" onClick="cari(document.getElementById('search').value);">--></p>
+    <p><input id="search" type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian" onkeyup="cdari(this.value);">
+        <input  type="button" name="submit" value="CARI" onClick="cari(document.getElementById('search').value);"></p>
         <!--<form id="ui_element" class="sb_wrapper" method="POST" action="<?php echo URL; ?>cari">
         <p><input class="sb_input" type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian">
         <input class="sb_search" type="submit" name="submit" value=""></p>-->
