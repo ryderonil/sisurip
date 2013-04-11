@@ -28,6 +28,7 @@ class Lampiran_Controller extends Controller{
             $this->view->data[1] = $value['no_surat'];
             $this->view->data[2] = $value['asal_surat'];
             $this->view->data[3] = $value['perihal'];
+            $this->view->data[4] = 'SM';
         }
         }elseif ($tipe=='SK') {
             $data = $this->model->select('SELECT id_suratkeluar,no_surat, tujuan, perihal
@@ -37,9 +38,10 @@ class Lampiran_Controller extends Controller{
             $this->view->data[1] = $value['no_surat'];
             $this->view->data[2] = $value['tujuan'];
             $this->view->data[3] = $value['perihal'];
+            $this->view->data[4] = 'SK';
         }
         }
-        
+        //var_dump($this->view->data);
         $this->view->tipe = $this->model->getTypeLampiran();
         $this->view->render('lampiran/lampiran');
     }
@@ -52,6 +54,7 @@ class Lampiran_Controller extends Controller{
         
         $upload = new Upload('upload');
         $upload->setDirTo('arsip/');
+        $jns = $_POST['jenis'];
         $tipe = $_POST['tipe'];
         $nomor = $_POST['nomor'];
         $asal = $_POST['asal'];
@@ -62,6 +65,7 @@ class Lampiran_Controller extends Controller{
         $namafile = $upload->getFileTo();
         //$upload->init('upload');
         $data = array(
+            'jns_surat'=>$jns,
             'id_surat'=>$_POST['id'],
             'tipe'=>$tipe,
             'nomor'=>$nomor,
@@ -75,8 +79,14 @@ class Lampiran_Controller extends Controller{
         $upload->uploadFile();
         //var_dump($data);
         $this->model->addLampiran($data);
-        header('location:'.URL.'suratmasuk/detil/'.$data['id_surat']);
-    }
+        if($jns=='SM'){
+            header('location:'.URL.'suratmasuk/detil/'.$data['id_surat']);
+        }elseif ($jns=='SK') {
+            header('location:'.URL.'suratkeluar/detil/'.$data['id_surat']);
+        }
+        
+    }   
+    
     
 }
 ?>

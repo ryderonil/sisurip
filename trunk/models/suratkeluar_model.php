@@ -128,6 +128,20 @@ class Suratkeluar_Model extends Model {
         return $user;
     }
     
+    public function getHistoriRevisi($id){
+        
+        $sql = "SELECT a.id_revisi as id_revisi, 
+            a.catatan as catatan, 
+            b.namaPegawai as user, 
+            a.file as file, 
+            a.time as time
+            FROM revisisurat a LEFT JOIN user b
+            ON a.user=b.username
+            WHERE a.id_surat=".$id;
+        $data = $this->select($sql);
+        return $data;
+    }
+    
     
 
 }

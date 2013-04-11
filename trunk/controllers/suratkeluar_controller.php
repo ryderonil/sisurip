@@ -156,6 +156,9 @@ class Suratkeluar_Controller extends Controller {
             $this->view->file = $value['file'];
             $this->view->status = $value['status'];
         }
+        
+        $lamp = new Lampiran_Model();
+        $datal = $lamp->getLampiranSurat($this->view->id, 'SK');
         $this->view->count = 0;
 
         $this->view->render('suratkeluar/detilsurat');
@@ -229,7 +232,7 @@ class Suratkeluar_Controller extends Controller {
         //var_dump($data);
         //var_dump($where);
         //echo $where;
-        $this->model->editSurat($data, $where);
+        $this->model->editSurat($data, $where); //status net
         if($_POST['nomor']!=''){
             $data = array('status'=>22);            
             $this->model->editSurat($data, $where);
@@ -243,7 +246,11 @@ class Suratkeluar_Controller extends Controller {
         $where = ' id_suratkeluar=' . $id;
         $this->model->remove($where);
     }
-
+    
+    /*
+     * seharusnya ada mekanisme cek apakah telah mendapat nomor atau belum
+     * alternatif lain, selama belum mendapat nomor masih di temporary
+     */
     public function download($id) {
         // membaca informasi file dari tabel berdasarkan id nya        
         $datas = $this->model->getSuratKeluarById($id, 'ubah');
@@ -264,37 +271,102 @@ class Suratkeluar_Controller extends Controller {
         exit;
     }
     
+    public function downloadrev($id) {
+        // membaca informasi file dari tabel berdasarkan id nya        
+        $sql = "SELECT * FROM revisisurat WHERE id_revisi=".$id;
+        $datas = $this->model->select($sql);
+        var_dump($datas);
+        foreach ($datas as $data) {
+            
+            header("Content-Disposition: attachment; filename=" . $data['file']);
+            
+            $fp = fopen("arsip/temp/" . $data['file'], 'r');
+            $content = fread($fp, filesize('arsip/temp/' . $data['file']));
+            fclose($fp);
+
+            // menampilkan isi file yang akan didownload
+            echo $content;
+        }
+        exit;
+    }
+    
     public function rekamrev($id){
         
         $this->view->data = $this->model->getSuratKeluarById($id, 'detil');
+        $this->view->datar = $this->model->getHistoriRevisi($id);
         
         $this->view->render('suratkeluar/revisi');
         
     }
     
+    /*
+     * rekam revisi
+     * upload file revisi
+     * tambah notifikasi kasi dan pelaksana
+     */
     public function uploadrev(){
         $notif = new Notifikasi();
         $id = $_POST['id'];
         $catatan = $_POST['catatan'];
         $user = $_POST['user'];
         $time = date('Y-m-d H:i:s');
-        $data = array(
-            'id_surat'=>$id,
-            'catatan'=>$catatan,
-            'user'=>$user,
-            'time'=>$time
-        );
-        
-        $this->model->addRevisi($data);
         $filename ='';
         $datas = $this->model->getSuratKeluarById($id, 'detil');
         foreach ($datas as $val){
             $filename = $val['file'];
         }
+        
+        //---------------------------------
+        $fln = array();
+        if(file_exists('arsip/temp/'.$filename)){
+            $temp = explode('.', $filename);
+            var_dump($temp);
+            $sql = "SELECT file FROM revisisurat WHERE file LIKE '$temp[0]%'";
+            $file = $this->model->select($sql);
+            var_dump($file);
+            if(count($file>0)){
+                if(count($file)==1){
+                    $pisah = explode('.', $filename);
+                    $nama = $pisah[0];
+                    $ext = $pisah[1];
+                    var_dump($ext);
+                    $filename = $nama.'_1.'.$ext;
+                    var_dump($filename);
+//                    break;
+                }else{
+                    foreach ($file as $val){
+                        $temp = explode('.', $val['file']);
+                        $fln[] = end(explode('_', $temp[0]));
+                        var_dump($fln);
+//                        $len = count($temp);
+//                        $fln[] = (int) ($len-1); //mengambil array terakhir
+                        $num = max($fln);
+                        var_dump($num);
+                        $filename = $temp[0].'_'.($num+1).'.'.$temp[1]; 
+                        var_dump($filename);
+                    }
+                    
+                }
+            }
+        }
+        //-----------------------------------
+        
+        $data = array(
+            'id_surat'=>$id,
+            'catatan'=>$catatan,
+            'user'=>$user,
+            'file'=>$filename, 
+            'time'=>$time
+        );
+        
+        //tambah revisi
+        $this->model->addRevisi($data);
+        
         $upload = new Upload('upload');
         
         $upload->setDirTo('arsip/temp/');
-        $upload->setFileTo($filename);        
+        $upload->setFileTo($filename);
+        //upload file revisi
         $upload->uploadFile(); //upload dengan nama beda jika sudah terdapat file di arsip
         $role = Session::get('role'); 
         /*
@@ -314,11 +386,13 @@ class Suratkeluar_Controller extends Controller {
             foreach($dataks as $val){
                 $notif->set('id_user',$val['id_user']);
             }
-            $notif->set('role',2);                             
+            $notif->set('role',2);
+            //tambah notifikasi untuk kasi
             $notif->addNotifikasi();
         }
         $notif->set('id_user', $user[0]);
         $notif->set('role',$user[1]);
+        //tambah notifikasi untuk pelaksana
         $notif->addNotifikasi();
                
         $this->showAll();

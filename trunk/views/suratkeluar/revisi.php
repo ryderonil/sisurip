@@ -1,7 +1,8 @@
 <h2>Catatan Revisi</h2>
 <hr>
 </br>
-<table>
+<div id="table-wrapper"><table class="CSSTableGenerator">
+        <tr><td></td><td></td></tr>
     <?php 
     $id = 0;
     foreach ($this->data as $val) { 
@@ -14,7 +15,8 @@
     <tr><td>JENIS</td><td><?php echo $val['jenis'];?></td></tr>
     <tr><td>TIPE SURAT</td><td><?php echo $val['tipe'];?></td></tr>
     <?php } ?>
-</table>
+</table></div>
+</br>
 <hr>
 </br>
 <div id="form-wrapper">
@@ -28,3 +30,24 @@
         </table>
     </form>
 </div>
+<div id="table-wrapper">
+    <table class="CSSTableGenerator">
+        <tr><td>REV</td><td>CATATAN</td><td>DOWNLOAD</td></tr>
+        
+        <?php
+        $no=1;
+            foreach ($this->datar as $val){
+                echo "<tr><td>$no</td><td>$val[time] [$val[user]]</br><p>$val[catatan]</p></td>
+                    <td><a href=".URL."suratkeluar/downloadrev/".$val['id_revisi']."><input class=btn type=button value=Download></a></td></tr>";
+                $no++;
+                
+            }
+        ?>
+    </table>
+    
+</div>
+
+<script type="text/javascript">
+
+
+</script>
