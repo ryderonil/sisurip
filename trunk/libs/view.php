@@ -31,7 +31,7 @@ class View {
     }
     
     public function load($fileView){
-        require 'views/'.$fileView;
+        require 'views/'.$fileView.'.php';
     }
 }
 

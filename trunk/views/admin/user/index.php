@@ -1,5 +1,13 @@
 <h2>Tambah User</h2><hr><div id="form-wrapper">
-<form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamUser">
+<form id="form-rekam" method="POST" action="#">
+<!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamUser">-->
+    <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error<?div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
     
     <label>NAMA PEGAWAI</label><input class="required" type="text" name="namaPegawai"></br>
     <label>NIP</label><input class="required number" type="text" name="NIP"></br>

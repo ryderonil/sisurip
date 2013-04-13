@@ -77,8 +77,8 @@ class Suratmasuk_Model extends Model{
         $id = $_POST['id'];
         $where = "id_suratmasuk = '".$id."'";
         //echo $where;
-        $this->update("suratmasuk", $data, $where);
-        header('location:'.URL.'suratmasuk');
+        return $this->update("suratmasuk", $data, $where);
+//        header('location:'.URL.'suratmasuk');
         
     }
     

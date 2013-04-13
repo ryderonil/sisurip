@@ -1,6 +1,14 @@
 <h2>Ubah Alamat Surat</h2>            
 <hr>
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>admin/updateRekamAlamat">
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+<!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/updateRekamAlamat">-->
+        <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error<?div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
         <input type="hidden" name="id" value="<?php echo $this->id;?>">
         <!--<label>KEMENTERIAN/LEMBAGA</label><select></select></br>
         <label>UNIT</label><select></select></br>-->

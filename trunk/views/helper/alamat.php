@@ -33,10 +33,10 @@
                <td>$value[nama_satker]</td>";
         if (isset($this->ids)) {            
             echo "<td><a href=" . URL . $this->surat . "/" . $value['kode_satker'] . "/" . $this->ids . ">
-                   <input class=btn type=button value=PILIH></a></td>";
+                   <input class=btn type=button value=PILIH onclick=pilih($value[kode_satker]);></a></td>";
         } else {
             echo "<td><a href=" . URL . $this->surat . "/" . $value['kode_satker'] . ">
-                   <input class=btn type=button value=PILIH></a></td>";
+                   <input class=btn type=button value=PILIH onclick=pilih($value[kode_satker]);></a></td>";
         }
 
         echo "</tr>";
@@ -44,3 +44,13 @@
     }
     ?>
 </table>
+
+<script type="text/javascript">
+
+    function pilih(val){
+        
+    }
+
+
+
+</script>

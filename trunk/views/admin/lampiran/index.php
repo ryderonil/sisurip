@@ -1,7 +1,14 @@
 <h2>Tambah Jenis Lampiran</h2><hr>
 <div id="form-wrapper">
-<form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamLampiran">    
-                
+<form id="form-rekam" method="POST" action="#">    
+<!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamLampiran">    -->
+     <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error<?div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>           
         
     <label>TIPE NASKAH DINAS</label><input class="required" type="text" name="tipe_naskah"></br>
     <label>KODE SURAT</label><input class="required" type="text" name="kode_naskah"></br>

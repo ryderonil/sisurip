@@ -32,7 +32,14 @@ if(isset($this->data)){
     }
 ?>
 
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL; ?>suratmasuk/rekamCatatan">
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+        <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error</div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
         <input type="hidden" name="id_surat" value="<?php echo $this->data[0];?>">
         <input type="hidden" name="id_disp" value="<?php echo $this->datad->id_disposisi;?>">
         <input type="hidden" name="bagian" value="<?php echo $this->bagian;?>">

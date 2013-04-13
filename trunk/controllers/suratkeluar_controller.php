@@ -31,6 +31,13 @@ class Suratkeluar_Controller extends Controller {
     }
 
     public function rekam($id_sm = null, $ids = null) {
+        if(isset($_POST['submit'])){
+            if($this->input()){
+                $this->view->success="Rekam surat keluar berhasil";
+            }else{
+                $this->view->error="Rekam surat keluar gagal";
+            }
+        }
         
         if (!is_null($id_sm)) {
 //cek id_sm jika panjang=5 maka kode satker
@@ -137,7 +144,8 @@ class Suratkeluar_Controller extends Controller {
         $notif->set('stat_notif',1);        
         $notif->addNotifikasi();        
         
-        $this->view->render('suratkeluar/rekam');
+        return true;
+//        $this->view->render('suratkeluar/rekam');
     }
 
     public function detil($id) {
@@ -165,6 +173,14 @@ class Suratkeluar_Controller extends Controller {
     }
 
     public function edit($id_sk = null, $ids = null) {
+        if(isset($_POST['submit'])){
+        
+            if($this->editSurat()){
+                $this->view->success="Ubah data surat keluar berhasil";
+            }else{
+                $this->view->error="Ubah data surat keluar gagal!";
+            }
+        }
         if (!is_null($id_sk)) {
 //cek id_sm jika panjang=5 maka kode satker
             $length = strlen($id_sk);
@@ -239,7 +255,8 @@ class Suratkeluar_Controller extends Controller {
         }
         //mgkn bisa pake js untuk pesan berhasil atau gagal, dan dimunculkan di halaman yg sama
         //atau dimunculkan di halaman lihat data surat keluar
-        header('location:' . URL . 'suratkeluar');
+//        header('location:' . URL . 'suratkeluar');
+        return true;
     }
 
     public function remove($id) {
@@ -291,6 +308,13 @@ class Suratkeluar_Controller extends Controller {
     }
     
     public function rekamrev($id){
+        if(isset($_POST['submit'])){
+            if($this->uploadrev()){
+                $this->view->success = "Rekam revisi berhasil";
+            }else{
+                $this->view->error = "Rekam revisi gagal!";
+            }
+        }
         
         $this->view->data = $this->model->getSuratKeluarById($id, 'detil');
         $this->view->datar = $this->model->getHistoriRevisi($id);
@@ -395,7 +419,8 @@ class Suratkeluar_Controller extends Controller {
         //tambah notifikasi untuk pelaksana
         $notif->addNotifikasi();
                
-        $this->showAll();
+//        $this->showAll();
+        return true;
         
     }
     

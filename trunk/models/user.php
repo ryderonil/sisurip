@@ -117,7 +117,11 @@ class User extends Model{
     
     public function getUserById($user){
         $data = $this->select('SELECT * FROM user WHERE id_user='.$user->id_user);
-    }   
+    }
+    
+    public function cekUserExist($username, $NIP){
+        
+    }
     
     
     

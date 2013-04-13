@@ -20,6 +20,13 @@ class Arsip_Controller extends Controller{
     }
     
     public function rekam($id,$tipesurat=null){
+        if(isset($_POST['submit'])){
+            if($this->rekamArsip()){
+                $this->view->success="Rekam arsip berhasil";
+            }else{
+                $this->view->error = "Rekam arsip gagal!";
+            }
+        }
              
         if(!is_null($tipesurat)){
             $this->view->tipe=$tipesurat;
@@ -45,13 +52,32 @@ class Arsip_Controller extends Controller{
             }
         }
         
-        if($this->view->data[1]==''){
+        $dataa = $this->model->getArsip($id, $tipesurat);
+//        var_dump($dataa);
+        $this->view->cek = count($dataa);
+        if($this->view->cek>0){
+//            ini yang susah ternyata
+            foreach ($dataa  as $val){
+                $this->view->ar['rak'] = $val['rak'];
+                $this->view->ar['baris'] = $val['baris'];
+                $this->view->ar['box'] = $val['box'];
+            }
+            
+            $this->view->rak = $this->model->getRak();
+            $this->view->baris = $this->model->getBaris($this->view->ar['rak']);
+            $this->view->box = $this->model->getBox($this->view->ar['baris']);
+            
+        }else{
+            if($this->view->data[1]==''){
             $this->view->warning = 'surat belum mendapat nomor surat, tidak dapat diarsipkan';
+            }
+
+            $this->view->rak = $this->model->getRak();
+            $this->view->baris = $this->model->getBaris();
+            $this->view->box = $this->model->getBox();
         }
         
-        $this->view->rak = $this->model->getRak();
-        $this->view->baris = $this->model->getBaris();
-        $this->view->box = $this->model->getBox();
+        
         $this->view->render('arsip/rekam');
     }
     
@@ -67,15 +93,31 @@ class Arsip_Controller extends Controller{
             'tipe_surat'=>$tipe_surat
         );
         
-        $this->model->rekamArsip($data);
-        if($tipe_surat=='SM'){
-            $datastat = array('stat'=>'15');
-            $where = 'id_suratmasuk='.$id_surat;
-            $this->model->update('suratmasuk',$datastat,$where); //update status -> arsip
-            header('location:'.URL.'suratmasuk/detil/'.$id_surat);
-        }elseif($tipe_surat=='SK'){
-            header('location:'.URL.'suratkeluar/detil/'.$id_surat);
+        if($this->model->rekamArsip($data)){
+            $this->view->success = "Data arsip telah berhasil disimpan";
+        
+            if($tipe_surat=='SM'){
+                $time = date('Y-m-d H:i:s');
+                $datastat = array('stat'=>'15', 'end'=>$time);
+                $where = 'id_suratmasuk='.$id_surat;
+                $this->model->update('suratmasuk',$datastat,$where); //update status -> arsip
+//                header('location:'.URL.'suratmasuk/detil/'.$id_surat);
+            }elseif($tipe_surat=='SK'){
+                $time = date('Y-m-d H:i:s');
+                $datastat = array('status'=>'23', 'end'=>$time);
+                $where = 'id_suratkeluar='.$id_surat;
+                $this->model->update('suratkeluar',$datastat,$where); //update status -> arsip
+//                header('location:'.URL.'suratkeluar/detil/'.$id_surat);
+            }
         }
+        
+        return true;
+        
+//        pesan berhasilnya mana
+//        $this->view->rak = $this->model->getRak();
+//        $this->view->baris = $this->model->getBaris();
+//        $this->view->box = $this->model->getBox();
+//        $this->view->render('arsip/rekam');
         
         
     }
