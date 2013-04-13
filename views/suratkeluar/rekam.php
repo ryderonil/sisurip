@@ -24,7 +24,7 @@ if (isset($this->data)) {
 ?>
 
 
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL; ?>suratkeluar/input" enctype="multipart/form-data">
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="#" enctype="multipart/form-data">
     <!--<label>AGENDA</label><input type="text" name="no_agenda" value=""></br>
     <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->
         <?php 

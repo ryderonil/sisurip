@@ -89,7 +89,7 @@ class Model extends PDO{
         
         $sth->execute();
         
-        
+        return true;
     }
     
     public function delete($table, $where){
@@ -98,6 +98,8 @@ class Model extends PDO{
         
         $sth = $this->prepare($sql);
         $sth->execute();
+        
+        return true;
         
     }
     

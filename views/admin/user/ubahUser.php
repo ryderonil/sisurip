@@ -1,5 +1,13 @@
 <h2>Ubah User</h2><hr><div id="form-wrapper">
-<form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/updateRekamUser">
+<form id="form-rekam" method="POST" action="#">
+<!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/updateRekamUser">-->
+    <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error<?div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <label>NAMA PEGAWAI</label><input class="required" type="text" name="namaPegawai" value="<?php echo $this->data[3]; ?>"></br>
     <label>NIP</label><input class="required number" type="text" name="NIP" value="<?php echo $this->data[4]; ?>"></br>

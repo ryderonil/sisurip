@@ -20,7 +20,7 @@ class Arsip_Model extends Model {
     }
     
     public function rekamArsip($data){
-        $this->insert('arsip', $data);
+        return $this->insert('arsip', $data);
     }
 
 
@@ -29,14 +29,38 @@ class Arsip_Model extends Model {
         return $this->select($sql);
     }
     
-    public function getBaris(){
-        $sql = "SELECT * FROM lokasi WHERE tipe=2";
+    public function getBaris($parent=null){
+        if(!is_null($parent)){
+            $sql = "SELECT * FROM lokasi WHERE tipe=2 AND parent=".$parent;
+        }else{
+            $sql = "SELECT * FROM lokasi WHERE tipe=2";
+        }
+        
         return $this->select($sql);
     }
     
-    public function getBox(){
-        $sql = "SELECT * FROM lokasi WHERE tipe=3";
+    public function getBox($parent=null){
+        if(!is_null($parent)){
+            $sql = "SELECT * FROM lokasi WHERE tipe=3 AND parent=".$parent;
+        }else{
+            $sql = "SELECT * FROM lokasi WHERE tipe=3";
+        }
+        
         return $this->select($sql);
+    }
+    
+    public function getArsip($id, $tipe){
+        $sql = "SELECT a.id_lokasi as id_lokasi,
+                b.id_lokasi as box,
+                c.id_lokasi as baris,
+                d.id_lokasi as rak
+                FROM arsip a LEFT JOIN lokasi b ON a.id_lokasi = b.id_lokasi
+                LEFT JOIN lokasi c ON b.parent = c.id_lokasi
+                LEFT JOIN lokasi d ON c.parent = d.id_lokasi
+                WHERE a.id_surat=".$id." AND a.tipe_surat='".$tipe."'";
+        
+        $data = $this->select($sql);
+        return $data;
     }
 }
 ?>

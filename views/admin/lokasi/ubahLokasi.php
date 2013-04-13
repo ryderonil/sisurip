@@ -1,6 +1,14 @@
 <h2>Pengaturan Lokasi Penyimpanan Arsip</h2>            
         <hr>
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>admin/updateRekamLokasi">
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+<!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/updateRekamLokasi">-->
+        <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error<?div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     
     <label>BAGIAN</label><select class="required" id="bagian" name="bagian" onchange="pilihrak(this.value);">

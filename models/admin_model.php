@@ -21,9 +21,9 @@ class Admin_Model extends Model{
     public function updateKantor($table, $data, $where, $cek = true){
         
         if($cek==true){
-           $this->update($table, $data, $where); 
+           return $this->update($table, $data, $where); 
         }else{
-           $this->insert($table, $data);
+           return $this->insert($table, $data);
         }      
         
     }
@@ -33,11 +33,11 @@ class Admin_Model extends Model{
     }
     
     public function addPenomoran($data){
-        $this->insert('nomor', $data);
+        return $this->insert('nomor', $data);
     }
     
     public function updatePenomoran($data, $where){
-        $this->update('nomor', $data, $where);
+        return $this->update('nomor', $data, $where);
     }
     
     public function deleteNomor($where){
@@ -45,11 +45,11 @@ class Admin_Model extends Model{
     }
     
     public function addKlasifikasiArsip($data){
-        $this->insert('klasifikasi_arsip', $data);
+        return $this->insert('klasifikasi_arsip', $data);
     }
     
     public function updateKlasifikasiArsip($data, $where){
-        $this->update('klasifikasi_arsip', $data, $where);
+        return $this->update('klasifikasi_arsip', $data, $where);
     }
     
     public function deleteKlasifikasiArsip($where){
@@ -57,11 +57,11 @@ class Admin_Model extends Model{
     }
     
     public function addLampiran($data){
-        $this->insert('tipe_naskah', $data);
+        return $this->insert('tipe_naskah', $data);
     }
     
     public function updateLampiran($data, $where){
-        $this->update('tipe_naskah', $data, $where);
+        return $this->update('tipe_naskah', $data, $where);
     }
     
     public function deleteLampiran($where){
@@ -69,11 +69,11 @@ class Admin_Model extends Model{
     }
     
     public function addStatusSurat($data){
-        $this->insert('status', $data);
+        return $this->insert('status', $data);
     }
     
     public function updateStatusSurat($data, $where){
-        $this->update('status', $data, $where);
+        return $this->update('status', $data, $where);
     }
     
     public function deleteStatusSurat($where){
@@ -81,11 +81,11 @@ class Admin_Model extends Model{
     }
     
     public function addUser($data){
-        $this->insert('user', $data);
+        return $this->insert('user', $data);
     }
     
     public function updateUser($data, $where){
-        $this->update('user', $data, $where);
+        return $this->update('user', $data, $where);
     }
     
     public function deleteUser($where){
@@ -98,11 +98,11 @@ class Admin_Model extends Model{
         );
         
         $where = ' id_user='.$id;
-        $this->update('user', $data, $where);
+        return $this->update('user', $data, $where);
     }
     
     public function addLokasi($data){
-        $this->insert('lokasi', $data);
+        return $this->insert('lokasi', $data);
     }
     
     public function viewLokasi(){
@@ -129,7 +129,7 @@ class Admin_Model extends Model{
     }
     
     public function updateLokasi($data, $where){
-        $this->update('lokasi', $data, $where);
+        return $this->update('lokasi', $data, $where);
     }
     
     public function setStatusLokasi($id, $status){
@@ -139,7 +139,7 @@ class Admin_Model extends Model{
         );
         
         $where = ' id_lokasi='.$id;
-        $this->update('lokasi', $data, $where);
+        return $this->update('lokasi', $data, $where);
     }
     
     public function getAlamat($kd=null){
@@ -151,11 +151,11 @@ class Admin_Model extends Model{
     }
     
     public function addAlamatSurat($data){
-        $this->insert('alamat', $data);
+        return $this->insert('alamat', $data);
     }
     
     public function updateAlamatSurat($data,$where){
-        $this->update('alamat', $data, $where);
+        return $this->update('alamat', $data, $where);
     }
     
     public function getBagianLain($user){
@@ -187,7 +187,7 @@ class Admin_Model extends Model{
     }
     
     public function rekamPjs($data){
-        $this->insert('pjs', $data);        
+        return $this->insert('pjs', $data);        
     }
     
     public function getPjs(){

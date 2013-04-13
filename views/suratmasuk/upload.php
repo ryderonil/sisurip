@@ -11,7 +11,14 @@
 <hr>
 </br>
 <div id="form-wrapper">
-    <form id="form-rekam" method="POST" action="<?php echo URL?>suratmasuk/uploadFileSurat" enctype="multipart/form-data">
+    <form id="form-rekam" method="POST" action="#" enctype="multipart/form-data">
+        <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error</div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
         <input type="hidden" name="id" value="<?php echo $this->id;?>">
         <input type="hidden" name="nomor" value="<?php echo $this->no_surat;?>">
         <input type="hidden" name="satker" value="<?php echo $this->satker;?>">

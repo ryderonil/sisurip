@@ -22,7 +22,7 @@
                 <?php if(Auth::isRole($role, 3)) { ?><a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->id; ?>/SK"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
                 <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->id; ?>/SK"><input class="btn" type="button" value="ARSIP"></a>
                 <a href="<?php echo URL;?>suratkeluar/edit/<?php echo $this->id; ?>"><input class="btn" type="button" value="U B A H"></a><?php } ?>
-                <?php if(Auth::isRole($role, 2)) { ?><a href="<?php echo URL;?>suratkeluar/catatan/<?php echo $this->id; ?>"><input class="btn" type="button" value="DISPOSISI KASI"></a><?php } ?></td></tr>
+                <?php if(Auth::isRole($role, 2) OR Auth::isRole($role, 1)) { ?><a href="<?php echo URL;?>suratkeluar/rekamrev/<?php echo $this->id; ?>"><input class="btn" type="button" value="REKAM REVISI"></a><?php } ?></td></tr>
     </table></div>
     
     <?php if($this->count>0){?>

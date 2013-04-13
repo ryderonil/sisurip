@@ -20,6 +20,15 @@ class Lampiran_Controller extends Controller{
     }
     
     public function rekam($id,$tipe){
+        if(isset($_POST)){
+            if($this->addRekamLampiran()){
+                $this->view->success="Rekam lampiran berhasil";
+            }else{
+                $this->view->error = "Rekam lampiran surat gagal!";
+            }
+                
+        }
+            
         if($tipe=='SM'){
             $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
                     FROM suratmasuk WHERE id_suratmasuk='.$id);
@@ -79,11 +88,12 @@ class Lampiran_Controller extends Controller{
         $upload->uploadFile();
         //var_dump($data);
         $this->model->addLampiran($data);
-        if($jns=='SM'){
+        /*if($jns=='SM'){
             header('location:'.URL.'suratmasuk/detil/'.$data['id_surat']);
         }elseif ($jns=='SK') {
             header('location:'.URL.'suratkeluar/detil/'.$data['id_surat']);
-        }
+        }*/
+        return true;
         
     }   
     

@@ -32,7 +32,15 @@ $html->br();
 ?>
 
 
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>arsip/rekamArsip">
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+<!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>arsip/rekamArsip">-->
+        <?php 
+        if(isset($this->error)){
+            echo "<div id=error>$this->error</div>";
+        }elseif(isset($this->success)){
+            echo "<div id=success>$this->success</div>";
+        }
+    ?>
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <input type="hidden" name="tipe" value="<?php echo $this->tipe;?>">
     <?php if(isset($this->warning)) { ?><div id="warning"><?php echo $this->warning;?></div><?php } ?>
@@ -41,13 +49,32 @@ $html->br();
         <option value="">--PILIH FILLING/RAK/LEMARI--</option>
         <?php 
         foreach ($this->rak as $key=>$value){
-            echo "<option value='".$value['id_lokasi']."'>$value[bagian] $value[lokasi]</option>";
+            if(isset($this->ar['rak'])){
+                if($this->ar['rak']==$value['id_lokasi']){
+                    echo "<option value='".$value['id_lokasi']."' selected>$value[bagian] $value[lokasi]</option>";
+                }else{
+                    echo "<option value='".$value['id_lokasi']."'>$value[bagian] $value[lokasi]</option>";
+                }
+            }else{
+                echo "<option value='".$value['id_lokasi']."'>$value[bagian] $value[lokasi]</option>";
+            }
+            
         }
         ?>
     </select></br>
     <label>BARIS</label><select class="required" id="baris" name="baris" onchange="pilihbox(this.value);">
         <option value="">--PILIH BARIS--</option>
         <?php
+        foreach ($this->baris as $value){
+            if(isset($this->ar['baris'])){
+                if($this->ar['baris']==$value['id_lokasi']){
+                    echo "<option value='".$value['id_lokasi']."' selected>$value[bagian] $value[lokasi]</option>";
+                }else{
+                    echo "<option value='".$value['id_lokasi']."'>$value[bagian] $value[lokasi]</option>";
+                }
+            }
+        }
+            
             //foreach ($this->baris as $key=>$value){
             //echo "<option value='".$value['id_lokasi']."'>$value[lokasi]</option>";
         //}
@@ -57,6 +84,15 @@ $html->br();
     <label>BOX/ODNER</label><select class="required" id="box" name="box">
         <option value="">--PILIH BOX/ODNER--</option>
         <?php
+        foreach ($this->box as $value){
+            if(isset($this->ar['box'])){
+                if($this->ar['box']==$value['id_lokasi']){
+                    echo "<option value='".$value['id_lokasi']."' selected>$value[bagian] $value[lokasi]</option>";
+                }else{
+                    echo "<option value='".$value['id_lokasi']."'>$value[bagian] $value[lokasi]</option>"; 
+                }
+            }
+        }
             //foreach ($this->box as $key=>$value){
             //echo "<option value='".$value['id_lokasi']."'>$value[lokasi]</option>";
         //}

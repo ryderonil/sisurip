@@ -24,8 +24,17 @@
     $html->br();
 ?>
 
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL;?>lampiran/addRekamLampiran"
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="#"
                              enctype="multipart/form-data">
+<!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>lampiran/addRekamLampiran"-->
+<!--                             enctype="multipart/form-data">-->
+    <?php 
+        if(isset($this->error)){
+            echo "<div id=error>$this->error</div>";
+        }elseif(isset($this->success)){
+            echo "<div id=success>$this->success</div>";
+        }
+    ?>
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <input type="hidden" name="jenis" value="<?php echo $this->data[4];?>">
     <label>TIPE NASKAH DINAS</label><select class="required" name="tipe">

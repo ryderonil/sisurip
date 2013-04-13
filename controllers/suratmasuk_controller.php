@@ -40,6 +40,14 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function edit($id_sm = null, $ids = null) {
+        if(isset($_POST['submit'])){
+            if($this->editSurat()){
+            
+                $this->view->success="Ubah data suratmasuk berhasil";
+            }else{
+                $this->view->error ="Ubah data suratmasuk gagal!";
+            }
+        }
         if (!is_null($id_sm)) {
 //cek id_sm jika panjang=5 maka kode satker
             $length = strlen($id_sm);
@@ -78,7 +86,8 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function editSurat() {
-        $this->model->editSurat();
+        return $this->model->editSurat();
+        
     }
 
     public function input() {
@@ -101,9 +110,6 @@ class Suratmasuk_Controller extends Controller {
             "start"=>$start
         );
         if( $this->model->input($data)){
-            $this->view->error = 'rekam data tidak berhasil';
-            $this->view->render('suratmasuk/rekam');
-        }else{
             $notif = new Notifikasi();
             $datakk = $this->model->select("SELECT id_user FROM user WHERE role=1 AND bagian =1 AND active='Y'");
             foreach($datakk as $val){
@@ -122,13 +128,28 @@ class Suratmasuk_Controller extends Controller {
             //);
             //var_dump($data1);
             $notif->addNotifikasi();
+//            die($this->msg(1,"rekam data berhasil"));
+            $this->view->agenda = $this->nomor->generateNumber('SM');
             $this->view->success = 'rekam data berhasil';
             $this->view->render('suratmasuk/rekam');
+            
+        }else{
+            
+//            die($this->msg(1,"rekam data tidak berhasil"));
+            $this->view->agenda = $this->nomor->generateNumber('SM');
+            $this->view->error = 'rekam data tidak berhasil';
+            $this->view->render('suratmasuk/rekam');
         }
+        
+        
        
         //header('location:'.URL.'suratmasuk');
     }
-
+    
+    public function msg($status,$txt){
+            return '{status:'.$status.',txt:"'.$txt.'"}';
+        }
+        
     public function rekam($s = null) {
         if (!is_null($s)) {
 
@@ -175,6 +196,13 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function disposisi($id) {
+        if(isset($_POST['submit'])){
+            if($this->rekamdisposisi()){
+                $this->view->success="Rekam disposisi berhasil";
+            }else{
+                $this->view->error="Rekam disposisi gagal!";
+            }
+        }
         $data = $this->model->getSuratMasukById($id);
 
         foreach ($data as $value) {
@@ -331,8 +359,10 @@ class Suratmasuk_Controller extends Controller {
             $datastat = array('stat'=>'12');
             $where = 'id_suratmasuk='.$id_surat;
             $this->model->update('suratmasuk',$datastat,$where); //update status -> disposisi
-            header('location:'.URL.'suratmasuk');
-        }       
+//            header('location:'.URL.'suratmasuk');
+        }
+        
+        return true;
         
     }
 
@@ -380,10 +410,19 @@ class Suratmasuk_Controller extends Controller {
         $where = 'id_suratmasuk='.$id_surat;
         $this->model->update('suratmasuk',$datastat,$where); //update status surat -> disposisi kasi
         //$this->model->insert('catatan',$data);
-        header('location:'.URL.'suratmasuk');
+//        header('location:'.URL.'suratmasuk');
+        return true;
     }
     
     public function catatan($id){
+        if(isset($_POST['submit'])){
+        
+            if($this->rekamCatatan()){
+                $this->view->success="Rekam catatan berhasil";
+            }else{
+                $this->view->error="Rekam catatan gagal";
+            }
+        }
         $disposisi = new Disposisi();
         $this->view->datad = $disposisi->getDisposisi(array('id_surat'=>$id));      
         //$this->view->bagian = $this->view->datad->dist[0];
@@ -417,6 +456,14 @@ class Suratmasuk_Controller extends Controller {
     
     public function upload($id){
         
+        if(isset($_POST['submit'])){
+            if($this->uploadFileSurat()){
+                $this->view->success='Upload berhasil';
+            }else{
+                $this->view->error='Upload gagal';
+            }
+        }
+        
         $data = $this->model->getSuratMasukById($id);
         foreach ($data as $value){
             $this->view->id = $value['id_suratmasuk'];
@@ -447,7 +494,8 @@ class Suratmasuk_Controller extends Controller {
         $this->model->uploadFile($data,$where);
         $datastat = array('stat'=>'14');        
         $this->model->update('suratmasuk',$datastat,$where); //update status -> pelaksana
-        header('location:'.URL.'suratmasuk');
+        return true;
+        //header('location:'.URL.'suratmasuk');
         
     }
     

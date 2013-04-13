@@ -20,7 +20,15 @@
 <hr>
 </br>
 <div id="form-wrapper">
-    <form method="POST" action="<?php echo URL; ?>suratkeluar/uploadrev" enctype="multipart/form-data">
+    <form method="POST" action="#" enctype="multipart/form-data">
+<!--        <form method="POST" action="<?php echo URL; ?>suratkeluar/uploadrev" enctype="multipart/form-data">-->
+        <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error</div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
         <input type="hidden" name="id" value="<?php echo $id;?>">
         <input type="hidden" name="user" value="<?php echo $user;?>">       
         <table>

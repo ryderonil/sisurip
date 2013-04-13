@@ -92,12 +92,13 @@ class Nomor extends Model{
         }
         
         $agenda = substr($agenda, 2);
-        
+//        var_dump($agenda);
         $agenda = (int) $agenda;
-        $length = 4-strlen($agenda);
-        //echo $length;
-        $agenda = $agenda+1;
+//        var_dump($agenda);
         
+        $agenda = $agenda+1;
+        $length = 4-strlen($agenda);
+//        var_dump($length);
         
         for($i=0;$i<$length;$i++){
             $agenda = '0'.$agenda;

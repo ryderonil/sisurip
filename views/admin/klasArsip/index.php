@@ -1,8 +1,15 @@
 <h2>Tambah Klasifikasi Arsip</h2>
  <hr>
 <div id="form-wrapper">
-<form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamKlasArsip">
-                
+<form id="form-rekam" method="POST" action="#">
+<!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamKlasArsip">-->
+    <?php 
+            if (isset($this->error)) {
+        echo "<div id=error>$this->error<?div>";
+    } elseif (isset($this->success)) {
+        echo "<div id=success>$this->success</div>";
+    }
+    ?>
        
     <label>KODE KLASIFIKASI</label><input class="required" type="text" name="kode"></br>
     <label>KLASIFIKASI</label><input class="required" type="text" name="klasifikasi"></br>

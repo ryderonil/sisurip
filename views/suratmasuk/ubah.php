@@ -1,5 +1,12 @@
 <?php foreach($this->data as $key=>$value) { ?>
-<div id="form-wrapper"><form method="POST" action="<?php echo URL; ?>suratmasuk/editSurat">
+<div id="form-wrapper"><form method="POST" action="#">
+        <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error</div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
     <input type="hidden" name="id" value="<?php echo $value['id_suratmasuk']; ?>"</br>
     <label>AGENDA</label><input type="text" name="no_agenda" value="<?php echo $value['no_agenda'] ?>"></br>
     <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima" value="<?php echo $value['tgl_terima'] ?>" readonly></br>

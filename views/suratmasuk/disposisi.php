@@ -1,4 +1,11 @@
-<div id="form-wrapper"><form method="POST" action="<?php echo URL ?>suratmasuk/rekamdisposisi">
+<div id="form-wrapper"><form method="POST" action="#">
+        <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error</div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
         <h1 align="center">Catat Disposisi</h1>
         <h2>Informasi Surat :</h2></br>
         <?php //foreach($this->data as $value) { ?>

@@ -1,5 +1,13 @@
 <h2>Ubah Format Nomor Surat</h2><hr><div id="form-wrapper">
-<form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/updateRekamNomor">
+<form id="form-rekam" method="POST" action="#">
+<!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/updateRekamNomor">-->
+    <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error<?div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
     
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <label>FORMAT NOMOR</label><input class="required" type="text" name="nomor" value="<?php echo $this->data[2]; ?>"></br>

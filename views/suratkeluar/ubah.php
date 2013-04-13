@@ -24,9 +24,16 @@ if (isset($this->datasm)) {
 ?>
 
 
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL; ?>suratkeluar/editSurat">
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
     <!--<label>AGENDA</label><input type="text" name="no_agenda" value=""></br>
     <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->
+        <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error</div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
         <input type="hidden" name="id" value="<?php echo $this->id;?>">        
         <label>TANGGAL SURAT</label><input type="text" id="datepicker" name="tgl_surat" class="required" value="<?php echo $this->tgl_surat;?>"></br>
         <label>TIPE NASKAH DINAS</label><select name="tipe" id="tipe">
