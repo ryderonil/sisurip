@@ -12,15 +12,24 @@ class Nomor extends Model{
     private $tgl;
     private $tujuan;
     
+    /*
+     * constructor
+     */
     public function __construct() {
         parent::__construct();
         //echo 'nomor';
     }
     
+    /*
+     * 
+     */
     public function generateAgenda(){
         
     }
     
+    /*
+     * setter
+     */
     public function set($name, $value) {
         switch($name){
             case 'nomor':
@@ -35,11 +44,16 @@ class Nomor extends Model{
         }
     }
     
+    /*
+     * set tgl sekarang
+     */
     public function setTanggal(){        
         $this->tgl = Tanggal::getTglSekarang();
     }
 
-
+    /*
+     * getter
+     */
     public function get($name) {
         switch($name){
             case 'nomor':
@@ -76,6 +90,10 @@ class Nomor extends Model{
         return $this->nomor;
     }
     
+    /*
+     * fungsi menghasilkan nomor agenda surat masuk
+     * return nomor agenda
+     */
     private function createAgendaSuratMasuk(){
         $lastid = $this->select('SELECT MAX(id_suratmasuk) as id FROM suratmasuk');     
         
@@ -109,6 +127,11 @@ class Nomor extends Model{
         return $curr_agenda;
     }
     
+    /*
+     * fungsi menghasilkan nomor agenda surat keluar
+     * @param tipe/klasifikasi surat, bagian
+     * return nomor surat
+     */
     private function createAgendaSuratKeluar($tipeSurat,$bagian){
         $agenda = 0;
         $admin = new Admin_Model();        

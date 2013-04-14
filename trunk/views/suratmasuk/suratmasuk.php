@@ -2,22 +2,25 @@
 
         <hr>
         </br>
-        <?php if(Auth::isRole($role, 5)) {?><a href="<?php echo URL;?>suratmasuk/rekam"><input class="btn" type="button" value="R E K A M"></a><?php } ?>
+        <?php if(Auth::isRole($role, 5)) {?><a href="<?php echo URL;?>suratmasuk/rekam"><input class="btn" type="button" value="R E K A M"></a>
+        <a ><input class="btn" type="button" value="CETAK DISPOSISI" onclick="cetakdisp();"></a>
+            <?php } ?>
         <?php if(Auth::isRole($role, 5) OR Auth::isRole($role, 4)) {?><a href="<?php echo URL;?>suratmasuk/ctkEkspedisi"><input class="btn" type="button" value="CETAK EKSPEDISI"></a><?php } ?>
         <div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><td >AGENDA</td><td >INFORMASI SURAT</td><td >AKSI</td></tr>
+    <form method="POST">
 <?php
     foreach($this->listSurat as $key => $value) {
         echo '<tr valign=top>';
         //echo '<td>' . $value['no_agenda'] . '</td>';
         //var_dump($this->notif->isRead($value['id_suratmasuk'],$user,'SM'));
         if($this->notif->isRead($value['id_suratmasuk'],$user,'SM')){
-            echo '<td><font color=blue><strong>' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</strong></font></td>';
+            echo '<td><input type=checkbox name=cek[] value=' . $value['id_suratmasuk'] . '> <font color=blue><strong>' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</strong></font></td>';
             echo '<td><b><font color=blue><a href="'.URL.'suratmasuk/detil/'.$value['id_suratmasuk'].'">' . $value['no_surat'] . '</a> || '
             . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'. $value['asal_surat'] . '</br>'. $value['perihal'] .
              '</font></b></td>';
         }else{
-            echo '<td>' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</td>';
+            echo '<td><input type=checkbox name=cek[] value=' . $value['id_suratmasuk'] . '> ' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</td>';
             echo '<td><a href="'.URL.'suratmasuk/detil/'.$value['id_suratmasuk'].'">' . $value['no_surat'] . '</a> || '
             . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'. $value['asal_surat'] . '</br>'. $value['perihal'] .
              '</td>';
@@ -38,6 +41,7 @@
         echo '</tr>';
     }
 ?>
+    </form>
 </table></div>
         
 <script type="text/javascript">
