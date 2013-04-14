@@ -10,11 +10,17 @@ class Monitoring_Model extends Model {
 
     var $jampulang = '17:00:00';
     var $jammasuk = '07:30:00';
-
+    
+    /*
+     * constructor
+     */
     public function __construct() {
         parent::__construct();
     }
-
+    
+    /*
+     * 
+     */
     public function monitoringKinerjaSuratMasuk() {
         $sql = "SELECT no_agenda, tgl_terima, start, end FROM suratmasuk";
         $data = $this->select($sql);
@@ -36,7 +42,8 @@ class Monitoring_Model extends Model {
     }
     
     /*
-     * tahun yang berjalan->per bulan
+     * monitoring kinerja surat masuk tahun berjalan
+     * return data array kinerja per bulan
      */
     public function kinerjaSMTahun($sql) {
         $data = $this->select($sql);
@@ -51,7 +58,12 @@ class Monitoring_Model extends Model {
             $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
             $start = explode(" ", $value['start']);
             $start = trim($start[1]);
-            $end = explode(" ", $value['end']);
+            if(is_null($value['end'])){
+                $end = explode(" ",$value['start']);
+            }else{
+                $end = explode(" ", $value['end']);
+            }
+            
             $end = trim($end[1]);
             if ($selisihhari > 0) {
                 $hari1 = $this->selisihJam($this->jampulang, $start);
@@ -88,6 +100,10 @@ class Monitoring_Model extends Model {
         return $arraydata;
     }
     
+    /*
+     * monitoring kinerja surat masuk bulan tertentu
+     * return data array kinerja harian
+     */
     public function kinerjaSMBulan($sql){
         $data = $this->select($sql);
         //var_dump($data);
@@ -101,7 +117,12 @@ class Monitoring_Model extends Model {
             $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
             $start = explode(" ", $value['start']);
             $start = trim($start[1]);
-            $end = explode(" ", $value['end']);
+            if(is_null($value['end'])){
+                $end = explode(" ", $value['start']);
+            }  else {
+                $end = explode(" ", $value['end']);
+            }
+            
             $end = trim($end[1]);
             if ($selisihhari > 0) {
                 $hari1 = $this->selisihJam($this->jampulang, $start);
@@ -139,6 +160,10 @@ class Monitoring_Model extends Model {
         return $arraydata;
     }
     
+    /*
+     * monitoring kinerja surat masuk harian
+     * return data array kinerja per agenda surat 
+     */
     public function kinerjaSMHari($sql){
         $data = $this->select($sql);
         //var_dump($data);
@@ -189,7 +214,12 @@ class Monitoring_Model extends Model {
         }
         return $arraydata;
     }
-
+    
+    /*
+     * fungsi menghitung selisih jam
+     * @param end:jam akhir, start:jam awal
+     * return jam: detik/3600
+     */
     public function selisihJam($end, $start) {
         $time1 = explode(":", $end);
         $jam1 = $time1[0];
@@ -209,17 +239,22 @@ class Monitoring_Model extends Model {
     }
 
     /*
-     * menghasilkan nilai selisih hari pertama dan kedua
+     * fungsi menghitung selisih hari
+     * return menghasilkan nilai selisih hari pertama dan kedua
      */
 
     public function cekSelisihHari($start, $end) {
         $hari1 = explode(" ", $start); //memisahkan date dengan time
+        
         $tgl1 = $hari1[0];
         $tgl1 = explode("-", $tgl1); //memisahkan tahun, bulan dan tanggal
-
+        if(is_null($end)){
+            $end=$start;
+        }
         $hari2 = explode(" ", $end);
         $tgl2 = $hari2[0];
         $tgl2 = explode("-", $tgl2);
+//        var_dump($tgl2);
         if (((int) $tgl2[0] - (int) $tgl1[0]) == 0) {
             if (((int) $tgl2[1] - (int) $tgl1[1]) == 0) {
                 if (((int) $tgl2[2] - (int) $tgl1[2]) == 0) {

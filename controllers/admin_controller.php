@@ -284,8 +284,12 @@ class Admin_Controller extends Controller {
     }
 
     public function rekamUser() {
+        $user = new User();
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
+            if($user->cekUserExist($_POST['user'], $_POST['NIP'])){
+                $this->view->error = "nama user telah dipakai, atau pegawai ini telah memiliki akun!";
+            }
+            elseif($this->inputRekamUser()){
                 $this->view->success = "Ubah data berhasil";
             }else{
                 $this->view->error = "Ubah data gagal!";
@@ -300,8 +304,12 @@ class Admin_Controller extends Controller {
     }
 
     public function ubahUser($id) {
+        $user = new User();
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
+            if($user->cekUserExist($_POST['user'], $_POST['NIP'])){
+                $this->view->error = "nama user telah dipakai, atau pegawai ini telah memiliki akun!";
+            }
+            if($this->updateRekamUser()){
                 $this->view->success = "Ubah data berhasil";
             }else{
                 $this->view->error = "Ubah data gagal!";
@@ -558,7 +566,16 @@ class Admin_Controller extends Controller {
     }
 
     public function inputRekamUser() {
-        $data = array(
+        $user = new User();
+        $user->set('namaPegawai', $_POST['namaPegawai']);
+        $user->set('NIP', $_POST['NIP']);
+        $user->set('nama_user', $_POST['username']);
+        $user->set('password', Hash::create('md5', $_POST['password'], HASH_SALT_KEY));
+        $user->set('bagian', $_POST['bagian']);
+        $user->set('jabatan', $_POST['jabatan']);
+        $user->set('role', $_POST['role']);
+        $user->set('active', 'Y');
+        /*$data = array(
             'namaPegawai' => $_POST['namaPegawai'],
             'NIP' => $_POST['NIP'],
             'username' => $_POST['username'],
@@ -567,14 +584,25 @@ class Admin_Controller extends Controller {
             'jabatan' => $_POST['jabatan'],
             'role' => $_POST['role'],
             'active' => 'Y'
-        );
-        $this->model->addUser($data);
+        );*/
+        $user->addUser();
+//        $this->model->addUser($data);
 //        $this->rekamUser();
         return true;
     }
 
     public function updateRekamUser() {
-        $data = array(
+        $user = new User();
+        $user->set('id_user', $_POST['id']);
+        $user->set('namaPegawai', $_POST['namaPegawai']);
+        $user->set('NIP', $_POST['NIP']);
+        $user->set('nama_user', $_POST['username']);
+        $user->set('password', Hash::create('md5', $_POST['password'], HASH_SALT_KEY));
+        $user->set('bagian', $_POST['bagian']);
+        $user->set('jabatan', $_POST['jabatan']);
+        $user->set('role', $_POST['role']);
+        $user->set('active', 'Y');
+        /*$data = array(
             'namaPegawai' => $_POST['namaPegawai'],
             'NIP' => $_POST['NIP'],
             'username' => $_POST['username'],
@@ -583,25 +611,32 @@ class Admin_Controller extends Controller {
             'jabatan' => $_POST['jabatan'],
             'role' => $_POST['role'],
             'active' => 'Y'
-        );
+        );*/
 
-        $where = ' id_user=' . $_POST['id'];
-        $this->model->updateUser($data, $where);
+//        $where = ' id_user=' . $_POST['id'];
+        $user->editUser();
+//        $this->model->updateUser($data, $where);
 //        $this->rekamUser();
         return true;
     }
 
     public function hapusUser($id) {
-        $where = ' id_user=' . $id;
-        $this->model->deleteUser($where);
+        $user = new User();
+        $user->set('id_user', $id);
+        $user->hapusUser();
+//        $where = ' id_user=' . $id;
+//        $this->model->deleteUser($where);
         $this->rekamUser();
     }
 
     public function setAktifUser($id, $active) {
-
+        $user = new User();
+        $user->set('id_user', $id);
         $aktif = ($active == 'Y') ? 'N' : 'Y';
+        $user->set('active', $aktif);
+        $user->setAktifUser();
         //echo $aktif;
-        $this->model->setAktifUser($id, $aktif);
+//        $this->model->setAktifUser($id, $aktif);
         $this->rekamUser(); 
     }
 

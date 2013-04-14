@@ -16,12 +16,12 @@
         //echo '<td>' . $value['no_agenda'] . '</td>';
         
         if($this->notif->isRead($value['id_suratkeluar'],$user,'SK')){
-            echo '<td><font color=blue><b>' . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'.$no_surat. '</td>';
+            echo '<td><input type=checkbox name=cek[] value=' . $value['id_suratkeluar'] . ' > <font color=blue><b>' . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'.$no_surat. '</td>';
             echo '<td>' . $value['tipe'] . ' 
             </br><a href="'.URL.'suratkeluar/detil/'.$value['id_suratkeluar'].'">'. $value['tujuan'] . '</br>'. $value['perihal'] .
              '</a></b></font></td>';
         }else{
-            echo '<td>' . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'.$no_surat. '</td>';
+            echo '<td><input type=checkbox name=cek[] value=' . $value['id_suratkeluar'] . ' > ' . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'.$no_surat. '</td>';
             echo '<td>' . $value['tipe'] . ' 
             </br><a href="'.URL.'suratkeluar/detil/'.$value['id_suratkeluar'].'">'. $value['tujuan'] . '</br>'. $value['perihal'] .
              '</a></td>';

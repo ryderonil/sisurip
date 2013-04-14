@@ -17,11 +17,17 @@ class User extends Model{
     private $role;
     private $active;
     
+    /*
+     * constructor
+     */
     public function __construct() {
         @parent::__construct();
     }
     
-    public function __set($attr, $value){
+    /*
+     * setter
+     */
+    public function set($attr, $value){
         switch($attr){
             case 'id_user':
                 $this->id_user = $value;
@@ -59,7 +65,10 @@ class User extends Model{
         }
     }
     
-    public function __get($attr){
+    /*
+     * getter
+     */
+    public function get($attr){
         switch($attr){
             case 'id_user':
                 return $this->id_user;
@@ -96,22 +105,76 @@ class User extends Model{
         }
     }
     
-    public function addUser($data){
-        $this->insert('user', $data);
+    /*
+     * fungsi menambah user ke database, tabel user
+     * return boolean true
+     */
+    public function addUser(){
+        $data = array(
+            'namaPegawai' => $this->get('namaPegawai'),
+            'NIP' => $this->get('NIP'),
+            'username' => $this->get('nama_user'),
+            'password' => $this->get('password'),
+            'bagian' => $this->get('bagian'),
+            'jabatan' => $this->get('jabatan'),
+            'role' => $this->get('role'),
+            'active' => $this->get('active')
+        );
+        return $this->insert('user', $data);
     }
     
-    public function editUser($data, $where){
-        $this->update('user', $data, $where);
+    /*
+     * fungsi edit data user
+     * return boolean true
+     */
+    public function editUser($where){
+        $data = array(
+            'namaPegawai' => $this->get('namaPegawai'),
+            'NIP' => $this->get('NIP'),
+            'username' => $this->get('nama_user'),
+            'password' => $this->get('password'),
+            'bagian' => $this->get('bagian'),
+            'jabatan' => $this->get('jabatan'),
+            'role' => $this->get('role'),
+            'active' => $this->get('active')
+        );
+        $where = ' id_user=' . $this->get('id_user');
+        return $this->update('user', $data, $where);
     }
     
-    public function getRole(){
+    /*
+     * fungsi hapus user
+     * return boolean
+     */
+    
+    public function hapusUser(){
+        $where = ' id_user='.$this->get('id_user');
+        return $this->delete('user', $where);
+    }
+    
+    /*
+     * fungsi pengaturan aktif user
+     * return boolean
+     */
+    public function setAktifUser(){
+        $data = array(
+          'active'=>$this->get('active')  
+        );
+        
+        $where = ' id_user='.$this->get('id_user');
+        return $this->update('user', $data, $where);
+    }
+
+    /*
+     * fungsi mendapatkan data user
+     * return data array user
+     */ 
+    public function getUser($id=NULL){
         //belum selesai
-        return $this->role;
-    }
-    
-    public function getUser(){
-        //belum selesai
-        $data = $this->select('SELECT * FROM user');
+        if(is_null($id)){
+            $data = $this->select('SELECT * FROM user');
+        }
+        
         return $data;
     }
     
@@ -119,7 +182,28 @@ class User extends Model{
         $data = $this->select('SELECT * FROM user WHERE id_user='.$user->id_user);
     }
     
+    /*
+     * fungsi cek ketersediaan user di database, table user
+     * @param nama user, NIP
+     * return boolean false jika tidak ditemukan
+     * return pesan kesalahan jika ditemukan
+     */
     public function cekUserExist($username, $NIP){
+        $sql = "SELECT * FROM user WHERE username LIKE '".$username."'";
+        $data = $this->select($sql);
+        $i = count($data);
+        if($i>0){
+            return false;
+        }
+        
+        $sql = "SELECT * FROM user WHERE NIP='".$NIP."'";
+        $data = $this->select($sql);
+        $i = count($data);
+        if($i>0){
+            return false;
+        }
+        
+        return true;
         
     }
     
