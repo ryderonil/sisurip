@@ -31,7 +31,29 @@
         <td><?php echo $value['bagian']; ?></td>
         <td><?php echo $value['kd_nomor']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="HAPUS"></a></td></tr>
+            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai();"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
+
+<script type="text/javascript">
+    
+    function selesai()
+{
+    
+        var answer = confirm ("Anda yakin data ini akan dihapus?")
+   
+  
+    if (answer){
+        return true;
+    }else{
+        
+        return false;
+    }
+    
+    }
+    
+    
+    
+
+</script>

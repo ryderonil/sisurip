@@ -28,7 +28,7 @@ class Admin_Controller extends Controller {
 
     public function rekamKantor() {
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
+            if($this->inputRekamKantor()){
                 $this->view->success = "Ubah data berhasil";
             }else{
                 $this->view->error = "Ubah data gagal!";
@@ -69,9 +69,9 @@ class Admin_Controller extends Controller {
     public function rekamAlamat($satker = null) {
         if(isset($_POST['submit'])){
             if($this->updateRekamAlamat()){
-                $this->view->success = "Ubah data berhasil";
+                $this->view->success = "Rekam alamat berhasil";
             }else{
-                $this->view->error = "Ubah data gagal!";
+                $this->view->error = "Rekam alamat gagal! alamat satker ini telah ada.";
             }
         }
         if (!is_null($satker)) {
@@ -90,7 +90,7 @@ class Admin_Controller extends Controller {
             if($this->updateRekamAlamat()){
                 $this->view->success = "Ubah data berhasil";
             }else{
-                $this->view->error = "Ubah data gagal!";
+                $this->view->error = "Ubah alamat gagal! alamat satker ini telah ada.";
             }
         }
         $alamat = $this->model->getAlamat($kd);
@@ -148,10 +148,10 @@ class Admin_Controller extends Controller {
 
     public function rekamKlasifikasiArsip() {
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
-                $this->view->success = "Ubah data berhasil";
+            if($this->inputRekamKlasArsip()){
+                $this->view->success = "Rekam data klasifikasi arsip berhasil";
             }else{
-                $this->view->error = "Ubah data gagal!";
+                $this->view->error = "Rekam data klasifikasi arsip data gagal!";
             }
         }
         $this->view->klasArsip = $this->model->select('SELECT * FROM klasifikasi_arsip');
@@ -161,10 +161,10 @@ class Admin_Controller extends Controller {
 
     public function ubahKlasifikasiArsip($id) {
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
-                $this->view->success = "Ubah data berhasil";
+            if($this->updateRekamKlasArsip()){
+                $this->view->success = "Ubah data klasifikasi arsip berhasil";
             }else{
-                $this->view->error = "Ubah data gagal!";
+                $this->view->error = "Ubah data klasifikasi arsip gagal!";
             }
         }
         $this->view->klasArsip = $this->model->select('SELECT * FROM klasifikasi_arsip');
@@ -235,7 +235,7 @@ class Admin_Controller extends Controller {
 
     public function rekamNomor() {
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
+            if($this->inputRekamNomor()){
                 $this->view->success = "Ubah data berhasil";
             }else{
                 $this->view->error = "Ubah data gagal!";
@@ -249,7 +249,7 @@ class Admin_Controller extends Controller {
 
     public function ubahNomor($id) {
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
+            if($this->updateRekamNomor()){
                 $this->view->success = "Ubah data berhasil";
             }else{
                 $this->view->error = "Ubah data gagal!";
@@ -478,8 +478,8 @@ class Admin_Controller extends Controller {
     }
 
     public function hapusNomor($id) {
-        $where = ' id_nomor=' . $id;
-        $this->model->deleteNomor($where);
+        
+        $this->model->deleteNomor($id);
         $this->rekamNomor();
     }
 
@@ -506,8 +506,8 @@ class Admin_Controller extends Controller {
     }
 
     public function hapusKlasifikasiArsip($id) {
-        $where = ' id_klasarsip=' . $id;
-        $this->model->deleteKlasifikasiArsip($where);
+        
+        $this->model->deleteKlasifikasiArsip($id);
         $this->rekamKlasifikasiArsip();
     }
 
@@ -532,7 +532,11 @@ class Admin_Controller extends Controller {
 //        $this->rekamJenisLampiran();
         return true;
     }
-
+    
+    /*
+     * ubah status lampiran menjadi aktif dan tidak aktif
+     * 
+     */
     public function hapusLampiran($id) {
         $where = ' id_tipe =' . $id;
         $this->model->deleteLampiran($where);
@@ -696,8 +700,8 @@ class Admin_Controller extends Controller {
         $status = ($status == 'E') ? 'F' : 'E';
         //echo $aktif;
         $this->model->setStatusLokasi($id, $status);
-//        $this->rekamLokasi();
-        return true;
+        $this->rekamLokasi();
+//        return true;
     }
     
     public function inputRekamAlamat(){
@@ -710,6 +714,9 @@ class Admin_Controller extends Controller {
             'email'=>$_POST['email']
         );
         
+        if($this->model->existAlamat($_POST['kode_satker'])){
+            return false;
+        }
         //var_dump($data);
         $this->model->addAlamatSurat($data);
 //        $this->rekamAlamat();
@@ -726,6 +733,10 @@ class Admin_Controller extends Controller {
             'telepon'=>$_POST['telepon'],
             'email'=>$_POST['email']
         );
+        
+        if($this->model->existAlamat($_POST['kode_satker'])){
+            return false;
+        }
         
         $where = ' id_alamat='.$_POST['id'];
         //echo $where;

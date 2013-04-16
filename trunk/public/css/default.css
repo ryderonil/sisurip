@@ -14,6 +14,7 @@ body {
 
 div {
     /*        border: 1px solid black;*/
+/*    text-align: right;*/
 }
 
 /** Structure */
@@ -155,6 +156,7 @@ div {
 /** Forms */
 
 #form-wrapper {
+/*    text-align: center;*/
     margin: 0 auto;
     margin-top: 5px;
     width: 75%;
@@ -199,10 +201,23 @@ div {
 }
 
 form {
-
+    padding-left: 100px;
+/*    margin-left: 200px; */
+    text-align: left;
+/*    margin: 0 auto;*/
     display: inline-block;
     font: 100% verdana,arial,sans-serif;
 }
+
+form .admin_form{
+    padding-left: 100px;
+/*    margin-left: 200px; */
+}
+
+#form-search {
+    padding-left: 0px;
+}
+
 
 form label { 
     display: block;
@@ -289,6 +304,7 @@ form input[type=submit]:hover, input[type=reset]:hover,input[type=button]:hover{
 
 
 form br {clear: left;}
+
 
 iframe {
     width: 100%;
@@ -889,6 +905,7 @@ form input.sb_input {
 
 /*-- info, success, warning, error --*/
 #info, #success, #warning, #error, #validation {
+/*    text-align: center;*/
     border: 1px solid;
     margin: 10px 0px;
     padding:15px 10px 15px 50px;

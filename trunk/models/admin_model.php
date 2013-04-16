@@ -40,8 +40,9 @@ class Admin_Model extends Model{
         return $this->update('nomor', $data, $where);
     }
     
-    public function deleteNomor($where){
-        $this->delete('nomor', $where);
+    public function deleteNomor($id){
+        $where = ' id_nomor=' . $id;
+        return $this->delete('nomor', $where);
     }
     
     public function addKlasifikasiArsip($data){
@@ -52,8 +53,10 @@ class Admin_Model extends Model{
         return $this->update('klasifikasi_arsip', $data, $where);
     }
     
-    public function deleteKlasifikasiArsip($where){
+    public function deleteKlasifikasiArsip($id){
+        $where = ' id_klasarsip=' . $id;
         $this->delete('klasifikasi_arsip', $where);
+        return true;
     }
     
     public function addLampiran($data){
@@ -64,8 +67,18 @@ class Admin_Model extends Model{
         return $this->update('tipe_naskah', $data, $where);
     }
     
+    /*
+     * ubah status lampiran menjadi aktif dan tidak aktif
+     * return boolean
+     */
     public function deleteLampiran($where){
-        $this->delete('tipe_naskah', $where);
+        /*$data = array(
+          'status'=>$status
+        );
+        
+        $where = ' id_lokasi='.$id;
+        return $this->update('lokasi', $data, $where);*/
+        return $this->delete('tipe_naskah', $where);
     }
     
     public function addStatusSurat($data){
@@ -158,6 +171,17 @@ class Admin_Model extends Model{
         return $this->update('alamat', $data, $where);
     }
     
+    public function existAlamat($satker){
+        $sql = "SELECT * FROM alamat WHERE kode_satker=:satker";
+        $array = array('satker'=>$satker);
+        $data = $this->select($sql, $array);
+        if(count($data)>0){
+            return true;
+        }
+        return false;
+    }
+
+
     public function getBagianLain($user){
         $sql = "SELECT id_bagian, bagian FROM r_bagian WHERE id_bagian <> (SELECT bagian FROM user WHERE username='".$user."')";
         //echo $sql;

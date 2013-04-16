@@ -23,10 +23,12 @@ class Login_Controller extends Controller{
     }
     
     public function auth(){
+        $user = new User();
         $username = $_POST['username'];
         $password = Hash::create('md5', $_POST['password'], HASH_SALT_KEY);
         //$password = $_POST['password'];
-        $data = $this->model->auth($username, $password);
+//        $data = $this->model->auth($username, $password);
+        $data = $user->getUser($username,$password);
         foreach($data as $value){
             $this->user = $value['username'];
             $this->nama = $value['namaPegawai'];

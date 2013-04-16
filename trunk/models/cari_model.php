@@ -67,16 +67,17 @@ class Cari_Model extends Model{
     public function splitKeyword($keyword){
         $array = explode(" ", $keyword);
         //cek apakah array 0 merupakan filter
-        $filter = $array[0];
-        if(explode(":",$filter)){
+        $filter = explode(":",$array[0]);       
+        $count = count($filter);        
+        if($count>1){
             $filter=  explode(":", $array[0]);
             @$this->filter = $filter[1];
             @$this->keyword = $array[1];
         }else{
             $this->filter='all';
-            $this->keyword = $array[0];
+            $this->keyword = $array[0];         
             
-        }
+        }       
         
     }
     

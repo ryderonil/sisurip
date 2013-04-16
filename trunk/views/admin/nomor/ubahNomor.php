@@ -18,7 +18,7 @@
             <?php echo strtoupper($value['bagian']);?></option>
         <?php } ?>
     </select></br>
-    <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamNomor'" value="BATAL"><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamNomor'" value="BATAL"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai(1);">
 </form></div>
 
 </br>
@@ -31,6 +31,28 @@
         <td><?php echo $value['bagian']; ?></td>
         <td><?php echo $value['kd_nomor']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="HAPUS"></a></td></tr>
+            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai(2);"></a></td></tr>
     <?php $no++; }?>
 </table></div>
+
+<script type="text/javascript">
+    
+    function selesai(num)
+{
+    if(num==1){
+        var answer = confirm ("Anda yakin menyimpan perubahan?")
+    }else if(num==2){
+        var answer = confirm ("Anda yakin data ini akan dihapus?")
+    }
+  
+    if (answer)
+        return true;
+    else
+        //window.location='<?php echo URL;?>admin/ubahLokasi/<?php echo $this->data[0];?>';
+        return false;
+    }
+    
+    
+    
+
+</script>

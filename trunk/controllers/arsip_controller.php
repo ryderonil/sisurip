@@ -32,8 +32,9 @@ class Arsip_Controller extends Controller{
             $this->view->tipe=$tipesurat;
             
             if($tipesurat=='SM'){
-                $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
-                    FROM suratmasuk WHERE id_suratmasuk='.$id);
+                $data = $this->model->getSurat($id,'SM');
+//                $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
+//                    FROM suratmasuk WHERE id_suratmasuk='.$id);
                 foreach ($data as $value){
                     $this->view->data[0] = $value['id_suratmasuk'];
                     $this->view->data[1] = $value['no_surat'];
@@ -41,8 +42,9 @@ class Arsip_Controller extends Controller{
                     $this->view->data[3] = $value['perihal'];
                 }
             }elseif (($tipesurat=='SK')) {
-                $data=$this->model->select('SELECT id_suratkeluar,no_surat,tujuan, perihal
-                    FROM suratkeluar WHERE id_suratkeluar='.$id);
+                $data = $this->model->getSurat($id,'SK');
+//                $data=$this->model->select('SELECT id_suratkeluar,no_surat,tujuan, perihal
+//                    FROM suratkeluar WHERE id_suratkeluar='.$id);
                 foreach ($data as $value){
                     $this->view->data[0] = $value['id_suratkeluar'];
                     $this->view->data[1] = $value['no_surat'];
@@ -68,8 +70,9 @@ class Arsip_Controller extends Controller{
             $this->view->box = $this->model->getBox($this->view->ar['baris']);
             
         }else{
-            if($this->view->data[1]==''){
-            $this->view->warning = 'surat belum mendapat nomor surat, tidak dapat diarsipkan';
+//            if($this->view->data[1]==''){
+            if($this->model->emptyNomor($this->view->data[1])){
+                $this->view->warning = 'surat belum mendapat nomor surat, tidak dapat diarsipkan';
             }
 
             $this->view->rak = $this->model->getRak();

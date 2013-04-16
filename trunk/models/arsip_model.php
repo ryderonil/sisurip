@@ -13,8 +13,25 @@ class Arsip_Model extends Model {
         parent::__construct();
     }
     
+    public function emptyNomor($no){
+        if($no==''){
+            return true;
+        }
+        
+        return false;
+    }
+
+
     public function getSurat($id, $surat){
         switch($surat){
+            case 'SM':
+                $sm = new Suratmasuk_Model();
+                return $sm->getSuratMasukById($id);
+                break;
+            case 'SK':
+                $sk=new Suratkeluar_Model();
+                return $sk->getSuratKeluarById($id, 'ubah');
+                break;
             
         }
     }

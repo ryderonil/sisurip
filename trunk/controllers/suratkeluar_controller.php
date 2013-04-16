@@ -53,7 +53,9 @@ class Suratkeluar_Controller extends Controller {
                 }
                 //echo $this->view->alamat;
                 if (!is_null($ids)) {
-                    $datasm = $this->model->select('SELECT id_suratmasuk, no_agenda, no_surat FROM suratmasuk WHERE id_suratmasuk=' . $ids);
+                    $sm = new Suratmasuk_Model();
+                    $datasm = $sm->getSuratMasukById($ids);
+//                    $datasm = $this->model->select('SELECT id_suratmasuk, no_agenda, no_surat FROM suratmasuk WHERE id_suratmasuk=' . $ids);
                     foreach ($datasm as $value) {
                         $this->view->data[0] = $value['id_suratmasuk'];
                         $this->view->data[1] = $value['no_agenda'];
@@ -312,7 +314,7 @@ class Suratkeluar_Controller extends Controller {
             if($this->uploadrev()){
                 $this->view->success = "Rekam revisi berhasil";
             }else{
-                $this->view->error = "Rekam revisi gagal!";
+                $this->view->error = $this->uploadrev();
             }
         }
         
@@ -329,10 +331,13 @@ class Suratkeluar_Controller extends Controller {
      * tambah notifikasi kasi dan pelaksana
      */
     public function uploadrev(){
+        $return = true;
         $notif = new Notifikasi();
         $id = $_POST['id'];
         $catatan = $_POST['catatan'];
         $user = $_POST['user'];
+//        var_dump($catatan);       
+        
         $time = date('Y-m-d H:i:s');
         $filename ='';
         $datas = $this->model->getSuratKeluarById($id, 'detil');
@@ -344,10 +349,10 @@ class Suratkeluar_Controller extends Controller {
         $fln = array();
         if(file_exists('arsip/temp/'.$filename)){
             $temp = explode('.', $filename);
-            var_dump($temp);
+//            var_dump($temp);
             $sql = "SELECT file FROM revisisurat WHERE file LIKE '$temp[0]%'";
             $file = $this->model->select($sql);
-            var_dump($file);
+//            var_dump($file);
             if(count($file>0)){
                 if(count($file)==1){
                     $pisah = explode('.', $filename);
@@ -355,19 +360,26 @@ class Suratkeluar_Controller extends Controller {
                     $ext = $pisah[1];
                     var_dump($ext);
                     $filename = $nama.'_1.'.$ext;
-                    var_dump($filename);
+//                    var_dump($filename);
 //                    break;
                 }else{
                     foreach ($file as $val){
-                        $temp = explode('.', $val['file']);
-                        $fln[] = end(explode('_', $temp[0]));
-                        var_dump($fln);
+                        $temp = explode('.', $val['file']);                        
+                        $pisah = explode('_', $temp[0]);
+                        if(count($pisah)<=3){
+                            $fln[] = 0;
+                        }else{
+                            $fln[] = $pisah[3];
+                        }
+//                        $fln[] = explode('_', $temp[0]);
+                        
+//                        var_dump($fln);
 //                        $len = count($temp);
 //                        $fln[] = (int) ($len-1); //mengambil array terakhir
                         $num = max($fln);
-                        var_dump($num);
-                        $filename = $temp[0].'_'.($num+1).'.'.$temp[1]; 
-                        var_dump($filename);
+//                        var_dump($num);                        
+                        $filename = $pisah[0].'_'.$pisah[1].'_'.$pisah[2].'_'.($num+1).'.'.$temp[1]; 
+//                        var_dump($filename);
                     }
                     
                 }
@@ -381,17 +393,17 @@ class Suratkeluar_Controller extends Controller {
             'user'=>$user,
             'file'=>$filename, 
             'time'=>$time
-        );
-        
-        //tambah revisi
-        $this->model->addRevisi($data);
+        );  
         
         $upload = new Upload('upload');
         
         $upload->setDirTo('arsip/temp/');
         $upload->setFileTo($filename);
         //upload file revisi
-        $upload->uploadFile(); //upload dengan nama beda jika sudah terdapat file di arsip
+//        $upl = $upload->uploadFile(); //upload dengan nama beda jika sudah terdapat file di arsip
+//        if(!$upl){
+//            $return = "Gagal upload! cek file dan ekstensi, ekstensi harus pdf, doc atau docx";
+//        }
         $role = Session::get('role'); 
         /*
          * alurnya klo revisi kasi->pelaksana
@@ -417,10 +429,13 @@ class Suratkeluar_Controller extends Controller {
         $notif->set('id_user', $user[0]);
         $notif->set('role',$user[1]);
         //tambah notifikasi untuk pelaksana
-        $notif->addNotifikasi();
-               
+//        $notif->addNotifikasi();
+        
+        //tambah revisi
+//        $this->model->addRevisi($data);
+        
 //        $this->showAll();
-        return true;
+        return $return;
         
     }
     

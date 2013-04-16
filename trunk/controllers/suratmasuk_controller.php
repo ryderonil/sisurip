@@ -320,10 +320,11 @@ class Suratmasuk_Controller extends Controller {
             'petunjuk'=>$petunjuk,
             'catatan'=>$catatan
             );
-        
-        $rekam = $this->model->rekamdisposisi($data);
+        $dispos = new Disposisi();
+        $rekam = $dispos->addDisposisi($data);
+//        $rekam = $this->model->rekamdisposisi($data);
         //var_dump($rekam);
-        if($rekam){ //baris ini berhasil
+        if(!$rekam){ //baris ini berhasil
             echo "error";
             $this->view->error = "data tidak berhasil disimpan!";
             
@@ -449,9 +450,12 @@ class Suratmasuk_Controller extends Controller {
     }
     
     public function ctkEkspedisi(){
-        $this->view->data = $this->model->showAll();
+        $eks = new EkspedisiSurat();
+        $id = $this->model->select("SELECT id_suratmasuk FROM suratmasuk");
+        $eks->displayEkspedisi($id);
+//        $this->view->data = $this->model->showAll();
         
-        $this->view->load('suratmasuk/expedisi.php');
+//        $this->view->load('suratmasuk/expedisi.php');
     }
     
     public function upload($id){
