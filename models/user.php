@@ -169,10 +169,14 @@ class User extends Model{
      * fungsi mendapatkan data user
      * return data array user
      */ 
-    public function getUser($id=NULL){
+    public function getUser($id=NULL,$password=NULL){
         //belum selesai
         if(is_null($id)){
             $data = $this->select('SELECT * FROM user');
+        }  elseif(is_int($id) AND is_null($password)) {
+            $data = $this->select('SELECT * FROM user WHERE id_user='.$id);
+        }elseif(!is_int($id) AND !is_null($password)){
+            $data = $this->select("SELECT * FROM user WHERE username='".$id."' AND password='".$password."'");
         }
         
         return $data;

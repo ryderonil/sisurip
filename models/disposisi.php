@@ -102,5 +102,10 @@ class Disposisi extends Model{
     public function printDisposisi(){
         
     }
+    
+    public function addDisposisi($data){
+        $insert = $this->insert('disposisi', $data);
+        return $insert;
+    }
 }
 ?>

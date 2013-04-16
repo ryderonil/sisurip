@@ -26,7 +26,29 @@
         <td><?php echo $value['kode']; ?></td>
         <td><?php echo $value['klasifikasi']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="HAPUS"></a></td></tr>
+            <a href="<?php echo URL;?>admin/hapusKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai();"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
+
+<script type="text/javascript">
+    
+    function selesai()
+{
+   
+        var answer = confirm ("Anda yakin data ini akan dihapus?");
+   
+  
+    if (answer){
+        return true;
+    }else{
+        
+        return false;
+    }
+    
+    }
+    
+    
+    
+
+</script>

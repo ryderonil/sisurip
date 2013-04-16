@@ -20,7 +20,7 @@ class Lampiran_Controller extends Controller{
     }
     
     public function rekam($id,$tipe){
-        if(isset($_POST)){
+        if(isset($_POST['submit'])){
             if($this->addRekamLampiran()){
                 $this->view->success="Rekam lampiran berhasil";
             }else{
@@ -30,8 +30,10 @@ class Lampiran_Controller extends Controller{
         }
             
         if($tipe=='SM'){
-            $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
-                    FROM suratmasuk WHERE id_suratmasuk='.$id);
+            $sm = new Suratmasuk_Model();
+            $data = $sm->getSuratMasukById($id);
+//            $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
+//                    FROM suratmasuk WHERE id_suratmasuk='.$id);
         foreach ($data as $value){
             $this->view->data[0] = $value['id_suratmasuk'];
             $this->view->data[1] = $value['no_surat'];

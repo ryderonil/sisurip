@@ -39,6 +39,10 @@ if(isset($this->data)){
             }elseif(isset($this->success)){
                 echo "<div id=success>$this->success</div>";
             }
+            
+            if(isset($this->data[0])){
+                
+            
         ?>
         <input type="hidden" name="id_surat" value="<?php echo $this->data[0];?>">
         <input type="hidden" name="id_disp" value="<?php echo $this->datad->id_disposisi;?>">
@@ -54,4 +58,9 @@ if(isset($this->data)){
         <label>PETUNJUK :</label><textarea id="input" class="required" name="catatan" rows="10" cols="50"></textarea></br>
         <label></label><input type="submit" name ="submit" value="SIMPAN" >
             
+        <?php }else{
+            echo "<div id=warning>Surat belum didisposisi Kepala Kantor, Anda tidak dapat memberikan disposisi!</div>";
+        } ?>
+        
+        
     </form></div>

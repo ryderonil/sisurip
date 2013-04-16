@@ -23,9 +23,9 @@ class Upload{
         $this->setDirFrom($_FILES[$fupload]['tmp_name']);
         $this->setFileExt($_FILES[$fupload]['type']);
         $this->setFileName($_FILES[$fupload]['name']);        
-        echo $this->getDirFrom();
-        echo $this->getFileExt();
-        echo $this->getFileName();        
+//        echo $this->getDirFrom();
+//        echo $this->getFileExt();
+//        echo $this->getFileName();        
     }
     
     public function cekFileExist(){
@@ -77,13 +77,16 @@ class Upload{
         if($this->cekFileExist()){
             if($this->cekEkstensi($this->getFileExt())){
                 move_uploaded_file($this->getDirFrom(), $this->getDirTo().$this->getFileTo());
+                return true;
             }else{
-                throw new Exception();
-                exit();
+//                throw new Exception();
+                return false;
+//                exit();
             }
         }else{
-            throw new Exception();
-            exit();
+//            throw new Exception();
+            return false;
+//            exit();
         }
         
         //memindah file

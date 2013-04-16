@@ -36,7 +36,7 @@ class Suratmasuk_Model extends Model{
                 a.lampiran as lampiran,
                 a.start as start,
                 a.end as end
-                FROM suratmasuk a JOIN alamat b 
+                FROM suratmasuk a LEFT JOIN alamat b 
                 ON a.asal_surat = b.kode_satker
                 ORDER BY a.id_suratmasuk DESC";
         

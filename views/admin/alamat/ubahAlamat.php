@@ -2,13 +2,7 @@
 <hr>
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/updateRekamAlamat">-->
-        <?php 
-            if(isset($this->error)){
-                echo "<div id=error>$this->error<?div>";
-            }elseif(isset($this->success)){
-                echo "<div id=success>$this->success</div>";
-            }
-        ?>
+        
         <input type="hidden" name="id" value="<?php echo $this->id;?>">
         <!--<label>KEMENTERIAN/LEMBAGA</label><select></select></br>
         <label>UNIT</label><select></select></br>-->
@@ -23,6 +17,13 @@
         <label>TELEPON</label><input type="text" name="telepon" value="<?php echo $this->telepon;?>"></br>
         <label>EMAIL</label><input type="text" name="email" value="<?php echo $this->email;?>"></br>
         <label></label><input type="button" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamAlamat'"><input type="submit" name="submit" value="SIMPAN">
+        <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error</div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
 </form>
 </div>
 </br>

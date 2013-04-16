@@ -1,16 +1,10 @@
 <h2>Rekam Alamat Surat</h2>            
 <hr>
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+<div id="form-wrapper"><form class="admin_form" id="form-rekam" method="POST" action="#">
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamAlamat">-->
         <!--<label>KEMENTERIAN/LEMBAGA</label><select></select></br>
         <label>UNIT</label><select></select></br>-->
-        <?php 
-            if(isset($this->error)){
-                echo "<div id=error>$this->error<?div>";
-            }elseif(isset($this->success)){
-                echo "<div id=success>$this->success</div>";
-            }
-        ?>
+        
         <label>KODE SATKER</label><input type="text" id="kdsatker" name="kode_satker" 
                                          value="<?php if(isset($this->satker)) echo $this->satker;?>">
         <a href="<?php echo URL;?>helper/pilihsatker"><input type="button" value="+"></a></br>
@@ -22,6 +16,13 @@
         <label>TELEPON</label><input class="number" type="text" name="telepon"></br>
         <label>EMAIL</label><input class="email"type="text" name="email"></br>
         <label></label><input type="reset" value="RESET"><input type="submit" name="submit" value="SIMPAN">
+        <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error</div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
 </form>
 </div>
 </br>
