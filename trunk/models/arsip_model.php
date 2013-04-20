@@ -7,7 +7,12 @@
 class Arsip_Model extends Model {
 
     //put your code here
-
+    
+    var $id_arsip;
+    var $id_surat;
+    var $kode_arsip;
+    var $klas;
+    
     public function __construct() {
         //echo 'ini adalah model</br>';
         parent::__construct();

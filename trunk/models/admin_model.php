@@ -11,6 +11,23 @@ class Admin_Model extends Model{
         parent::__construct();
     }
     
+    public function getDataAdminById($id, $tipe){
+        switch($tipe){
+            case 'lampiran':
+                return $this->select('SELECT * FROM tipe_naskah WHERE id_tipe=' . $id);
+                break;
+            case 'user':
+                break;
+            case 'lokasi':
+                break;
+            case 'alamat':
+                break;
+            case 'klasarsip':
+                break;
+            case 'nomor':
+                break;
+        }
+    }
     public function cekKantor(){
         $sth = $this->select("SELECT * FROM kantor");
         $count = count($sth);
@@ -102,6 +119,7 @@ class Admin_Model extends Model{
     }
     
     public function deleteUser($where){
+        
         $this->delete('user', $where);
     }
     

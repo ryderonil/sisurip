@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-class Suratkeluar_Model extends Model {
+class Suratkeluar_Model extends Surat{
 
     //put your code here
     var $lastId;

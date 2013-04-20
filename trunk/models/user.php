@@ -114,7 +114,7 @@ class User extends Model{
             'namaPegawai' => $this->get('namaPegawai'),
             'NIP' => $this->get('NIP'),
             'username' => $this->get('nama_user'),
-            'password' => $this->get('password'),
+            'password' => Hash::create(md5, $this->get('password'), HASH_SALT_KEY),
             'bagian' => $this->get('bagian'),
             'jabatan' => $this->get('jabatan'),
             'role' => $this->get('role'),
@@ -176,7 +176,7 @@ class User extends Model{
         }  elseif(is_int($id) AND is_null($password)) {
             $data = $this->select('SELECT * FROM user WHERE id_user='.$id);
         }elseif(!is_int($id) AND !is_null($password)){
-            $data = $this->select("SELECT * FROM user WHERE username='".$id."' AND password='".$password."'");
+            $data = $this->select("SELECT * FROM user WHERE username='".$id."' AND password='". $password."'");
         }
         
         return $data;

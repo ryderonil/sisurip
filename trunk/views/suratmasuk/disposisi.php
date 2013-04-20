@@ -1,3 +1,7 @@
+<?php 
+  $id = $_POST['queryString'];
+  var_dump($id);
+    ?>
 <div id="form-wrapper"><form method="POST" action="#">
         <?php 
             if(isset($this->error)){
