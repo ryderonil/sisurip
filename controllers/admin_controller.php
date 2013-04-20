@@ -117,7 +117,7 @@ class Admin_Controller extends Controller {
 
     public function rekamJenisLampiran() {
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
+            if($this->inputRekamLampiran()){
                 $this->view->success = "Ubah data berhasil";
             }else{
                 $this->view->error = "Ubah data gagal!";
@@ -130,14 +130,14 @@ class Admin_Controller extends Controller {
 
     public function ubahLampiran($id) {
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
+            if($this->updateRekamLampiran()){
                 $this->view->success = "Ubah data berhasil";
             }else{
                 $this->view->error = "Ubah data gagal!";
             }
         }
         $this->view->lampiran = $this->model->select('SELECT * FROM tipe_naskah');
-        $dataUbah = $this->model->select('SELECT * FROM tipe_naskah WHERE id_tipe=' . $id);
+        $dataUbah = $this->model->getDataAdminById($id,'lampiran');
         foreach ($dataUbah as $value) {
             $this->view->data[0] = $value['id_tipe'];
             $this->view->data[1] = $value['tipe_naskah'];
@@ -336,7 +336,7 @@ class Admin_Controller extends Controller {
 
     public function rekamPjs($user){
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
+            if($this->inputRekamPjs()){
                 $this->view->success = "Ubah data berhasil";
             }else{
                 $this->view->error = "Ubah data gagal!";

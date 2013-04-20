@@ -33,7 +33,7 @@
 
 function selesai(){
     
-    var answer = 'anda yakin menyimpan perubahan?'
+    var answer = 'anda yakin menghapus data ini?'
     
     if(confirm(answer)){
         return true;

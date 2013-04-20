@@ -10,7 +10,7 @@
  *
  * @author aisyah
  */
-class Suratmasuk_Model extends Model{
+class Suratmasuk_Model extends Surat{
     //put your code here
     var $lastId;
     
