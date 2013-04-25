@@ -18,7 +18,9 @@ class Suratmasuk_Controller extends Controller {
         $this->nomor = new Nomor();
         $this->view->kantor = Kantor::getNama();
         $this->view->js = array(
-            'suratmasuk/js/default'
+            'suratmasuk/js/default',
+            'suratkeluar/js/jquery.tipTip',
+            'suratkeluar/js/jquery.tipTip.minified'
         );
         //$this->view = new View;
         //echo "</br>kelas berhasil di bentuk";
@@ -33,7 +35,7 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function showAll() {
-
+        
         $this->view->listSurat = $this->model->showAll();
 
         $this->view->render('suratmasuk/suratmasuk');

@@ -20,7 +20,7 @@ class Suratmasuk_Model extends Surat{
         
     }
     
-    public function showAll(){
+    public function showAll($limit=null,$batas=null){
         
         //$sql = "SELECT * FROM suratmasuk";
         $sql = "SELECT a.id_suratmasuk as id_suratmasuk,
@@ -39,6 +39,9 @@ class Suratmasuk_Model extends Surat{
                 FROM suratmasuk a LEFT JOIN alamat b 
                 ON a.asal_surat = b.kode_satker
                 ORDER BY a.id_suratmasuk DESC";
+        if(!is_null($limit) AND !is_null($batas)){
+            $sql .= " LIMIT $limit,$batas";
+        }
         
         return $this->select($sql);
     }

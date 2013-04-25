@@ -12,11 +12,11 @@
         <tr><td>ASAL</td><td><?php echo $this->data[5]; ?></td></tr>
         <tr><td>PERIHAL</td><td><?php echo $this->data[6]; ?></td></tr>-->
         <tr><td></td><td>
-                <?php if(Auth::isRole($role, 3)) { ?><a href="<?php echo URL;?>suratkeluar/rekam/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="TANGGAPAN SURAT"></a>
-                <a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->data[0]; ?>/SM"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
-                <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->data[0]; ?>/SM"><input class="btn" type="button" value="ARSIP"></a><?php }?>
-                <?php if(Auth::isRole($role, 2)) { ?><a href="<?php echo URL;?>suratmasuk/edit/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="U B A H"></a>
-                <a href="<?php echo URL;?>suratmasuk/catatan/<?php echo $this->data[0]; ?>"><input class="btn" type="button" value="DISPOSISI KASI"></a><?php }?></td></tr>
+                <?php if(Auth::isRole($role, 3)) { ?><a href="<?php echo URL;?>suratkeluar/rekam/<?php echo $this->data[0]; ?>" title="rekam tanggapan surat!" class="tip"><input class="btn" type="button" value="TANGGAPAN SURAT"></a>
+                <a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->data[0]; ?>/SM" title="rekam lampiran surat" class="tip"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
+                <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->data[0]; ?>/SM" title="rekam ke dalam arsip, pastikan fisik surat telah ditempatkan pada lokasi arsip!" class="tip"><input class="btn" type="button" value="ARSIP"></a><?php }?>
+                <?php if(Auth::isRole($role, 2)) { ?><a href="<?php echo URL;?>suratmasuk/edit/<?php echo $this->data[0]; ?>" title="ubah data surat" class="tip"><input class="btn" type="button" value="U B A H"></a>
+                <a href="<?php echo URL;?>suratmasuk/catatan/<?php echo $this->data[0]; ?>" title="rekam disposisi pejabat es IV kepada pelaksana" class="tip"><input class="btn" type="button" value="DISPOSISI KASI"></a><?php }?></td></tr>
     </table></div>
     
     <?php if($this->count>0){?>
@@ -30,7 +30,8 @@
         <?php
             
             foreach($this->lampiran as $value){
-                echo "<tr><td>$value[tipe]</td><td><a href=>$value[nomor]</a></td>
+                echo "<tr><td>$value[tipe]</td><td ><a>$value[nomor]</a>
+                <button onclick=viewlampiran($value[id_lamp]);>view</button></td>
                 <td>".Tanggal::tgl_indo($value['tanggal'])."</td></tr>";
             }
         ?>
@@ -52,4 +53,15 @@
   <p align="center">Mohon segera upload file surat yang bersangkutan</p>
 </iframe></div>
 <?php } ?>
+
+<script type="text/javascript">
+    
+    function viewlampiran(id){
+        w = window.open("<?php echo URL; ?>lampiran/view/"+id, "Cetak Disposisi","toolbar=0,menubar=0,location=0,status=0,width=800,height=500");        
+    }
+    
+    $(function(){
+        $(".tip").tipTip({maxWidth: "auto", edgeOffset: 10});
+    });
+</script>
 

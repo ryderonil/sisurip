@@ -12,7 +12,9 @@ class Suratkeluar_Controller extends Controller {
         Auth::handleLogin();
         $this->view->kantor = Kantor::getNama();
         $this->view->js = array(
-            'suratkeluar/js/default'
+            'suratkeluar/js/default',
+            'suratkeluar/js/jquery.tipTip',
+            'suratkeluar/js/jquery.tipTip.minified'
         );
         //$this->view = new View;
         //echo "</br>kelas berhasil di bentuk";

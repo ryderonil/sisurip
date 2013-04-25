@@ -1,8 +1,11 @@
 <h2>Daftar Surat Keluar</h2>
+<!--<select id="pull-right">-->
+<!--    <option>pilih semua</option>-->
+<!--</select></div>-->
 
         <hr>
         </br>
-        <?php if(Auth::isRole($role, 3)) {?><a href="<?php echo URL;?>suratkeluar/rekam"><input class="btn" type="button" value="R E K A M"></a><?php } ?>
+        <?php if(Auth::isRole($role, 3)) {?><a href="<?php echo URL;?>suratkeluar/rekam" title="rekam data surat keluar" class="tip"><input class="btn" type="button" value="R E K A M"></a><?php } ?>
         <div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><td >NOMOR</td><td >INFORMASI SURAT</td><td >AKSI</td></tr>
 <?php
@@ -18,12 +21,12 @@
         if($this->notif->isRead($value['id_suratkeluar'],$user,'SK')){
             echo '<td><input type=checkbox name=cek[] value=' . $value['id_suratkeluar'] . ' > <font color=blue><b>' . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'.$no_surat. '</td>';
             echo '<td>' . $value['tipe'] . ' 
-            </br><a href="'.URL.'suratkeluar/detil/'.$value['id_suratkeluar'].'">'. $value['tujuan'] . '</br>'. $value['perihal'] .
+            </br><a href="'.URL.'suratkeluar/detil/'.$value['id_suratkeluar'].'" title="klik disini untuk melihat detil surat!" class=tip>'. $value['tujuan'] . '</br>'. $value['perihal'] .
              '</a></b></font></td>';
         }else{
             echo '<td><input type=checkbox name=cek[] value=' . $value['id_suratkeluar'] . ' > ' . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'.$no_surat. '</td>';
             echo '<td>' . $value['tipe'] . ' 
-            </br><a href="'.URL.'suratkeluar/detil/'.$value['id_suratkeluar'].'">'. $value['tujuan'] . '</br>'. $value['perihal'] .
+            </br><a href="'.URL.'suratkeluar/detil/'.$value['id_suratkeluar'].'" title="klik disini untuk melihat detil surat!" class=tip>'. $value['tujuan'] . '</br>'. $value['perihal'] .
              '</a></td>';
         }
         
@@ -32,10 +35,10 @@
         //echo '<td>' . $value['asal_surat'] . '</td>';
         //echo '<td>' . $value['perihal'] . '</td>';
         echo '<td>';
-                if(Auth::isRole($role, 2)) echo '<a href="'.URL.'suratkeluar/edit/'.$value['id_suratkeluar'].'"><input class=btn type=button value=Ubah></a> 
-                <a href="'.URL.'suratkeluar/remove/'.$value['id_suratkeluar'].'"><input class=btn type=button value=Hapus onclick="return selesai()"></a> ';
-                if(!Auth::isRole($role, 5) AND !Auth::isRole($role, 4))echo '<a href="'.URL.'suratkeluar/rekamrev/'.$value['id_suratkeluar'].'"><input class=btn type=button value="Rekam Revisi"></a> ';
-                echo '<a href="'.URL.'suratkeluar/download/'.$value['id_suratkeluar'].'"><input class=btn type=button value="Download"></a></td>';
+                if(Auth::isRole($role, 2)) echo '<a href="'.URL.'suratkeluar/edit/'.$value['id_suratkeluar'].'" title="ubah data surat" class=tip><input class=btn type=button value=Ubah></a> 
+                <a href="'.URL.'suratkeluar/remove/'.$value['id_suratkeluar'].'" title="hapus data surat" class=tip><input class=btn type=button value=Hapus onclick="return selesai()"></a> ';
+                if(!Auth::isRole($role, 5) AND !Auth::isRole($role, 4))echo '<a href="'.URL.'suratkeluar/rekamrev/'.$value['id_suratkeluar'].'" title="rekam revisi surat" class=tip><input class=btn type=button value="Rekam Revisi"></a> ';
+                echo '<a href="'.URL.'suratkeluar/download/'.$value['id_suratkeluar'].'" title="download file surat" class=tip><input class=btn type=button value="Download"></a></td>';
         echo '</tr>';
     }
 ?>
@@ -52,6 +55,5 @@ function selesai(){
         return false;
     }
 }
-
 
 </script>

@@ -114,7 +114,7 @@ class User extends Model{
             'namaPegawai' => $this->get('namaPegawai'),
             'NIP' => $this->get('NIP'),
             'username' => $this->get('nama_user'),
-            'password' => Hash::create(md5, $this->get('password'), HASH_SALT_KEY),
+            'password' => Hash::create('md5', $this->get('password'), HASH_SALT_KEY),
             'bagian' => $this->get('bagian'),
             'jabatan' => $this->get('jabatan'),
             'role' => $this->get('role'),
@@ -127,7 +127,7 @@ class User extends Model{
      * fungsi edit data user
      * return boolean true
      */
-    public function editUser($where){
+    public function editUser(){
         $data = array(
             'namaPegawai' => $this->get('namaPegawai'),
             'NIP' => $this->get('NIP'),
@@ -197,17 +197,17 @@ class User extends Model{
         $data = $this->select($sql);
         $i = count($data);
         if($i>0){
-            return false;
+            return true;
         }
         
         $sql = "SELECT * FROM user WHERE NIP='".$NIP."'";
         $data = $this->select($sql);
         $i = count($data);
         if($i>0){
-            return false;
+            return true;
         }
         
-        return true;
+        return false;
         
     }
     

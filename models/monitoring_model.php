@@ -45,7 +45,13 @@ class Monitoring_Model extends Model {
      * monitoring kinerja surat masuk tahun berjalan
      * return data array kinerja per bulan
      */
-    public function kinerjaSMTahun($sql) {
+    public function kinerjaTahun($year,$tipe_srt) {
+        if($tipe_srt=='SM'){
+            $sql = "SELECT no_agenda, MONTH(tgl_terima) as bulan, start, end FROM suratmasuk WHERE YEAR(tgl_terima)='".$year."'";
+        }elseif ($tipe_srt=='SK') {
+            $sql = "SELECT id_suratkeluar as no_agenda, MONTH(tgl_surat) as bulan, start, end FROM suratkeluar WHERE YEAR(tgl_surat)='".$year."'";
+        }
+        
         $data = $this->select($sql);
         //var_dump($data);
         $arraydata = array();
@@ -104,7 +110,13 @@ class Monitoring_Model extends Model {
      * monitoring kinerja surat masuk bulan tertentu
      * return data array kinerja harian
      */
-    public function kinerjaSMBulan($sql){
+    public function kinerjaBulan($month, $year, $tipe_srt){
+        if($tipe_srt=='SM'){
+            $sql = "SELECT no_agenda, DATE(tgl_terima) as tanggal, start, end FROM suratmasuk WHERE MONTH(tgl_terima)='".$month."' AND YEAR(tgl_terima)='".$year."'";
+        }elseif ($tipe_srt=='SK') {
+            $sql = "SELECT id_suratkeluar as no_agenda, DATE(tgl_surat) as tanggal, start, end FROM suratkeluar WHERE MONTH(tgl_surat)='".$month."' AND YEAR(tgl_surat)='".$year."'";
+        }
+        
         $data = $this->select($sql);
         //var_dump($data);
         $arraydata = array();
@@ -164,7 +176,13 @@ class Monitoring_Model extends Model {
      * monitoring kinerja surat masuk harian
      * return data array kinerja per agenda surat 
      */
-    public function kinerjaSMHari($sql){
+    public function kinerjaHari($tgl,$tipe_srt){
+        if($tipe_srt=='SM'){
+            $sql = "SELECT no_agenda, start, end FROM suratmasuk WHERE tgl_terima='".$tgl."'";
+        }elseif ($tipe_srt=='SK') {
+            $sql = "SELECT id_suratkeluar as no_agenda, start, end FROM suratkeluar WHERE tgl_surat='".$tgl."'";
+        }
+        
         $data = $this->select($sql);
         //var_dump($data);
         $arraydata = array();
@@ -177,7 +195,12 @@ class Monitoring_Model extends Model {
             $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
             $start = explode(" ", $value['start']);
             $start = trim($start[1]);
-            $end = explode(" ", $value['end']);
+            if(is_null($value['end'])){
+                $end = explode(" ", $value['start']);
+            }  else {
+                $end = explode(" ", $value['end']);
+            }
+//            $end = explode(" ", $value['end']);
             $end = trim($end[1]);
             if ($selisihhari > 0) {
                 $hari1 = $this->selisihJam($this->jampulang, $start);
@@ -186,7 +209,7 @@ class Monitoring_Model extends Model {
             } else {
                 $selisihjam = $this->selisihJam($end, $start);
             }            
-            $kinerja = ceil(($selisihjam / 4) * 100);
+            $kinerja = ceil(($selisihjam / 4) * 100); //dibedakan antara sm dan sk
             //echo $kinerja."*</br>";
             if($value['no_agenda']==$agenda AND $count>1){
                 //echo $value['tanggal']."-".$tanggal;
@@ -283,13 +306,7 @@ class Monitoring_Model extends Model {
 
         return 0;
     }
-
-    public function cekSelisihJam() {
-        $hari1 = explode(" ", $start); //memisahkan date dengan time
-        $tgl1 = $hari1[0];
-        $tgl1 = explode("-", $tgl1); //memisahkan tahun, bulan dan tanggal
-    }
-
+    
     // Set timezone
     // Time format is UNIX timestamp or
     // PHP strtotime compatible strings
@@ -356,37 +373,4 @@ class Monitoring_Model extends Model {
     }
 
 }
-
-/*
- * tes aja======================================================
- */
-
-$tgl1 = "2009-10-01";  // 1 Oktober 2009
-$tgl2 = "2009-10-10";  // 10 Oktober 2009
-// memecah tanggal untuk mendapatkan bagian tanggal, bulan dan tahun
-// dari tanggal pertama
-
-$pecah1 = explode("-", $tgl1);
-$date1 = $pecah1[2];
-$month1 = $pecah1[1];
-$year1 = $pecah1[0];
-
-// memecah tanggal untuk mendapatkan bagian tanggal, bulan dan tahun
-// dari tanggal kedua
-
-$pecah2 = explode("-", $tgl2);
-$date2 = $pecah2[2];
-$month2 = $pecah2[1];
-$year2 = $pecah2[0];
-
-// menghitung JDN dari masing-masing tanggal
-
-$jd1 = GregorianToJD($month1, $date1, $year1);
-$jd2 = GregorianToJD($month2, $date2, $year2);
-
-// hitung selisih hari kedua tanggal
-
-$selisih = $jd2 - $jd1;
-
-//echo "Selisih kedua tanggal adalah " . $selisih . " hari";
 ?>

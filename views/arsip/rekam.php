@@ -97,7 +97,26 @@ $html->br();
             //echo "<option value='".$value['id_lokasi']."'>$value[lokasi]</option>";
         //}
         ?>
-    </select></br>    
+    </select></br>
+    <label>KLASIFIKASI</label><select class="required" id="klas" name="klas">
+        <option value="">--PILIH KLASIFIKASI ARSIP--</option>
+        <?php
+        foreach ($this->klas as $value){
+            if(isset($this->ar['klas'])){
+                if($this->ar['klas']==$value['id_klasarsip']){
+                    echo "<option value='".$value['id_klasarsip']."' selected>$value[klasifikasi]</option>";
+                }else{
+                    echo "<option value='".$value['id_klasarsip']."'>$value[klasifikasi]</option>"; 
+                }
+            }else{
+                echo "<option value='".$value['id_klasarsip']."'>$value[klasifikasi]</option>";
+            }
+        }
+            //foreach ($this->box as $key=>$value){
+            //echo "<option value='".$value['id_lokasi']."'>$value[lokasi]</option>";
+        //}
+        ?>
+    </select></br>
     <label></label><input type="submit" name="submit" value="SIMPAN">
 </form></div> <?php } ?>
 

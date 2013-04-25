@@ -16,24 +16,37 @@ class Helper_Controller extends Controller{
     }
 
     function alamat() {
-        $q = $_POST['queryString'];              
+        $q = $_POST['queryString'];
+        $q = explode(",", $q);
+        
 
         $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
         mysql_select_db('sisurip');
         
-        $rs = mysql_query("SELECT kode_satker, nama_satker FROM alamat WHERE nama_satker LIKE '%$q%'", $dblink);
+        $rs = mysql_query("SELECT kode_satker, nama_satker FROM alamat WHERE nama_satker LIKE '%$q[0]%'", $dblink);
 
         //$data = array();
         if ($rs && mysql_num_rows($rs)) {
+            echo "<table class='CSSTableGenerator'>
+                    <tr><th>No</th><th>Kode Satker</th><th>Nama Satker</th><th>Pilih</th></tr>";           
+            $no=1;
             while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
-                //$data[] = array(
-                    //'label' => $row['kode_satker'].' '.$row['nama_satker'],
-                    //'value' => $row['kode_satker']
-                    //
-                //);
-                
-                echo '<a href=#>'.$row['kode_satker'].' '.$row['nama_satker'].'</a></br>';
+                echo "<tr>
+               <td>$no</td> 
+               <td>$row[kode_satker]</td>
+               <td>$row[nama_satker]</td>";
+                if (isset($this->ids)) {            
+                    echo "<td><a href=" . URL . $q[1] . "/" . $row['kode_satker'] . "/" . $this->ids . ">
+                        <input class=btn type=button value=PILIH onclick=pilih($row[kode_satker]);></a></td>";
+                } else {
+                    echo "<td><a href=" . URL . $q[1] . "/" . $row['kode_satker'] . ">
+                        <input class=btn type=button value=PILIH onclick=pilih($row[kode_satker]);></a></td>";
+                }
+                echo "</tr>";
+                $no++;
             }
+            
+            echo "</table>";
         }
 
         //echo json_encode($data);

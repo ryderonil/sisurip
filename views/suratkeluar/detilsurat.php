@@ -19,10 +19,10 @@
         <!--<tr><td>JENIS</td><td><?php echo $this->jenis; ?></td></tr>        
         <tr><td>STATUS</td><td><?php echo $this->status; ?></td></tr>-->        
         <tr><td></td><td>                
-                <?php if(Auth::isRole($role, 3)) { ?><a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->id; ?>/SK"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
-                <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->id; ?>/SK"><input class="btn" type="button" value="ARSIP"></a>
-                <a href="<?php echo URL;?>suratkeluar/edit/<?php echo $this->id; ?>"><input class="btn" type="button" value="U B A H"></a><?php } ?>
-                <?php if(Auth::isRole($role, 2) OR Auth::isRole($role, 1)) { ?><a href="<?php echo URL;?>suratkeluar/rekamrev/<?php echo $this->id; ?>"><input class="btn" type="button" value="REKAM REVISI"></a><?php } ?></td></tr>
+                <?php if(Auth::isRole($role, 3)) { ?><a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->id; ?>/SK" title="rekam lampiran surat" class="tip"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
+                <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->id; ?>/SK" title="rekam ke dalam lokasi arsip" class="tip"><input class="btn" type="button" value="ARSIP"></a>
+                <a href="<?php echo URL;?>suratkeluar/edit/<?php echo $this->id; ?>" title="ubah data surat keluar" class="tip"><input class="btn" type="button" value="U B A H"></a><?php } ?>
+                <?php if(Auth::isRole($role, 2) OR Auth::isRole($role, 1)) { ?><a href="<?php echo URL;?>suratkeluar/rekamrev/<?php echo $this->id; ?>" title="rekam dan upload revisi konsep surat" class="tip"><input class="btn" type="button" value="REKAM REVISI"></a><?php } ?></td></tr>
     </table></div>
     
     <?php if($this->count>0){?>
@@ -56,3 +56,9 @@
 ?>
   <p align="center">Mohon segera upload file surat yang bersangkutan</p>
 </iframe></div>
+
+<script type="text/javascript">
+$(function(){
+    $(".tip").tipTip({maxWidth: "auto", edgeOffset: 10});
+});
+</script>

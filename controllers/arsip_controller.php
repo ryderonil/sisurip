@@ -63,11 +63,13 @@ class Arsip_Controller extends Controller{
                 $this->view->ar['rak'] = $val['rak'];
                 $this->view->ar['baris'] = $val['baris'];
                 $this->view->ar['box'] = $val['box'];
+                $this->view->ar['klas'] = $val['klas'];
             }
             
             $this->view->rak = $this->model->getRak();
             $this->view->baris = $this->model->getBaris($this->view->ar['rak']);
             $this->view->box = $this->model->getBox($this->view->ar['baris']);
+            $this->view->klas = $this->model->getKlas();
             
         }else{
 //            if($this->view->data[1]==''){
@@ -78,6 +80,7 @@ class Arsip_Controller extends Controller{
             $this->view->rak = $this->model->getRak();
             $this->view->baris = $this->model->getBaris();
             $this->view->box = $this->model->getBox();
+            $this->view->klas = $this->model->getKlas();            
         }
         
         
@@ -89,11 +92,13 @@ class Arsip_Controller extends Controller{
         $id_lokasi = $_POST['box'];
         $id_surat = $_POST['id'];
         $tipe_surat = $_POST['tipe'];
+        $jenis = $_POST['klas'];
         
         $data = array(
             'id_lokasi'=>$id_lokasi,
             'id_surat'=>$id_surat,
-            'tipe_surat'=>$tipe_surat
+            'tipe_surat'=>$tipe_surat,
+            'jenis'=>$jenis
         );
         
         if($this->model->rekamArsip($data)){

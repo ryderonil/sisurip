@@ -286,7 +286,9 @@ class Admin_Controller extends Controller {
     public function rekamUser() {
         $user = new User();
         if(isset($_POST['submit'])){
-            if($user->cekUserExist($_POST['user'], $_POST['NIP'])){
+            $cekuser = $user->cekUserExist($_POST['username'], $_POST['NIP']);
+            var_dump($cekuser);
+            if($cekuser){
                 $this->view->error = "nama user telah dipakai, atau pegawai ini telah memiliki akun!";
             }
             elseif($this->inputRekamUser()){
@@ -306,9 +308,9 @@ class Admin_Controller extends Controller {
     public function ubahUser($id) {
         $user = new User();
         if(isset($_POST['submit'])){
-            if($user->cekUserExist($_POST['user'], $_POST['NIP'])){
-                $this->view->error = "nama user telah dipakai, atau pegawai ini telah memiliki akun!";
-            }
+//            if($user->cekUserExist($_POST['username'], $_POST['NIP'])){
+//                $this->view->error = "nama user telah dipakai, atau pegawai ini telah memiliki akun!";
+//            }
             if($this->updateRekamUser()){
                 $this->view->success = "Ubah data berhasil";
             }else{
