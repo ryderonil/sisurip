@@ -19,6 +19,9 @@ class Notifikasi extends Model{
         parent::__construct();
     }
     
+    /*
+     * setter
+     */
     public function set($attr, $value){
         switch($attr){
             case 'id_notif':
@@ -45,6 +48,9 @@ class Notifikasi extends Model{
         }
     }
     
+    /*
+     * getter
+     */
     public function get($attr){
         switch($attr){
             case 'id_notif':
@@ -71,6 +77,10 @@ class Notifikasi extends Model{
         }
     }
     
+    /*
+     * rekam notifikasi
+     * return boolean
+     */
     public function addNotifikasi(){
         $data =array(
                 'id_surat'=>$this->get('id_surat'),
@@ -88,10 +98,17 @@ class Notifikasi extends Model{
         return false;
     }
     
+    /*
+     * 
+     */
     public function getNotifikasi($role,$bagian){
         
     }
     
+    /*
+     * ubah status notifikasi, jika user mengklik notifikasi di header
+     * return boolean
+     */
     public function setNotif(){
         $data = array('stat_notif'=>$this->get('stat_notif'));
         $where = 'id_notif='.$this->get('id_notif');
@@ -100,7 +117,11 @@ class Notifikasi extends Model{
         return false;
     }
 
-
+    /*
+     * cek notifikasi telah dibuka 
+     * @param id_surat, nama user, jenis surat->SM,SK
+     * return boolean
+     */
     public function isRead($id_surat, $user, $jenis_surat){
         $id_user=0;
         if(is_numeric($user)){
@@ -132,11 +153,12 @@ class Notifikasi extends Model{
     }
     
     /*
-     * bisa nama, bisa id
+     * mendapatkan jumlah notifikasi suratmasuk dan surat keluar
+     * @param nama user
+     * return jumlah notifikasi
      */
-    public static function getJumlahNotifikasi($role,$bagian){
-        $pdo = new PDO(DB_TYPE.':host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASS);
-        //$id_user = $id_user;
+    public static function getJumlahNotifikasi($user){
+        $pdo = new PDO(DB_TYPE.':host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASS);        
         $sql ='';
         $count = 0;
         /*if(is_numeric($id_user)){
@@ -153,11 +175,13 @@ class Notifikasi extends Model{
             $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE id_user=:id_user AND stat_notif=1";
         }*/
         
-        $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE role=:role AND bagian=:bagian AND stat_notif=1";
+//        $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE role=:role AND bagian=:bagian AND stat_notif=1";
+        $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE id_user=(SELECT id_user FROM user WHERE username=:user) AND stat_notif=1";
         
         $sth = $pdo->prepare($sql);
-        $sth->bindValue(':role',$role);
-        $sth->bindValue(':bagian',$bagian);
+//        $sth->bindValue(':role',$role);
+//        $sth->bindValue(':bagian',$bagian);
+        $sth->bindValue(':user',$user);
         $sth->execute();
         $data = $sth->fetchAll(PDO::FETCH_OBJ);
         foreach ($data as $value) {

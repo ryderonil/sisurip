@@ -44,7 +44,11 @@ class Arsip_Model extends Model {
     public function rekamArsip($data){
         return $this->insert('arsip', $data);
     }
-
+    
+    public function getKlas(){
+        $sql = "SELECT * FROM klasifikasi_arsip";
+        return $this->select($sql);
+    }
 
     public function getRak(){
         $sql = "SELECT * FROM lokasi WHERE tipe=1";
@@ -75,7 +79,8 @@ class Arsip_Model extends Model {
         $sql = "SELECT a.id_lokasi as id_lokasi,
                 b.id_lokasi as box,
                 c.id_lokasi as baris,
-                d.id_lokasi as rak
+                d.id_lokasi as rak,
+                a.jenis as klas
                 FROM arsip a LEFT JOIN lokasi b ON a.id_lokasi = b.id_lokasi
                 LEFT JOIN lokasi c ON b.parent = c.id_lokasi
                 LEFT JOIN lokasi d ON c.parent = d.id_lokasi

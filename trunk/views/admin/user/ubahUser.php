@@ -3,7 +3,7 @@
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/updateRekamUser">-->
     <?php 
             if(isset($this->error)){
-                echo "<div id=error>$this->error<?div>";
+                echo "<div id=error>$this->error</div>";
             }elseif(isset($this->success)){
                 echo "<div id=success>$this->success</div>";
             }

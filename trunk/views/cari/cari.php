@@ -1,5 +1,5 @@
-<div><form id="form-search">
-    <p><input id="search" type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian" onkeyup="cdari(this.value);">
+<div><form id="form-search" name="frm">
+    <p><input id="search" type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian" onkeyup="keyup();">
         <input  type="button" name="submit" value="CARI" onClick="return cari(document.getElementById('search').value);"></p>
         <!--<form id="ui_element" class="sb_wrapper" method="POST" action="<?php echo URL; ?>cari">
         <p><input class="sb_input" type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian">
@@ -13,7 +13,6 @@
     </ul>--></form>
 </div>
 <br>
-<div id="error"></div>
 <div id="table-wrapper"><div id="result"></div></div>
 
 <script type="text/javascript">
@@ -23,13 +22,18 @@ $(document).ready(function(){
     document.search.focus();    
 });
 
-function cari(val){
+function keyup(){
+    $('#error').fadeOut(0);
+    $('#result').fadeOut(0);
+    document.frm.search.focus(); 
+}
 
+function cari(val){
     if(val==''){
-        var err = "Kata kunci belum dimasukkan";
+        var err = "<div id=error>Kata kunci belum dimasukkan</div>";
         $('#result').fadeOut(0);
-        $('#error').fadeIn(500);
-        $('#error').html(err);
+        $('#result').fadeIn(500);
+        $('#result').html(err);
         return false;
     }
             $.post("<?php echo URL;?>cari/find", {queryString:""+val+""},

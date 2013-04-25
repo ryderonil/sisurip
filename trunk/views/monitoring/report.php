@@ -60,13 +60,30 @@ function srmasuk(val){
 }
 
 function srkeluar(val){
-    $.post("<?php echo URL;?>monitoring/kinerjaSuratKeluar", {tanggal:""+val+""},
+    $.post("<?php echo URL;?>monitoring/kinerjaSKTahun", {tanggal:""+val+""},
             function(data){
 //                document.write(val);
                 $('#reportsr').fadeIn(500);
                 $('#reportsr').html(data);
             });
     
+}
+
+function srkeluarbulan(val1,val2){
+    $.post("<?php echo URL;?>monitoring/kinerjaSKBulan", {queryString:""+val1+""+val2+""},
+            function(data){
+                $('#reportsr').fadeIn(500);
+                $('#reportsr').html(data);
+            });
+}
+
+function srkeluarhari(val){    
+    $.post("<?php echo URL;?>monitoring/kinerjaSKHari", {tanggal:""+val+""},
+            function(data){
+//                document.write(val);
+                $('#reportsr').fadeIn(500);
+                $('#reportsr').html(data);
+            });
 }
 
 

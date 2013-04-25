@@ -3,7 +3,7 @@
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamUser">-->
     <?php 
             if(isset($this->error)){
-                echo "<div id=error>$this->error<?div>";
+                echo "<div id=error>$this->error</div>";
             }elseif(isset($this->success)){
                 echo "<div id=success>$this->success</div>";
             }
@@ -47,7 +47,7 @@
         <td><?php echo $value['namaPegawai']; ?></td>
         <td><?php echo $value['username']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai();"></a></td>
+            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['username'];?>');"></a></td>
         <td><a href="<?php echo URL;?>admin/setAktifUser/<?php echo $value['id_user'].'/'.$value['active'];?>"><input class="btn" type="button" value="<?php echo $value['active']; ?>"></a></td></tr>
     <?php $no++; }?>
 </table></div>
@@ -55,8 +55,8 @@
 
 <script type="text/javascript">
 
-function selesai(){
-    var answer = 'anda yakin menyimpan perubahan?'
+function selesai(user){
+    var answer = 'apakah akun atas nama '+user+' akan dihapus?'
     
     if(confirm(answer)){
         return true;

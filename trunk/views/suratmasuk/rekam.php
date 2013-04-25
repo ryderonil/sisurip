@@ -133,3 +133,9 @@
         <div id="errorr"></div>
         <div id="succes"></div>
     </form></div>
+
+<script type="text/javascript">
+$("#datepicker").datepicker( { 
+	beforeShowDay: $.datepicker.noWeekends 
+});
+</script>

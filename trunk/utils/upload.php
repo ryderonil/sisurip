@@ -93,8 +93,13 @@ class Upload{
         //echo $this->getDirFrom().'</br>';
         //echo $this->getDirTo().$this->getFileTo();
         //move_uploaded_file($this->getDirFrom(), $this->getDirTo().$this->getFileTo());
-    }   
-     
+    }
+    
+    public static function renameFile($old,$new){
+        rename($old, $new);
+    }
+
+
     public function setDirTo($dirTo){
         $this->dirTo = $dirTo;
     }

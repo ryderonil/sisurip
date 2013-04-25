@@ -11,7 +11,7 @@
             }
         ?>
        
-    <label>FORMAT NOMOR</label><input class="required" type="text" name="nomor"></br>
+    <label>FORMAT NOMOR</label><input class="required" type="text" name="nomor" onkeyup="keyup();"></br>
     <label>BAGIAN</label><select class="required" name="bagian">
         <option name="" selected>--PILIH BAGIAN--</option>
         <?php foreach($this->bagian as $key=>$value) { ?>
@@ -51,6 +51,11 @@
         return false;
     }
     
+    }
+    
+    function keyup(){
+        $('#error').fadeOut(0);
+        $('#success').fadeOut(0);
     }
     
     

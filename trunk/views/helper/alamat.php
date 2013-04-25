@@ -5,11 +5,11 @@
         }); 
     });
     
-    function lookup(alamat){
+    function lookup(alamat,tipe){
         if(alamat.length == 0){
             $('#result').fadeOut();
         }else{
-            $.post("<?php echo URL;?>helper/alamat", {queryString:""+alamat+""},
+            $.post("<?php echo URL;?>helper/alamat", {queryString:""+alamat+","+tipe+""},
             function(data){
                 $('#result').fadeIn();
                 $('#result').html(data);
@@ -17,10 +17,11 @@
         }
     }
 </script>
-<h2>Pilih Alamat Surat</h2><input type="text" id="alamat" placeholder="cari alamat" onkeyup="lookup(this.value);"><div id="result"></div>
+<h2>Pilih Alamat Surat</h2><input type="text" id="alamat" placeholder="cari alamat" onkeyup="lookup(this.value,'<?php echo $this->surat;?>');">
 </br>
 <hr>
 </br>
+<div id="result">
 <table class="CSSTableGenerator">
     <tr><th>No</th><th>Kode Satker</th><th>Nama Satker</th><th>Pilih</th></tr>
     <?php
@@ -43,7 +44,7 @@
         $no++;
     }
     ?>
-</table>
+</table></div>
 
 <script type="text/javascript">
 

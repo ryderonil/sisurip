@@ -24,16 +24,16 @@
     <tr><td><?php echo $no; ?></td>        
         <td><?php echo $value['tipe_naskah']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai();"></a></td></tr>
+            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['tipe_naskah']; ?>');"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
 
 <script type="text/javascript">
 
-function selesai(){
+function selesai(lamp){
     
-    var answer = 'anda yakin menghapus data ini?'
+    var answer = 'Tipe naskah dinas : '+lamp+" akan dihapus?"
     
     if(confirm(answer)){
         return true;

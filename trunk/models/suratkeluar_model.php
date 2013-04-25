@@ -15,7 +15,7 @@ class Suratkeluar_Model extends Surat{
         parent::__construct();
     }
 
-    public function showAll() {
+    public function showAll($limit=null,$batas=null) {
         $sql = "SELECT a.id_suratkeluar as id_suratkeluar,
           a.rujukan as rujukan,
           a.no_surat as no_surat,
@@ -33,6 +33,10 @@ class Suratkeluar_Model extends Surat{
           JOIN klasifikasi_surat d ON a.jenis = d.kode_klassurat
           JOIN status e ON a.status = e.id_status
           JOIN tipe_naskah f ON a.tipe = f.id_tipe ORDER BY a.id_suratkeluar DESC";
+        
+        if(!is_null($limit) AND !is_null($batas)){
+            $sql .= " LIMIT $limit,$batas";
+        }
 
         return $this->select($sql);
     }

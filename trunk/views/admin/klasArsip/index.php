@@ -26,17 +26,17 @@
         <td><?php echo $value['kode']; ?></td>
         <td><?php echo $value['klasifikasi']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai();"></a></td></tr>
+            <a href="<?php echo URL;?>admin/hapusKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['klasifikasi'];?>');"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
 
 <script type="text/javascript">
     
-    function selesai()
+    function selesai(klas)
 {
    
-        var answer = confirm ("Anda yakin data ini akan dihapus?");
+        var answer = confirm ("Klasifikasi arsip : "+klas+" akan dihapus?");
    
   
     if (answer){

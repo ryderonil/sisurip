@@ -1,7 +1,7 @@
 <?php
     $html = new Html();
     $form = new Form_Generator();
-    $html->heading('REKAM LAMPIRAN', 2);
+    $html->heading('UBAH DATA LAMPIRAN', 2);
     $html->hr();    
     $html->heading('INFORMASI INDUK SURAT', 3);
     $html->hr();
@@ -35,23 +35,30 @@
             echo "<div id=success>$this->success</div>";
         }
     ?>
-    <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
-    <input type="hidden" name="jenis" value="<?php echo $this->data[4];?>">
+    <input type="hidden" name="id" value="<?php echo $this->lamp->get('id_lamp');?>">
+    <input type="hidden" name="jenis" value="<?php echo $this->lamp->get('jns_surat');?>">
+    <input type="hidden" name="id_surat" value="<?php echo $this->lamp->get('id_surat');?>">
+    <input type="hidden" name="file" value="<?php echo $this->lamp->get('file');?>">
     <label>TIPE NASKAH DINAS</label><select class="required" name="tipe">
         <option value="0">--PILIH TIPE NASKAH DINAS--</option>
         <?php
             foreach ($this->tipe as $key=>$value){
-                echo "<option value=$value[id_tipe]>$value[kode_naskah] $value[tipe_naskah]</option>";
+                if($value['id_tipe']==$this->lamp->get('tipe')){
+                   echo "<option value=$value[id_tipe] selected>$value[kode_naskah] $value[tipe_naskah]</option>"; 
+                }else{
+                   echo "<option value=$value[id_tipe]>$value[kode_naskah] $value[tipe_naskah]</option>"; 
+                }
+                
             }
         ?>
     </select></br>
-    <label>NOMOR SURAT</label><input class="required" type="text" name="nomor"></br>
-    <label>TANGGAL</label><input class="required" id="datepicker" type="text" name="tanggal"></br>
-    <label>HAL/TENTANG</label><input class="required" type="text" name="hal"></br>
-    <label>ASAL/PENANDA TANGAN</label><input class="required" type="text" name="asal"></br>
-    <label>KETERANGAN</label><input type="text" name="keterangan"></br>
-    <label>PILIH FILE</label><input class="required" type="file" name="upload"></br>
-    <label></label><input type="submit" name="submit" value="SIMPAN">
+    <label>NOMOR SURAT</label><input class="required" type="text" name="nomor" value="<?php echo $this->lamp->get('nomor');?>"></br>
+    <label>TANGGAL</label><input class="required" id="datepicker" type="text" name="tanggal" value="<?php echo $this->lamp->get('tanggal');?>"></br>
+    <label>HAL/TENTANG</label><input class="required" type="text" name="hal" value="<?php echo $this->lamp->get('hal');?>"></br>
+    <label>ASAL/PENANDA TANGAN</label><input class="required" type="text" name="asal" value="<?php echo $this->lamp->get('asal');?>"></br>
+    <label>KETERANGAN</label><input type="text" name="keterangan" value="<?php echo $this->lamp->get('keterangan');?>"></br>
+    <label>PILIH FILE</label><input type="file" name="upload" ></br>
+    <label></label><input type="submit" name="submit" value="SIMPAN" onClick="return selesai();">
 </form></div>
 
 <script>

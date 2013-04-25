@@ -3,7 +3,7 @@ $role = Session::get('role');
 $bagian = Session::get('bagian');
 $nama = Session::get('nama');
 $user = Session::get('user');
-$notif = Notifikasi::getJumlahNotifikasi($role,$bagian);
+$notif = Notifikasi::getJumlahNotifikasi($user);
 $roleuser = Helper_Model::getRoleUser($user);
 //var_dump($roleuser);
 //echo $role."-".$bagian."-".$user."-".$nama;
@@ -57,7 +57,7 @@ $roleuser = Helper_Model::getRoleUser($user);
                     <!--<div id="depkeu-logo"></div>-->
                     <div id="brand"> <?php echo $this->kantor; ?></div>
                     <!--<div id="pull-right"><img id="user-icon" src="<?php echo URL; ?>public/images/User-Executive.png"> <b><?php echo Session::get('nama'); ?></b>-->
-                    <?php if ($notif > 0) { ?><div id="notif" onclick="location.href='<?php echo URL; ?>helper/notif/<?php echo $user; ?>'"><font color="white"><?php echo $notif > 0 ? $notif : ''; ?></font></div><?php } ?>
+                    <?php if ($notif > 0) { ?><div id="notif" onclick="location.href='<?php echo URL; ?>helper/notif/<?php echo $user; ?>'" title="lihat notifikasi"><font color="white"><?php echo $notif > 0 ? $notif : ''; ?></font></div><?php } ?>
                     <div id="user"> <b><?php echo $nama; ?></b></div>
 
                     <div>

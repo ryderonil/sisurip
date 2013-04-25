@@ -13,7 +13,7 @@
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <label>KODE KLASIFIKASI</label><input class="required" type="text" name="kode" value="<?php echo $this->data[1];?>"></br>
     <label>KLASIFIKASI</label><input class="required" type="text" name="klasifikasi" value="<?php echo $this->data[2];?>"></br>
-    <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamKlasifikasiArsip'" value="BATAL"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai(1);">
+    <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamKlasifikasiArsip'" value="BATAL"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[2];?>');">
 </form></div>
 
 </br>
@@ -26,18 +26,18 @@
         <td><?php echo $value['kode']; ?></td>
         <td><?php echo $value['klasifikasi']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai(2);"></a></td></tr>
+            <a href="#"><input class="btn" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['klasifikasi']?>');"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 
 <script type="text/javascript">
     
-    function selesai(num)
+    function selesai(num,klas)
 {
     if(num==1){
-        var answer = confirm ("Anda yakin menyimpan perubahan?")
+        var answer = confirm ("Yakin menyimpan perubahan data klasifikasi : "+klas+"?");
     }else if(num==2){
-        var answer = confirm ("Anda yakin data ini akan dihapus?")
+        var answer = confirm ("Klasifikasi arsip : "+klas+" akan dihapus?");
     }
   
     if (answer)
