@@ -77,6 +77,20 @@ class PDF extends FPDF {
 
 }
 
+function getBagianName($kd_bag){
+    $nmbag = '';
+    $pdo = new PDO(DB_TYPE.':host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASS) or die('gagal konek!');
+    $sql = "SELECT bagian FROM r_bagian WHERE kd_bagian=:kd_bagian";
+    $sth = $pdo->prepare($sql);
+    $sth->bindValue(':kd_bagian', $kd_bag);
+    $sth->execute();
+    $data = $sth->fetchAll(PDO::FETCH_OBJ);
+    foreach ($data as $val){
+        $nmbag = $val->bagian;
+    }
+    return strtoupper($nmbag);
+}
+
 $pdf = new PDF('P', 'cm', 'A4');
 $pdf->Open();
 $pdf->AliasNbPages();
@@ -100,7 +114,10 @@ if(count($this->data)>0){
     $no=1;
     $pdf->SetFont('Arial', '', 9);
     //nama satker maks 35 karakter
-    foreach($this->data as $value){
+    foreach($this->data as $key=>$val){
+        $kdbag = getBagianName($key);
+        $pdf->Cell(18.8, 0.7, $kdbag, 'TBRL', 1, 'L');
+        foreach ($val as $value){
         $length_asal = strlen($value['asal_surat']);
         $div = ceil($length_asal/35);
         $asal = substr($value['asal_surat'], 0, 35);
@@ -111,7 +128,7 @@ if(count($this->data)>0){
         $pdf->Cell(4.8, 0.5, '', 'RL', 1, 'C');
         if($div>0){
             for($i=1;$i<=$div;$i++){
-                $asal=  substr($value['asal_surat'], $i*35,$i*35+35);
+                $asal=  substr($value['asal_surat'], $i*$j,$i*$j+35);
                 $pdf->Cell(2,0.5,'','RL',0,'C');
                 $pdf->Cell(5, 0.5, '', 'RL', 0, 'C');        
                 $pdf->Cell(7, 0.5, $asal, 'RL', 0, 'L');
@@ -119,6 +136,7 @@ if(count($this->data)>0){
             }            
         }
         $no++;
+    }
     }
     $pdf->Cell(18.8, 0.3, '', 'T', 1, 'C');
 }

@@ -87,6 +87,9 @@ $roleuser = Helper_Model::getRoleUser($user);
                                                 <!--<li><a href="<?php echo URL; ?>admin/rekamStatusSurat">Status Surat</a></li>-->
                                                 <li><a href="<?php echo URL; ?>admin/rekamNomor">Penomoran</a></li>
                                                 <li><a href="<?php echo URL; ?>admin/rekamUser">Pengguna</a></li>
+                                                <li><a href="<?php 
+                                                $thisday = mktime(0 ,0 ,0, date('m'), date('d'), date('Y'));
+                                                echo URL; ?>admin/calendar/<?php echo $thisday;?>">Hari Libur</a></li>
                                                 <li><a href="<?php echo URL; ?>admin/backup">Backup</a></li>
                                                 <li><a href="<?php echo URL; ?>admin/restore">Restore</a></li><?php } ?>
                                         </ul>

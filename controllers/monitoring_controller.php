@@ -32,11 +32,7 @@ class Monitoring_Controller extends Controller {
 
         $this->view->render('monitoring/report');
     }
-
-    public function ikhtisar() {
-        $this->view->render('monitoring/ikhtisar');
-    }
-
+    
     public function kinerjaSMTahun() {
 
         $q = $_POST['queryString'];
@@ -196,7 +192,7 @@ class Monitoring_Controller extends Controller {
 
         $max = max($arraydata);
         //$masa = 'Bulan : Maret 2013';
-        echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Masuk</font></h2>";
+        echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Keluar</font></h2>";
         echo "<h3 align=center>$masa</h3>";
         echo "</br><div id=chart-wrapper><table>";
         echo "<tr><td><font color=black><b>bulan</b></font></td><td></td><td></td></tr>";
@@ -242,7 +238,7 @@ class Monitoring_Controller extends Controller {
 
         $max = max($arraydata);
         //$masa = 'Bulan : Maret 2013';
-        echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Masuk</font></h2>";
+        echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Keluar</font></h2>";
         echo "<h3 align=center>$masa</h3>";
         echo "</br><div id=chart-wrapper><table>";
         echo "<tr><td><font color=black><b>tanggal</b></font></td><td></td><td></td></tr>";
@@ -296,7 +292,7 @@ class Monitoring_Controller extends Controller {
 
         $max = max($arraydata);
         //$masa = 'Bulan : Maret 2013';
-        echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Masuk</font></h2>";
+        echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Keluar</font></h2>";
         echo "<h3 align=center>$masa</h3>";
         echo "</br><div id=chart-wrapper><table>";
         echo "<tr><td><font color=black><b>agenda</b></font></td><td></td><td></td></tr>";
@@ -316,6 +312,66 @@ class Monitoring_Controller extends Controller {
             echo "</td><td>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
         }
         echo "</table></div></div>";
+    }
+    
+    public function ikhtisar(){
+        $this->view->render('monitoring/ikhtisar');
+    }
+    
+    public function progresSurat(){
+        $datac = $this->model->getProgresSurat();
+//        var_dump($datac);
+        echo "<div id=table-wrapper><h2 align=center><font color=black>MONITORING PENYELESAIAN SURAT</font></h2>";
+        echo "<h3 align=center></h3>";
+        echo "</br><div id=chart-wrapper><table class=CSSTableGenerator>";
+        echo "<tr><td><font color=black><b>No</b></font></td>
+            <td><font color=black><b>nomor/tgl surat</b></font></td>
+            <td><font color=black><b>alamat</b></font></td>
+            <td><font color=black><b>sifat/status</b></font></td>
+            <td><font color=black><b>mulai pengerjaan</b></font></td>
+            <td><font color=black><b>batas waktu</b></font></td>
+            </tr>";
+        $no=1;
+        foreach ($datac as $key=>$val){
+            if($key=='SM'){
+                echo '<tr><td></td><td colspan=5><font size=4><strong>SURAT MASUK</strong></font></td></tr>';
+                foreach ($val as $prog){
+                    $date = new DateTime($prog['start']);
+                    $add = $this->model->getDueDate('SM');
+                    $date->add(new DateInterval('PT'.$add.'H0M0S'));
+                    $due_date = $date->format('Y-m-d H:i:s');
+                    echo "<tr><td><font color=black><b>$no</b></font></td>
+                        <td><font color=black><b>$prog[no_surat]/</br>$prog[tgl_surat]</b></font></td>
+                        <td><font color=black><b>$prog[alamat]</b></font></td>
+                        <td><font color=black><b>$prog[klasifikasi]/</br>$prog[status]</b></font></td>
+                        <td><font color=black><b>$prog[start]</b></font></td>
+                        <td><font color=black><b>$due_date</b></font></td>
+                        </tr>";
+                    $no++;
+                }
+            }else{
+                echo '<tr><td></td><td colspan=5><font size=4><strong>SURAT KELUAR</strong></font></td></tr>';
+                foreach ($val as $prog){
+                    $date = new DateTime($prog['start']);
+                    $add = (string) $this->model->getDueDate('SK',$prog['id']);
+//                    var_dump($add);
+                    $date->add(new DateInterval('PT'.$add.'H0M0S'));
+                    $due_date = $date->format('Y-m-d H:i:s');
+                    echo "<tr><td><font color=black><b>$no</b></font></td>
+                        <td><font color=black><b>$prog[no_surat]/</br>$prog[tgl_surat]</b></font></td>
+                        <td><font color=black><b>$prog[alamat]</b></font></td>
+                        <td><font color=black><b>$prog[klasifikasi]/</br>$prog[status]</b></font></td>
+                        <td><font color=black><b>$prog[start]</b></font></td>
+                        <td><font color=black><b>$due_date</b></font></td>
+                        </tr>";
+                    $no++;
+                }
+            }
+        }
+        
+        
+        
+        
     }
 
 }

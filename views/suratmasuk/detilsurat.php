@@ -1,5 +1,5 @@
 <?php foreach($this->dataSurat as $key=>$value) { ?>
-<div class="left">
+<div class="span6">
     <h2>INFORMASI SURAT :</h>
     <hr>
     </br>
@@ -41,7 +41,7 @@
     </div>
 <!-- menampilkan pdf hanya butuh iframe, cuman, browser harus embed ama pdf reader 
 (install pdf reader setelah browser) -->
-<div class="right">
+<div class="span7">
     
     <!--<p><h2>TAMPILAN ARSIP ELEKTRONIK</h2></p>-->
     <?php if($this->data[7]!='' AND file_exists('arsip/'.$this->data[7])) {?>

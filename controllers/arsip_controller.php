@@ -59,12 +59,12 @@ class Arsip_Controller extends Controller{
         $this->view->cek = count($dataa);
         if($this->view->cek>0){
 //            ini yang susah ternyata
-            foreach ($dataa  as $val){
-                $this->view->ar['rak'] = $val['rak'];
-                $this->view->ar['baris'] = $val['baris'];
-                $this->view->ar['box'] = $val['box'];
-                $this->view->ar['klas'] = $val['klas'];
-            }
+//            foreach ($dataa  as $val){                
+                $this->view->ar['rak'] = $dataa->lokasi[1];
+                $this->view->ar['baris'] = $dataa->lokasi[2];
+                $this->view->ar['box'] = $dataa->lokasi[3];
+                $this->view->ar['klas'] = $dataa->klas;
+//            }
             
             $this->view->rak = $this->model->getRak();
             $this->view->baris = $this->model->getBaris($this->view->ar['rak']);
@@ -129,5 +129,133 @@ class Arsip_Controller extends Controller{
         
         
     }
+    
+    public function ikhtisar($key=null,$value=null) {
+        $ikhtarsip = new IkhtisharArsip();
+        if(!is_null($key)){
+            $ikhtisar = $ikhtarsip->generateIkhtisharArsip($key, $value);
+        }else{
+            $ikhtisar = $ikhtarsip->generateIkhtisharArsip();
+        }
+        
+//        var_dump($ikhtisar);
+        
+        echo "<div id=table-wrapper><h2 align=center><font color=black>DAFTAR IKHTISAR DOKUMEN/ARSIP</font></h2>";
+        echo "<h3 align=center>".Kantor::getNama()."</h3>";
+        echo "</br><div id=chart-wrapper><table class=CSSTableGenerator>";
+        echo "<tr><td><font color=black><b>No</b></font></td>
+            <td><font color=black><b>Asal Arsip</b></font></td>
+            <td><font color=black><b>Kurun Waktu</b></font></td>
+            <td><font color=black><b>Jumlah</b></font></td>
+            <td><font color=black><b>Format</b></font></td>
+            <td><font color=black><b>Jalan Masuk</b></font></td>
+            <td><font color=black><b>Penataan</b></font></td>
+            <td><font color=black><b>Lokasi</b></font></td>
+            <td><font color=black><b>Ket</b></font></td>
+            </tr>";
+        $no=1;
+//        var_dump($ikhtisar);
+        foreach ($ikhtisar as $key => $value) {
+            $lokasi = $value['lokasi'];
+            for($i=0;$i<count($lokasi);$i++){
+//                $lok = str_replace("-", ",", $lokasi[$i]);
+                $lokasi[$i] = "<a href=#><div onclick=getarsiplokasi('".$lokasi[$i]."');>$lokasi[$i]</div></a>";
+            }
+            $klas = $value['klas'];
+            for($i=0;$i<count($klas);$i++){
+                $klas[$i] = "<a href=#><div onclick=getarsipklas('".str_replace(" ", "-", $klas[$i])."');>$klas[$i]</div></a>";
+            }
+            echo "<tr><td ><font color=black><b>".$no."</b></font></td>
+            <td ><font color=black><b>".$value['bagian']."</br></b></font></td>
+            <td ><font color=black><b>".implode('</br>', $value['kurun'])."</br></b></font></td>
+            <td ><font color=black><b>".$value['jumlah']." box</br></b></font></td>
+            <td ><font color=black><b>kertas</br></b></font></td>
+            <td ><font color=black><b>-</br></b></font></td>
+            <td ><font color=black><b>-</br></b></font></td>
+            <td ><font color=black><b>".implode(', ', $lokasi)."</br></b></font></td>
+            <td ><font color=black><b>".implode(', ', $klas)."</br></b></font></td>
+            </tr>";
+            $no++;
+        }
+        echo "</table></div></div>";
+        
+    }
+    
+    public function ikhtisarLokasi(){
+        $lokasi = $_POST['queryString'];
+        $lokasi = explode("-", $lokasi);
+        $id = $this->model->getArsipByLokasi($lokasi);        
+        
+        echo "<div id=table-wrapper><h2 align=center><font color=black>DAFTAR IKHTISAR DOKUMEN/ARSIP</font></h2>";
+        echo "<h3 align=center>LOKASI ARSIP : ".implode("->", $lokasi)."</h3>";
+        echo "</br><div id=chart-wrapper><table class=CSSTableGenerator>";
+        echo "<tr><td><font color=black><b>No</b></font></td>
+            <td><font color=black><b>Uraian</b></font></td>
+            <td><font color=black><b>Tipe Surat</b></font></td>
+            <td><font color=black><b>Tipe Naskah</b></font></td>            
+            </tr>";
+        $no=1;
+        
+        foreach ($id as $val){
+            $tipe = $val->tipe=='SM'?'Surat Masuk':'Surat Keluar';
+            $lamp = new Lampiran_Model();
+            $lampsurat = $lamp->getLampiranSurat($val->id_surat, $val->tipe);
+            $lampiran = '';
+            foreach ($lampsurat as $value){
+                $tgl = is_null($value['tanggal'])?'':Tanggal::tgl_indo($value['tanggal']);
+                $lampiran .= $value['nomor'].' : '. $tgl .'</br>'.$value['hal'].'<hr>';
+            }
+            $tgl_surat = is_null($val->tgl_surat)?'':Tanggal::tgl_indo($val->tgl_surat);
+            echo "<tr><td><font color=black><b>$no</b></font></td>
+            <td><font color=black><b>$val->no_surat : ".  $tgl_surat."</br>$val->alamat</b></font>";
+            if($lampiran!=''){
+                echo '<hr><b>LAMPIRAN :</b></br>'.$lampiran;
+            }
+            echo "</td>
+            <td><font color=black><b>$tipe</b></font></td>
+            <td><font color=black><b>$val->klas</b></font></td>            
+            </tr>";
+            $no++;
+        }
+    }
+    
+    public function ikhtisarKlas(){
+        $klas = $_POST['queryString'];
+        $klas = str_replace("-", " ", $klas);
+        $id = $this->model->getArsipByKlas($klas);        
+        
+        echo "<div id=table-wrapper><h2 align=center><font color=black>DAFTAR IKHTISAR DOKUMEN/ARSIP</font></h2>";
+        echo "<h3 align=center>KLASIFIKASI ARSIP : ".$klas."</h3>";
+        echo "</br><div id=chart-wrapper><table class=CSSTableGenerator>";
+        echo "<tr><td><font color=black><b>No</b></font></td>
+            <td><font color=black><b>Uraian</b></font></td>
+            <td><font color=black><b>Tipe Surat</b></font></td>
+            <td><font color=black><b>Tipe Naskah</b></font></td>            
+            </tr>";
+        $no=1;
+        
+        foreach ($id as $val){
+            $tipe = $val->tipe=='SM'?'Surat Masuk':'Surat Keluar';
+            $lamp = new Lampiran_Model();
+            $lampsurat = $lamp->getLampiranSurat($val->id_surat, $val->tipe);
+            $lampiran = '';
+            foreach ($lampsurat as $value){
+                $tgl = is_null($value['tanggal'])?'':Tanggal::tgl_indo($value['tanggal']);
+                $lampiran .= $value['nomor'].' : '. $tgl .'</br>'.$value['hal'].'<hr>';
+            }
+            $tgl_surat = is_null($val->tgl_surat)?'':Tanggal::tgl_indo($val->tgl_surat);
+            echo "<tr><td><font color=black><b>$no</b></font></td>
+            <td><font color=black><b>$val->no_surat : ".  $tgl_surat."</br>$val->alamat</b></font>";
+            if($lampiran!=''){
+                echo '<hr><b>LAMPIRAN :</b></br>'.$lampiran;
+            }
+            echo "</td>
+            <td><font color=black><b>$tipe</b></font></td>
+            <td><font color=black><b>$val->klas</b></font></td>            
+            </tr>";
+            $no++;
+        }
+    }
+
 }
 ?>

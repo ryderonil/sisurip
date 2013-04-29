@@ -254,6 +254,39 @@ class Admin_Model extends Model{
         
         return $nomor;
     }
+    
+    public function cekLibur($tgl){
+        $sql = "SELECT * FROM libur WHERE tgl='".$tgl."'";
+        $data = $this->select($sql);
+        if(count($data)>0){
+            foreach ($data as $val){
+                $ket = $val['keterangan'];
+                return $ket;
+            }
+        }else{
+            return false;
+        }
+    }
+    
+    public function getLibur(){
+        $sql = "SELECT * FROM libur";
+        $data = $this->select($sql);
+        return $data;
+    }
+    
+    public function rekamLibur($data){
+        return $this->insert('libur', $data);
+    }
+    
+    public function updateLibur($data){
+        $where = " tgl='".$data['tgl']."'";
+        return $this->update('libur',$data,$where);
+    }
+    
+    public function deleteLibur($tgl){
+        $where = " tgl='".$tgl."'";
+        return $this->delete('libur',$where);
+    }
    
 }
 ?>

@@ -15,6 +15,10 @@ class Cari_Controller extends Controller {
         Auth::handleLogin();
         $this->nomor = new Nomor();
         $this->view->kantor = Kantor::getNama();
+        $this->view->js = array(
+            'suratkeluar/js/jquery.tipTip',
+            'suratkeluar/js/jquery.tipTip.minified'
+        );
     }
 
     public function index() {
