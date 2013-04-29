@@ -14,7 +14,7 @@
             }
     ?>
     </br>
-</form></div></div></br>
+</form></div></div>
 
 <?php
 $cal = new Calendar($this->curDate);
