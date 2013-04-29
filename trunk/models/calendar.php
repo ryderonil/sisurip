@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * source : http://www.pixelcode.co.uk/tutorials/Creating+a+calendar+in+PHP.html
+ * dengan penambahan dan perubahan seperlunya
+ */
 class Calendar extends Model {
 
     var $events;
