@@ -10,12 +10,22 @@ class Monitoring_Model extends Model {
 
     var $jampulang = '17:00:00';
     var $jammasuk = '07:30:00';
-    
+    private $time_sm = 4;
+    private $time_sk_ans;
+    private $time_sk_bs;
+    private $time_sk_s;
+    private $time_sk_ss;
+
+
     /*
      * constructor
      */
     public function __construct() {
         parent::__construct();
+        $this->time_sk_ans = 4;
+        $this->time_sk_bs = $this->getTimeLimit('BS');
+        $this->time_sk_s = $this->getTimeLimit('SG');
+        $this->time_sk_ss = $this->getTimeLimit('SS');
     }
     
     /*
@@ -37,7 +47,7 @@ class Monitoring_Model extends Model {
             } else {
                 $selisihjam = $this->cekSelisihJam($end, $start);
             }
-            $kinerja = ceil(($selisihjam / 4) * 100);
+            $kinerja = ceil(($selisihjam / $this.time_sm) * 100);
         }
     }
     
@@ -78,11 +88,15 @@ class Monitoring_Model extends Model {
             } else {
                 $selisihjam = $this->selisihJam($end, $start);
             }            
-            $kinerja = ceil(($selisihjam / 4) * 100);
-            //echo $kinerja."*</br>";
+            if($tipe_srt=='SM'){
+                $kinerja = round(($selisihjam / $this->time_sm) * 100,2);
+            }elseif ($tipe_srt=='SK') {
+                $kinerja = round(($selisihjam / $this->cekSifatSuratKeluar($value['no_agenda'])) * 100,2);
+            }
+//            echo $kinerja."*</br>";
             if($value['bulan']==$bulan AND $count>1){             
                 $krj[] = $kinerja;                
-                $sum = array_sum($krj)/($count); 
+                $sum = round(array_sum($krj)/($count),2); 
                 $arraydata[$value['bulan']] = $sum;                
                 $count++;
             }else if($value['bulan']!=$bulan AND $count>1){              
@@ -90,11 +104,11 @@ class Monitoring_Model extends Model {
                 $krj = array();
                 $krj[] = $kinerja;
                 $count = 1;
-                $sum = array_sum($krj)/($count); 
+                $sum = round(array_sum($krj)/($count),2); 
                 $arraydata[$value['bulan']] = $sum;                          
             }else if($count==1){                
                 $krj[] = $kinerja;
-                $sum = array_sum($krj)/($count); 
+                $sum = round(array_sum($krj)/($count),2); 
                 $arraydata[$value['bulan']] = $sum;                
                 $count++;
             }
@@ -143,7 +157,12 @@ class Monitoring_Model extends Model {
             } else {
                 $selisihjam = $this->selisihJam($end, $start);
             }            
-            $kinerja = ceil(($selisihjam / 4) * 100);
+            if($tipe_srt=='SM'){
+                $kinerja = round(($selisihjam / $this->time_sm) * 100,2);
+            }elseif ($tipe_srt=='SK') {
+//                echo $this->cekSifatSuratKeluar($value['no_agenda']);
+                $kinerja = round(($selisihjam / $this->cekSifatSuratKeluar($value['no_agenda'])) * 100,2);
+            }
             //echo $kinerja."*</br>";
             if($value['tanggal']==$tanggal AND $count>1){
                 //echo $value['tanggal']."-".$tanggal;
@@ -203,13 +222,19 @@ class Monitoring_Model extends Model {
 //            $end = explode(" ", $value['end']);
             $end = trim($end[1]);
             if ($selisihhari > 0) {
-                $hari1 = $this->selisihJam($this->jampulang, $start);
+                //salahnya disini
+                //belum ada cek perhari jika lebih dari 1 hari
+                $hari1 = $this->selisihJam($this->jampulang, $start); 
                 $hari2 = $this->selisihJam($end, $this->jammasuk);
                 $selisihjam = $hari1 + $hari2;
             } else {
                 $selisihjam = $this->selisihJam($end, $start);
             }            
-            $kinerja = ceil(($selisihjam / 4) * 100); //dibedakan antara sm dan sk
+            if($tipe_srt=='SM'){
+                $kinerja = round(($selisihjam / $this->time_sm) * 100,2);
+            }elseif ($tipe_srt=='SK') {                
+                $kinerja = round(($selisihjam / $this->cekSifatSuratKeluar($value['no_agenda'])) * 100,2);
+            }
             //echo $kinerja."*</br>";
             if($value['no_agenda']==$agenda AND $count>1){
                 //echo $value['tanggal']."-".$tanggal;
@@ -370,6 +395,108 @@ class Monitoring_Model extends Model {
 
         // Return string with times
         return implode(", ", $times);
+    }
+    
+    private function getTimeLimit($tipe_sk){
+        $sql = "SELECT batas_waktu FROM klasifikasi_surat WHERE kode_klassurat='".$tipe_sk."'";
+        $klas = $this->select($sql);
+        $batas=0;
+        foreach ($klas as $val){
+            $batas = $val['batas_waktu'];
+        }
+        
+        return (int) $batas*10.5;
+    }
+    
+    private function cekSifatSuratKeluar($id){
+        $batas=0;
+        $sql = "SELECT rujukan,jenis FROM suratkeluar WHERE id_suratkeluar=".$id;        
+        $data = $this->select($sql);        
+        foreach ($data as $val){
+            if($val['rujukan']==0){
+                switch($val['jenis']){
+                    case 'BS':
+                        $batas = $this->time_sk_bs;
+                        break;
+                    case 'SG':
+                        $batas = $this->time_sk_s;
+                        break;
+                    case 'SS':
+                        $batas = $this->time_sk_ss;
+                        break;
+                }
+            }else{
+                $batas = $this->time_sk_ans;
+            }
+        }     
+        
+        return $batas;
+    }
+    
+    public function getProgresSurat(){
+        $progres = array();
+        $sql = "SELECT a.id_suratmasuk as id,
+                a.no_surat, 
+                a.tgl_surat, 
+                b.nama_satker AS alamat, 
+                c.klasifikasi, 
+                d.status, 
+                a.start 
+                FROM suratmasuk a
+                LEFT JOIN alamat b ON a.asal_surat = b.kode_satker
+                LEFT JOIN klasifikasi_surat c ON a.jenis = c.kode_klassurat
+                LEFT JOIN STATUS d ON a.stat = d.id_status
+                WHERE a.stat<>15";
+//        var_dump($sql);
+        $data = $this->select($sql);
+        foreach ($data as $val){
+            $progres['SM'][] = $val;
+        }
+        
+        $sql = "SELECT a.id_suratkeluar as id,
+                a.no_surat,
+                a.tgl_surat,
+                b.nama_satker as alamat,
+                c.klasifikasi,
+                d.status,
+                a.start
+                FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan=b.kode_satker
+                LEFT JOIN klasifikasi_surat c ON a.jenis = c.kode_klassurat
+                LEFT JOIN status d ON a.status = d.id_status
+                WHERE a.status<>23";
+        
+        $data = $this->select($sql);
+        foreach ($data as $val){
+            $progres['SK'][] = $val;
+        }
+        
+        return $progres;
+        
+    }
+    
+    public function getDueDate($tipe,$id=null){
+        $due_date = 4;
+        if($tipe=='SM'){
+            return $due_date;
+        }elseif ($tipe='SK' AND !is_null($id)) {
+            $sk = new Suratkeluar_Model();
+            $data = $sk->getSuratKeluarById($id, 'ubah');
+            foreach ($data as $val){
+                if($val['rujukan']!=0){
+                    return $due_date;
+                }else{
+                    if($val['jenis']=='SS'){
+                        return 24;
+                    }elseif($val['jenis']=='SG'){
+                        return 2*24;
+                    }elseif ($val['jenis']=='BS') {
+                        return 5*24;
+                    }
+                }
+            }
+        }elseif($tipe=='SK' AND is_null($id)){
+            return $due_date;
+        }
     }
 
 }

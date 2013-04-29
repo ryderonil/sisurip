@@ -3,12 +3,28 @@
 <!--    <option>pilih semua</option>-->
 <!--</select></div>-->
 
-        <hr>
-        </br>
+        <hr>        <!--
         <?php if(Auth::isRole($role, 5)) {?><a href="<?php echo URL;?>suratmasuk/rekam" title="rekam surat masuk" class="tip"><input class="btn" type="button" value="R E K A M"></a>
         <a title="cetak disposisi lebih dari satu surat, pilih surat yang akan dicetak!" class="tip"><input class="btn" id="x" type="button" value="CETAK DISPOSISI" onclick="cetakdisp();"></a>
             <?php } ?>
-        <?php if(Auth::isRole($role, 5) OR Auth::isRole($role, 4)) {?><a href="<?php echo URL;?>suratmasuk/ctkEkspedisi" title="cetak ekspedisi surat" class="tip"><input class="btn" type="button" value="CETAK EKSPEDISI"></a><?php } ?>
+        <?php if(Auth::isRole($role, 5) OR Auth::isRole($role, 4)) {?><a href="<?php echo URL;?>suratmasuk/ctkEkspedisi" title="cetak ekspedisi surat" class="tip"><input class="btn" type="button" value="CETAK EKSPEDISI"></a><?php } ?>-->
+        <div class="nav-paging"><div class="limit">
+                <?php if(Auth::isRole($role, 5)) {?><a href="<?php echo URL;?>suratmasuk/rekam" title="rekam surat masuk" class="tip"><input class="btn" type="button" value="R E K A M"></a>
+        <a title="cetak disposisi lebih dari satu surat, pilih surat yang akan dicetak!" class="tip"><input class="btn" id="x" type="button" value="CETAK DISPOSISI" onclick="cetakdisp();"></a>
+            <?php } ?>
+        <?php if(Auth::isRole($role, 5) OR Auth::isRole($role, 4)) {?><a href="<?php echo URL;?>suratmasuk/ctkEkspedisi" title="cetak ekspedisi surat" class="tip"><input class="btn" id="exp" type="button" value="CETAK EKSPEDISI" onclick="cetakekspedisi();"></a><?php } ?>
+            </div>
+            <div class="paging">                
+                <input type="button" class="btn" value="<">
+                <input type="button" class="btn" value=">">
+                <select id="limit" class="limit-select">
+                    <option value=10>   10</option>  
+                    <option value=20>   20</option>
+                    <option value=30>   30</option>
+                </select>
+            </div>
+        </div>
+        </br>
         <div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><td >AGENDA</td><td >INFORMASI SURAT</td><td >AKSI</td></tr>
     <form name="sm" >
@@ -18,12 +34,12 @@
         //echo '<td>' . $value['no_agenda'] . '</td>';
         //var_dump($this->notif->isRead($value['id_suratmasuk'],$user,'SM'));
         if($this->notif->isRead($value['id_suratmasuk'],$user,'SM')){
-            echo '<td><input type=checkbox id=cek name=cek[] value=' . $value['id_suratmasuk'] . '> <font color=blue><strong>' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</strong></font></td>';
+            echo '<td><input type=checkbox id=cek name=cek[] value=' . $value['id_suratmasuk'] . ' onchange=cek();> <font color=blue><strong>' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</strong></font></td>';
             echo '<td><b><font color=blue><a href="'.URL.'suratmasuk/detil/'.$value['id_suratmasuk'].'" title="klik disini untuk melihat detil surat" class=tip>' . $value['no_surat'] . '</a> || '
             . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'. $value['asal_surat'] . '</br>'. $value['perihal'] .
              '</font></b></td>';
         }else{
-            echo '<td><input type=checkbox id=cek name=cek[] value=' . $value['id_suratmasuk'] . '> ' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</td>';
+            echo '<td><input type=checkbox id=cek name=cek[] value=' . $value['id_suratmasuk'] . ' onchange=cek();> ' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</td>';
             echo '<td><a href="'.URL.'suratmasuk/detil/'.$value['id_suratmasuk'].'" title="klik disini untuk melihat detil surat" class=tip>' . $value['no_surat'] . '</a> || '
             . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'. $value['asal_surat'] . '</br>'. $value['perihal'] .
              '</td>';
@@ -33,12 +49,12 @@
         //echo '<td>' . $value['tgl_surat'] . '</td>';
         //echo '<td>' . $value['asal_surat'] . '</td>';
         //echo '<td>' . $value['perihal'] . '</td>';
-        echo '<td>';
-                if(Auth::isRole($role, 2) AND Auth::isBagian($bagian, 1))echo '<a href="'.URL.'suratmasuk/edit/'.$value['id_suratmasuk'].'" title="ubah data surat" class=tip><input class=btn type=button value=Ubah></a> 
-                <a href="'.URL.'suratmasuk/remove/'.$value['id_suratmasuk'].'" title="hapus data surat" class=tip><input class=btn type=button value=Hapus onclick="return selesai('.$value['no_agenda'].')"></a>';
-                if(Auth::isRole($role, 1) OR Auth::isRole($role, 4)) echo '<a href="'.URL.'suratmasuk/disposisi/'.$value['id_suratmasuk'].'" title="rekam disposisi" class=tip><input class=btn type=button value=Disposisi></a>';
-                if(Auth::isRole($role, 5)) echo '<a title="cetak disposisi" class=tip><input class=btn type=button value="Cetak Disposisi" onclick=cetakdisposisi('.$value['id_suratmasuk'].');></a> ';
-                if(Auth::isRole($role, 5) OR Auth::isRole($role, 3)) echo '<a href="'.URL.'suratmasuk/upload/'.$value['id_suratmasuk'].'" title="upload file surat" class=tip><input class=btn type=button value="Upload File"></a>
+        echo '<td halign=center>';
+                if(Auth::isRole($role, 2) AND Auth::isBagian($bagian, 1))echo '<a href="'.URL.'suratmasuk/edit/'.$value['id_suratmasuk'].'" title="ubah data surat" class=tip><input class=btn type=button value=ubah></a> 
+                <a href="'.URL.'suratmasuk/remove/'.$value['id_suratmasuk'].'" title="hapus data surat" class=tip><input class=btn type=button value=hapus onclick="return selesai('.$value['no_agenda'].')"></a>';
+                if(Auth::isRole($role, 1) OR Auth::isRole($role, 4)) echo '<a href="'.URL.'suratmasuk/disposisi/'.$value['id_suratmasuk'].'" title="rekam disposisi" class=tip><input class="btn" type=button value=disposisi></a>';
+                if(Auth::isRole($role, 5)) echo '<a title="cetak disposisi" class=tip><input class="btn" type=button value="print disposisi" onclick=cetakdisposisi('.$value['id_suratmasuk'].');></a> ';
+                if(Auth::isRole($role, 5) OR Auth::isRole($role, 3)) echo '<a href="'.URL.'suratmasuk/upload/'.$value['id_suratmasuk'].'" title="upload file surat" class=tip><input class="btn" type=button value="upload"></a>
                 <!--<a href="'.URL.'suratmasuk/updatestatus/'.$value['id_suratmasuk'].'"><input class=btn type=button value=Status></a>
                     <a href="'.URL.'suratmasuk/distribusi/'.$value['id_suratmasuk'].'"><input class=btn type=button value=Distribusi></a>--></td>';
         echo '</tr>';
@@ -49,6 +65,35 @@
         <div id="result"></div>
         
 <script type="text/javascript">
+    
+    $(document).ready(function(){
+        $('#x').fadeOut(0);
+//        $('#exp').fadeOut(0);
+    });
+
+//yang dianggap memiliki id hanya checkbox pertama, belum berhasil!
+$('#cek').change(function(){
+
+    var  counter=0,
+        input_obj = document.getElementsByTagName('input');    
+    for (i = 0; i < input_obj.length; i++) {        
+        if (input_obj[i].type === 'checkbox' && input_obj[i].checked === true) {
+            counter++;
+                       
+        }
+    }
+
+    if(counter>0){
+//        alert(counter+',');
+        $('#x').fadeIn(500);
+//        $('#exp').fadeIn(500); 
+    }else if(counter==0){
+        $('#x').fadeOut(500);
+//        $('#exp').fadeOut(500); 
+    }
+});
+        
+    
 
 function selesai(agenda){
     var answer = 'anda yakin menghapus data surat dengan nomor agenda : '+agenda+'?'
@@ -73,7 +118,8 @@ function cetakdisp(){
         }
     }
     
-    if (counter > 0) {        
+    if (counter > 0) {
+//          alert(counter+',');
         url = url.substr(1);        
 //        alert(url);
         var w = window.open("<?php echo URL; ?>suratmasuk/disposisix/"+url, "Cetak Disposisi","toolbar=0,menubar=0,location=0,status=0,width=800,height=500");        
@@ -88,6 +134,10 @@ function cetakdisp(){
 
 function cetakdisposisi(id){
     w = window.open("<?php echo URL; ?>suratmasuk/ctkDisposisi/"+id, "Cetak Disposisi","toolbar=0,menubar=0,location=0,status=0,width=800,height=500");        
+}
+
+function cetakekspedisi(){
+    w = window.open("<?php echo URL; ?>suratmasuk/ctkEkspedisi", "Cetak Disposisi","toolbar=0,menubar=0,location=0,status=0,width=800,height=500");        
 }
 
 $(function(){

@@ -46,7 +46,7 @@
     </select></br>
     <label>LABEL</label><input class="required" type="text" name="nama" value="<?php echo $this->data[4];?>"></br>
     <!--<label>KETERANGAN</label><input type="text" name="keterangan" width="40"></textarea></br>-->
-    <label></label><input type="reset" onclick="location.href='<?php echo URL;?>admin/rekamLokasi'" name="batal" value="BATAL"><input type="submit" name="simpan" value="SIMPAN" onclick="return selesai();"></br>
+    <label></label><input type="reset" onclick="location.href='<?php echo URL;?>admin/rekamLokasi'" name="batal" value="BATAL"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai();"></br>
     <p>Jika filling tidak dipilih, baris tidak dipilih->rekam filling</p>
     <p>Jika filling dipilih, baris tidak dipilih->rekam baris</p>
     <p>Jika filling dipilih, baris dipilih->rekam box</p>

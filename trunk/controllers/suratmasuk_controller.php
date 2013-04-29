@@ -377,7 +377,7 @@ class Suratmasuk_Controller extends Controller {
     }
     
     public function disposisix($id){
-
+        $x = trim($id,',');
         $x=  explode(",", $id);
 //        var_dump($x);
         $this->ctkDisposisi($x);
@@ -531,11 +531,11 @@ class Suratmasuk_Controller extends Controller {
     
     public function ctkEkspedisi(){
         $eks = new EkspedisiSurat();
-        $id = $this->model->select("SELECT id_suratmasuk FROM suratmasuk");
-        $eks->displayEkspedisi($id);
+//        $id = $this->model->select("SELECT id_suratmasuk FROM suratmasuk");
+        $this->view->data = $eks->displayEkspedisi();
 //        $this->view->data = $this->model->showAll();
         
-//        $this->view->load('suratmasuk/expedisi.php');
+        $this->view->load('suratmasuk/expedisi');
     }
     
     public function upload($id){

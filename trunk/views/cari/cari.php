@@ -1,6 +1,6 @@
 <div><form id="form-search" name="frm">
-    <p><input id="search" type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian" onkeyup="keyup();">
-        <input  type="button" name="submit" value="CARI" onClick="return cari(document.getElementById('search').value);"></p>
+    <p><input id="search" type="input" size="30" name="search" placeholder="masukkan kata kunci pencarian" onkeyup="keyup();">
+        <a title="cari" class="tip"><input  type="button" class="btn icon search" value="" onClick="return cari(document.getElementById('search').value);"></a></p>
         <!--<form id="ui_element" class="sb_wrapper" method="POST" action="<?php echo URL; ?>cari">
         <p><input class="sb_input" type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian">
         <input class="sb_search" type="submit" name="submit" value=""></p>-->
@@ -43,6 +43,10 @@ function cari(val){
                 $('#result').html(data);
             });        
 }
+
+$(function(){
+    $(".tip").tipTip({maxWidth: "auto", edgeOffset: 10});
+});
 
 
 </script>

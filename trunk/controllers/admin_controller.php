@@ -14,7 +14,9 @@ class Admin_Controller extends Controller {
         //$this->view = new View;
         //echo "</br>kelas berhasil di bentuk";
         $this->view->js = array(
-            'admin/js/default'
+            'admin/js/default',
+            'suratkeluar/js/jquery.tipTip',
+            'suratkeluar/js/jquery.tipTip.minified'
         );
     }
 
@@ -179,10 +181,10 @@ class Admin_Controller extends Controller {
 
     public function rekamLokasi() {
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
-                $this->view->success = "Ubah data berhasil";
+            if($this->inputRekamLokasi()){
+                $this->view->success = "rekam data berhasil";
             }else{
-                $this->view->error = "Ubah data gagal!";
+                $this->view->error = "rekam data gagal!";
             }
         }
         $this->view->bagian = $this->model->select('SELECT * FROM r_bagian');
@@ -195,7 +197,7 @@ class Admin_Controller extends Controller {
 
     public function ubahLokasi($id) {
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
+            if($this->updateRekamLokasi()){
                 $this->view->success = "Ubah data berhasil";
             }else{
                 $this->view->error = "Ubah data gagal!";
@@ -666,6 +668,7 @@ class Admin_Controller extends Controller {
             'tipe' => $tipe,
             'status' => 'E'
         );
+//        var_dump($data);
         $this->model->addLokasi($data);
 //        $this->rekamLokasi();
         return true;
@@ -749,8 +752,50 @@ class Admin_Controller extends Controller {
         
     }
     
+    public function calendar($date){
+        
+        $this->view->curDate = $date;
+        $this->view->tgl = date('Y-m-d',$date);
+        $this->view->ket = $this->model->cekLibur($this->view->tgl);
+        $this->view->event = $this->model->getLibur();
+//        var_dump($this->view->ket);
+        $this->view->render('admin/libur/rekamLibur');
+    }
     
-
+    public function rekamLibur(){
+        $tgl = $_POST['tgl'];
+        $temp = str_replace("-", "",$tgl);
+        $date = substr($temp, -2);
+        $month = substr($temp, 4,2);
+        $year = substr($temp, 0,4);
+        $ket = $_POST['ket'];
+        $data = array('tgl'=>$tgl,'keterangan'=>$ket);
+        if($this->model->rekamLibur($data)){
+            $thisday = mktime(0 ,0 ,0, $month, $date, $year);
+            header('location:'.URL.'admin/calendar/'.$thisday);
+        }
+    }
+    
+    public function updateLibur(){
+        $tgl = $_POST['tgl'];
+        $ket = $_POST['ket'];
+        $data = array('tgl'=>$tgl,'keterangan'=>$ket);
+        if($this->model->updateLibur($data)){
+            $thisday = mktime(0 ,0 ,0, date('m'), date('d'), date('Y'));
+            header('location:'.URL.'admin/calendar/'.$thisday);
+        }        
+    }
+    
+    public function hapusLibur(){
+        $tgl = $_POST['queryString'];
+        
+        if($this->model->deleteLibur($tgl)){
+            echo 'Hapus data libur berhasil';
+        }else{
+            echo 'Hapus data libur gagal';
+        }
+    }
+    
 }
 
 ?>
