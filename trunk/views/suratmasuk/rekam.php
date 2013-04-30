@@ -94,7 +94,7 @@
         <label>TANGGAL SURAT</label><input type="text" id="datepicker" name="tgl_surat" class="required" ></br>
         <label>NOMOR SURAT</label><input id="no_surat" class="required" type="text" name="no_surat"></br>
         <label>ASAL</label><input class="required"  id="alamat" type="text" name="asal_surat" 
-                                  value="<?php if(isset($this->alamat)) echo $this->alamat; ?>" onkeyup="lookup(this.value);">
+                                  value="<?php if(isset($this->alamat)) echo $this->alamat; ?>" onkeyup="lookp(this.value);">
         <a href="<?php echo URL;?>helper/pilihalamat/1"><input type="button" name="" value="+"></a></br>
 <!--        onclick="window.open('<?php echo URL?>helper/pilihalamat/1','pilih alamat asal','location=0,toolbar=0,menubar=0,status=0,scrollbar=1,width=500,height=400')"-->
         <div id="result"></div>

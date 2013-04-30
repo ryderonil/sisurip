@@ -13,12 +13,14 @@
 class Suratmasuk_Model extends Surat{
     //put your code here
     var $lastId;
+    private $id_suratmasuk;
+    
     
     public function __construct() {
         //echo 'ini adalah model</br>';
         parent::__construct();
         
-    }
+    }    
     
     public function showAll($limit=null,$batas=null){
         
@@ -64,21 +66,8 @@ class Suratmasuk_Model extends Surat{
         return false;
     }
     
-    public function editSurat(){
-        $data = array(
-            "tgl_terima"=>$_POST['tgl_terima'],
-            "tgl_surat"=>$_POST['tgl_surat'],
-            "no_surat"=>$_POST['no_surat'],
-            "asal_surat"=>$_POST['asal_surat'],
-            "perihal"=>$_POST['perihal'],
-            "status"=>$_POST['status'],
-            "sifat"=>$_POST['sifat'],
-            "jenis"=>$_POST['jenis'],
-            "lampiran"=>$_POST['lampiran']
-        );
+    public function editSurat($data,$where){
         
-        $id = $_POST['id'];
-        $where = "id_suratmasuk = '".$id."'";
         //echo $where;
         return $this->update("suratmasuk", $data, $where);
 //        header('location:'.URL.'suratmasuk');
@@ -98,7 +87,7 @@ class Suratmasuk_Model extends Surat{
     }
 
 
-    public function getSuratMasukById($id){ //fungsi ini mgkn tidak diperlukan
+    public function getSuratById($id){ //fungsi ini mgkn tidak diperlukan
         
         return $this->select("SELECT * FROM suratmasuk WHERE id_suratmasuk=:id", array("id"=>$id));
     }
