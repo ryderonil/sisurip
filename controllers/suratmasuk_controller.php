@@ -88,7 +88,21 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function editSurat() {
-        return $this->model->editSurat();
+        $data = array(
+            "tgl_terima"=>$_POST['tgl_terima'],
+            "tgl_surat"=>$_POST['tgl_surat'],
+            "no_surat"=>$_POST['no_surat'],
+            "asal_surat"=>$_POST['asal_surat'],
+            "perihal"=>$_POST['perihal'],
+            "status"=>$_POST['status'],
+            "sifat"=>$_POST['sifat'],
+            "jenis"=>$_POST['jenis'],
+            "lampiran"=>$_POST['lampiran']
+        );
+        
+        $id = $_POST['id'];
+        $where = "id_suratmasuk = '".$id."'";
+        return $this->model->editSurat($data,$where);
         
     }
 

@@ -796,6 +796,50 @@ class Admin_Controller extends Controller {
         }
     }
     
+    public function backuprestore(){
+        
+        $this->view->render('admin/restore/restore');
+    }
+    
+    public function backup(){
+        $db = new Backuprestore();
+        
+        $db->connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        
+        $db->backupDatabase('sisurip');        
+        
+        echo "<div id=success>Backup data berhasil dilakukan</div>";
+    }
+    
+    public function restore(){
+        $db = new Backuprestore();
+        $db->connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
+        
+        if (isset($_POST['submitRestoreDB'])) {
+            if (!empty($_FILES['file']['name'])) {
+                if ($db->getlast($_FILES['file']['name']) == 'sql') {
+                    echo $db->getlast($_FILES['file']['name']);
+                    $tempFile = $_FILES['file']['tmp_name'];
+                    $targetFile = 'public/temp/' . $_FILES['file']['name'];
+                    move_uploaded_file($tempFile, $targetFile);
+                    $db->restoreDatabaseSql($targetFile);
+                } elseif ($db->getlast($_FILES['file']['name']) == 'zip') {
+                    $tempFile = $_FILES['file']['tmp_name'];
+                    $targetFile = 'public/temp/' . $_FILES['file']['name'];
+                    move_uploaded_file($tempFile, $targetFile);
+                    $db->restoreDatabaseZip($targetFile);
+                } else {
+                    echo "Invalid Database File Type";
+                }
+            }
+        }
+        
+        $this->view->message = "<div id=success>restore data telah berhasil dilakukan, ".$_SESSION['ttlQuery']." queries executed on ".date('Y-m-d H:i:s', $_SESSION['timeQuery'])."</div>"; 
+    
+        $this->view->render('admin/restore/restore');
+    }
+            
+    
 }
 
 ?>

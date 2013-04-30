@@ -9,10 +9,21 @@ class Suratkeluar_Model extends Surat{
 
     //put your code here
     var $lastId;
+    private $id_suratkeluar;
+    private $jns_surat;
+    private $user;
 
     public function __construct() {
         //echo 'ini adalah model</br>';
         parent::__construct();
+    }    
+       
+    public function setTipeSurat($value){
+        $this->jns_surat = $value;
+    }
+    
+    public function getTipeSurat(){
+        return $this->jns_surat;
     }
 
     public function showAll($limit=null,$batas=null) {
@@ -41,7 +52,7 @@ class Suratkeluar_Model extends Surat{
         return $this->select($sql);
     }
 
-    public function rekamSurat($data) {
+    public function input($data) {
         
         $rekam = $this->insert('suratkeluar', $data);
         if($rekam){
@@ -51,7 +62,7 @@ class Suratkeluar_Model extends Surat{
         }
     }
 
-    public function getSuratKeluarById($id, $aksi) {
+    public function getSuratById($id, $aksi=null) {
         if ($aksi == 'detil') {
             $sql = "SELECT a.id_suratkeluar as id_suratkeluar,
                 a.rujukan as rujukan,
