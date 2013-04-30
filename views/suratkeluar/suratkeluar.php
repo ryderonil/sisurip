@@ -4,9 +4,18 @@
 <!--</select></div>-->
 
         <hr>
-        </br>
+        <div class="nav-paging"><div class="limit">
         <?php if(Auth::isRole($role, 3)) {?><a href="<?php echo URL;?>suratkeluar/rekam" title="rekam data surat keluar" class="tip"><input class="btn" type="button" value="R E K A M"></a><?php } ?>
-        <div id="table-wrapper"><table class="CSSTableGenerator">
+            </div><div class="paging">                
+                <input type="button" class="btn" value="<">
+                <input type="button" class="btn" value=">">
+                <select id="limit" class="limit-select">
+                    <option value=10>   10</option>  
+                    <option value=20>   20</option>
+                    <option value=30>   30</option>
+                </select>
+            </div></div></br>
+        <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
     <tr><td >NOMOR</td><td >INFORMASI SURAT</td><td >AKSI</td></tr>
 <?php
     foreach($this->data as $key => $value) {

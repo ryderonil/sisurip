@@ -40,7 +40,7 @@
 <hr>
 </br>
 <?php if($this->count>0) { $no=1;?>
-<div id="table-wrapper"><table class="CSSTableGenerator">
+<div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
     <tr><th>NO</th><th>NAMA PEGAWAI</th><th>NAMA USER</th><th>AKSI</th><th>AKTIF</th></tr>
     <?php foreach($this->user as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>

@@ -31,11 +31,11 @@ class Arsip_Model extends Model {
         switch($surat){
             case 'SM':
                 $sm = new Suratmasuk_Model();
-                return $sm->getSuratMasukById($id);
+                return $sm->getSuratById($id);
                 break;
             case 'SK':
                 $sk=new Suratkeluar_Model();
-                return $sk->getSuratKeluarById($id, 'ubah');
+                return $sk->getSuratById($id, 'ubah');
                 break;
             
         }

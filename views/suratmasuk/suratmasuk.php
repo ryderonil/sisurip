@@ -25,7 +25,7 @@
             </div>
         </div>
         </br>
-        <div id="table-wrapper"><table class="CSSTableGenerator">
+        <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
     <tr><td >AGENDA</td><td >INFORMASI SURAT</td><td >AKSI</td></tr>
     <form name="sm" >
 <?php

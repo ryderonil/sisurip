@@ -90,8 +90,9 @@ $roleuser = Helper_Model::getRoleUser($user);
                                                 <li><a href="<?php 
                                                 $thisday = mktime(0 ,0 ,0, date('m'), date('d'), date('Y'));
                                                 echo URL; ?>admin/calendar/<?php echo $thisday;?>">Hari Libur</a></li>
-                                                <li><a href="<?php echo URL; ?>admin/backuprestore" >Backup</a></li>
-                                                <li><a href="<?php echo URL; ?>admin/restore">Restore</a></li><?php } ?>
+                                                <li><a href="<?php echo URL; ?>admin/backuprestore" >Backup Restore</a></li>
+<!--                                                <li><a href="<?php echo URL; ?>admin/restore">Restore</a></li>-->
+                                                    <?php } ?>
                                         </ul>
                                     </li> <?php } ?>
                                 <!--<li><a href="<?php echo URL; ?>bantuan">Bantuan</a></li>-->

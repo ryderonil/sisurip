@@ -58,7 +58,7 @@
 </br>
 <hr>
 </br>
-<<div id="table-wrapper"><table class="CSSTableGenerator">
+<<div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
     <tr><th>NO</th><th>NAMA PEGAWAI</th><th>NAMA USER</th><th>AKSI</th><th>AKTIF</th></tr>
     <?php $no=1; foreach($this->user as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>

@@ -120,6 +120,7 @@ div {
 }
 
 #footer {
+    float: bottom;
     font-size: 14px;
     background: #12407f;
     color: #fff;
@@ -205,6 +206,15 @@ div {
 
 form {
     padding-left: 100px;
+/*    margin-left: 200px; */
+    text-align: left;
+/*    margin: 0 auto;*/
+    display: inline-block;
+    font: 100% verdana,arial,sans-serif;
+}
+
+form.backup {
+    padding-left: 0px;
 /*    margin-left: 200px; */
     text-align: left;
 /*    margin: 0 auto;*/

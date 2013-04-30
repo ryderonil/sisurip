@@ -19,7 +19,7 @@
 </br>
 <hr>
 </br>
-<div id="table-wrapper"><table class="CSSTableGenerator">
+<div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
     <tr><th>NO</th><th>KODE</th><th>KLASIFIKASI</th><th>AKSI</th></tr>
     <?php $no=1; foreach($this->klasArsip as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>

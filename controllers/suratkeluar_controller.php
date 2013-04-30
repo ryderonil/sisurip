@@ -153,7 +153,7 @@ class Suratkeluar_Controller extends Controller {
     }
 
     public function detil($id) {
-        $data = $this->model->getSuratKeluarById($id, 'detil');
+        $data = $this->model->getSuratById($id, 'detil');
         foreach ($data as $value) {
             $this->view->id = $value['id_suratkeluar'];
             $this->view->rujukan = $value['rujukan'];
@@ -199,7 +199,7 @@ class Suratkeluar_Controller extends Controller {
                 }
                 //echo $this->view->alamat;
                 if (!is_null($ids)) {
-                    $this->view->data = $this->model->getSuratKeluarById($ids, 'ubah');
+                    $this->view->data = $this->model->getSuratById($ids, 'ubah');
                     $this->view->sifat = $this->model->get('sifat_surat');
                     $this->view->jenis = $this->model->get('klasifikasi_surat');
                     $this->view->tipe = $this->model->select('SELECT * FROM tipe_naskah');
@@ -208,7 +208,7 @@ class Suratkeluar_Controller extends Controller {
             } else {
 
 
-                $this->view->data = $this->model->getSuratKeluarById($id_sk, 'ubah');
+                $this->view->data = $this->model->getSuratById($id_sk, 'ubah');
                 $this->view->sifat = $this->model->get('sifat_surat');
                 $this->view->jenis = $this->model->get('klasifikasi_surat');
                 $this->view->tipe = $this->model->select('SELECT * FROM tipe_naskah');
@@ -274,7 +274,7 @@ class Suratkeluar_Controller extends Controller {
      */
     public function download($id) {
         // membaca informasi file dari tabel berdasarkan id nya        
-        $datas = $this->model->getSuratKeluarById($id, 'ubah');
+        $datas = $this->model->getSuratById($id, 'ubah');
         foreach ($datas as $data) {
             // header yang menunjukkan nama file yang akan didownload
             header("Content-Disposition: attachment; filename=" . $data['file']);
@@ -320,7 +320,7 @@ class Suratkeluar_Controller extends Controller {
             }
         }
         
-        $this->view->data = $this->model->getSuratKeluarById($id, 'detil');
+        $this->view->data = $this->model->getSuratById($id, 'detil');
         $this->view->datar = $this->model->getHistoriRevisi($id);
         
         $this->view->render('suratkeluar/revisi');
@@ -342,7 +342,7 @@ class Suratkeluar_Controller extends Controller {
         
         $time = date('Y-m-d H:i:s');
         $filename ='';
-        $datas = $this->model->getSuratKeluarById($id, 'detil');
+        $datas = $this->model->getSuratById($id, 'detil');
         foreach ($datas as $val){
             $filename = $val['file'];
         }

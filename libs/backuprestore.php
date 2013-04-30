@@ -295,10 +295,11 @@ class Backuprestore
 					return false;
 				}
 			}
+                        $this->remove($sourceDB);
 			return 'Import has been successfully finished, '.$_SESSION['ttlQuery'].' queries executed on '.date('Y-m-d H:i:s', $_SESSION['timeQuery']);
 			//not work till restore completed
-			//$this->remove('temp/'.$this->getRealFileName($sourceDB).'.sql');
-			$this->remove($sourceDB);
+//			$this->remove('temp/'.$this->getRealFileName($sourceDB).'.sql');
+			
 		}
 		else
 		{

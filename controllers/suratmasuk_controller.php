@@ -64,7 +64,7 @@ class Suratmasuk_Controller extends Controller {
                 }
                 //echo $this->view->alamat;
                 if (!is_null($ids)) {
-                    $this->view->data = $this->model->getSuratMasukById($ids);
+                    $this->view->data = $this->model->getSuratById($ids);
                     $this->view->sifat = $this->model->get('sifat_surat');
                     $this->view->jenis = $this->model->get('klasifikasi_surat');
                     //var_dump($this->view->jenis);
@@ -72,7 +72,7 @@ class Suratmasuk_Controller extends Controller {
             } else {
 
 
-                $this->view->data = $this->model->getSuratMasukById($id_sm);
+                $this->view->data = $this->model->getSuratById($id_sm);
                 $this->view->sifat=$this->model->get('sifat_surat');
                 $this->view->jenis=$this->model->get('klasifikasi_surat');
                 //var_dump($this->view->jenis);
@@ -188,7 +188,7 @@ class Suratmasuk_Controller extends Controller {
         $agenda = substr($id, 0, 1);
         
         if($agenda != 'S'){
-            $this->view->dataSurat = $this->model->getSuratMasukById($id);
+            $this->view->dataSurat = $this->model->getSuratById($id);
         }else{
             $sql = "SELECT * FROM suratmasuk WHERE no_agenda='".$id."'";            
             $this->view->dataSurat = $this->model->select($sql);
@@ -219,7 +219,7 @@ class Suratmasuk_Controller extends Controller {
                 $this->view->error="Rekam disposisi gagal!";
             }
         }
-        $data = $this->model->getSuratMasukById($id);
+        $data = $this->model->getSuratById($id);
 
         foreach ($data as $value) {
             $this->view->data['id_suratmasuk'] = $value['id_suratmasuk'];
@@ -288,7 +288,7 @@ class Suratmasuk_Controller extends Controller {
             for($i=0;$i<$count;$i++){
 //                var_dump($i);
 //                var_dump($id[$i]);
-                $datas = $this->model->getSuratMasukById($id[$i]);
+                $datas = $this->model->getSuratById($id[$i]);
 
                 foreach ($datas as $value) {
                     $this->view->data[$i]['id_suratmasuk'] = $value['id_suratmasuk'];
@@ -336,7 +336,7 @@ class Suratmasuk_Controller extends Controller {
 //            var_dump($this->view->data);
             include_once 'views/suratmasuk/disposisisurat.php';
         }else{
-            $datas = $this->model->getSuratMasukById($id);
+            $datas = $this->model->getSuratById($id);
 
             foreach ($datas as $value) {
                 $this->view->data[0]['id_suratmasuk'] = $value['id_suratmasuk'];
@@ -562,7 +562,7 @@ class Suratmasuk_Controller extends Controller {
             }
         }
         
-        $data = $this->model->getSuratMasukById($id);
+        $data = $this->model->getSuratById($id);
         foreach ($data as $value){
             $this->view->id = $value['id_suratmasuk'];
             $this->view->no_surat = $value['no_surat'];
