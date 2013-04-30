@@ -29,7 +29,7 @@
 <hr>
 </br>
 <?php if(!is_null($this->data)){?>
-<div id="table-wrapper">
+<div id="table-wrapper" style="style="overflow:scroll; height:400px;"">
 <table class="CSSTableGenerator">
     <tr><td>NO</td><td>NAMA ALAMAT</td><td>ALAMAT</td></tr>
     <?php

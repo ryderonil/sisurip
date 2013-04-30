@@ -1,7 +1,7 @@
 <h2>Notifikasi (<?php echo $this->jmlnotif;?>)</h2>
 <hr>
 </br>
-<div id="table-wrapper">
+<div id="table-wrapper" style="overflow:scroll; height:400px;">
     <table class="CSSTableGenerator">
         <tr><td colspan="3">Surat Masuk</td></tr>
         <?php 
@@ -18,7 +18,7 @@
 </br>
 <hr>
 </br>
-<div id="table-wrapper">
+<div id="table-wrapper" style="overflow:scroll; height:400px;">
     <table class="CSSTableGenerator">
         <tr><td colspan="3">Surat Keluar</td></tr>
         <?php 

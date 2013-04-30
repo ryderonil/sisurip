@@ -31,7 +31,7 @@ class Lampiran_Controller extends Controller{
             
         if($tipe=='SM'){
             $sm = new Suratmasuk_Model();
-            $data = $sm->getSuratMasukById($id);
+            $data = $sm->getSuratById($id);
 //            $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
 //                    FROM suratmasuk WHERE id_suratmasuk='.$id);
         foreach ($data as $value){
@@ -126,7 +126,7 @@ class Lampiran_Controller extends Controller{
         
         if($lamp->get('jns_surat')=='SM'){
             $sm = new Suratmasuk_Model();
-            $datas = $sm->getSuratMasukById($lamp->get('id_surat'));
+            $datas = $sm->getSuratById($lamp->get('id_surat'));
             foreach ($datas as $value){
                 $this->view->data[0] = $value['id_suratmasuk'];
                 $this->view->data[1] = $value['no_surat'];

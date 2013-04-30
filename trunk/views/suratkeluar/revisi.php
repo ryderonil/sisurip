@@ -38,7 +38,7 @@
         </table>
     </form>
 </div>
-<div id="table-wrapper">
+<div id="table-wrapper" style="overflow:scroll; height:400px;">
     <table class="CSSTableGenerator">
         <tr><td>REV</td><td>CATATAN</td><td>DOWNLOAD</td></tr>
         

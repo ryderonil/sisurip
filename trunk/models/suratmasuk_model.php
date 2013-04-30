@@ -14,14 +14,32 @@ class Suratmasuk_Model extends Surat{
     //put your code here
     var $lastId;
     private $id_suratmasuk;
+    private $tgl_terima;
+    private $no_agenda;
     
     
     public function __construct() {
         //echo 'ini adalah model</br>';
         parent::__construct();
         
-    }    
+    }
     
+    public function setTglTerima($value){
+        $this->tgl_terima = $value;
+    }
+    
+    public function getTglTerima(){
+        return $this->tgl_terima;
+    }
+    
+    public function setAgenda($value){
+        $this->no_agenda = $value;
+    }
+    
+    public function getAgenda(){
+        return $this->no_agenda;
+    }
+
     public function showAll($limit=null,$batas=null){
         
         //$sql = "SELECT * FROM suratmasuk";
@@ -45,7 +63,24 @@ class Suratmasuk_Model extends Surat{
             $sql .= " LIMIT $limit,$batas";
         }
         
-        return $this->select($sql);
+        $data = $this->select($sql);
+        $surat = array();
+        foreach ($data as $value){
+            $obj = new $this;
+            $obj->setAlamat($value['asal_surat']);
+            $obj->setId($value['id_suratmasuk']);
+            $obj->setJenis($value['jenis']);
+            $obj->setJmlLampiran($value['lampiran']);
+            $obj->setNomor($value['no_surat']);
+            $obj->setPerihal($value['perihal']);
+            $obj->setSifat($value['sifat']);
+            $obj->setTglSurat($value['tgl_surat']);
+            $obj->setTglTerima($value['tgl_terima']);
+            $obj->setAgenda($value['no_agenda']);
+            $surat[] = $obj;
+        }
+//        var_dump($surat);
+        return $data;
     }
     
     public function remove($id){

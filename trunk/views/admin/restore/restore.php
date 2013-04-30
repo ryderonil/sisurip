@@ -4,13 +4,13 @@
         <p><strong>BACKUP</strong></p></br>
         <p><font>Halaman ini digunakan untuk melakukan backup database Sistem Informasi Penatausahaan Surat dan Arsip.
         Backup terdiri dari database mysql dan file zip arsip data komputer surat.</font></p>
-        </br><p><input type="button" value="BACKUP" onclick="backup();">
+        </br><p>&nbsp;&nbsp;&nbsp;<input type="button" value="BACKUP" onclick="backup();">
     </div></br>
     <div id="chart-wrapper">
         <p><strong>RESTORE</strong></p></br>
         <p><font>Halaman ini digunakan untuk melakukan restore database.
             Silahkan pilih file backup dan tekan tombol restore.</font></p></br>
-        <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/restore" enctype="multipart/form-data">
+        <form id="form-rekam" class="backup" method="POST" action="<?php echo URL; ?>admin/restore" enctype="multipart/form-data">
             <p><input id="file" type="file" name="file" onchange="hidemessage();"></p>
         </br><p><input type="submit" value="RESTORE" name="submitRestoreDB" onclick="restores(document.getElementById('file').value);"></form>
     </div>
