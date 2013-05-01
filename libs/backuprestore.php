@@ -273,7 +273,7 @@ class Backuprestore {
             $this->xcopy('public/temp/arsip', 'arsip'); //memindahkan isi file backup ke dir arsip
             $this->remove($sourceDB);
             $this->remove('public/temp/arsip');
-            return 'Import has been successfully finished, ' . $_SESSION['ttlQuery'] . ' queries executed on ' . date('Y-m-d H:i:s', $_SESSION['timeQuery']);
+            return 'restore data telah berhasil dilakukan, ' . $_SESSION['ttlQuery'] . ' query dieksekusi pada ' . date('Y-m-d H:i:s', $_SESSION['timeQuery']);
             //not work till restore completed
 //			$this->remove('temp/'.$this->getRealFileName($sourceDB).'.sql');
         } else {
