@@ -12,7 +12,7 @@
                 <?php if(Auth::isRole($role, 5)) {?><a href="<?php echo URL;?>suratmasuk/rekam" title="rekam surat masuk" class="tip"><input class="btn" type="button" value="R E K A M"></a>
         <a title="cetak disposisi lebih dari satu surat, pilih surat yang akan dicetak!" class="tip"><input class="btn" id="x" type="button" value="CETAK DISPOSISI" onclick="cetakdisp();"></a>
             <?php } ?>
-        <?php if(Auth::isRole($role, 5) OR Auth::isRole($role, 4)) {?><a href="<?php echo URL;?>suratmasuk/ctkEkspedisi" title="cetak ekspedisi surat" class="tip"><input class="btn" id="exp" type="button" value="CETAK EKSPEDISI" onclick="cetakekspedisi();"></a><?php } ?>
+        <?php if(Auth::isRole($role, 5) OR Auth::isRole($role, 4)) {?><a  title="cetak ekspedisi surat" class="tip"><input class="btn" id="exp" type="button" value="CETAK EKSPEDISI" onclick="cetakekspedisi();"></a><?php } ?>
             </div>
             <div class="paging">                
                 <input type="button" class="btn" value="<">
@@ -29,12 +29,13 @@
     <tr><td >AGENDA</td><td >INFORMASI SURAT</td><td >AKSI</td></tr>
     <form name="sm" >
 <?php
+    $no=1;
     foreach($this->listSurat as $key => $value) {
         echo '<tr valign=top>';
         //echo '<td>' . $value['no_agenda'] . '</td>';
         //var_dump($this->notif->isRead($value['id_suratmasuk'],$user,'SM'));
         if($this->notif->isRead($value['id_suratmasuk'],$user,'SM')){
-            echo '<td><input type=checkbox id=cek name=cek[] value=' . $value['id_suratmasuk'] . ' onchange=cek();> <font color=blue><strong>' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</strong></font></td>';
+            echo '<td><input type=checkbox id=cek'.$no.' name=cek[] value=' . $value['id_suratmasuk'] . ' onchange=cek();> <font color=blue><strong>' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</strong></font></td>';
             echo '<td><b><font color=blue><a href="'.URL.'suratmasuk/detil/'.$value['id_suratmasuk'].'" title="klik disini untuk melihat detil surat" class=tip>' . $value['no_surat'] . '</a> || '
             . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'. $value['asal_surat'] . '</br>'. $value['perihal'] .
              '</font></b></td>';
@@ -58,6 +59,7 @@
                 <!--<a href="'.URL.'suratmasuk/updatestatus/'.$value['id_suratmasuk'].'"><input class=btn type=button value=Status></a>
                     <a href="'.URL.'suratmasuk/distribusi/'.$value['id_suratmasuk'].'"><input class=btn type=button value=Distribusi></a>--></td>';
         echo '</tr>';
+        $no++;
     }
 ?>
     </form>
@@ -67,7 +69,7 @@
 <script type="text/javascript">
     
     $(document).ready(function(){
-        $('#x').fadeOut(0);
+//        $('#x').fadeOut(0);
 //        $('#exp').fadeOut(0);
     });
 

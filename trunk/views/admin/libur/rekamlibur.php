@@ -3,7 +3,7 @@
         <h3>Rekam/ Ubah Data Hari Libur</h3>
         <hr>
         </br>
-    <label>Tanggal</label></br><input id="tgl" type="text" name="tgl" value="<?php echo @$this->tgl;?>"></br>
+        <label>Tanggal</label></br><input id="tgl" type="text" name="tgl" value="<?php echo @Tanggal::tgl_indo($this->tgl);?>" readonly></br>
     <label>Keterangan</label></br><input type="text" name="ket" value="<?php echo !$this->ket?'':$this->ket;?>"></br></br>
     <input type="submit" class="btn" name="submit" value="SIMPAN" >
     <?php
