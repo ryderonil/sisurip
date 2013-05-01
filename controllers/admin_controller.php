@@ -764,11 +764,18 @@ class Admin_Controller extends Controller {
     
     public function rekamLibur(){
         $tgl = $_POST['tgl'];
-        $temp = str_replace("-", "",$tgl);
+        echo $tgl;
+        /*$temp = str_replace("-", "",$tgl);
         $date = substr($temp, -2);
         $month = substr($temp, 4,2);
-        $year = substr($temp, 0,4);
+        $year = substr($temp, 0,4);*/
         $ket = $_POST['ket'];
+        $temp = explode(" ", $tgl);
+        $date = $temp[0];
+        $year = $temp[2];
+        $month = Tanggal::bulan_num($temp[1]);
+        $tgl = $year.'-'.$month.'-'.$date;
+//        echo $tgl;
         $data = array('tgl'=>$tgl,'keterangan'=>$ket);
         if($this->model->rekamLibur($data)){
             $thisday = mktime(0 ,0 ,0, $month, $date, $year);
@@ -779,16 +786,25 @@ class Admin_Controller extends Controller {
     public function updateLibur(){
         $tgl = $_POST['tgl'];
         $ket = $_POST['ket'];
+        $temp = explode(" ", $tgl);
+        $date = $temp[0];
+        $year = $temp[2];
+        $month = Tanggal::bulan_num($temp[1]);
+        $tgl = $year.'-'.$month.'-'.$date;
         $data = array('tgl'=>$tgl,'keterangan'=>$ket);
         if($this->model->updateLibur($data)){
             $thisday = mktime(0 ,0 ,0, date('m'), date('d'), date('Y'));
             header('location:'.URL.'admin/calendar/'.$thisday);
         }        
     }
-    
+
     public function hapusLibur(){
         $tgl = $_POST['queryString'];
-        
+        $temp = explode(" ", $tgl);
+        $date = $temp[0];
+        $year = $temp[2];
+        $month = Tanggal::bulan_num($temp[1]);
+        $tgl = $year.'-'.$month.'-'.$date;
         if($this->model->deleteLibur($tgl)){
             echo 'Hapus data libur berhasil';
         }else{
@@ -796,6 +812,12 @@ class Admin_Controller extends Controller {
         }
     }
     
+    public function cekLibur(){
+        $tgl = date('Y-m-d',$_POST['queryString']);
+        echo Tanggal::tgl_indo($tgl);
+    }
+
+
     public function backuprestore(){
         
         $this->view->render('admin/restore/restore');
@@ -834,7 +856,7 @@ class Admin_Controller extends Controller {
             }
         }
         
-        $this->view->message = "<div id=success>restore data telah berhasil dilakukan, ".$_SESSION['ttlQuery']." queries executed on ".date('Y-m-d H:i:s', $_SESSION['timeQuery'])."</div>"; 
+        $this->view->message = "<div id=success>restore data telah berhasil dilakukan, ".$_SESSION['ttlQuery']." query dieksekusi pada ".date('Y-m-d H:i:s', $_SESSION['timeQuery'])."</div>"; 
     
         $this->view->render('admin/restore/restore');
     }

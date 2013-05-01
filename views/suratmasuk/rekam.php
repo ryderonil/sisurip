@@ -5,7 +5,7 @@
   
     $(document).ready(function(){
         $('#errorr').fadeOut();
-        $('#loading').fadeOut();
+//        $('#loading').fadeOut();
         $('#succes').fadeOut();
         $("input").blur(function(){
             $('#result').fadeOut();
@@ -134,8 +134,49 @@
         <div id="succes"></div>
     </form></div>
 
-<script type="text/javascript">
-$("#datepicker").datepicker( { 
-	beforeShowDay: $.datepicker.noWeekends 
-});
-</script>
+<?php 
+    
+    $mlibur = new Admin_Model();
+    
+    $libur = $mlibur->getLibur();
+//    var_dump($libur);
+    
+    $count = count($libur);
+    $i=0;
+//    $datal = array();
+    echo "<script type=text/javascript>\n";
+//    echo "$(function){\n";
+    echo "var holiday=[";
+    foreach($libur as $data){
+        
+        $temp = $data['tgl'];
+        $tgl = substr($temp, -2);
+        $bln = ((int) substr($temp, 5,2))-1;
+        $thn = substr($temp, 0,4);
+        if($i<$count){
+            echo "new Date($thn,$bln,$tgl).getTime(),";
+        }else{
+            echo "new Date($thn,$bln,$tgl).getTime()";
+        }
+//        $datal[] = array('tgl'=>$tgl,'bln'=>$bln,'thn'=>$thn);
+        $i++;
+    }
+    
+    echo "]\n";
+    echo "$('#datepicker').datepicker({\n";
+    echo "minDate: '01/01/2013',\n";
+    echo "maxDate: '12/31/2013',\n";
+    echo "beforeShowDay: function(date){\n";
+    echo "var showDay= true;\n";
+    echo "if (date.getDay() == 0 || date.getDay() == 6) {
+                showDay = false;
+            }";
+    
+    echo "if ($.inArray(date.getTime(), holiday) > -1) {
+                showDay = false;
+            }\n";
+    echo "return [showDay];\n";
+    echo "} \n
+            });";
+    echo "</script>";
+?>
