@@ -4,7 +4,7 @@
         <p><strong>BACKUP</strong></p></br>
         <p><font>Halaman ini digunakan untuk melakukan backup database Sistem Informasi Penatausahaan Surat dan Arsip.
         Backup terdiri dari database mysql dan file zip arsip data komputer surat.</font></p>
-        </br><p>&nbsp;&nbsp;&nbsp;<input type="button" value="BACKUP" onclick="backup();">
+        </br><p><form id="form-rekam" class="backup"><input type="button" value="BACKUP" onclick="backup();"></form>
     </div></br>
     <div id="chart-wrapper">
         <p><strong>RESTORE</strong></p></br>

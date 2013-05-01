@@ -7,13 +7,12 @@
   @author: hairul azami a.k.a dr.emi
   @contact: webmaster@dremi.info
   @website: www.dremi.info
- * dengan penambahan fungsi xcopy dan modifikasi sesuai kebutuhan SiSURIP
  */
 
-class Backuprestore {
+class Backuprestore extends Model {
 
     public function __construct() {
-//        parent::__construct();
+        parent::__construct();
     }
 
     //connect to database
@@ -178,29 +177,24 @@ class Backuprestore {
             }
             $return.="\n\n\n";
         }
-        $dir = 'db-backup-' . $name . '-' . time() . '-' . (md5(implode(',', $tables)));
+
         $fileName = 'db-backup-' . $name . '-' . time() . '-' . (md5(implode(',', $tables))) . '.sql';
+
         $handle = fopen($fileName, 'w+');
         fwrite($handle, $return);
         fclose($handle);
-        if (file_exists($fileName)) { 
+
+        if (file_exists($fileName)) {
             include "pclzip.lib.php";
             @set_time_limit(0);
-            $zipName = $this->getRealFileName(str_replace('.sql', '', $fileName)); 
+            $zipName = $this->getRealFileName(str_replace('.sql', '', $fileName));
+
             $outputArchive = 'public/backup/' . $zipName . '.zip';
             $archive = new PclZip($outputArchive); //nama target zip
 
             if ($archive->create($fileName) == 0) { //source sql
                 echo ("Error : " . $archive->errorInfo(true));
             }
-            
-            $v_add = $archive->add('arsip/');
-            
-            if ($v_add == 0) {
-                die("Error : ".$archive->errorInfo(true));
-            }
-            
-            
             $this->remove($fileName);
             $resultLink = "<a href=" . URL . "$outputArchive target='_blank'>Klik here to DOWNLOAD DATABASE</a> or <a href='" . $_SERVER['PHP_SELF'] . "?cTask=backUpDB&cTask2=removeBckDB&file=$outputArchive'>remove backup database</a>.";
         }
@@ -270,9 +264,7 @@ class Backuprestore {
                     return false;
                 }
             }
-            $this->xcopy('public/temp/arsip', 'arsip'); //memindahkan isi file backup ke dir arsip
             $this->remove($sourceDB);
-            $this->remove('public/temp/arsip');
             return 'Import has been successfully finished, ' . $_SESSION['ttlQuery'] . ' queries executed on ' . date('Y-m-d H:i:s', $_SESSION['timeQuery']);
             //not work till restore completed
 //			$this->remove('temp/'.$this->getRealFileName($sourceDB).'.sql');
@@ -319,30 +311,6 @@ class Backuprestore {
             $this->remove($sourceDB);
         } else {
             echo 'SQL File not found';
-        }
-    }
-    
-    //kopi isi direktori
-    function xcopy($src, $dest) {
-        if(!file_exists($dest)){
-            mkdir($dest);
-        }
-        
-        if (!is_file($src)) {
-            $scan = scandir($src);
-            foreach ($scan as $file) {
-                if (is_dir($src . '/' . $file) AND ($file != '.') AND ($file != '..')) {
-//                var_dump(is_dir($src.'/'.$file));
-//                var_dump($file);
-                    if (!file_exists($dest . '/' . $file)) {
-                        mkdir($dest . '/' . $file);
-                    }
-                    $this->xcopy($src . '/' . $file, $dest . '/' . $file);
-                } elseif (!is_dir($src . '/' . $file) AND ($file != '.') AND ($file != '..')) {
-//                var_dump(is_dir($src.'/'.$file));
-                    copy($src . '/' . $file, $dest . '/' . $file);
-                }
-            }
         }
     }
 
