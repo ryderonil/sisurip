@@ -46,10 +46,10 @@ if (isset($this->data)) {
                 echo "<option value='" . $value['id_tipe'] . "'>$value[tipe_naskah]</option>";
             }
             ?></select></br>
-        <label>NOMOR</label><input type="text" name="nomor" id="nomor"> <input type="button" value="+" onclick=""></br>    
+        <label>NOMOR</label><input type="text" name="nomor" id="nomor"> <input type="button" value="+" onclick="ambilNomor(document.getElementById('tipe').value);"></br>    
         <label>ALAMAT TUJUAN</label><input class="required" type="text" name="tujuan" value="<?php if (isset($this->alamat)) echo $this->alamat; ?>">
         <a href="<?php echo URL; ?>helper/pilihalamat/2<?php if (isset($this->data)) echo "/" . $this->data[0]; ?>"><input type="button" name="" value="+"></input></a></br>
-        <label>PERIHAL</label><input class="required" type="text" name="perihal"></br>
+        <label>PERIHAL</label><input class="required" type="text" name="perihal" width="300"></br>
         <label>SIFAT</label><select name="sifat" class="required">
             <option value="" selected>--PILIH SIFAT SURAT--</option>
 <?php
@@ -120,6 +120,12 @@ foreach ($this->klas as $key => $value) {
 <script>
         
         function ambilNomor(tipe){
-            
+//            document.write(tipe);
+            $.post("<?php echo URL;?>suratkeluar/nomorSurat", {queryString:""+tipe+""},
+            function(data){
+                $('input#nomor').fadeIn(500);
+                $('input#nomor').val(data);
+//                $('#test').html(data);
+            });
         }
 </script>

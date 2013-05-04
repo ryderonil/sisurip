@@ -25,6 +25,23 @@ class Tanggal{
         return $tgl;
     }
     
+    public static function ubahFormatToDatePicker($tgl){
+               
+        $tgl = explode('-', $tgl);
+        $temp = array(
+            $tgl[1],
+            $tgl[2],
+            $tgl[0]
+        );
+        
+        $tgl = implode('/',$temp);
+        
+        //list($month, $day, $year) = split('[/.-]',$tgl);
+        //$tgl = $year.'-'.$month.'-'.$day;
+        return $tgl;
+    }
+
+
     public static function tgl_indo($tgl){
         $tgl=  explode('-', $tgl);
         $month = Tanggal::bulan_indo($tgl[1]);
@@ -127,7 +144,7 @@ class Tanggal{
     }
     
     public static function getTimeSekarang(){
-        return ;
+        return date('Y-m-d H:i:s');
     }
 }
 ?>

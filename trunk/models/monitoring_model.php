@@ -480,20 +480,20 @@ class Monitoring_Model extends Model {
             return $due_date;
         }elseif ($tipe='SK' AND !is_null($id)) {
             $sk = new Suratkeluar_Model();
-            $data = $sk->getSuratKeluarById($id, 'ubah');
-            foreach ($data as $val){
-                if($val['rujukan']!=0){
+            $data = $sk->getSuratById($id, 'ubah');
+//            foreach ($data as $val){
+                if($data->getRujukan()!=0){
                     return $due_date;
                 }else{
-                    if($val['jenis']=='SS'){
+                    if($data->getJenis()=='SS'){
                         return 24;
-                    }elseif($val['jenis']=='SG'){
+                    }elseif($data->getJenis()=='SG'){
                         return 2*24;
-                    }elseif ($val['jenis']=='BS') {
+                    }elseif ($data->getJenis()=='BS') {
                         return 5*24;
                     }
                 }
-            }
+//            }
         }elseif($tipe=='SK' AND is_null($id)){
             return $due_date;
         }

@@ -84,17 +84,24 @@ class Disposisi extends Model{
                 $sql = 'SELECT * FROM disposisi WHERE id_surat='.$value;
             }
         }
-        
         $disp = $this->select($sql);
-        
-        foreach($disp as $value){
-            $this->id_disposisi = $value['id_disposisi'];
-            $this->id_surat = $value['id_surat'];
-            $this->sifat = $value['sifat'];
-            $this->petunjuk = explode(',', trim($value['petunjuk']));
-            $this->dist = explode(',',trim($value['disposisi']));
-            $this->catatan = $value['catatan'];
-        }
+        if(count($disp)>0){
+            foreach($disp as $value){
+                $this->id_disposisi = $value['id_disposisi'];
+                $this->id_surat = $value['id_surat'];
+                $this->sifat = $value['sifat'];
+                $this->petunjuk = explode(',', trim($value['petunjuk']));
+                $this->dist = explode(',',trim($value['disposisi']));
+                $this->catatan = $value['catatan'];
+            }
+        }else{
+            $this->id_disposisi = null;
+                $this->id_surat = null;
+                $this->sifat = null;
+                $this->petunjuk = null;
+                $this->dist = null;
+                $this->catatan = null;
+        }       
         
         return $this;
     }
@@ -106,6 +113,10 @@ class Disposisi extends Model{
     public function addDisposisi($data){
         $insert = $this->insert('disposisi', $data);
         return $insert;
+    }
+    
+    public function __destruct() {
+        ;
     }
 }
 ?>

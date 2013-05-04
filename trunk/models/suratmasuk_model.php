@@ -16,6 +16,9 @@ class Suratmasuk_Model extends Surat{
     private $id_suratmasuk;
     private $tgl_terima;
     private $no_agenda;
+    private $status_surat;
+    private $start;
+    private $end;
     
     
     public function __construct() {
@@ -38,6 +41,30 @@ class Suratmasuk_Model extends Surat{
     
     public function getAgenda(){
         return $this->no_agenda;
+    }
+    
+    public function setStatusSurat($value){
+        $this->status_surat = $value;
+    }
+    
+    public function getStatusSurat(){
+        return $this->status_surat;
+    }
+    
+    public function setStart($value){
+        $this->start = $value;
+    }
+    
+    public function getStart(){
+        return $this->start;
+    }
+    
+    public function setEnd($value){
+        $this->end = $value;
+    }
+    
+    public function getEnd(){
+        return $this->end;
     }
 
     public function showAll($limit=null,$batas=null){
@@ -63,7 +90,7 @@ class Suratmasuk_Model extends Surat{
             $sql .= " LIMIT $limit,$batas";
         }
         
-        $data = $this->select($sql);
+        $data = $this->select($sql); //ntar dihapus
         $surat = array();
         foreach ($data as $value){
             $obj = new $this;
@@ -80,19 +107,42 @@ class Suratmasuk_Model extends Surat{
             $surat[] = $obj;
         }
 //        var_dump($surat);
-        return $data;
+        return $surat;
     }
     
-    public function remove($id){
-        $where = 'id_suratmasuk='.$id;
+    public function remove($id=null){
+        if(!is_null($id)){
+            $where = 'id_suratmasuk='.$id;
+        }else{
+            $where = 'id_suratmasuk='.$this->getId();
+        }
+        
         $this->delete('suratmasuk', $where);
         header('location:'.URL.'suratmasuk');
     }
     
-    public function input($data){
+    public function input($data=null){
         
         //var_dump($data);
-        $insert = $this->insert('suratmasuk', $data);
+        if(!is_null($data)){
+            $insert = $this->insert('suratmasuk', $data);
+        }else{
+            $data = array(
+                'no_agenda'=>$this->getAgenda(),
+                'tgl_terima'=>$this->getTglTerima(),
+                'tgl_surat'=>$this->getTglSurat(),
+                'no_surat'=>$this->getNomor(),
+                'asal_surat'=>$this->getAlamat(),
+                'perihal'=>$this->getPerihal(),
+                'sifat'=>$this->getSifat(),
+                'jenis'=>$this->getJenis(),
+                'status'=>$this->getStatusSurat(),
+                'lampiran'=>$this->getJmlLampiran(),
+                'stat'=>$this->getStatus(),
+                'start'=>$this->getStart()
+            );
+        }
+        
         if($insert){
             //$this->lastId = $this->lastInsertId(); //mengembalikan nilai yg benar klo dipanggil sebelum commit()
             return true;
@@ -101,10 +151,29 @@ class Suratmasuk_Model extends Surat{
         return false;
     }
     
-    public function editSurat($data,$where){
+    public function editSurat($data=null,$where=null){
+        if(is_null($data) AND is_null($where)){
+            
+            $data = array(
+                "tgl_terima"=>$this->getTglTerima(),
+                "tgl_surat"=>$this->getTglSurat(),
+                "no_surat"=>$this->getNomor(),
+                "asal_surat"=>$this->getAlamat(),
+                "perihal"=>$this->getPerihal(),
+                "status"=>$this->getStatusSurat(),
+                "sifat"=>$this->getSifat(),
+                "jenis"=>$this->getJenis(),
+                "lampiran"=>$this->getJmlLampiran()
+            );
+            
+            $where = "id_suratmasuk = '".$this->getId()."'";
+            return $this->update("suratmasuk", $data, $where);
+        }else{
+            return $this->update("suratmasuk", $data, $where);
+        }
         
         //echo $where;
-        return $this->update("suratmasuk", $data, $where);
+        
 //        header('location:'.URL.'suratmasuk');
         
     }
@@ -122,9 +191,40 @@ class Suratmasuk_Model extends Surat{
     }
 
 
-    public function getSuratById($id){ //fungsi ini mgkn tidak diperlukan
-        
-        return $this->select("SELECT * FROM suratmasuk WHERE id_suratmasuk=:id", array("id"=>$id));
+    public function getSuratById($id=null){ //fungsi ini mgkn tidak diperlukan
+        $data = null;
+        if(!is_null($id)){
+            if(is_array($id)){
+                $key = key($id);
+                $data = $this->select("SELECT * FROM suratmasuk WHERE $key='".$id[$key]."'");
+//                var_dump("SELECT * FROM suratmasuk WHERE $key=$id[$key]");
+            }else{
+                $data = $this->select("SELECT * FROM suratmasuk WHERE id_suratmasuk=:id", array("id"=>$id));
+            }
+            
+        }else{
+            $data = $this->select("SELECT * FROM suratmasuk WHERE id_suratmasuk=:id", array("id"=>$this->getId()));
+        }
+//        var_dump($data);
+        foreach ($data as $val){
+            $this->setId($val['id_suratmasuk']);
+//            var_dump($this->getId());
+            $this->setAgenda($val['no_agenda']);
+            $this->setTglTerima($val['tgl_terima']);
+            $this->setTglSurat($val['tgl_surat']);
+            $this->setNomor($val['no_surat']);
+            $this->setAlamat($val['asal_surat']);
+            $this->setPerihal($val['perihal']);
+            $this->setSifat($val['sifat']);
+            $this->setJenis($val['jenis']);
+            $this->setStatusSurat($val['status']);
+            $this->setJmlLampiran($val['lampiran']);
+            $this->setStatus($val['stat']);
+            $this->setFile($val['file']);
+            $this->setStart($val['start']);
+            $this->setEnd($val['end']);
+        }
+        return $this;
     }
     
     public function get($table){
@@ -155,6 +255,10 @@ class Suratmasuk_Model extends Surat{
     public function uploadFile($data,$where){
     
         $this->update('suratmasuk', $data, $where);
+    }
+    
+    public function __destruct() {
+        ;
     }
 }
 

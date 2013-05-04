@@ -35,22 +35,22 @@ class Arsip_Controller extends Controller{
                 $data = $this->model->getSurat($id,'SM');
 //                $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
 //                    FROM suratmasuk WHERE id_suratmasuk='.$id);
-                foreach ($data as $value){
-                    $this->view->data[0] = $value['id_suratmasuk'];
-                    $this->view->data[1] = $value['no_surat'];
-                    $this->view->data[2] = $value['asal_surat'];
-                    $this->view->data[3] = $value['perihal'];
-                }
+//                foreach ($data as $value){
+                    $this->view->data[0] = $data->getId();
+                    $this->view->data[1] = $data->getNomor();
+                    $this->view->data[2] = $data->getAlamat();
+                    $this->view->data[3] = $data->getPerihal();
+//                }
             }elseif (($tipesurat=='SK')) {
                 $data = $this->model->getSurat($id,'SK');
 //                $data=$this->model->select('SELECT id_suratkeluar,no_surat,tujuan, perihal
 //                    FROM suratkeluar WHERE id_suratkeluar='.$id);
-                foreach ($data as $value){
-                    $this->view->data[0] = $value['id_suratkeluar'];
-                    $this->view->data[1] = $value['no_surat'];
-                    $this->view->data[2] = $value['tujuan'];
-                    $this->view->data[3] = $value['perihal'];
-                }
+//                foreach ($data as $value){
+                    $this->view->data[0] = $data->getId();
+                    $this->view->data[1] = $data->getNomor();
+                    $this->view->data[2] = $data->getAlamat();
+                    $this->view->data[3] = $data->getPerihal();
+//                }
             }
         }
         

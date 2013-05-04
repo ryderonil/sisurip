@@ -55,7 +55,7 @@ if(isset($this->data)){
                 }
             ?>
         </select></br>
-        <label>PETUNJUK :</label><textarea id="input" class="required" name="catatan" rows="10" cols="50"></textarea></br>
+        <label>PETUNJUK :</label><br><textarea id="input" class="required" name="catatan" rows="10" cols="50"></textarea></br>
         <label></label><input type="submit" name ="submit" value="SIMPAN" >
             
         <?php }else{

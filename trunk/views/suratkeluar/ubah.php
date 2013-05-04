@@ -48,7 +48,7 @@ if (isset($this->datasm)) {
                 
             }
             ?></select></br>
-        <label>NOMOR</label><input type="text" name="nomor" id="nomor" <?php echo $this->no_surat;?>> <input type="button" value="+" onclick="ambilNomor(document.getElementById('tipe').value);"></br>    
+        <label>NOMOR</label><input type="text" name="nomor" id="nomor" value="<?php echo $this->no_surat;?>"> <input type="button" value="+" onclick="ambilNomor(document.getElementById('tipe').value);"></br>    
         <label>ALAMAT TUJUAN</label><input class="required" type="text" name="tujuan" value="<?php echo isset($this->alamat)?$this->alamat:$this->tujuan; ?>">
         <a href="<?php echo URL; ?>helper/pilihalamat/4<?php if (isset($this->id)) echo "/" . $this->id; ?>"><input type="button" name="" value="+"></input></a></br>
         <label>PERIHAL</label><input class="required" type="text" name="perihal" value="<?php echo $this->perihal;?>"></br>
