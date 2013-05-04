@@ -1,4 +1,4 @@
-<?php foreach($this->dataSurat as $key=>$value) { ?>
+<?php foreach($this->dataSurat as $value) { ?>
 <div class="span6">
     <h2>INFORMASI SURAT :</h>
     <hr>

@@ -9,9 +9,9 @@ class Suratkeluar_Model extends Surat{
 
     //put your code here
     var $lastId;
-    private $id_suratkeluar;
     private $jns_surat;
     private $user;
+    private $rujukan;
 
     public function __construct() {
         //echo 'ini adalah model</br>';
@@ -24,6 +24,22 @@ class Suratkeluar_Model extends Surat{
     
     public function getTipeSurat(){
         return $this->jns_surat;
+    }
+    
+    public function setUserCreate($value){
+        $this->user = $value;
+    }
+    
+    public function getUserCreate(){
+        return $this->user;
+    }
+    
+    public function setRujukan($value){
+        $this->rujukan = $value;
+    }
+    
+    public function getRujukan(){
+        return $this->rujukan;
     }
 
     public function showAll($limit=null,$batas=null) {
@@ -48,11 +64,29 @@ class Suratkeluar_Model extends Surat{
         if(!is_null($limit) AND !is_null($batas)){
             $sql .= " LIMIT $limit,$batas";
         }
+        $data = $this->select($sql);
+        $surat = array();
+        foreach ($data as $value){
+            $obj = new $this;
+            $obj->setId($value['id_suratkeluar']);
+            $obj->setRujukan($value['rujukan']);
+            $obj->setNomor($value['no_surat']);
+            $obj->setTglSurat($value['tgl_surat']);
+            $obj->setAlamat($value['tujuan']);
+            $obj->setPerihal($value['perihal']);
+            $obj->setSifat($value['sifat']);
+            $obj->setJenis($value['jenis']);
+            $obj->setJmlLampiran($value['lampiran']);
+            $obj->setFile($value['file']);
+            $obj->setStatus($value['status']);
+            $obj->setTipeSurat($value['tipe']);
+            $surat[] = $obj;
+        }
 
-        return $this->select($sql);
+        return $surat;
     }
 
-    public function input($data) {
+    public function input($data=null) {
         
         $rekam = $this->insert('suratkeluar', $data);
         if($rekam){
@@ -62,7 +96,7 @@ class Suratkeluar_Model extends Surat{
         }
     }
 
-    public function getSuratById($id, $aksi=null) {
+    public function getSuratById($id=null, $aksi=null) {
         if ($aksi == 'detil') {
             $sql = "SELECT a.id_suratkeluar as id_suratkeluar,
                 a.rujukan as rujukan,
@@ -70,6 +104,7 @@ class Suratkeluar_Model extends Surat{
                 a.tgl_surat as tgl_surat,
                 b.nama_satker as tujuan,
                 a.perihal as perihal,
+                a.user as user,
                 c.sifat_surat as sifat,
                 d.klasifikasi as jenis,
                 a.lampiran as lampiran,
@@ -84,25 +119,43 @@ class Suratkeluar_Model extends Surat{
         }elseif ($aksi=='ubah') {
             $sql='SELECT * FROM suratkeluar WHERE id_suratkeluar='.$id;
         }
-
-
-        return $this->select($sql);
+//        var_dump($sql);
+        $data = $this->select($sql);
+//        var_dump($data);
+        foreach ($data as $value){
+            $this->setId($value['id_suratkeluar']);
+            $this->setRujukan($value['rujukan']);
+            $this->setNomor($value['no_surat']);
+            $this->setTglSurat($value['tgl_surat']);
+            $this->setAlamat($value['tujuan']);
+            $this->setPerihal($value['perihal']);
+            $this->setSifat($value['sifat']);
+            $this->setJenis($value['jenis']);
+            $this->setJmlLampiran($value['lampiran']);
+            $this->setTipeSurat($value['tipe']);
+            $this->setFile($value['file']);
+            $this->setStatus($value['status']);
+            $this->setUserCreate($value['user']);
+        }
+//        var_dump($this->getId());
+        return $this;
     }
     
     public function get($table){
         return $this->select('SELECT * FROM '.$table);
     }
     
-    public function editSurat($data,$where){
+    public function editSurat($data=null,$where=null){
         $this->update('suratkeluar', $data, $where);
     }
     
-    public function remove($where){
+    public function remove($where=null){
         /*
          * ntar hapus juga menghapus semua hal yg 
          * berhubungan dengan surat ini, termasuk lampiran dsb
          */
-        $this->delete('suratkeluar', $where);
+        echo $where;
+//        $this->delete('suratkeluar', $where);
     }
     
     public function uploadFile($data,$where){

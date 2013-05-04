@@ -30,34 +30,33 @@
     <form name="sm" >
 <?php
     $no=1;
-    foreach($this->listSurat as $key => $value) {
+    foreach($this->listSurat as $value) {
         echo '<tr valign=top>';
         //echo '<td>' . $value['no_agenda'] . '</td>';
         //var_dump($this->notif->isRead($value['id_suratmasuk'],$user,'SM'));
-        if($this->notif->isRead($value['id_suratmasuk'],$user,'SM')){
-            echo '<td><input type=checkbox id=cek'.$no.' name=cek[] value=' . $value['id_suratmasuk'] . ' onchange=cek();> <font color=blue><strong>' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</strong></font></td>';
-            echo '<td><b><font color=blue><a href="'.URL.'suratmasuk/detil/'.$value['id_suratmasuk'].'" title="klik disini untuk melihat detil surat" class=tip>' . $value['no_surat'] . '</a> || '
-            . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'. $value['asal_surat'] . '</br>'. $value['perihal'] .
+        if($this->notif->isRead($value->getId(),$user,'SM')){
+            echo '<td><input type=checkbox id=cek'.$no.' name=cek[] value=' . $value->getId() . ' onchange=cek();> <font color=blue><strong>' . Tanggal::tgl_indo($value->getTglTerima()) . '</br>'.$value->getAgenda(). '</strong></font></td>';
+            echo '<td><b><font color=blue><a href="'.URL.'suratmasuk/detil/'.$value->getId().'" title="klik disini untuk melihat detil surat" class=tip>' . $value->getNomor() . '</a> || '
+            . Tanggal::tgl_indo($value->getTglSurat()) . '</br>'. $value->getAlamat(). '</br>'. $value->getPerihal() .
              '</font></b></td>';
         }else{
-            echo '<td><input type=checkbox id=cek name=cek[] value=' . $value['id_suratmasuk'] . ' onchange=cek();> ' . Tanggal::tgl_indo($value['tgl_terima']) . '</br>'.$value['no_agenda']. '</td>';
-            echo '<td><a href="'.URL.'suratmasuk/detil/'.$value['id_suratmasuk'].'" title="klik disini untuk melihat detil surat" class=tip>' . $value['no_surat'] . '</a> || '
-            . Tanggal::tgl_indo($value['tgl_surat']) . '</br>'. $value['asal_surat'] . '</br>'. $value['perihal'] .
+            echo '<td><input type=checkbox id=cek name=cek[] value=' . $value->getId() . ' onchange=cek();> ' . Tanggal::tgl_indo($value->getTglTerima()) . '</br>'.$value->getAgenda(). '</td>';
+            echo '<td><a href="'.URL.'suratmasuk/detil/'.$value->getId().'" title="klik disini untuk melihat detil surat" class=tip>' . $value->getNomor() . '</a> || '
+            . Tanggal::tgl_indo($value->getTglSurat()) . '</br>'. $value->getAlamat() . '</br>'. $value->getPerihal() .
              '</td>';
         }
-        
         //echo '<td>' . $value['tgl_terima'] . '</td>';
         //echo '<td>' . $value['tgl_surat'] . '</td>';
         //echo '<td>' . $value['asal_surat'] . '</td>';
         //echo '<td>' . $value['perihal'] . '</td>';
         echo '<td halign=center>';
-                if(Auth::isRole($role, 2) AND Auth::isBagian($bagian, 1))echo '<a href="'.URL.'suratmasuk/edit/'.$value['id_suratmasuk'].'" title="ubah data surat" class=tip><input class=btn type=button value=ubah></a> 
-                <a href="'.URL.'suratmasuk/remove/'.$value['id_suratmasuk'].'" title="hapus data surat" class=tip><input class=btn type=button value=hapus onclick="return selesai('.$value['no_agenda'].')"></a>';
-                if(Auth::isRole($role, 1) OR Auth::isRole($role, 4)) echo '<a href="'.URL.'suratmasuk/disposisi/'.$value['id_suratmasuk'].'" title="rekam disposisi" class=tip><input class="btn" type=button value=disposisi></a>';
-                if(Auth::isRole($role, 5)) echo '<a title="cetak disposisi" class=tip><input class="btn" type=button value="print disposisi" onclick=cetakdisposisi('.$value['id_suratmasuk'].');></a> ';
-                if(Auth::isRole($role, 5) OR Auth::isRole($role, 3)) echo '<a href="'.URL.'suratmasuk/upload/'.$value['id_suratmasuk'].'" title="upload file surat" class=tip><input class="btn" type=button value="upload"></a>
-                <!--<a href="'.URL.'suratmasuk/updatestatus/'.$value['id_suratmasuk'].'"><input class=btn type=button value=Status></a>
-                    <a href="'.URL.'suratmasuk/distribusi/'.$value['id_suratmasuk'].'"><input class=btn type=button value=Distribusi></a>--></td>';
+                if(Auth::isRole($role, 2) AND Auth::isBagian($bagian, 1))echo '<a href="'.URL.'suratmasuk/edit/'.$value->getId().'" title="ubah data surat" class=tip><input class=btn type=button value=ubah></a> 
+                <a href="'.URL.'suratmasuk/hapus/'.$value->getId().'" title="hapus data surat" class=tip><input class=btn type=button value="hapus" onclick="return selesai(\'' . $value->getAgenda() . '\');"></a>';
+                if(Auth::isRole($role, 1) OR Auth::isRole($role, 4)) echo '<a href="'.URL.'suratmasuk/disposisi/'.$value->getId().'" title="rekam disposisi" class=tip><input class="btn" type=button value=disposisi></a>';
+                if(Auth::isRole($role, 5)) echo '<a title="cetak disposisi" class=tip><input class="btn" type=button value="print disposisi" onclick="cetakdisposisi('.$value->getId().');"></a> ';
+                if(Auth::isRole($role, 5) OR Auth::isRole($role, 3)) echo '<a href="'.URL.'suratmasuk/upload/'.$value->getId().'" title="upload file surat" class=tip><input class="btn" type=button value="upload"></a>
+                <!--<a href="'.URL.'suratmasuk/updatestatus/'.$value->getId().'"><input class=btn type=button value=Status></a>
+                    <a href="'.URL.'suratmasuk/distribusi/'.$value->getId().'"><input class=btn type=button value=Distribusi></a>--></td>';
         echo '</tr>';
         $no++;
     }

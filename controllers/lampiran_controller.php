@@ -34,23 +34,25 @@ class Lampiran_Controller extends Controller{
             $data = $sm->getSuratById($id);
 //            $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
 //                    FROM suratmasuk WHERE id_suratmasuk='.$id);
-        foreach ($data as $value){
-            $this->view->data[0] = $value['id_suratmasuk'];
-            $this->view->data[1] = $value['no_surat'];
-            $this->view->data[2] = $value['asal_surat'];
-            $this->view->data[3] = $value['perihal'];
+//        foreach ($data as $value){
+            $this->view->data[0] = $sm->getId();
+            $this->view->data[1] = $sm->getNomor();
+            $this->view->data[2] = $sm->getAlamat();
+            $this->view->data[3] = $sm->getPerihal();
             $this->view->data[4] = 'SM';
-        }
+//        }
         }elseif ($tipe=='SK') {
-            $data = $this->model->select('SELECT id_suratkeluar,no_surat, tujuan, perihal
-                    FROM suratkeluar WHERE id_suratkeluar='.$id);
-            foreach ($data as $value){
-            $this->view->data[0] = $value['id_suratkeluar'];
-            $this->view->data[1] = $value['no_surat'];
-            $this->view->data[2] = $value['tujuan'];
-            $this->view->data[3] = $value['perihal'];
+            $sk = new Suratkeluar_Model();
+            $data = $sk->getSuratById($id, 'ubah');
+//            $data = $this->model->select('SELECT id_suratkeluar,no_surat, tujuan, perihal
+//                    FROM suratkeluar WHERE id_suratkeluar='.$id);
+//            foreach ($data as $value){
+            $this->view->data[0] = $data->getId();
+            $this->view->data[1] = $data->getNomor();
+            $this->view->data[2] = $data->getAlamat();
+            $this->view->data[3] = $data->getPerihal();
             $this->view->data[4] = 'SK';
-        }
+//        }
         }
         //var_dump($this->view->data);
         $this->view->tipe = $this->model->getTypeLampiran();
@@ -127,23 +129,23 @@ class Lampiran_Controller extends Controller{
         if($lamp->get('jns_surat')=='SM'){
             $sm = new Suratmasuk_Model();
             $datas = $sm->getSuratById($lamp->get('id_surat'));
-            foreach ($datas as $value){
-                $this->view->data[0] = $value['id_suratmasuk'];
-                $this->view->data[1] = $value['no_surat'];
-                $this->view->data[2] = $value['asal_surat'];
-                $this->view->data[3] = $value['perihal'];
+//            foreach ($datas as $value){
+                $this->view->data[0] = $datas->getId();
+                $this->view->data[1] = $datas->getNomor();
+                $this->view->data[2] = $datas->getAlamat();
+                $this->view->data[3] = $datas->getPerihal();
                 $this->view->data[4] = 'SK';
-            }
+//            }
         }else{
             $sk = new Suratkeluar_Model();
-            $datas = $sk->getSuratKeluarById($lamp->get('id_surat'), 'ubah');
-            foreach ($data as $value){
-                $this->view->data[0] = $value['id_suratkeluar'];
-                $this->view->data[1] = $value['no_surat'];
-                $this->view->data[2] = $value['tujuan'];
-                $this->view->data[3] = $value['perihal'];
+            $datas = $sk->getSuratId($lamp->get('id_surat'), 'ubah');
+//            foreach ($data as $value){
+                $this->view->data[0] = $datas->getId();
+                $this->view->data[1] = $datas->getNomor();
+                $this->view->data[2] = $datas->getAlamat();
+                $this->view->data[3] = $datas->getPerihal();
                 $this->view->data[4] = 'SK';
-            }
+//            }
         }
         
 //        $datas = $this->model->select($sql);

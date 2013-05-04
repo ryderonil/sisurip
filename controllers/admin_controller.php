@@ -764,16 +764,21 @@ class Admin_Controller extends Controller {
     
     public function rekamLibur(){
         $tgl = $_POST['tgl'];
-        echo $tgl;
+//        echo $tgl;
         /*$temp = str_replace("-", "",$tgl);
         $date = substr($temp, -2);
         $month = substr($temp, 4,2);
         $year = substr($temp, 0,4);*/
-        $ket = $_POST['ket'];
+        $ket = $_POST['ket'];        
         $temp = explode(" ", $tgl);
         $date = $temp[0];
         $year = $temp[2];
         $month = Tanggal::bulan_num($temp[1]);
+        if($ket==''){
+            $thisday = mktime(0 ,0 ,0, $month, $date, $year);
+            header('location:'.URL.'admin/calendar/'.$thisday);
+            return false;
+        }
         $tgl = $year.'-'.$month.'-'.$date;
 //        echo $tgl;
         $data = array('tgl'=>$tgl,'keterangan'=>$ket);

@@ -1,4 +1,24 @@
-<div class="span6"><div id="form-wrapper"><form method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
+<h2>Rekam/ Ubah Data Hari Libur</h2>
+        <hr>
+        </br>
+<table>
+    <tr><td width="30%" valign="top"><div class="span6"><div id="libur"><form method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
+        <div id="warning"></div>
+        </br>
+        <label>Tanggal</label><input id="tgl" type="text" name="tgl" value="<?php echo @Tanggal::tgl_indo($this->tgl);?>" readonly></br>
+    <label>Keterangan</label><input type="text" name="ket" value="<?php echo !$this->ket?'':$this->ket;?>"></br></br>
+    <label></label><input type="submit" class="btn" name="submit" value="SIMPAN" >
+    <?php
+        if($this->ket!=false){
+            ?>
+            <input type="button" class="btn" name="hapus" value="HAPUS" onclick="hapusEvent(document.getElementById('tgl').value)">
+        <?php
+            }
+    ?>
+    </br>
+    </br>
+</form></div></div></td><td>
+<!--<div class="span6"><div id="form-wrapper"><form method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
         <div id="warning"></div>
         <h3>Rekam/ Ubah Data Hari Libur</h3>
         <hr>
@@ -14,7 +34,7 @@
             }
     ?>
     </br>
-</form></div></div>
+</form></div></div>-->
 
 <?php
 $cal = new Calendar($this->curDate);
@@ -39,6 +59,8 @@ $cal->makeCalendar();
 echo "</div></div>";
 ?>
 
+    </td></tr>
+</table>
 <script>
     
     $(document).ready(function(){

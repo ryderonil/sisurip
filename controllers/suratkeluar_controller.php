@@ -56,7 +56,7 @@ class Suratkeluar_Controller extends Controller {
                 //echo $this->view->alamat;
                 if (!is_null($ids)) {
                     $sm = new Suratmasuk_Model();
-                    $datasm = $sm->getSuratMasukById($ids);
+                    $datasm = $sm->getSuratById($ids);
 //                    $datasm = $this->model->select('SELECT id_suratmasuk, no_agenda, no_surat FROM suratmasuk WHERE id_suratmasuk=' . $ids);
                     foreach ($datasm as $value) {
                         $this->view->data[0] = $value['id_suratmasuk'];
@@ -154,20 +154,20 @@ class Suratkeluar_Controller extends Controller {
 
     public function detil($id) {
         $data = $this->model->getSuratById($id, 'detil');
-        foreach ($data as $value) {
-            $this->view->id = $value['id_suratkeluar'];
-            $this->view->rujukan = $value['rujukan'];
-            $this->view->tipe = $value['tipe'];
-            $this->view->no_surat = $value['no_surat'];
-            $this->view->tgl_surat = $value['tgl_surat'];
-            $this->view->tujuan = $value['tujuan'];
-            $this->view->perihal = $value['perihal'];
-            $this->view->sifat = $value['sifat'];
-            $this->view->jenis = $value['jenis'];
-            $this->view->lampiran = $value['lampiran'];
-            $this->view->file = $value['file'];
-            $this->view->status = $value['status'];
-        }
+//        foreach ($data as $value) {
+            $this->view->id = $this->model->getId();
+            $this->view->rujukan = $this->model->getRujukan();
+            $this->view->tipe = $this->model->getTipeSurat();
+            $this->view->no_surat = $this->model->getNomor();
+            $this->view->tgl_surat = $this->model->getTglSurat();
+            $this->view->tujuan = $this->model->getAlamat();
+            $this->view->perihal = $this->model->getPerihal();
+            $this->view->sifat = $this->model->getSifat();
+            $this->view->jenis = $this->model->getJenis();
+            $this->view->lampiran = $this->model->getJmlLampiran();
+            $this->view->file = $this->model->getFile();
+            $this->view->status = $this->model->getStatus();
+//        }
         
         $lamp = new Lampiran_Model();
         $datal = $lamp->getLampiranSurat($this->view->id, 'SK');
@@ -197,13 +197,14 @@ class Suratkeluar_Controller extends Controller {
                 foreach ($alamat as $value) {
                     $this->view->alamat .= ' ' . $value['nama_satker'];
                 }
-                //echo $this->view->alamat;
+//                echo $this->view->alamat;
                 if (!is_null($ids)) {
                     $this->view->data = $this->model->getSuratById($ids, 'ubah');
                     $this->view->sifat = $this->model->get('sifat_surat');
                     $this->view->jenis = $this->model->get('klasifikasi_surat');
                     $this->view->tipe = $this->model->select('SELECT * FROM tipe_naskah');
                     //var_dump($this->view->jenis);
+                    
                 }
             } else {
 
@@ -214,22 +215,18 @@ class Suratkeluar_Controller extends Controller {
                 $this->view->tipe = $this->model->select('SELECT * FROM tipe_naskah');
                 //var_dump($this->view->jenis);
             }
-        }
-
-        foreach ($this->view->data as $value) {
-            $this->view->id = $value['id_suratkeluar'];
-            $this->view->tipe1 = $value['tipe'];
-            $this->view->no_surat = $value['no_surat'];
-            $this->view->tgl_surat = $value['tgl_surat'];
-            $this->view->tujuan = $value['tujuan'];
-            $this->view->perihal = $value['perihal'];
-            $this->view->sifat1 = $value['sifat'];
-            $this->view->jenis1 = $value['jenis'];
-            $this->view->lampiran = $value['lampiran'];
-            //$this->view->file = $value['file'];            
-        }
-        /**         * */
-        //$this->view->data = $this->model->getSuratMasukById($ids);
+        }       
+       
+            $this->view->id = $this->view->data->getId();
+            $this->view->tipe1 = $this->view->data->getTipeSurat();
+            $this->view->no_surat = $this->view->data->getNomor();
+            $this->view->tgl_surat = str_replace("-", "/", $this->view->data->getTglSurat());
+            $this->view->tujuan = $this->view->data->getAlamat();
+            $this->view->perihal = $this->view->data->getPerihal();
+            $this->view->sifat1 = $this->view->data->getSifat();
+            $this->view->jenis1 = $this->view->data->getJenis();
+            $this->view->lampiran = $this->view->data->getJmlLampiran();
+//            var_dump($this->view->no_surat);
         $this->view->render('suratkeluar/ubah');
     }
 
@@ -275,20 +272,20 @@ class Suratkeluar_Controller extends Controller {
     public function download($id) {
         // membaca informasi file dari tabel berdasarkan id nya        
         $datas = $this->model->getSuratById($id, 'ubah');
-        foreach ($datas as $data) {
+//        foreach ($datas as $data) {
             // header yang menunjukkan nama file yang akan didownload
-            header("Content-Disposition: attachment; filename=" . $data['file']);
+            header("Content-Disposition: attachment; filename=" . $datas->getFile());
 
             //header("Content-length: " . $data['size']);
             //header("Content-type: " . $data['type']);
             // proses membaca isi file yang akan didownload dari folder 'data'
-            $fp = fopen("arsip/temp/" . $data['file'], 'r');
-            $content = fread($fp, filesize('arsip/temp/' . $data['file']));
+            $fp = fopen("arsip/temp/" . $datas->getFile(), 'r');
+            $content = fread($fp, filesize('arsip/temp/' . $datas->getFile()));
             fclose($fp);
 
             // menampilkan isi file yang akan didownload
             echo $content;
-        }
+//        }
         exit;
     }
     

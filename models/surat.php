@@ -10,10 +10,11 @@ abstract class Surat extends Model{
     private $id_surat;
     private $alamat;
     private $file;
-    private $nomor;
+    private $nomor; //nomor surat
     private $perihal;
     private $sifat;
     private $jenis;
+    private $status;
     private $tgl_surat;
     private $jml_lampiran;
     
@@ -45,6 +46,10 @@ abstract class Surat extends Model{
         $this->perihal = $value;
     }
     
+    public function setStatus($value){
+        $this->status = $value;
+    }
+    
     public function setSifat($value){
         $this->sifat = $value;
     }
@@ -69,12 +74,19 @@ abstract class Surat extends Model{
         return $this->file;
     }
     
+    /*
+     * nomor surat
+     */
     public function getNomor(){
         return $this->nomor;
     }
     
     public function getPerihal(){
         return $this->perihal;
+    }
+    
+    public function getStatus(){
+        return $this->status;
     }
     
     public function getSifat(){
@@ -93,15 +105,15 @@ abstract class Surat extends Model{
         return $this->jml_lampiran;
     }
     
-    abstract protected function input($data);
+    abstract protected function input();
     
-    abstract protected function remove($id);
+    abstract protected function remove();
     
-    abstract protected function editSurat($data,$where);
+    abstract protected function editSurat();
     
     abstract protected function showAll();
     
-    abstract protected function getSuratById($id);
+    abstract protected function getSuratById();
     
     abstract protected function uploadFile($data,$where);
     

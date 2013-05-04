@@ -99,7 +99,7 @@
 <!--        onclick="window.open('<?php echo URL?>helper/pilihalamat/1','pilih alamat asal','location=0,toolbar=0,menubar=0,status=0,scrollbar=1,width=500,height=400')"-->
         <div id="result"></div>
         
-        <label>PERIHAL</label><input id="perihal" class="required" type="" name="perihal"></br>
+                                                    <label>PERIHAL</label><!--<input id="perihal" class="required" type="" name="perihal">--><textarea id="perihal" cols="10" rows="10" name="perihal" class="required"></textarea></br>
         <label>STATUS</label><input id="status" type="text" name="status"></br>
         <label>SIFAT</label><select name="sifat" class="required">
             <option value="">--PILIH SIFAT SURAT--</option>
@@ -129,7 +129,7 @@
         </select></br>
         <label>LAMPIRAN</label><input type="text" name="lampiran"></br>    
         <label></label><input type="reset" value="RESET"><input type="submit" name="submit" value="SIMPAN" >
-        <div id="loading">Proses Menyimpan ... </div>
+<!--        <div id="loading">Proses Menyimpan ... </div>-->
         <div id="errorr"></div>
         <div id="succes"></div>
     </form></div>

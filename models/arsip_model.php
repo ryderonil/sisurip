@@ -31,7 +31,8 @@ class Arsip_Model extends Model {
         switch($surat){
             case 'SM':
                 $sm = new Suratmasuk_Model();
-                return $sm->getSuratById($id);
+                $sm->getSuratById($id);
+                return $sm;
                 break;
             case 'SK':
                 $sk=new Suratkeluar_Model();

@@ -5,16 +5,16 @@
         <tr><td></td><td></td></tr>
     <?php 
     $id = 0;
-    foreach ($this->data as $val) { 
-        $id = $val['id_suratkeluar'];
+//    foreach ($this->data as $val) { 
+        $id = $this->data->getId();
         ?>    
-    <tr><td>TANGGAL SURAT</td><td><?php echo $val['tgl_surat'];?></td></tr>
-    <tr><td>TUJUAN</td><td><?php echo $val['tujuan'];?></td></tr>
-    <tr><td>PERIHAL</td><td><?php echo $val['perihal'];?></td></tr>
-    <tr><td>SIFAT</td><td><?php echo $val['sifat'];?></td></tr>
-    <tr><td>JENIS</td><td><?php echo $val['jenis'];?></td></tr>
-    <tr><td>TIPE SURAT</td><td><?php echo $val['tipe'];?></td></tr>
-    <?php } ?>
+    <tr><td>TANGGAL SURAT</td><td><?php echo $this->data->getTglSurat();?></td></tr>
+    <tr><td>TUJUAN</td><td><?php echo $this->data->getAlamat();?></td></tr>
+    <tr><td>PERIHAL</td><td><?php echo $this->data->getPerihal();?></td></tr>
+    <tr><td>SIFAT</td><td><?php echo $this->data->getSifat();?></td></tr>
+    <tr><td>JENIS</td><td><?php echo $this->data->getJenis();?></td></tr>
+    <tr><td>TIPE SURAT</td><td><?php echo $this->data->getTipeSurat();?></td></tr>
+    <?php // } ?>
 </table></div>
 </br>
 <hr>
