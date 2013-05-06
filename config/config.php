@@ -7,6 +7,10 @@ define('DB_HOST','localhost');
 define('DB_NAME','sisurip');
 define('DB_USER','root');
 define('DB_PASS','');
+
+//db kppn
+define('DB_NAME_KPPN','sqldb12_08_01_13');
+define('DB_PORT_KPPN','3306');
 //end setting database
 
 define('__EXT_FILE__','application/pdf');
