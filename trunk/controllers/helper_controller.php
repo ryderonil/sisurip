@@ -20,17 +20,19 @@ class Helper_Controller extends Controller{
         $q = explode(",", $q);
         
 
-        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
-        mysql_select_db('sisurip');
+//        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
+//        mysql_select_db('sisurip');
         
-        $rs = mysql_query("SELECT kode_satker, nama_satker FROM alamat WHERE nama_satker LIKE '%$q[0]%'", $dblink);
-
+//        $rs = mysql_query("SELECT kode_satker, nama_satker FROM alamat WHERE nama_satker LIKE '%$q[0]%'", $dblink);
+        $data = $this->model->select("SELECT kode_satker, nama_satker FROM alamat WHERE nama_satker LIKE '%$q[0]%'");
         //$data = array();
-        if ($rs && mysql_num_rows($rs)) {
+//        if ($rs && mysql_num_rows($rs)) {
+        if(count($data)>0){
             echo "<table class='CSSTableGenerator'>
                     <tr><th>No</th><th>Kode Satker</th><th>Nama Satker</th><th>Pilih</th></tr>";           
             $no=1;
-            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+//            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+            foreach($data as $row){
                 echo "<tr>
                <td>$no</td> 
                <td>$row[kode_satker]</td>
@@ -56,15 +58,17 @@ class Helper_Controller extends Controller{
     function cekalamat() {
         $q = $_POST['queryString'];              
 
-        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
-        mysql_select_db('sisurip');
+//        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
+//        mysql_select_db('sisurip');
         
-        $rs = mysql_query("SELECT kode_satker, nama_satker FROM alamat WHERE kode_satker LIKE '%$q%' ", $dblink);
-
+//        $rs = mysql_query("SELECT kode_satker, nama_satker FROM alamat WHERE kode_satker LIKE '%$q%' ", $dblink);
+        $data = $this->model->select("SELECT kode_satker, nama_satker FROM alamat WHERE kode_satker LIKE '%$q%' ");
         //$data = array();
-        if ($rs && mysql_num_rows($rs)) {
+//        if ($rs && mysql_num_rows($rs)) {
+        if(count($data)>0){
             $no=1;
-            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+//            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+            foreach($data as $row){
                 if($no==1){
                     echo "<input type=text name=nmsatker value='".$row['nama_satker']."'></br>";
                 }else{
@@ -82,14 +86,16 @@ class Helper_Controller extends Controller{
     function pilihbaris(){ //selesai
         $q = $_POST['queryString'];              
 
-        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
-        mysql_select_db('sisurip');
+//        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
+//        mysql_select_db('sisurip');
         
-        $rs = mysql_query("SELECT * FROM lokasi WHERE parent ='".$q."' and tipe=2", $dblink);
+//        $rs = mysql_query("SELECT * FROM lokasi WHERE parent ='".$q."' and tipe=2", $dblink);
+        $data = $this->model->select("SELECT * FROM lokasi WHERE parent ='".$q."' and tipe=2");
         echo "<option value=>--PILIH BARIS--</option>";
-        if ($rs && mysql_num_rows($rs)) {
-            
-            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+//        if ($rs && mysql_num_rows($rs)) {
+        if(count($data)>0){
+            foreach($data as $row){
+//            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
                 echo "<option value='".$row['id_lokasi']."'>$row[lokasi]</option>";
             }
         }
@@ -100,14 +106,16 @@ class Helper_Controller extends Controller{
     function pilihbox(){ //selesai
         $q = $_POST['queryString'];              
 
-        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
-        mysql_select_db('sisurip');
+//        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
+//        mysql_select_db('sisurip');
         
-        $rs = mysql_query("SELECT * FROM lokasi WHERE parent ='".$q."'", $dblink);
+//        $rs = mysql_query("SELECT * FROM lokasi WHERE parent ='".$q."'", $dblink);
+        $data = $this->model->select("SELECT * FROM lokasi WHERE parent ='".$q."'");
         echo "<option value=>--PILIH BOX--</option>";
-        if ($rs && mysql_num_rows($rs)) {
-            
-            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+//        if ($rs && mysql_num_rows($rs)) {
+        if(count($data)>0){
+            foreach($data as $row){
+//            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
                 echo "<option value='".$row['id_lokasi']."'>$row[lokasi]</option>";
             }
         }
@@ -115,15 +123,18 @@ class Helper_Controller extends Controller{
     
     function pilihrak(){ //selesai
         $q = $_POST['queryString'];              
-
-        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
-        mysql_select_db('sisurip');
+//        $q = 'UM';
+//        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
+//        mysql_select_db('sisurip');
         
-        $rs = mysql_query("SELECT * FROM lokasi WHERE bagian ='".$q."' AND tipe=1", $dblink);
+//        $rs = mysql_query("SELECT * FROM lokasi WHERE bagian ='".$q."' AND tipe=1", $dblink);
+        
+        $data = $this->model->select("SELECT * FROM lokasi WHERE bagian ='".$q."' AND tipe=1");
         echo "<option value=>--PILIH FILLING/RAK--</option>";
-        if ($rs && mysql_num_rows($rs)) {
-            
-            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+//        if ($rs && mysql_num_rows($rs)) {
+        if(count($data)>0){
+            foreach($data as $row){
+//            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
                 echo "<option value='".$row['id_lokasi']."'>$row[lokasi]</option>";
             }
         }
@@ -150,23 +161,38 @@ class Helper_Controller extends Controller{
         $this->view->render('helper/alamat');
     }
     
-    function pilihkppn(){
+    function pilihkppn(){ //konek ke db kppn
         $q = $_POST['queryString'];              
-
-        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
-        mysql_select_db('sisurip');
+//        $q = '08';
+//        $dblink = mysql_connect('localhost', 'root', '') or die(mysql_error());
+//        mysql_select_db('sisurip');
         
-        $rs = mysql_query("SELECT * FROM t_kppn WHERE kdkanwil='".$q."'", $dblink);
+//        $rs = mysql_query("SELECT * FROM t_kppn WHERE kdkanwil='".$q."'", $dblink);
+        $config = array('host'=>DB_HOST,
+                        'db_name'=>DB_NAME_KPPN,
+                        'pass'=>DB_PASS,
+                        'port'=>DB_PORT_KPPN,
+                        'user'=>DB_USER);
+        $con = new Koneksi();
+        $pdo = $con->getConnection($config);
+        $stmt = $pdo->prepare("SELECT * FROM t_kppn WHERE kdkanwil=:kanwil");
+        $stmt->bindValue(':kanwil',$q);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//        var_dump($data);
+//        $data = $this->model->select("SELECT * FROM t_kppn WHERE kdkanwil='".$q."'");
         echo "<option value=>-- PILIH KPPN --</option>";
-        if ($rs && mysql_num_rows($rs)) {
-            
-            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+//        if ($rs && mysql_num_rows($rs)) {
+        if(count($data)>0){
+            foreach($data as $row){
+//            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
                 echo "<option value='".$row['kdkppn']."'>Kantor Pelayanan Perbendaharaan Negara $row[nmkppn]</option>";
             }
         }
+        unset($con);
     }
     
-    function pilihsatker($id=null){
+    function pilihsatker($id=null){ //koneksi ke db kppn
         if(!is_null($id)) {
             $this->view->id=$id;
         }
@@ -178,7 +204,7 @@ class Helper_Controller extends Controller{
         $this->view->render('helper/pilihsatker');
     }
     
-    function lookupSatker(){
+    function lookupSatker(){ //konek db kppn
         $filter = $_POST['queryString'];
         $fil = explode(',', $filter);
         //$length = strlen($filter);
@@ -187,9 +213,20 @@ class Helper_Controller extends Controller{
         //}else{
         //    $sql="SELECT kdsatker,nmsatker FROM t_satker WHERE kddept=".$filter;
         //}
-        
-        $sql="SELECT kdsatker,nmsatker FROM t_satker WHERE kdkabkota=".$fil[0]." AND kdlokasi=".$fil[1];
-        $data = $this->model->select($sql);
+        $config = array('host'=>DB_HOST,
+                        'db_name'=>DB_NAME_KPPN,
+                        'pass'=>DB_PASS,
+                        'port'=>DB_PORT_KPPN,
+                        'user'=>DB_USER);
+        $con = new Koneksi();
+        $pdo = $con->getConnection($config);
+        $stmt = $pdo->prepare("SELECT kdsatker,nmsatker FROM t_satker WHERE kdkabkota=:kdkab AND kdlokasi=:kdlok");
+        $stmt->bindValue(':kdkab',$fil[0]);
+        $stmt->bindValue(':kdlok',$fil[1]);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//        $sql="SELECT kdsatker,nmsatker FROM t_satker WHERE kdkabkota=".$fil[0]." AND kdlokasi=".$fil[1];
+//        $data = $this->model->select($sql);
         $no=1;
         echo "<tr><td>NO</td>
                     <td>KODE</td>
@@ -207,18 +244,31 @@ class Helper_Controller extends Controller{
                     
             $no++;
         }
+        unset($con);
     }
     
-    function lookupSatker2(){
+    function lookupSatker2(){ //konek db kppn
         $filter = $_POST['queryString'];
-        $filter=explode(',',$filter);        
+        $fil=explode(',',$filter);        
         //if($filter[1]!=''){
-            $sql="SELECT kdsatker,nmsatker FROM t_satker WHERE kdlokasi=".$filter[1]." AND kddept=".$filter[0];
+        $config = array('host'=>DB_HOST,
+                        'db_name'=>DB_NAME_KPPN,
+                        'pass'=>DB_PASS,
+                        'port'=>DB_PORT_KPPN,
+                        'user'=>DB_USER);
+        $con = new Koneksi();
+        $pdo = $con->getConnection($config);
+        $stmt = $pdo->prepare("SELECT kdsatker,nmsatker FROM t_satker WHERE kdlokasi=:kdlok AND kddept=:kddept");
+        $stmt->bindValue(':kdlok',$fil[1]);
+        $stmt->bindValue(':kddept',$fil[0]);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//        $sql="SELECT kdsatker,nmsatker FROM t_satker WHERE kdlokasi=".$filter[1]." AND kddept=".$filter[0];
         //}else{
             //$sql="SELECT kdsatker,nmsatker FROM t_satker WHERE kddept=".$filter[0];
         //}
         
-        $data = $this->model->select($sql);
+//        $data = $this->model->select($sql);
         $no=1;
         echo "<tr><td>NO</td>
                     <td>KODE</td>
@@ -231,14 +281,26 @@ class Helper_Controller extends Controller{
                     <td><a href=".URL."admin/rekamAlamat/$value[kdsatker]><input id=btn type=button value=PILIH></a></td></tr>";
             $no++;
         }
+        unset($con);
     }
     
-    function lookupkab(){
-        $filter = $_POST['queryString'];        
-            $sql="SELECT kdkabkota,nmkabkota FROM t_kabkota WHERE kdlokasi=".$filter;
+    function lookupkab(){ //konek db kppn
+        $filter = $_POST['queryString'];
+        $config = array('host'=>DB_HOST,
+                        'db_name'=>DB_NAME_KPPN,
+                        'pass'=>DB_PASS,
+                        'port'=>DB_PORT_KPPN,
+                        'user'=>DB_USER);
+        $con = new Koneksi();
+        $pdo = $con->getConnection($config);
+        $stmt = $pdo->prepare("SELECT kdkabkota,nmkabkota FROM t_kabkota WHERE kdlokasi=:kdlok");
+        $stmt->bindValue(':kdlok',$filter);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//        $sql="SELECT kdkabkota,nmkabkota FROM t_kabkota WHERE kdlokasi=".$filter;
         
         
-        $data = $this->model->select($sql);
+//        $data = $this->model->select($sql);
         $no=1;        
         foreach($data as $value){
             echo "<option value=$value[kdkabkota]>$value[nmkabkota]</option>";

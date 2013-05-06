@@ -29,37 +29,22 @@ class PDF extends FPDF {
         $this->SetFont('Times', 'B', 7);
         // Move to the right
         $this->Cell(0.5,0.4,'','L',0);
-        // Title 3
-        // Query  kanwil
-        @$qKanwil = mysql_query("SELECT nmkanwil FROM t_kanwil WHERE aktif='1'") ;
-        @$rKanwil = mysql_fetch_object($qKanwil);
-        @$nmKanwil = $rKanwil->nmkanwil;
-        @$this->Cell(12.5, 0.4, 'KANTOR WILAYAH PROVINSI BENGKULU' . $nmKanwil, 'R', 1, 'C');
+        @$this->Cell(12.5, 0.4, Kantor::getKanwil(), 'R', 1, 'C');
         // Times bold 12
         $this->SetFont('Times', '', 7);
         // Move to the right
         $this->Cell(0.5,0.4,'','L',0);
-        // Title 4
-        // Query KPPN
-        @$qKppn = mysql_query("SELECT nmkppn FROM t_kppn WHERE kddefa='1'") ;
-        @$rKppn = mysql_fetch_array($qKppn);
-        @$nmKppn = $rKppn['nmkppn'];
-        @$this->Cell(12.5, 0.3, 'KANTOR PELAYANAN PERBENDAHARAAN NEGARA BENGKULU' . $nmKppn, 'R', 1, 'C');
+        @$this->Cell(12.5, 0.3, Kantor::getNamaKPPN(), 'R', 1, 'C');
         // Times  8
         @$this->SetFont('Times', '', 5);
         // Move to the right
         $this->Cell(0.5,0.4,'','L',0);
-        // Title 5
-        @$qryKppn = mysql_query("SELECT almkppn,kotakppn,telkppn,email,kodepos,faxkppn,website,smsgateway FROM t_kppn WHERE kddefa='1'") ;
-        @$rsltKppn = mysql_fetch_array($qryKppn);
-        @$almKppn = $rsltKppn['almkppn'] . " " . $rsltKppn['kotakppn'] . " " . $rsltKppn['kodepos'] . " Telepon: " . $rsltKppn['telkppn'] . " Faksimile: " . $rsltKppn['faxkppn'];
+        @$almKppn = Kantor::getAlamat() . " Telepon: " . Kantor::getTelepon() . " Faksimile: " . Kantor::getFaksimile();
         @$this->Cell(12.5, 0.3, $almKppn, 'R', 1, 'C');
         // Move to the right
         $this->Cell(0.5,0.4,'','L',0);
-        // Title 6
-        @$queryKppn = mysql_query("SELECT email,website,smsgateway FROM t_kppn WHERE kddefa='1'") ;
-        @$resultKppn = mysql_fetch_array($queryKppn);
-        @$webKppn = "Website: " . $resultKppn['website'] . " Email: " . $resultKppn['email'] . " SMS Gateway: " . $resultKppn['smsgateway'];
+        
+        @$webKppn = "Website: " . Kantor::getWebsite() . " Email: " . Kantor::getEmail() . " SMS Gateway: " . Kantor::getSmsGateway();
         $this->Cell(12.5, 0.3, $webKppn, 'R', 1, 'C');
         // Draw line
         //$this->Line(1.0,3.95,20.0,3.95);
@@ -108,7 +93,7 @@ for($i=0;$i<count($this->view->data);$i++){
 $pdf->AddPage();
 $pdf->SetFont('Arial', '', 6);
 $pdf->Cell(13,0,'','T',1);
-$pdf->Cell(13, 0.4, 'LEMBAR DISPOSISI KPPN BENGKULU', 'RLB', 1, 'C');
+$pdf->Cell(13, 0.4, 'LEMBAR DISPOSISI '.Kantor::getNama(), 'RLB', 1, 'C');
 $perh = 'PERHATIAN : Dilarang memisahkan sehelai suratpun yang tergabung dalam berkas ini';
 $pdf->Cell(13, 0.4, $perh, 'BRL', 1, 'C');
 $pdf->Cell(4.5,0.4,'','LR',0,'L');
