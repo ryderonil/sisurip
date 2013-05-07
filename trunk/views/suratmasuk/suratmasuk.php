@@ -13,16 +13,12 @@
         <a title="cetak disposisi lebih dari satu surat, pilih surat yang akan dicetak!" class="tip"><input class="btn" id="x" type="button" value="CETAK DISPOSISI" onclick="cetakdisp();"></a>
             <?php } ?>
         <?php if(Auth::isRole($role, 5) OR Auth::isRole($role, 4)) {?><a  title="cetak ekspedisi surat" class="tip"><input class="btn" id="exp" type="button" value="CETAK EKSPEDISI" onclick="cetakekspedisi();"></a><?php } ?>
-            </div>
-            <div class="paging">                
-                <input type="button" class="btn" value="<">
-                <input type="button" class="btn" value=">">
-                <select id="limit" class="limit-select">
-                    <option value=10>   10</option>  
-                    <option value=20>   20</option>
-                    <option value=30>   30</option>
-                </select>
-            </div>
+            </div>            
+        <?php
+            $jmlhal = $this->paging->jml_halaman($this->jmlData);
+            $paging = $this->paging->navHalaman($jmlhal);
+            echo $paging;
+        ?>
         </div>
         </br>
         <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
@@ -57,12 +53,16 @@
                 if(Auth::isRole($role, 5) OR Auth::isRole($role, 3)) echo '<a href="'.URL.'suratmasuk/upload/'.$value->getId().'" title="upload file surat" class=tip><input class="btn" type=button value="upload"></a>
                 <!--<a href="'.URL.'suratmasuk/updatestatus/'.$value->getId().'"><input class=btn type=button value=Status></a>
                     <a href="'.URL.'suratmasuk/distribusi/'.$value->getId().'"><input class=btn type=button value=Distribusi></a>--></td>';
-        echo '</tr>';
+        echo '</tr>';        
         $no++;
     }
+    
+        
+     
 ?>
     </form>
 </table></div>
+        
         <div id="result"></div>
         
 <script type="text/javascript">

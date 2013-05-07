@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-class Paging{
+class Paging1{
     
     var $page;
     var $limit;

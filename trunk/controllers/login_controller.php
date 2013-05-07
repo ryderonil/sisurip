@@ -45,7 +45,7 @@ class Login_Controller extends Controller{
             Session::set('nama',$this->nama);
             Session::set('role',$this->role);
             Session::set('bagian', $this->bagian);
-            header('location:../suratmasuk');
+            header('location:../home');
         }else{
             $this->view->error['invalid'] = 'Akun tidak ditemukan';
             //header('location:../login');
