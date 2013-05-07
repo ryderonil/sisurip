@@ -28,15 +28,22 @@ class Suratmasuk_Controller extends Controller {
 
     //put your code here
 
-    public function index() {
+    public function index($halaman=null, $batas=null) {
         //$this->view->render('suratmasuk/index');
         //header('location:'.URL.'suratmasuk/showall');
-        $this->showAll();
+        if(is_null($halaman)) $halaman=1;
+        if(is_null($batas)) $batas=10; 
+        $this->showAll($halaman, $batas);
     }
 
-    public function showAll() {
-        
-        $listSurat = $this->model->showAll();        
+    public function showAll($halaman=null, $batas=null) {
+        $url = 'suratmasuk/index';        
+        if(is_null($halaman)) $halaman=1;
+        if(is_null($batas)) $batas=10;        
+        $this->view->paging = new Paging($url, $batas, $halaman);
+        $this->view->jmlData = $this->model->countRow('suratmasuk');
+        $posisi = $this->view->paging->cari_posisi();
+        $listSurat = $this->model->showAll($posisi, $batas);        
         $this->view->listSurat = $listSurat;
         $this->view->render('suratmasuk/suratmasuk');
     }

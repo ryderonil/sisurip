@@ -103,8 +103,12 @@ class Model extends PDO{
         
     }
     
-    public function selectJoin(){
-        
+    public function countRow($table){
+        $sql = "SELECT * FROM ".$table;
+        $sth = $this->prepare($sql);
+        $sth->execute();
+        $return = count($sth->fetchAll($this->_fetchMode));
+        return $return;
     }
     
     
