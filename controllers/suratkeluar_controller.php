@@ -22,12 +22,20 @@ class Suratkeluar_Controller extends Controller {
 
     //put your code here
 
-    public function index() {
-        $this->showAll();
+    public function index($halaman=null,$batas=null) {
+        if(is_null($halaman)) $halaman=1;
+        if(is_null($batas)) $batas=10;
+        $this->showAll($halaman,$batas);
     }
 
-    public function showAll() {
-        $this->view->data = $this->model->showAll();
+    public function showAll($halaman=null,$batas=null) {
+        $url = 'suratkeluar/index';        
+        if(is_null($halaman)) $halaman=1;
+        if(is_null($batas)) $batas=10;        
+        $this->view->paging = new Paging($url, $batas, $halaman);
+        $this->view->jmlData = $this->model->countRow('suratkeluar');
+        $posisi = $this->view->paging->cari_posisi();
+        $this->view->data = $this->model->showAll($posisi, $batas);
         //var_dump($this->view->data);
         $this->view->render('suratkeluar/suratkeluar');
     }
