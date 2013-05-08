@@ -386,6 +386,15 @@ iframe {
     min-height: 400px;
 }
 
+iframe.grafik-kinerja {
+    text-align: center;
+    margin-left: 5%;
+    width: 800px;
+    padding: 10px;
+    min-height: 100px;
+    border: solid 2px gray;
+}
+
 /*#error{
     background: red;
     width:75%;
