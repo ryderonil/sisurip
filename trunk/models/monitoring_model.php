@@ -561,7 +561,6 @@ class Monitoring_Model extends Model {
         $data = $this->select($sql);
         $arraydata = array();
         $peg = '';
-        $numarray = 0;
         foreach ($data as $value) {
             $tgl1 = $value['start'];
             $tgl2 = $value['end'];
