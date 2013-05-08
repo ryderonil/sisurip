@@ -23,9 +23,9 @@ class Monitoring_Model extends Model {
     public function __construct() {
         parent::__construct();
         $this->time_sk_ans = 4;
-        $this->time_sk_bs = $this->getTimeLimit('BS');
-        $this->time_sk_s = $this->getTimeLimit('SG');
-        $this->time_sk_ss = $this->getTimeLimit('SS');
+        $this->time_sk_bs = $this->getTimeLimit('BS'); //set time limit tipe surat biasa
+        $this->time_sk_s = $this->getTimeLimit('SG'); //set time limit tipe surat segera
+        $this->time_sk_ss = $this->getTimeLimit('SS'); //set time limit tipe surat sangat segera
     }
     
     /*
@@ -53,7 +53,8 @@ class Monitoring_Model extends Model {
     
     /*
      * monitoring kinerja surat masuk tahun berjalan
-     * return data array kinerja per bulan
+     * param tahun, jenis surat-SM, SK
+     * return data array kinerja per bulan:bulan, float
      */
     public function kinerjaTahun($year,$tipe_srt) {
         if($tipe_srt=='SM'){
@@ -63,7 +64,6 @@ class Monitoring_Model extends Model {
         }
         
         $data = $this->select($sql);
-        //var_dump($data);
         $arraydata = array();
         $krj = array();
         $count = 1;
@@ -71,10 +71,11 @@ class Monitoring_Model extends Model {
         foreach ($data as $value) {
             $tgl1 = $value['start'];
             $tgl2 = $value['end'];
+            if($tgl2=='0000-00-00 00:00:00') $tgl2=$tgl1;
             $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
             $start = explode(" ", $value['start']);
             $start = trim($start[1]);
-            if(is_null($value['end'])){
+            if($value['end']=='0000-00-00 00:00:00'){
                 $end = explode(" ",$value['start']);
             }else{
                 $end = explode(" ", $value['end']);
@@ -84,7 +85,7 @@ class Monitoring_Model extends Model {
             if ($selisihhari > 0) {
                 $hari1 = $this->selisihJam($this->jampulang, $start);
                 $hari2 = $this->selisihJam($end, $this->jammasuk);
-                $selisihjam = $hari1 + $hari2;
+                $selisihjam = $hari1 + $hari2 + ($selisihhari-1)*10.5;
             } else {
                 $selisihjam = $this->selisihJam($end, $start);
             }            
@@ -93,28 +94,26 @@ class Monitoring_Model extends Model {
             }elseif ($tipe_srt=='SK') {
                 $kinerja = round(($selisihjam / $this->cekSifatSuratKeluar($value['no_agenda'])) * 100,2);
             }
-//            echo $kinerja."*</br>";
-            if($value['bulan']==$bulan AND $count>1){             
-                $krj[] = $kinerja;                
+            if($value['bulan']==$bulan){             
+                $krj[] = $kinerja;
+                $count++;
                 $sum = round(array_sum($krj)/($count),2); 
                 $arraydata[$value['bulan']] = $sum;                
-                $count++;
-            }else if($value['bulan']!=$bulan AND $count>1){              
+                
+            }else if($value['bulan']!=$bulan){              
                 $krj = null;                
                 $krj = array();
                 $krj[] = $kinerja;
                 $count = 1;
                 $sum = round(array_sum($krj)/($count),2); 
                 $arraydata[$value['bulan']] = $sum;                          
-            }else if($count==1){                
+            }
+            /*else if($count==1){                
                 $krj[] = $kinerja;
                 $sum = round(array_sum($krj)/($count),2); 
                 $arraydata[$value['bulan']] = $sum;                
                 $count++;
-            }
-            //var_dump($krj);
-            //var_dump($count);           
-            
+            }*/
             $bulan = $value['bulan'];            
         }
         return $arraydata;
@@ -122,7 +121,8 @@ class Monitoring_Model extends Model {
     
     /*
      * monitoring kinerja surat masuk bulan tertentu
-     * return data array kinerja harian
+     * param bulan, jenis surat-SM, SK
+     * return data array kinerja harian: tgl, float
      */
     public function kinerjaBulan($month, $year, $tipe_srt){
         if($tipe_srt=='SM'){
@@ -132,7 +132,6 @@ class Monitoring_Model extends Model {
         }
         
         $data = $this->select($sql);
-        //var_dump($data);
         $arraydata = array();
         $krj = array();
         $count = 1;
@@ -140,10 +139,11 @@ class Monitoring_Model extends Model {
         foreach ($data as $value) {
             $tgl1 = $value['start'];
             $tgl2 = $value['end'];
+            if($tgl2=='0000-00-00 00:00:00') $tgl2=$tgl1;
             $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
             $start = explode(" ", $value['start']);
             $start = trim($start[1]);
-            if(is_null($value['end'])){
+            if($value['end']=='0000-00-00 00:00:00'){
                 $end = explode(" ", $value['start']);
             }  else {
                 $end = explode(" ", $value['end']);
@@ -153,47 +153,43 @@ class Monitoring_Model extends Model {
             if ($selisihhari > 0) {
                 $hari1 = $this->selisihJam($this->jampulang, $start);
                 $hari2 = $this->selisihJam($end, $this->jammasuk);
-                $selisihjam = $hari1 + $hari2;
+                $selisihjam = $hari1 + $hari2 + ($selisihhari-1)*10.5;
             } else {
                 $selisihjam = $this->selisihJam($end, $start);
             }            
             if($tipe_srt=='SM'){
                 $kinerja = round(($selisihjam / $this->time_sm) * 100,2);
             }elseif ($tipe_srt=='SK') {
-//                echo $this->cekSifatSuratKeluar($value['no_agenda']);
                 $kinerja = round(($selisihjam / $this->cekSifatSuratKeluar($value['no_agenda'])) * 100,2);
             }
-            //echo $kinerja."*</br>";
-            if($value['tanggal']==$tanggal AND $count>1){
-                //echo $value['tanggal']."-".$tanggal;
+            if($value['tanggal']==$tanggal){
+                $count++;
                 $krj[] = $kinerja;                
                 $sum = array_sum($krj)/($count); 
                 $arraydata[$value['tanggal']] = $sum;                
-                $count++;
-            }else if($value['tanggal']!=$tanggal AND $count>1){              
+                
+            }else if($value['tanggal']!=$tanggal){              
                 $krj = null;                
                 $krj = array();
                 $krj[] = $kinerja;
                 $count = 1;
                 $sum = array_sum($krj)/($count); 
                 $arraydata[$value['tanggal']] = $sum;                          
-            }else if($count==1){                
+            }/*else if($count==1){                
                 $krj[] = $kinerja;
                 $sum = array_sum($krj)/($count); 
                 $arraydata[$value['tanggal']] = $sum;                
                 $count++;
-            }
-            //var_dump($krj);
-            //var_dump($count);           
-            
+            }*/
             $tanggal = $value['tanggal'];            
         }
         return $arraydata;
     }
     
     /*
-     * monitoring kinerja surat masuk harian
-     * return data array kinerja per agenda surat 
+     * monitoring kinerja surat harian
+     * param tgl, jenis surat-SM, SK
+     * return data array kinerja per agenda surat : agenda, float
      */
     public function kinerjaHari($tgl,$tipe_srt){
         if($tipe_srt=='SM'){
@@ -211,22 +207,20 @@ class Monitoring_Model extends Model {
         foreach ($data as $value) {
             $tgl1 = $value['start'];
             $tgl2 = $value['end'];
+            if($tgl2=='0000-00-00 00:00:00') $tgl2=$tgl1;
             $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
             $start = explode(" ", $value['start']);
             $start = trim($start[1]);
-            if(is_null($value['end'])){
+            if($value['end']=='0000-00-00 00:00:00'){
                 $end = explode(" ", $value['start']);
             }  else {
                 $end = explode(" ", $value['end']);
             }
-//            $end = explode(" ", $value['end']);
             $end = trim($end[1]);
             if ($selisihhari > 0) {
-                //salahnya disini
-                //belum ada cek perhari jika lebih dari 1 hari
                 $hari1 = $this->selisihJam($this->jampulang, $start); 
                 $hari2 = $this->selisihJam($end, $this->jammasuk);
-                $selisihjam = $hari1 + $hari2;
+                $selisihjam = $hari1 + $hari2 + ($selisihhari-1)*10.5;
             } else {
                 $selisihjam = $this->selisihJam($end, $start);
             }            
@@ -235,29 +229,26 @@ class Monitoring_Model extends Model {
             }elseif ($tipe_srt=='SK') {                
                 $kinerja = round(($selisihjam / $this->cekSifatSuratKeluar($value['no_agenda'])) * 100,2);
             }
-            //echo $kinerja."*</br>";
-            if($value['no_agenda']==$agenda AND $count>1){
-                //echo $value['tanggal']."-".$tanggal;
+            if($value['no_agenda']==$agenda){
+                $count++;
                 $krj[] = $kinerja;                
                 $sum = array_sum($krj)/($count); 
                 $arraydata[$value['no_agenda']] = $sum;                
-                $count++;
-            }else if($value['no_agenda']!=$agenda AND $count>1){              
+                
+            }else if($value['no_agenda']!=$agenda){              
                 $krj = null;                
                 $krj = array();
                 $krj[] = $kinerja;
                 $count = 1;
                 $sum = array_sum($krj)/($count); 
                 $arraydata[$value['no_agenda']] = $sum;                          
-            }else if($count==1){                
+            }
+            /*else if($count==1){                
                 $krj[] = $kinerja;
                 $sum = array_sum($krj)/($count); 
                 $arraydata[$value['no_agenda']] = $sum;                
                 $count++;
-            }
-            //var_dump($krj);
-            //var_dump($count);           
-            
+            }*/
             $agenda = $value['no_agenda'];            
         }
         return $arraydata;
@@ -266,7 +257,7 @@ class Monitoring_Model extends Model {
     /*
      * fungsi menghitung selisih jam
      * @param end:jam akhir, start:jam awal
-     * return jam: detik/3600
+     * return int: detik/3600
      */
     public function selisihJam($end, $start) {
         $time1 = explode(":", $end);
@@ -288,10 +279,13 @@ class Monitoring_Model extends Model {
 
     /*
      * fungsi menghitung selisih hari
-     * return menghasilkan nilai selisih hari pertama dan kedua
+     * perhitungan hari libur ada disini******
+     * return menghasilkan nilai selisih hari pertama dan kedua:int
      */
 
     public function cekSelisihHari($start, $end) {
+        $libur = $this->cekLibur($start, $end);
+//        echo $libur.'<br>';
         $hari1 = explode(" ", $start); //memisahkan date dengan time
         
         $tgl1 = $hari1[0];
@@ -303,33 +297,72 @@ class Monitoring_Model extends Model {
         $tgl2 = $hari2[0];
         $tgl2 = explode("-", $tgl2);
 //        var_dump($tgl2);
-        if (((int) $tgl2[0] - (int) $tgl1[0]) == 0) {
-            if (((int) $tgl2[1] - (int) $tgl1[1]) == 0) {
-                if (((int) $tgl2[2] - (int) $tgl1[2]) == 0) {
+        if (((int) $tgl2[0] - (int) $tgl1[0]) == 0) { //jika tahunnya sama
+            if (((int) $tgl2[1] - (int) $tgl1[1]) == 0) { //jika bulannya sama
+                if (((int) $tgl2[2] - (int) $tgl1[2]) == 0) { //jika tanggalnya sama
                     return 0;
                 } else {
-                    return (int) $tgl2[2] - (int) $tgl1[2];
+                    return (int) $tgl2[2] - (int) $tgl1[2] - $libur;
                 }
-            } else {
+            } else { //jika bulan berbeda
                 if (((int) $tgl2[1] - (int) $tgl1[1]) > 0) {
-                    $num = cal_days_in_month(CAL_GREGORIAN, $tgl1[1], $tgl1[0]);
+                    $num = cal_days_in_month(CAL_GREGORIAN, $tgl1[1], $tgl1[0]); //jumlah hari dalam bulan
 
                     for ($i = 1; $i < ((int) $tgl2[1] - (int) $tgl1[1]); $i++) {
 
-                        $num += cal_days_in_month(CAL_GREGORIAN, (int) $tgl1[1] + 1, $tgl1[0]);
+                        $num += cal_days_in_month(CAL_GREGORIAN, (int) $tgl1[1] + 1, $tgl1[0]); //tiap perulangan +1 bulan
                     }
                 }
-                $temp = $num - (int) $tgl1[2];
-                return $temp + (int) $tgl2[2];
+                $temp = $num - (int) $tgl1[2]; //dikurangi tanggal start
+                return $temp + (int) $tgl2[2] - $libur; //ditambahn tanggal end dikurangi hari libur
             }
-        } else {
-            $num = cal_days_in_month(CAL_GREGORIAN, $tgl1[1], $tgl1[0]);
-            echo $num;
-            $temp = $num - (int) $tgl1[2];
-            return $temp + (int) $tgl2[2];
+        } else { //tahun berbeda
+            $num = cal_days_in_month(CAL_GREGORIAN, $tgl1[1], $tgl1[0]); //jumlah hari dalam bulan
+            $temp = $num - (int) $tgl1[2]; //dikurangi tanggal start
+            return $temp + (int) $tgl2[2] - $libur; //ditambah tanggal end dikurangi hari libur
         }
 
         return 0;
+    }
+    
+    /*
+     * fungsi mendapatkan jumlah libur antara selisih tanggal
+     * return int
+     */
+    function cekLibur($start, $end){
+        $start = explode(" ", $start);
+        $end = explode(" ", $end);
+        $tgl1 = explode("-", $start[0]);
+        $tgl2 = explode("-", $end[0]);
+        
+        $jd1 = GregorianToJD($tgl1[1], $tgl1[2], $tgl1[0]);
+
+        $jd2 = GregorianToJD($tgl2[1], $tgl2[2], $tgl2[0]);
+        
+        $num = $jd2-$jd1; //selisih hari
+        $sql = "SELECT tgl FROM libur"; //mendapatkan hari libur
+        $data = $this->select($sql);
+        $start = $start[0]; //awal hari untuk perhitungan
+        $end = $end[0];
+        $libur = 0;
+        for($i=0;$i<$num;$i++){
+//            echo $start.'<br>';
+            $start = strtotime('+1 day', strtotime($start)); //masalahnya kayake ada disini
+            $start = date('Y-m-d',$start); //diubah ke date dulu
+            $wday = date('w',strtotime($start)); //ubah lagi ke strtotime->date           
+            if($wday==0 OR $wday==6){
+                $libur++;
+            }else{
+                //disini di cek dengan data hari libur di DB
+                foreach ($data as $val){
+                    if(date('Y-m-d',strtotime($start))==date('Y-m-d',  strtotime($val['tgl']))){ //jika sama dengan data libur ++
+                        $libur++;
+                    }
+                }
+            }
+        }
+        
+        return $libur;
     }
     
     // Set timezone
@@ -397,6 +430,10 @@ class Monitoring_Model extends Model {
         return implode(", ", $times);
     }
     
+    /*
+     * fungsi mendapatkan batas penyelesaian surat
+     * return int
+     */
     private function getTimeLimit($tipe_sk){
         $sql = "SELECT batas_waktu FROM klasifikasi_surat WHERE kode_klassurat='".$tipe_sk."'";
         $klas = $this->select($sql);
@@ -405,9 +442,13 @@ class Monitoring_Model extends Model {
             $batas = $val['batas_waktu'];
         }
         
-        return (int) $batas*10.5;
+        return (int) $batas*10.5; //dikalikan jam kerja harian 07.30-17.00
     }
     
+    /*
+     * fungsi cek sifat surat keluar
+     * return int
+     */
     private function cekSifatSuratKeluar($id){
         $batas=0;
         $sql = "SELECT rujukan,jenis FROM suratkeluar WHERE id_suratkeluar=".$id;        
@@ -433,6 +474,10 @@ class Monitoring_Model extends Model {
         return $batas;
     }
     
+    /*
+     * fungsi mendapatkan progress surat
+     * return array surat status <> arsip
+     */
     public function getProgresSurat(){
         $progres = array();
         $sql = "SELECT a.id_suratmasuk as id,
@@ -474,6 +519,10 @@ class Monitoring_Model extends Model {
         
     }
     
+    /*
+     * fungsi mendapatkan batas waktu penyelesaian surat 
+     * return int (jam)
+     */
     public function getDueDate($tipe,$id=null){
         $due_date = 4;
         if($tipe=='SM'){
@@ -497,6 +546,137 @@ class Monitoring_Model extends Model {
         }elseif($tipe=='SK' AND is_null($id)){
             return $due_date;
         }
+    }
+    
+    public function kinerjaPegawai() {
+        
+        $sql = "SELECT a.id_suratkeluar as no_agenda,
+                a.start as start,
+                a.end as end,
+                b.namaPegawai as nama
+                FROM suratkeluar a 
+                LEFT JOIN user b ON a.user = b.username
+                ";
+
+        $data = $this->select($sql);
+        $arraydata = array();
+        $peg = '';
+        $numarray = 0;
+        foreach ($data as $value) {
+            $tgl1 = $value['start'];
+            $tgl2 = $value['end'];
+            $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
+            $start = explode(" ", $value['start']);
+            $start = trim($start[1]);
+            if ($value['end']=='0000-00-00 00:00:00') {
+                if(key_exists($value['nama'], $arraydata)){
+                    $arraydata[$value['nama']][3]++;
+                }else{
+                    $arraydata[$value['nama']] = array($value['nama'],0,0,1); 
+                }
+               
+            } else {
+                $end = explode(" ", $value['end']);
+                $end = trim($end[1]);
+                if ($selisihhari > 0) {
+                    $hari1 = $this->selisihJam($this->jampulang, $start);
+                    $hari2 = $this->selisihJam($end, $this->jammasuk);
+                    $selisihjam = $hari1 + $hari2 + ($selisihhari-1)*10.5;
+                } else {
+                    $selisihjam = $this->selisihJam($end, $start);
+                }
+                
+                $kinerja = round(($selisihjam / $this->cekSifatSuratKeluar($value['no_agenda'])) * 100, 2);
+               if($kinerja>100){
+                   if(key_exists($value['nama'], $arraydata)){
+                       $arraydata[$value['nama']][2]++;
+                   }else{
+                       $arraydata[$value['nama']] = array($value['nama'],0,1,0);
+                   }
+               }elseif($kinerja<=100){
+                   if(key_exists($value['nama'], $arraydata)){
+                       $arraydata[$value['nama']][1]++;
+                   }else{
+                       $arraydata[$value['nama']] = array($value['nama'],1,0,0);
+                   }
+               }
+          
+            }
+            $peg = $value['nama'];
+        }
+        return $arraydata;
+    }
+    
+    public function grafikAsalSurat() {
+        
+        $sql = "SELECT asal_surat 
+                FROM suratmasuk ";
+        $data = $this->select($sql);
+        $arraydata = array();
+        foreach ($data as $value) {
+                if(key_exists($value['asal_surat'], $arraydata)){
+                    $arraydata[$value['asal_surat']][1]++;
+                }else{
+                    $arraydata[$value['asal_surat']] = array($value['asal_surat'],1);
+                }
+        }
+        return $arraydata;
+    }
+    
+    public function grafikJmlSuratMasuk() {
+        
+        $month = '04';
+        
+        $sql = "SELECT tgl_terima as tgl
+                FROM suratmasuk 
+                WHERE MONTH(tgl_terima)='".$month."'";
+        $data = $this->select($sql);
+        $arraydata = array();
+        foreach ($data as $value) {
+                if(key_exists(substr($value['tgl'],-2), $arraydata)){
+                    $arraydata[substr($value['tgl'],-2)][1]++;
+                }else{
+                    $arraydata[substr($value['tgl'],-2)] = array(substr($value['tgl'],-2),1);
+                }
+        }
+        return $arraydata;
+    }
+    
+    public function grafikTipeSuratKeluar() {
+        
+        $sql = "SELECT a.tipe as tipe,
+                b.tipe_naskah as nama
+                FROM suratkeluar a 
+                LEFT JOIN tipe_naskah b
+                ON a.tipe=b.id_tipe";
+        $data = $this->select($sql);
+        $arraydata = array();
+        foreach ($data as $value) {
+                if(key_exists($value['tipe'], $arraydata)){
+                    $arraydata[$value['tipe']][1]++;
+                }else{
+                    $arraydata[$value['tipe']] = array($value['nama'],1);
+                }
+        }
+        return $arraydata;
+    }
+    
+    public function grafikJmlSuratKeluar() {
+        $month = '04';
+        
+        $sql = "SELECT tgl_surat as tgl
+                FROM suratkeluar 
+                WHERE MONTH(tgl_surat)='".$month."'";
+        $data = $this->select($sql);
+        $arraydata = array();
+        foreach ($data as $value) {
+                if(key_exists(substr($value['tgl'],-2), $arraydata)){
+                    $arraydata[substr($value['tgl'],-2)][1]++;
+                }else{
+                    $arraydata[substr($value['tgl'],-2)] = array(substr($value['tgl'],-2),1);
+                }
+        }
+        return $arraydata;
     }
 
 }

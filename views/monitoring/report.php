@@ -2,6 +2,7 @@
     <ul id="menu-tab" class="tab-menu">
         <li class="active" onclick="srmasuktahun();"><a href="#suratmasuk">SURAT MASUK</a></li>
         <li onclick="srkeluar();"><a href="#suratkeluar">SURAT KELUAR</a></li>
+        <li onclick="kinerja();"><a href="#kinerja">KINERJA PEGAWAI</a></li>
     </ul>
     
     <div id="suratmasuk" class="content-tab">
@@ -10,6 +11,9 @@
     </div>
     <div id="suratkeluar" class="content-tab">
         <div id="reportsr"></div>
+    </div>
+    <div id="kinerja" class="content-tab">
+        <div id="reportknj"></div>
     </div>
 </div>
 
@@ -83,6 +87,15 @@ function srkeluarhari(val){
 //                document.write(val);
                 $('#reportsr').fadeIn(500);
                 $('#reportsr').html(data);
+            });
+}
+
+function kinerja(){
+    $.post("<?php echo URL;?>monitoring/kinerjaPegawai", {tanggal:""},
+            function(data){
+//                document.write(val);
+                $('#reportknj').fadeIn(500);
+                $('#reportknj').html(data);
             });
 }
 
