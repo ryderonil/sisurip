@@ -395,6 +395,15 @@ iframe.grafik-kinerja {
     border: solid 2px gray;
 }
 
+iframe.grafik-rekap {
+    text-align: center;
+    margin-left: 5%;
+    width: 400px;
+    padding: 10px;
+    min-height: 250px;
+    border: solid 2px gray;
+}
+
 /*#error{
     background: red;
     width:75%;
@@ -1460,11 +1469,12 @@ tr {
 
 /*-----------calendar-----------------*/
 #calendar {
- width: 450px;
- height: 450px;
+ width: 400px;
+ height: 400px;
  padding-left: 0;
  margin-left: 40px;
  margin-right: 40px;
+ margin-bottom: 40px;
  border-left: 0px solid #A2ADBC;
  font: normal 20px/20px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
  color: #616B76;
@@ -1475,8 +1485,8 @@ tr {
 #calendar td {
  border-right: 0px solid #A2ADBC;
  border-bottom: 0px solid #A2ADBC;
- width: 20px;
- height: 20px;
+ width: 10px;
+ height: 10px;
  text-align: center;
 /* background: url(../images/bg_calendar.gif) no-repeat center;*/
 }
