@@ -359,6 +359,10 @@ class Monitoring_Controller extends Controller {
         }
         $this->view->load('monitoring/jmlsuratkeluar');
     }
+    
+    public function grafik(){
+        $this->view->load('monitoring/grafik');
+    }
 
 }
 

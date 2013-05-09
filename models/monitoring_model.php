@@ -622,9 +622,12 @@ class Monitoring_Model extends Model {
         return $arraydata;
     }
     
-    public function grafikJmlSuratMasuk() {
+    public function grafikJmlSuratMasuk($bln=null) {
+        if(is_null($bln)){
+//            $month = date('m');
+            $month = '04';
+        }
         
-        $month = '04';
         
         $sql = "SELECT tgl_terima as tgl
                 FROM suratmasuk 
@@ -660,8 +663,11 @@ class Monitoring_Model extends Model {
         return $arraydata;
     }
     
-    public function grafikJmlSuratKeluar() {
-        $month = '04';
+    public function grafikJmlSuratKeluar($bln=null) {
+        if(is_null($bln)){
+//            $month = date('m');
+            $month = '04';
+        }
         
         $sql = "SELECT tgl_surat as tgl
                 FROM suratkeluar 
