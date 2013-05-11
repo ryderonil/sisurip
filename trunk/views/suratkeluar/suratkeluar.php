@@ -8,6 +8,7 @@
         <?php if(Auth::isRole($role, 3)) {?><a href="<?php echo URL;?>suratkeluar/rekam" title="rekam data surat keluar" class="tip"><input class="btn" type="button" value="R E K A M"></a><?php } ?>
             </div>
             <?php
+            if($this->jmlData>0){
                 $jmlhal = $this->paging->jml_halaman($this->jmlData);
                 $paging = $this->paging->navHalaman($jmlhal);
                 echo $paging;
@@ -58,6 +59,11 @@
     }
 ?>
 </table></div>
+            <?php }else{ ?>
+        </div>
+            <br><br><br><br><br><br><br><br>
+            <h1 align="center">Data tidak ditemukan</h1>
+        <?php } ?>
         
 <script type="text/javascript">
 

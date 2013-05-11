@@ -45,6 +45,9 @@ class Login_Controller extends Controller{
             Session::set('nama',$this->nama);
             Session::set('role',$this->role);
             Session::set('bagian', $this->bagian);
+            $log = new Log();
+            $log->addLog(Session::get('user'),'LOGIN','');
+            unset($log);
             header('location:../home');
         }else{
             $this->view->error['invalid'] = 'Akun tidak ditemukan';
@@ -65,7 +68,10 @@ class Login_Controller extends Controller{
         Session::set('user', $user);
         Session::set('nama',$nama);
         Session::set('role',$role[0]);
-        Session::set('bagian', $role[1]);        
+        Session::set('bagian', $role[1]); 
+        $log = new Log();
+        $log->addLog($user,'CHANGE ROLE','user '.$user.' mengganti role/bagian ke '.Session::get('role').'/'.Session::get('bagian'));
+        unset($log);
         header('location:'.URL.'suratmasuk');
     }
 
@@ -74,6 +80,9 @@ class Login_Controller extends Controller{
         //$this->model->logout();
         //Session::unsetAll();
         Session::createSession();
+        $log = new Log();
+        $log->addLog(Session::get('user'),'LOGOUT','');
+        unset($log);
         Session::destroySession();
         //session_destroy();
         header('location:'.URL.'login');

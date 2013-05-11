@@ -15,6 +15,7 @@
         <?php if(Auth::isRole($role, 5) OR Auth::isRole($role, 4)) {?><a  title="cetak ekspedisi surat" class="tip"><input class="btn" id="exp" type="button" value="CETAK EKSPEDISI" onclick="cetakekspedisi();"></a><?php } ?>
             </div>            
         <?php
+        if($this->jmlData>0){
             $jmlhal = $this->paging->jml_halaman($this->jmlData);
             $paging = $this->paging->navHalaman($jmlhal);
             echo $paging;
@@ -62,6 +63,11 @@
 ?>
     </form>
 </table></div>
+        <?php }else{ ?>
+        </div>
+            <br><br><br><br><br><br><br><br>
+            <h1 align="center">Data tidak ditemukan</h1>
+        <?php } ?>
         
         <div id="result"></div>
         
