@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-class Log extends Model{
+class Log{
     
     private $LOGFILENAME;
     private $SEPARATOR;
@@ -13,8 +13,8 @@ class Log extends Model{
     
     const DEFAULT_TAG = '--';
     
-    public function __construct($logfilename='log.csv',$separator=',') {
-        parent::__construct();
+    public function __construct($logfilename='libs/log.csv',$separator=';') {
+//        parent::__construct();
         $this->LOGFILENAME = $logfilename;
         $this->SEPARATOR = $separator;
         $this->HEADERS = 
@@ -27,7 +27,7 @@ class Log extends Model{
     public function addLog($user, $tag,$value=''){
         $datetime = date('Y-m-d@H:i:s');
         if(!file_exists($this->LOGFILENAME)){
-            $headers = $this->HEADERS.'\n';
+            $headers = $this->HEADERS."\n";
         }
         
         $fd = fopen($this->LOGFILENAME, 'a');
@@ -63,6 +63,10 @@ class Log extends Model{
         }
         
         return $return;
+    }
+    
+    public function __destruct() {
+        ;
     }
     
 }
