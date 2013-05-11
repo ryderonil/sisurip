@@ -1,24 +1,16 @@
 <div>
     <form id="form-search" name="frm">
     <input id="search" type="input" size="30" name="search" placeholder="masukkan kata kunci pencarian" onkeyup="keyup();">
-    <a title="cari" class="tip"><input  type="button" value="CARI" onClick="return cari(document.getElementById('search').value);"></a>
-        <!--<form id="ui_element" class="sb_wrapper" method="POST" action="<?php echo URL; ?>cari">
-        <p><input class="sb_input" type="text" size="30" name="search" placeholder="masukkan kata kunci pencarian">
-        <input class="sb_search" type="submit" name="submit" value=""></p>-->
-    <!--<ul class="sb_dropdown" style="">
-        <li class="sb_filter">Pilih Kategori Pencarian</li>
-        <li><input type="checkbox"/><label for="all">Semua</label></li>
-        <li><input type="checkbox"/><label for="sm">Surat Masuk</label></li>
-        <li><input type="checkbox"/><label for="sk">Surat Keluar</label></li>
-        <li><input type="checkbox"/><label for="lamp">Lampiran</label></li>                            
-    </ul>-->
+    <a title="cari" class="tip"><input  type="button" value="CARI" onclick="searchs();"></a>
+<!--    <a title="cari" class="tip"><input  type="button" value="CARI" onClick="return cari(document.getElementById('search').value);"></a>-->
+        
     <br>
     
     </form>
     <table class="cari-param">
         <tr width="50%">
             <td width="15%" valign="top">
-                <select id="kat" name="kategori" class="tip" title="Kategori Pencarian" onchange="chooseCat(this.value);">
+                <select id="kat" name="kategori" class="tip" title="Kategori Pencarian" onchange="">
                     <option value="all" selected>Semua</option>
                     <option value="suratmasuk">Surat Masuk</option>
                     <option value="suratkeluar">Surat Keluar</option>
@@ -26,8 +18,8 @@
                     <option value="nomor">Nomor</option>
                     <option value="alamat">Alamat</option>
                 </select></td>
-                <td valign="top"><input type="text" id="datepicker" class="tip" title="Tanggal Awal" onchange="before(this.value)"></br>
-                <input type="text" id="datepicker2" class="tip" title="Tanggal Akhir" onchange="after(this.value)"></td></tr>        
+                <td valign="top"><input type="text" id="datepicker" class="tip" title="Tanggal Awal" onchange=""></br>
+                <input type="text" id="datepicker2" class="tip" title="Tanggal Akhir" onchange=""></td></tr>        
     </table>
 </div>
 <br>
@@ -37,13 +29,40 @@
 
 $(document).ready(function(){
     $('#error').fadeOut(0);
-    document.search.focus();    
+//    document.search.focus();    
 });
 
 function keyup(){
     $('#error').fadeOut(0);
     $('#result').fadeOut(0);
     document.frm.search.focus(); 
+}
+
+function searchs(){
+    var keyword = $('#search').val();
+    var category = $('#kat').val();
+    var before = $('#datepicker').val();
+    var after = $('#datepicker2').val();
+    
+    if(keyword==''){
+        var err = "<div id=error>Kata kunci belum dimasukkan</div>";
+        $('#result').fadeOut(0);
+        $('#result').fadeIn(500);
+        $('#result').html(err);
+        return false;
+    }
+    
+        $.ajax({
+            type:"POST",
+            url:"<?php echo URL;?>cari/find",
+            data: "keyword="+keyword+"&category="+category+
+                "&before="+before+"&after="+after,
+            success:function(data){
+                $('#error').fadeOut(0);
+                $('#result').fadeIn(500);
+                $('#result').html(data);
+            }
+        });
 }
 
 function cari(val){

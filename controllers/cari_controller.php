@@ -27,11 +27,21 @@ class Cari_Controller extends Controller {
     }
 
     public function find() {
-        $keyword = $_POST['queryString'];
-        $this->model->splitKeyword($keyword);
-//        var_dump($this->model->filter);
-//        var_dump($this->model->before);
-//        var_dump($this->model->after);
+//        $keyword = $_POST['queryString'];
+//        $this->model->splitKeyword($keyword);
+        $keyword = $_POST['keyword'];
+        $category = $_POST['category'];
+        $before = $_POST['before'];
+        $after = $_POST['after'];
+        
+        $this->model->keyword = $keyword;
+        if($category!='') $this->model->filter=$category;
+        if($after!='') $this->model->after = Tanggal::ubahFormatTanggal ($after);
+        if($before!='') $this->model->before = Tanggal::ubahFormatTanggal ($before);
+        /*var_dump($this->model->keyword);
+        var_dump($this->model->filter);
+        var_dump($this->model->before);
+        var_dump($this->model->after);*/
         $count = 0;
         if ($this->model->filter != null) {
             if ($this->model->filter == "suratmasuk") {
@@ -46,6 +56,12 @@ class Cari_Controller extends Controller {
                         echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td></tr>";
                     }
                     echo "</table>";
+                    
+                    echo "<script type=text/javascript>\n";
+                    echo "function display(){\n";
+                    echo "";
+                    echo "}\n";
+                    echo "</script>";
                 }
             } elseif ($this->model->filter == "suratkeluar") {
                 $hasil = $this->model->findSuratKeluar($this->model->keyword);
@@ -92,7 +108,7 @@ class Cari_Controller extends Controller {
                     }
                     echo "</table>";
                 }
-            } else if ($this->model->filter = "nomor") {
+            } else if ($this->model->filter == "nomor") {
                 $hasil = $this->model->findByNomor();
                 $count = count($hasil);
                 if ($count == 0) {
@@ -105,7 +121,7 @@ class Cari_Controller extends Controller {
                     }
                     echo "</table>";
                 }
-            }else if ($this->model->filter = "alamat") {
+            }else if ($this->model->filter == "alamat") {
                 $hasil = $this->model->findByAlamat();
                 $count = count($hasil);
                 if ($count == 0) {

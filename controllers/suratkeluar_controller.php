@@ -33,7 +33,8 @@ class Suratkeluar_Controller extends Controller {
         if(is_null($halaman)) $halaman=1;
         if(is_null($batas)) $batas=10;        
         $this->view->paging = new Paging($url, $batas, $halaman);
-        $this->view->jmlData = $this->model->countRow('suratkeluar');
+//        $this->view->jmlData = $this->model->countRow('suratkeluar');
+        $this->view->jmlData = count($this->model->showAll());
         $posisi = $this->view->paging->cari_posisi();
         $this->view->data = $this->model->showAll($posisi, $batas);
         //var_dump($this->view->data);
