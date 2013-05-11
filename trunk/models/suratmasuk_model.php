@@ -68,9 +68,31 @@ class Suratmasuk_Model extends Surat{
     }
 
     public function showAll($limit=null,$batas=null){
-        
-        //$sql = "SELECT * FROM suratmasuk";
-        $sql = "SELECT a.id_suratmasuk as id_suratmasuk,
+        @Session::createSession();
+        $role = Session::get('role');
+        $bagian = Session::get('bagian');
+        $user = Session::get('user');
+        if((Auth::isRole($role, 2) AND !Auth::isBagian($bagian, 1) ) OR (Auth::isRole($role, 3) )){
+            $sql = "SELECT a.id_suratmasuk as id_suratmasuk,
+                a.no_agenda as no_agenda,
+                a.no_surat as no_surat,
+                a.tgl_terima as tgl_terima,
+                a.tgl_surat as tgl_surat,
+                b.nama_satker as asal_surat,
+                a.perihal as perihal,
+                a.status as status,
+                a.sifat as sifat,
+                a.jenis as jenis,
+                a.lampiran as lampiran,
+                a.start as start,
+                a.end as end
+                FROM suratmasuk a LEFT JOIN alamat b 
+                ON a.asal_surat = b.kode_satker
+                LEFT JOIN notifikasi c ON a.id_suratmasuk = c.id_surat
+                WHERE c.jenis_surat='SM' AND id_user=".User::getIdUser($user)."
+                ORDER BY a.id_suratmasuk DESC";
+        }else{
+            $sql = "SELECT a.id_suratmasuk as id_suratmasuk,
                 a.no_agenda as no_agenda,
                 a.no_surat as no_surat,
                 a.tgl_terima as tgl_terima,
@@ -86,10 +108,13 @@ class Suratmasuk_Model extends Surat{
                 FROM suratmasuk a LEFT JOIN alamat b 
                 ON a.asal_surat = b.kode_satker
                 ORDER BY a.id_suratmasuk DESC";
+        }
+        //$sql = "SELECT * FROM suratmasuk";
+        
         if(!is_null($limit) AND !is_null($batas)){
             $sql .= " LIMIT $limit,$batas";
         }
-        
+//        print_r($sql);
         $data = $this->select($sql); //ntar dihapus
         $surat = array();
         foreach ($data as $value){

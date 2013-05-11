@@ -211,6 +211,19 @@ class User extends Model{
         
     }
     
+    public static function getIdUser($username){
+        $return = 0;
+        $model = new Model();
+        $sql = "SELECT id_user FROM user WHERE username='".$username."'";
+//        print_r($sql);
+        $data = $model->select($sql);
+        foreach ($data as $val){
+            $return = $val['id_user'];
+        }
+        
+        return $return; 
+    }
+    
     
     
     
