@@ -18,15 +18,29 @@ class Monitoring_Controller extends Controller {
     }
 
     public function index() {
-
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         $this->view->render('monitoring/report');
     }
 
     public function kinerja() {
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         $this->view->render('monitoring/report');
     }
 
     public function kinerjaSMTahun() {
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
 //        $q = $_POST['queryString'];
         //echo $q;
         $year = DATE('Y');
@@ -56,6 +70,11 @@ class Monitoring_Controller extends Controller {
     }
 
     public function kinerjaSMBulan() {
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         $q = $_POST['queryString'];
         $bulan = substr($q, 0, 1);
         if ($bulan == '1') {
@@ -93,6 +112,11 @@ class Monitoring_Controller extends Controller {
     }
 
     public function kinerjaSMHari() {
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         $q = $_POST['tanggal'];
         $tgl = substr($q, 6, 2);
         $bln = substr($q, 4, 2);
@@ -129,6 +153,11 @@ class Monitoring_Controller extends Controller {
     }
 
     public function kinerjaSKTahun() {
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         $q = $_POST['tanggal'];
         $year = DATE('Y');
         $arraydata = $this->model->kinerjaTahun($year, 'SK');
@@ -159,6 +188,11 @@ class Monitoring_Controller extends Controller {
     }
 
     public function kinerjaSKBulan() {
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         $q = $_POST['queryString'];
         //echo $q;
         $bulan = substr($q, 0, 1);
@@ -210,6 +244,11 @@ class Monitoring_Controller extends Controller {
     }
 
     public function kinerjaSKHari() {
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         $q = $_POST['tanggal'];
         //echo $q;
         $tgl = substr($q, 6, 2);
@@ -253,10 +292,20 @@ class Monitoring_Controller extends Controller {
     }
 
     public function ikhtisar() {
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         $this->view->render('monitoring/ikhtisar');
     }
 
     public function progresSurat() {
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         $datac = $this->model->getProgresSurat();
 //        var_dump($datac);
         echo "<div id=table-wrapper><h2 align=center><font color=black>MONITORING PENYELESAIAN SURAT</font></h2>";
@@ -361,6 +410,11 @@ class Monitoring_Controller extends Controller {
     }
     
     public function grafik(){
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         $this->view->load('monitoring/grafik');
     }
 

@@ -44,7 +44,7 @@ class Tanggal{
 
     public static function tgl_indo($tgl){
         $tgl=  explode('-', $tgl);
-        $month = Tanggal::bulan_indo($tgl[1]);
+        $month = self::bulan_indo($tgl[1]);
         
         return $tgl[2].' '.$month.' '.$tgl[0];
     }

@@ -20,6 +20,9 @@ class Arsip_Controller extends Controller{
     }
     
     public function rekam($id,$tipesurat=null){
+        if(!Auth::isAllow(3, Session::get('role'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->rekamArsip()){
                 $this->view->success="Rekam arsip berhasil";

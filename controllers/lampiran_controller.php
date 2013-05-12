@@ -20,6 +20,11 @@ class Lampiran_Controller extends Controller{
     }
     
     public function rekam($id,$tipe){
+        
+        if(!Auth::isAllow(3, Session::get('role'))){
+            header('location:'.URL.'home');
+        }
+        
         if(isset($_POST['submit'])){
             if($this->addRekamLampiran()){
                 $this->view->success="Rekam lampiran berhasil";
@@ -101,6 +106,9 @@ class Lampiran_Controller extends Controller{
     }
     
     public function ubah($id){
+        if(!Auth::isAllow(3, Session::get('role'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->ubahLampiran()){
                 $this->view->success="Ubah lampiran berhasil";

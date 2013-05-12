@@ -29,6 +29,9 @@ class Admin_Controller extends Controller {
     }
 
     public function rekamKantor() {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->inputRekamKantor()){
                 $this->view->success = "Ubah data berhasil";
@@ -69,6 +72,11 @@ class Admin_Controller extends Controller {
     }
 
     public function rekamAlamat($satker = null) {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(3, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         if(isset($_POST['submit'])){
             if($this->updateRekamAlamat()){
                 $this->view->success = "Rekam alamat berhasil";
@@ -88,6 +96,9 @@ class Admin_Controller extends Controller {
     }
     
     public function ubahAlamat($kd, $satker = null){
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->updateRekamAlamat()){
                 $this->view->success = "Ubah data berhasil";
@@ -118,6 +129,9 @@ class Admin_Controller extends Controller {
     }
 
     public function rekamJenisLampiran() {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->inputRekamLampiran()){
                 $this->view->success = "Ubah data berhasil";
@@ -131,6 +145,9 @@ class Admin_Controller extends Controller {
     }
 
     public function ubahLampiran($id) {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->updateRekamLampiran()){
                 $this->view->success = "Ubah data berhasil";
@@ -149,6 +166,9 @@ class Admin_Controller extends Controller {
     }
 
     public function rekamKlasifikasiArsip() {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->inputRekamKlasArsip()){
                 $this->view->success = "Rekam data klasifikasi arsip berhasil";
@@ -162,6 +182,9 @@ class Admin_Controller extends Controller {
     }
 
     public function ubahKlasifikasiArsip($id) {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->updateRekamKlasArsip()){
                 $this->view->success = "Ubah data klasifikasi arsip berhasil";
@@ -180,6 +203,9 @@ class Admin_Controller extends Controller {
     }
 
     public function rekamLokasi() {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->inputRekamLokasi()){
                 $this->view->success = "rekam data berhasil";
@@ -196,6 +222,9 @@ class Admin_Controller extends Controller {
     }
 
     public function ubahLokasi($id) {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->updateRekamLokasi()){
                 $this->view->success = "Ubah data berhasil";
@@ -236,6 +265,9 @@ class Admin_Controller extends Controller {
     }
 
     public function rekamNomor() {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->inputRekamNomor()){
                 $this->view->success = "Ubah data berhasil";
@@ -250,6 +282,9 @@ class Admin_Controller extends Controller {
     }
 
     public function ubahNomor($id) {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->updateRekamNomor()){
                 $this->view->success = "Ubah data berhasil";
@@ -286,6 +321,9 @@ class Admin_Controller extends Controller {
     }
 
     public function rekamUser() {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         $user = new User();
         if(isset($_POST['submit'])){
             $cekuser = $user->cekUserExist($_POST['username'], $_POST['NIP']);
@@ -308,6 +346,9 @@ class Admin_Controller extends Controller {
     }
 
     public function ubahUser($id) {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         $user = new User();
         if(isset($_POST['submit'])){
 //            if($user->cekUserExist($_POST['username'], $_POST['NIP'])){
@@ -339,6 +380,9 @@ class Admin_Controller extends Controller {
     }
 
     public function rekamPjs($user){
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->inputRekamPjs()){
                 $this->view->success = "Ubah data berhasil";
@@ -753,6 +797,9 @@ class Admin_Controller extends Controller {
     }
     
     public function calendar($date){
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         
         $this->view->curDate = $date;
         $this->view->tgl = date('Y-m-d',$date);
@@ -824,6 +871,9 @@ class Admin_Controller extends Controller {
 
 
     public function backuprestore(){
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         
         $this->view->render('admin/restore/restore');
     }
@@ -864,6 +914,16 @@ class Admin_Controller extends Controller {
         $this->view->message = "<div id=success>restore data telah berhasil dilakukan, ".$_SESSION['ttlQuery']." query dieksekusi pada ".date('Y-m-d H:i:s', $_SESSION['timeQuery'])."</div>"; 
     
         $this->view->render('admin/restore/restore');
+    }
+    
+    public function displaylog(){
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
+        $log = new Log();
+        $this->view->data = $log->getLog('libs/log.csv');        
+        
+        $this->view->render('admin/log');
     }
             
     

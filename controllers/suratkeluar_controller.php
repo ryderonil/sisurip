@@ -42,6 +42,9 @@ class Suratkeluar_Controller extends Controller {
     }
 
     public function rekam($id_sm = null, $ids = null) {
+        if(!Auth::isAllow(3, Session::get('role'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->input()){
                 $this->view->success="Rekam surat keluar berhasil";
@@ -273,7 +276,7 @@ class Suratkeluar_Controller extends Controller {
         @Session::createSession();
         $user = Session::get('user');
         $log = new Log();
-        $log->addLog($user,'UBAH SK','user '.$user.' ubah surat keluar id '.$id);
+        $log->addLog($user,'UBAH SK','user '.$user.' ubah surat keluar tujuan: '.$id.' perihal:'.$_POST['perihal']);
         unset($log);
         return true;
     }
@@ -332,6 +335,13 @@ class Suratkeluar_Controller extends Controller {
     }
     
     public function rekamrev($id){
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(2, Session::get('role'))){
+                if(!Auth::isAllow(3, Session::get('role'))){
+                    header('location:'.URL.'home');
+                }
+            }
+        }
         if(isset($_POST['submit'])){
             if($this->uploadrev()){
                 $this->view->success = "Rekam revisi berhasil";
