@@ -282,6 +282,18 @@ class Suratmasuk_Model extends Surat{
         $this->update('suratmasuk', $data, $where);
     }
     
+    public function getNomorAgenda($id){
+        $return = '';
+        $sql = "SELECT no_agenda FROM suratmasuk WHERE id_suratmasuk=".$id;
+        $data = $this->select($sql);
+        foreach ($data as $val){
+            $return = $val['no_agenda'];
+        }
+        
+        return $return;
+    }
+
+
     public function __destruct() {
         ;
     }

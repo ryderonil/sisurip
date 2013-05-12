@@ -156,7 +156,11 @@ class Suratkeluar_Controller extends Controller {
         $notif->set('bagian',$bagianu);
         $notif->set('stat_notif',1);        
         $notif->addNotifikasi();        
-        
+        @Session::createSession();
+        $user = Session::get('user');
+        $log = new Log();
+        $log->addLog($user,'REKAM SK','user '.$user.' rekam surat keluar tujuan '.substr($_POST['tujuan'], 0, 6));
+        unset($log);
         return true;
 //        $this->view->render('suratkeluar/rekam');
     }
@@ -266,12 +270,22 @@ class Suratkeluar_Controller extends Controller {
         //mgkn bisa pake js untuk pesan berhasil atau gagal, dan dimunculkan di halaman yg sama
         //atau dimunculkan di halaman lihat data surat keluar
 //        header('location:' . URL . 'suratkeluar');
+        @Session::createSession();
+        $user = Session::get('user');
+        $log = new Log();
+        $log->addLog($user,'UBAH SK','user '.$user.' ubah surat keluar id '.$id);
+        unset($log);
         return true;
     }
 
     public function remove($id) {
-        $where = ' id_suratkeluar=' . $id;
+        $where = ' id_suratkeluar=' . $id;        
         $this->model->remove($where);
+        @Session::createSession();
+        $user = Session::get('user');
+        $log = new Log();
+        $log->addLog($user,'HAPUS SK','user '.$user.' hapus surat keluar id '.$id);
+        unset($log);
     }
     
     /*
@@ -443,6 +457,11 @@ class Suratkeluar_Controller extends Controller {
 //        $this->model->addRevisi($data);
         
 //        $this->showAll();
+        @Session::createSession();
+        $user = Session::get('user');
+        $log = new Log();
+        $log->addLog($user,'REKAM REVISI','user '.$user.' rekam revisi surat keluar id '.$id.' nama file '.$filename);
+        unset($log);
         return $return;
         
     }
