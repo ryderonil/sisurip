@@ -35,6 +35,19 @@ class Auth{
         return false;
     }
     
+    public static function isAllow($roleuser,$role, $bagianuser=null, $bagian=null ){
+        if(is_null($bagian)){
+            if($role==$roleuser){
+                return true;
+            }
+        }
+        elseif($role==$roleuser AND $bagian==$bagianuser){
+            return true;
+        }
+        
+        return false;
+    }
+    
         
 }
 ?>

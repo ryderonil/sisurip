@@ -50,6 +50,9 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function edit($id_sm = null, $ids = null) {
+        if(!Auth::isAllow(2, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->editSurat()){
             
@@ -91,7 +94,7 @@ class Suratmasuk_Controller extends Controller {
         $this->view->render('suratmasuk/ubah');
     }
 
-    public function hapus($id) {
+    public function hapus($id) {        
         $this->model->setId($id);
         $this->model->remove();
         @Session::createSession();
@@ -138,6 +141,9 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function input() {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         $tglagenda = date('Y-m-d');
         $asal = trim($_POST['asal_surat']);
         $asal = explode(' ', $asal);
@@ -215,6 +221,9 @@ class Suratmasuk_Controller extends Controller {
         }
         
     public function rekam($s = null) {
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if (!is_null($s)) {
 
             $this->view->alamat = $s;
@@ -268,6 +277,9 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function disposisi($id) {
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
             if($this->rekamdisposisi()){
                 $this->view->success="Rekam disposisi berhasil";
@@ -559,6 +571,9 @@ class Suratmasuk_Controller extends Controller {
     }
     
     public function catatan($id){
+        if(!Auth::isAllow(2, Session::get('role'))){
+            header('location:'.URL.'home');
+        }
         if(isset($_POST['submit'])){
         
             if($this->rekamCatatan()){
@@ -602,7 +617,11 @@ class Suratmasuk_Controller extends Controller {
     }
     
     public function upload($id){
-        
+        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+            if(!Auth::isAllow(3, Session::get('role'))){
+                header('location:'.URL.'home');
+            }
+        }
         if(isset($_POST['submit'])){
             if($this->uploadFileSurat()){
                 $this->view->success='Upload berhasil';
