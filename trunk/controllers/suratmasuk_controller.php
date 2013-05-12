@@ -94,6 +94,11 @@ class Suratmasuk_Controller extends Controller {
     public function hapus($id) {
         $this->model->setId($id);
         $this->model->remove();
+        @Session::createSession();
+        $user = Session::get('user');
+        $log = new Log();
+        $log->addLog($user,'DELETE SM','user '.$user.' menghapus surat masuk no agenda'.$this->model->getNomorAgenda($id));
+        unset($log);
     }
 
     public function editSurat() {
@@ -123,6 +128,11 @@ class Suratmasuk_Controller extends Controller {
         
         $id = $_POST['id'];
         $where = "id_suratmasuk = '".$id."'";
+        @Session::createSession();
+        $user = Session::get('user');
+        $log = new Log();
+        $log->addLog($user,'UBAH SM','user '.$user.' ubah surat masuk no agenda '.$this->model->getNomorAgenda($id));
+        unset($log);
         return $this->model->editSurat($data,$where);
         
     }
@@ -177,6 +187,11 @@ class Suratmasuk_Controller extends Controller {
             //);
             //var_dump($data1);
             $notif->addNotifikasi();
+            @Session::createSession();
+            $user = Session::get('user');
+            $log = new Log();
+            $log->addLog($user,'REKAM SM','user '.$user.' rekam surat masuk agenda '.$_POST['no_agenda']);
+            unset($log);
 //            die($this->msg(1,"rekam data berhasil"));
             $this->view->agenda = $this->nomor->generateNumber('SM');
             $this->view->success = 'rekam data berhasil';
@@ -477,6 +492,11 @@ class Suratmasuk_Controller extends Controller {
             }
             $datastat = array('stat'=>'12');
             $where = 'id_suratmasuk='.$id_surat;
+            @Session::createSession();
+            $user = Session::get('user');
+            $log = new Log();
+            $log->addLog($user,'REKAM DISPOSISI','user '.$user.' rekam disposisi no agenda '.$this->model->getNomorAgenda($id_surat));
+            unset($log);
             $this->model->update('suratmasuk',$datastat,$where); //update status -> disposisi
 //            header('location:'.URL.'suratmasuk');
         }
@@ -527,6 +547,11 @@ class Suratmasuk_Controller extends Controller {
         $notif->addNotifikasi(); //notifikasi pelaksana
         $datastat = array('stat'=>'13');
         $where = 'id_suratmasuk='.$id_surat;
+        @Session::createSession();
+        $user = Session::get('user');
+        $log = new Log();
+        $log->addLog($user,'REKAM CATATAN KASI','user '.$user.' rekam catatan kasi no agenda '.$this->model->getNomorAgenda($id_surat));
+        unset($log);
         $this->model->update('suratmasuk',$datastat,$where); //update status surat -> disposisi kasi
         //$this->model->insert('catatan',$data);
 //        header('location:'.URL.'suratmasuk');
@@ -614,7 +639,12 @@ class Suratmasuk_Controller extends Controller {
         );
         $upload->uploadFile();
         $this->model->uploadFile($data,$where);
-        $datastat = array('stat'=>'14');        
+        $datastat = array('stat'=>'14');
+        @Session::createSession();
+        $user = Session::get('user');
+        $log = new Log();
+        $log->addLog($user,'UPLOAD','user '.$user.' upload file surat no agenda '.$this->model->getNomorAgenda($_POST['id']).' file:'.$namafile);
+        unset($log);
         $this->model->update('suratmasuk',$datastat,$where); //update status -> pelaksana
         return true;
         //header('location:'.URL.'suratmasuk');
