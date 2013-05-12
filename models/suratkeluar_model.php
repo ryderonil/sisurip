@@ -47,7 +47,7 @@ class Suratkeluar_Model extends Surat{
         $role = Session::get('role');
         $bagian = Session::get('bagian');
         $user = Session::get('user');
-        if((Auth::isRole($role, 2) AND !Auth::isBagian($bagian, 1) ) OR (Auth::isRole($role, 3) )){
+        if((Auth::isRole($role, 2) AND !Auth::isBagian($bagian, 1) ) ){
             $sql = "SELECT a.id_suratkeluar as id_suratkeluar,
             a.rujukan as rujukan,
             a.no_surat as no_surat,
@@ -68,6 +68,27 @@ class Suratkeluar_Model extends Surat{
             LEFT JOIN notifikasi g ON a.id_suratkeluar = g.id_surat
             WHERE g.jenis_surat='SK' AND g.id_user=".User::getIdUser($user)."
             GROUP BY a.id_suratkeluar ORDER BY a.id_suratkeluar DESC";
+        }elseif(Auth::isRole($role, 3) ){
+            $sql = "SELECT a.id_suratkeluar as id_suratkeluar,
+            a.rujukan as rujukan,
+            a.no_surat as no_surat,
+            a.tgl_surat as tgl_surat,
+            b.nama_satker as tujuan,
+            a.perihal as perihal,
+            c.sifat_surat as sifat,
+            d.klasifikasi as jenis,
+            a.lampiran as lampiran,
+            a.file as file,
+            e.status as status,
+            f.tipe_naskah as tipe
+            FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker
+            LEFT JOIN sifat_surat c ON a.sifat = c.kode_sifat
+            LEFT JOIN klasifikasi_surat d ON a.jenis = d.kode_klassurat
+            LEFT JOIN status e ON a.status = e.id_status
+            LEFT JOIN tipe_naskah f ON a.tipe = f.id_tipe 
+            WHERE a.user='".$user."'
+            GROUP BY a.id_suratkeluar ORDER BY a.id_suratkeluar DESC";
+            
         }else{
             $sql = "SELECT a.id_suratkeluar as id_suratkeluar,
             a.rujukan as rujukan,
@@ -88,7 +109,7 @@ class Suratkeluar_Model extends Surat{
             JOIN tipe_naskah f ON a.tipe = f.id_tipe ORDER BY a.id_suratkeluar DESC";
         }
         
-        
+//        var_dump($sql);
         if(!is_null($limit) AND !is_null($batas)){
             $sql .= " LIMIT $limit,$batas";
         }
