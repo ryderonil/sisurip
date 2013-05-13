@@ -18,13 +18,13 @@ class Cari_Model extends Model {
 
     public function findLampiran() {
         if ($this->before != null AND $this->after == null) {
-            $sql = "SELECT id_lamp, tanggal, nomor, hal, file FROM lampiran WHERE hal LIKE '%$this->keyword%' AND tanggal>='" . $this->before . "'";
+            $sql = "SELECT id_lamp, tanggal, nomor, hal, file, 'lampiran' as tipe FROM lampiran WHERE hal LIKE '%$this->keyword%' AND tanggal>='" . $this->before . "'";
         } elseif ($this->before == null AND $this->after != null) {
-            $sql = "SELECT id_lamp, tanggal, nomor, hal, file FROM lampiran WHERE hal LIKE '%$this->keyword%' AND tanggal<='" . $this->after . "'";
+            $sql = "SELECT id_lamp, tanggal, nomor, hal, file, 'lampiran' as tipe FROM lampiran WHERE hal LIKE '%$this->keyword%' AND tanggal<='" . $this->after . "'";
         } elseif ($this->before != null AND $this->after != null) {
-            $sql = "SELECT id_lamp, tanggal, nomor, hal, file FROM lampiran WHERE hal LIKE '%$this->keyword%' AND tanggal>='" . $this->before . "' AND tanggal<='" . $this->after . "'";
+            $sql = "SELECT id_lamp, tanggal, nomor, hal, file, 'lampiran' as tipe FROM lampiran WHERE hal LIKE '%$this->keyword%' AND tanggal>='" . $this->before . "' AND tanggal<='" . $this->after . "'";
         } else {
-            $sql = "SELECT id_lamp, tanggal, nomor, hal, file FROM lampiran WHERE hal LIKE '%$this->keyword%'";
+            $sql = "SELECT id_lamp, tanggal, nomor, hal, file, 'lampiran' as tipe FROM lampiran WHERE hal LIKE '%$this->keyword%'";
         }
 
         $data = $this->select($sql);
@@ -36,6 +36,7 @@ class Cari_Model extends Model {
             $result[$int][1] = $val['tanggal'];
             $result[$int][2] = $val['nomor'];
             $result[$int][3] = $val['hal'];
+            $result[$int][4] = $val['tipe'];
             $int++;
         }
         return $result;
@@ -43,13 +44,13 @@ class Cari_Model extends Model {
 
     public function findSuratMasuk() {
         if ($this->before != null AND $this->after == null) {
-            $sql = "SELECT id_suratmasuk, tgl_surat, no_surat, perihal, file FROM suratmasuk WHERE perihal LIKE '%$this->keyword%' AND tgl_surat>='" . $this->before . "'";
+            $sql = "SELECT id_suratmasuk, tgl_surat, no_surat, perihal, file, 'surat_masuk' as tipe FROM suratmasuk WHERE perihal LIKE '%$this->keyword%' AND tgl_surat>='" . $this->before . "'";
         } elseif ($this->before == null AND $this->after != null) {
-            $sql = "SELECT id_suratmasuk, tgl_surat, no_surat, perihal, file FROM suratmasuk WHERE perihal LIKE '%$this->keyword%' AND tgl_surat<='" . $this->after . "'";
+            $sql = "SELECT id_suratmasuk, tgl_surat, no_surat, perihal, file, 'surat_masuk' as tipe FROM suratmasuk WHERE perihal LIKE '%$this->keyword%' AND tgl_surat<='" . $this->after . "'";
         } elseif ($this->before != null AND $this->after != null) {
-            $sql = "SELECT id_suratmasuk, tgl_surat, no_surat, perihal, file FROM suratmasuk WHERE perihal LIKE '%$this->keyword%' AND tgl_surat>='" . $this->before . "' AND tgl_surat<='" . $this->after . "'";
+            $sql = "SELECT id_suratmasuk, tgl_surat, no_surat, perihal, file, 'surat_masuk' as tipe FROM suratmasuk WHERE perihal LIKE '%$this->keyword%' AND tgl_surat>='" . $this->before . "' AND tgl_surat<='" . $this->after . "'";
         } else {
-            $sql = "SELECT id_suratmasuk, tgl_surat, no_surat, perihal, file FROM suratmasuk WHERE perihal LIKE '%$this->keyword%'";
+            $sql = "SELECT id_suratmasuk, tgl_surat, no_surat, perihal, file, 'surat_masuk' as tipe FROM suratmasuk WHERE perihal LIKE '%$this->keyword%'";
         }
 
         $data = $this->select($sql);
@@ -60,6 +61,7 @@ class Cari_Model extends Model {
             $result[$int][1] = $val['tgl_surat'];
             $result[$int][2] = $val['no_surat'];
             $result[$int][3] = $val['perihal'];
+            $result[$int][4] = $val['tipe'];
             $int++;
         }
         return $result;
@@ -67,13 +69,13 @@ class Cari_Model extends Model {
 
     public function findSuratKeluar() {
         if ($this->before != null AND $this->after == null) {
-            $sql = "SELECT id_suratkeluar, tgl_surat, no_surat, perihal, file FROM suratkeluar WHERE perihal LIKE '%$this->keyword%' AND tgl_surat >='" . $this->before . "'";
+            $sql = "SELECT id_suratkeluar, tgl_surat, no_surat, perihal, file,'surat_keluar' as tipe FROM suratkeluar WHERE perihal LIKE '%$this->keyword%' AND tgl_surat >='" . $this->before . "'";
         } elseif ($this->before == null AND $this->after != null) {
-            $sql = "SELECT id_suratkeluar, tgl_surat, no_surat, perihal, file FROM suratkeluar WHERE perihal LIKE '%$this->keyword%' AND tgl_surat <='" . $this->after . "'";
+            $sql = "SELECT id_suratkeluar, tgl_surat, no_surat, perihal, file,'surat_keluar' as tipe FROM suratkeluar WHERE perihal LIKE '%$this->keyword%' AND tgl_surat <='" . $this->after . "'";
         } elseif ($this->before != null AND $this->after != null) {
-            $sql = "SELECT id_suratkeluar, tgl_surat, no_surat, perihal, file FROM suratkeluar WHERE perihal LIKE '%$this->keyword%' AND tgl_surat >='" . $this->before . "' AND tgl_surat <='" . $this->after . "'";
+            $sql = "SELECT id_suratkeluar, tgl_surat, no_surat, perihal, file,'surat_keluar' as tipe FROM suratkeluar WHERE perihal LIKE '%$this->keyword%' AND tgl_surat >='" . $this->before . "' AND tgl_surat <='" . $this->after . "'";
         } else {
-            $sql = "SELECT id_suratkeluar, tgl_surat, no_surat, perihal, file FROM suratkeluar WHERE perihal LIKE '%$this->keyword%'";
+            $sql = "SELECT id_suratkeluar, tgl_surat, no_surat, perihal, file,'surat_keluar' as tipe FROM suratkeluar WHERE perihal LIKE '%$this->keyword%'";
         }
 //        var_dump($sql);
         $data = $this->select($sql);
@@ -84,6 +86,7 @@ class Cari_Model extends Model {
             $result[$int][1] = $val['tgl_surat'];
             $result[$int][2] = $val['no_surat'];
             $result[$int][3] = $val['perihal'];
+            $result[$int][4] = $val['tipe'];
             $int++;
         }
         return $result;
@@ -92,9 +95,9 @@ class Cari_Model extends Model {
     public function findByDate() {
         $sql = "SELECT id_lamp as id, tanggal as tgl, nomor as nomor, hal as hal, file as file, 'lampiran' as tipe FROM lampiran WHERE tanggal>='" . $this->before . "' AND tanggal<='" . $this->after . "'";
         $sql .= " UNION ";
-        $sql .= "SELECT id_suratmasuk as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat masuk' as tipe FROM suratmasuk WHERE tgl_surat>='" . $this->before . "' AND tgl_surat<='" . $this->after . "'";
+        $sql .= "SELECT id_suratmasuk as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat_masuk' as tipe FROM suratmasuk WHERE tgl_surat>='" . $this->before . "' AND tgl_surat<='" . $this->after . "'";
         $sql .= " UNION ";
-        $sql .= "SELECT id_suratkeluar as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat keluar' as tipe FROM suratkeluar WHERE tgl_surat >='" . $this->before . "' AND tgl_surat <='" . $this->after . "'";
+        $sql .= "SELECT id_suratkeluar as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat_keluar' as tipe FROM suratkeluar WHERE tgl_surat >='" . $this->before . "' AND tgl_surat <='" . $this->after . "'";
         $sql .= " ORDER BY tgl DESC";
 //        var_dump($sql);
         $data = $this->select($sql);
@@ -161,27 +164,27 @@ class Cari_Model extends Model {
         if ($this->before != null AND $this->after == null) {
             $sql = "SELECT id_lamp as id, tanggal as tgl, nomor as nomor, hal as hal, file as file, 'lampiran' as tipe FROM lampiran WHERE nomor LIKE '%$this->keyword%' AND tanggal>='".$this->before."'";
             $sql .= " UNION ";
-            $sql .= "SELECT id_suratmasuk as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat masuk' as tipe FROM suratmasuk WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat>='".$this->before."'";
+            $sql .= "SELECT id_suratmasuk as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat_masuk' as tipe FROM suratmasuk WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat>='".$this->before."'";
             $sql .= " UNION ";
-            $sql .= "SELECT id_suratkeluar as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat keluar' as tipe FROM suratkeluar WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat>='".$this->before."'";
+            $sql .= "SELECT id_suratkeluar as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat_keluar' as tipe FROM suratkeluar WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat>='".$this->before."'";
         } elseif ($this->before == null AND $this->after != null) {
             $sql = "SELECT id_lamp as id, tanggal as tgl, nomor as nomor, hal as hal, file as file, 'lampiran' as tipe FROM lampiran WHERE nomor LIKE '%$this->keyword%' AND tanggal<='".$this->after."'";
             $sql .= " UNION ";
-            $sql .= "SELECT id_suratmasuk as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat masuk' as tipe FROM suratmasuk WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat<='".$this->after."'";
+            $sql .= "SELECT id_suratmasuk as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat_masuk' as tipe FROM suratmasuk WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat<='".$this->after."'";
             $sql .= " UNION ";
-            $sql .= "SELECT id_suratkeluar as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat keluar' as tipe FROM suratkeluar WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat<='".$this->after."'";
+            $sql .= "SELECT id_suratkeluar as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat_keluar' as tipe FROM suratkeluar WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat<='".$this->after."'";
         } elseif ($this->before != null AND $this->after != null) {
             $sql = "SELECT id_lamp as id, tanggal as tgl, nomor as nomor, hal as hal, file as file, 'lampiran' as tipe FROM lampiran WHERE nomor LIKE '%$this->keyword%'  AND tanggal>='".$this->before."' AND tanggal<='".$this->after."'";
             $sql .= " UNION ";
-            $sql .= "SELECT id_suratmasuk as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat masuk' as tipe FROM suratmasuk WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat>='".$this->before."' AND tgl_surat<='".$this->after."'";
+            $sql .= "SELECT id_suratmasuk as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat_masuk' as tipe FROM suratmasuk WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat>='".$this->before."' AND tgl_surat<='".$this->after."'";
             $sql .= " UNION ";
-            $sql .= "SELECT id_suratkeluar as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat keluar' as tipe FROM suratkeluar WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat>='".$this->before."' AND tgl_surat<='".$this->after."'";
+            $sql .= "SELECT id_suratkeluar as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat_keluar' as tipe FROM suratkeluar WHERE no_surat LIKE '%$this->keyword%' AND tgl_surat>='".$this->before."' AND tgl_surat<='".$this->after."'";
         } else {
             $sql = "SELECT id_lamp as id, tanggal as tgl, nomor as nomor, hal as hal, file as file, 'lampiran' as tipe FROM lampiran WHERE nomor LIKE '%$this->keyword%'";
             $sql .= " UNION ";
-            $sql .= "SELECT id_suratmasuk as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat masuk' as tipe FROM suratmasuk WHERE no_surat LIKE '%$this->keyword%'";
+            $sql .= "SELECT id_suratmasuk as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat_masuk' as tipe FROM suratmasuk WHERE no_surat LIKE '%$this->keyword%'";
             $sql .= " UNION ";
-            $sql .= "SELECT id_suratkeluar as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat keluar' as tipe FROM suratkeluar WHERE no_surat LIKE '%$this->keyword%'";
+            $sql .= "SELECT id_suratkeluar as id, tgl_surat as tgl, no_surat as nomor, perihal as hal, file as file, 'surat_keluar' as tipe FROM suratkeluar WHERE no_surat LIKE '%$this->keyword%'";
         }
         
         $sql .= " ORDER BY tgl DESC";
@@ -205,27 +208,27 @@ class Cari_Model extends Model {
         if ($this->before != null AND $this->after == null) {
             $sql = "SELECT id_lamp as id, tanggal as tgl, nomor as nomor, hal as hal, asal as alamat, file as file, 'lampiran' as tipe FROM lampiran WHERE asal LIKE '%$this->keyword%' AND tanggal>='".$this->before."'";
             $sql .= " UNION ";
-            $sql .= "SELECT a.id_suratmasuk as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat masuk' as tipe FROM suratmasuk a LEFT JOIN alamat b ON a.asal_surat = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat>='".$this->before."'";
+            $sql .= "SELECT a.id_suratmasuk as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat_masuk' as tipe FROM suratmasuk a LEFT JOIN alamat b ON a.asal_surat = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat>='".$this->before."'";
             $sql .= " UNION ";
-            $sql .= "SELECT a.id_suratkeluar as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat keluar' as tipe FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat>='".$this->before."'";
+            $sql .= "SELECT a.id_suratkeluar as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat_keluar' as tipe FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat>='".$this->before."'";
         } elseif ($this->before == null AND $this->after != null) {
             $sql = "SELECT id_lamp as id, tanggal as tgl, nomor as nomor, hal as hal, asal as alamat, file as file, 'lampiran' as tipe FROM lampiran WHERE asal LIKE '%$this->keyword%' AND tanggal<='".$this->after."'";
             $sql .= " UNION ";
-            $sql .= "SELECT a.id_suratmasuk as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat masuk' as tipe FROM suratmasuk a LEFT JOIN alamat b ON a.asal_surat = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat<='".$this->after."'";
+            $sql .= "SELECT a.id_suratmasuk as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat_masuk' as tipe FROM suratmasuk a LEFT JOIN alamat b ON a.asal_surat = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat<='".$this->after."'";
             $sql .= " UNION ";
-            $sql .= "SELECT a.id_suratkeluar as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat keluar' as tipe FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat<='".$this->after."'";
+            $sql .= "SELECT a.id_suratkeluar as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat_keluar' as tipe FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat<='".$this->after."'";
         } elseif ($this->before != null AND $this->after != null) {
             $sql = "SELECT id_lamp as id, tanggal as tgl, nomor as nomor, hal as hal, asal as alamat, file as file, 'lampiran' as tipe FROM lampiran WHERE asal LIKE '%$this->keyword%'  AND tanggal>='".$this->before."' AND tanggal<='".$this->after."'";
             $sql .= " UNION ";
-            $sql .= "SELECT a.id_suratmasuk as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat masuk' as tipe FROM suratmasuk a LEFT JOIN alamat b ON a.asal_surat = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat>='".$this->before."' AND a.tgl_surat<='".$this->after."'";
+            $sql .= "SELECT a.id_suratmasuk as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat_masuk' as tipe FROM suratmasuk a LEFT JOIN alamat b ON a.asal_surat = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat>='".$this->before."' AND a.tgl_surat<='".$this->after."'";
             $sql .= " UNION ";
-            $sql .= "SELECT a.id_suratkeluar as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat keluar' as tipe FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat>='".$this->before."' AND a.tgl_surat<='".$this->after."'";
+            $sql .= "SELECT a.id_suratkeluar as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat_keluar' as tipe FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%' AND a.tgl_surat>='".$this->before."' AND a.tgl_surat<='".$this->after."'";
         } else {
             $sql = "SELECT id_lamp as id, tanggal as tgl, nomor as nomor, hal as hal, asal as alamat, file as file, 'lampiran' as tipe FROM lampiran WHERE asal LIKE '%$this->keyword%'";
             $sql .= " UNION ";
-            $sql .= "SELECT a.id_suratmasuk as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat masuk' as tipe FROM suratmasuk a LEFT JOIN alamat b ON a.asal_surat = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%'";
+            $sql .= "SELECT a.id_suratmasuk as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat_masuk' as tipe FROM suratmasuk a LEFT JOIN alamat b ON a.asal_surat = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%'";
             $sql .= " UNION ";
-            $sql .= "SELECT a.id_suratkeluar as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat keluar' as tipe FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%'";
+            $sql .= "SELECT a.id_suratkeluar as id, a.tgl_surat as tgl, a.no_surat as nomor, a.perihal as hal, b.nama_satker as alamat, a.file as file, 'surat_keluar' as tipe FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker WHERE b.nama_satker LIKE '%$this->keyword%'";
         }
         
         $sql .= " ORDER BY tgl DESC";

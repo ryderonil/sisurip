@@ -492,6 +492,12 @@ class Suratkeluar_Controller extends Controller {
         echo $nosurat;    
         
     }
+    
+    public function view($id){
+        $data = $this->model->getSuratById($id);
+        $this->view->file = $data->getFile();
+        $this->view->load('suratkeluar/viewsurat');
+    }
 
 }
 
