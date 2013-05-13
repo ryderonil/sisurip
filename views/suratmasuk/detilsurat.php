@@ -16,7 +16,9 @@
                 <a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->data[0]; ?>/SM" title="rekam lampiran surat" class="tip"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
                 <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->data[0]; ?>/SM" title="rekam ke dalam arsip, pastikan fisik surat telah ditempatkan pada lokasi arsip!" class="tip"><input class="btn" type="button" value="ARSIP"></a><?php }?>
                 <?php if(Auth::isRole($role, 2)) { ?><a href="<?php echo URL;?>suratmasuk/edit/<?php echo $this->data[0]; ?>" title="ubah data surat" class="tip"><input class="btn" type="button" value="U B A H"></a>
-                <a href="<?php echo URL;?>suratmasuk/catatan/<?php echo $this->data[0]; ?>" title="rekam disposisi pejabat es IV kepada pelaksana" class="tip"><input class="btn" type="button" value="DISPOSISI KASI"></a><?php }?></td></tr>
+                <a href="<?php echo URL;?>suratmasuk/catatan/<?php echo $this->data[0]; ?>" title="rekam disposisi pejabat es IV kepada pelaksana" class="tip"><input class="btn" type="button" value="DISPOSISI KASI"></a><?php }?>
+                <?php if(Auth::isRole($role, 1) OR Auth::isRole($role, 4)) echo '<a href="'.URL.'suratmasuk/disposisi/'.$this->data[0].'" title="rekam disposisi" class=tip><input class="btn" type=button value=disposisi></a>';?></td></tr>
+                
     </table></div>
     
     <?php if($this->count>0){?>
@@ -30,9 +32,11 @@
         <?php
             
             foreach($this->lampiran as $value){
-                echo "<tr><td>$value[tipe]</td><td ><a>$value[nomor]</a>
-                <button onclick=viewlampiran($value[id_lamp]);>view</button></td>
-                <td>".Tanggal::tgl_indo($value['tanggal'])."</td></tr>";
+                echo "<tr><td>$value[tipe]</td><td ><a>$value[nomor] ; ".Tanggal::tgl_indo($value['tanggal'])."</a>
+                </td>
+                <td><button class=btn onclick=viewlampiran($value[id_lamp]);>view</button>
+                <a href=".URL."lampiran/ubah/$value[id_lamp]><button class=btn >ubah</button></a>
+                <a href=".URL."lampiran/hapus/><button class=btn onclick='return konfirmasi()'>hapus</button></a></td></tr>";
             }
         ?>
         
@@ -63,5 +67,15 @@
     $(function(){
         $(".tip").tipTip({maxWidth: "auto", edgeOffset: 10});
     });
+    
+    function konfirmasi(){
+        var answer = 'Anda yakin, data lampiran ini akan dihapus?'
+        
+        if(confirm(answer)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 </script>
 

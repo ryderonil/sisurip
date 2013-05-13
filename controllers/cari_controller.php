@@ -53,15 +53,15 @@ class Cari_Controller extends Controller {
                     $pesan = "Ditemukan : $count hasil pencarian dengan kata kunci " . $this->model->keyword;
                     echo "<table class=CSSTableGenerator><tr><td colspan=4 halign=left>$pesan</td></tr>";
                     foreach ($hasil as $val) {
-                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td></tr>";
+                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2] <input type=button class=btn value=view onclick=displaysm($val[0])></td><td>$val[3]</td></tr>";
                     }
                     echo "</table>";
                     
-                    echo "<script type=text/javascript>\n";
-                    echo "function display(){\n";
-                    echo "";
+                    /*echo "<script type=text/javascript>\n";
+                    echo "function display($id){\n";
+                    echo "w = window.open(".URL."suratmasuk/view/$id,'Cetak Disposisi','toolbar=0,menubar=0,location=0,status=0,width=800,height=500');";
                     echo "}\n";
-                    echo "</script>";
+                    echo "</script>";*/
                 }
             } elseif ($this->model->filter == "suratkeluar") {
                 $hasil = $this->model->findSuratKeluar($this->model->keyword);
@@ -72,7 +72,7 @@ class Cari_Controller extends Controller {
                     $pesan = "Ditemukan : $count hasil pencarian dengan kata kunci " . $this->model->keyword;
                     echo "<table class=CSSTableGenerator><tr><td colspan=4 halign=left>$pesan</td></tr>";
                     foreach ($hasil as $val) {
-                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td></tr>";
+                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]  <input type=button class=btn value=view onclick=displaysk($val[0])></td><td>$val[3]</td></tr>";
                     }
                     echo "</table>";
                 }
@@ -85,7 +85,7 @@ class Cari_Controller extends Controller {
                     $pesan = "Ditemukan : $count hasil pencarian dengan kata kunci " . $this->model->keyword;
                     echo "<table class=CSSTableGenerator><tr><td colspan=4 halign=left>$pesan</td></tr>";
                     foreach ($hasil as $val) {
-                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td></tr>";
+                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]  <input type=button class=btn value=view onclick=viewlampiran($val[0])></td><td>$val[3]</td></tr>";
                     }
                     echo "</table>";
                 }
@@ -102,9 +102,17 @@ class Cari_Controller extends Controller {
                     //$hasil = array_merge($hasil2);
                     //$hasil = array_merge($hasil3);
                     //$data = var_dump($hasil);
-                    echo "<table class=CSSTableGenerator><tr><td colspan=4 halign=left>$pesan</td></tr>";
+                    echo "<table class=CSSTableGenerator><tr><td colspan=5 halign=left>$pesan</td></tr>";
                     foreach ($hasil as $val) {
-                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td></tr>";
+                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td><td>$val[4] <input type=button class=btn value=view ";
+                        if($val[4]=='lampiran'){
+                            echo "onclick=viewlampiran($val[0])></td></tr>";
+                        }elseif ($val[4]=='surat_masuk') {
+                            echo "onclick=displaysm($val[0])></td></tr>";
+                        }elseif ($val[4]=='surat_keluar') {
+                            echo "onclick=displaysk($val[0])></td></tr>";
+                        }
+                        
                     }
                     echo "</table>";
                 }
@@ -117,7 +125,15 @@ class Cari_Controller extends Controller {
                     $pesan = "Ditemukan : $count hasil pencarian dengan kata kunci " . $this->model->keyword;
                     echo "<table class=CSSTableGenerator><tr><td colspan=5 halign=left>$pesan</td></tr>";
                     foreach ($hasil as $val) {
-                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td><td>$val[4]</td></tr>";
+                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td><td>$val[4] <input type=button class=btn value=view ";
+                        if($val[4]=='lampiran'){
+                            echo "onclick=viewlampiran($val[0])></td></tr>";
+                        }elseif ($val[4]=='surat_masuk') {
+                            echo "onclick=displaysm($val[0])></td></tr>";
+                        }elseif ($val[4]=='surat_keluar') {
+                            echo "onclick=displaysk($val[0])></td></tr>";
+                        }
+                        echo "</td></tr>";
                     }
                     echo "</table>";
                 }
@@ -130,7 +146,15 @@ class Cari_Controller extends Controller {
                     $pesan = "Ditemukan : $count hasil pencarian dengan kata kunci " . $this->model->keyword;
                     echo "<table class=CSSTableGenerator><tr><td colspan=5 halign=left>$pesan</td></tr>";
                     foreach ($hasil as $val) {
-                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td><td>$val[4]</td></tr>";
+                        echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td><td>$val[4] <input type=button class=btn value=view ";
+                        if($val[4]=='lampiran'){
+                            echo "onclick=viewlampiran($val[0])></td></tr>";
+                        }elseif ($val[4]=='surat_masuk') {
+                            echo "onclick=displaysm($val[0])></td></tr>";
+                        }elseif ($val[4]=='surat_keluar') {
+                            echo "onclick=displaysk($val[0])></td></tr>";
+                        }
+                        echo "</td></tr>";
                     }
                     echo "</table>";
                 }
@@ -144,7 +168,15 @@ class Cari_Controller extends Controller {
                 $pesan = "Ditemukan : $count hasil pencarian tanggal " . Tanggal::tgl_indo($this->model->before) . " sampai dengan tanggal " . Tanggal::tgl_indo($this->model->after);
                 echo "<table class=CSSTableGenerator><tr><td colspan=5 halign=left>$pesan</td></tr>";
                 foreach ($hasil as $val) {
-                    echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td><td>$val[4]</td></tr>";
+                    echo "<tr><td>$val[0]</td><td>" . Tanggal::tgl_indo($val[1]) . "</td><td>$val[2]</td><td>$val[3]</td><td>$val[4] <input type=button class=btn value=view ";
+                        if($val[4]=='lampiran'){
+                            echo "onclick=viewlampiran($val[0])></td></tr>";
+                        }elseif ($val[4]=='surat_masuk') {
+                            echo "onclick=displaysm($val[0])></td></tr>";
+                        }elseif ($val[4]=='surat_keluar') {
+                            echo "onclick=displaysk($val[0])></td></tr>";
+                        }
+                        echo "</td></tr>";
                 }
                 echo "</table>";
             }

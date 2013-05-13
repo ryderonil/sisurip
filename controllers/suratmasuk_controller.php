@@ -670,6 +670,12 @@ class Suratmasuk_Controller extends Controller {
         
     }
     
+    public function view($id){
+        $data = $this->model->getSuratById($id);        
+        $this->view->file = $data->getFile();
+        $this->view->load('suratmasuk/viewsurat');
+    }
+    
     
 
 }

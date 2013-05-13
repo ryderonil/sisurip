@@ -154,5 +154,17 @@ function before(date){
     $('#search').val(kategori);
 }
 
+function displaysm(id){
+        w = window.open("<?php echo URL; ?>suratmasuk/view/"+id, "Display Surat Masuk","toolbar=0,menubar=0,location=0,status=0,width=800,height=500, scrollbar=0");        
+    }
+    
+function displaysk(id){
+        w = window.open("<?php echo URL; ?>suratkeluar/view/"+id, "Display Surat Keluar","toolbar=0,menubar=0,location=0,status=0,width=800,height=500 scrollbar=0");        
+    }
+    
+function viewlampiran(id){
+        w = window.open("<?php echo URL; ?>lampiran/view/"+id, "Display Lampiran","toolbar=0,menubar=0,location=0,status=0,width=800,height=500");        
+    }
+
 
 </script>

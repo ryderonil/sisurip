@@ -36,7 +36,10 @@
         <?php
             
             foreach($this->lampiran as $value){
-                echo "<tr><td>$value[tipe]</td><td>$value[nomor]</td><td>".Tanggal::tgl_indo($value['tanggal'])."</td></tr>";
+                echo "<tr><td>$value[tipe]</td><td>$value[nomor] ; ".Tanggal::tgl_indo($value['tanggal'])."</td>
+                    <td><button class=btn onclick=viewlampiran($value[id_lamp]);>view</button>
+                    <a href=".URL."lampiran/ubah/$value[id_lamp]><button class=btn >ubah</button></a>
+                    <a href=".URL."lampiran/hapus/><button class=btn onclick='return konfirmasi()'>hapus</button></a></td></tr>";
             }
         ?>
         
@@ -61,4 +64,14 @@
 $(function(){
     $(".tip").tipTip({maxWidth: "auto", edgeOffset: 10});
 });
+
+function konfirmasi(){
+        var answer = 'Anda yakin, data lampiran ini akan dihapus?'
+        
+        if(confirm(answer)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 </script>
