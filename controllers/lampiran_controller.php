@@ -146,7 +146,7 @@ class Lampiran_Controller extends Controller{
 //            }
         }else{
             $sk = new Suratkeluar_Model();
-            $datas = $sk->getSuratId($lamp->get('id_surat'), 'ubah');
+            $datas = $sk->getSuratById($lamp->get('id_surat'), 'ubah');
 //            foreach ($data as $value){
                 $this->view->data[0] = $datas->getId();
                 $this->view->data[1] = $datas->getNomor();

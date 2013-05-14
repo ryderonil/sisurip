@@ -547,7 +547,8 @@ class Suratmasuk_Controller extends Controller {
         $data = array('id_disposisi'=>$id_disposisi,
             'bagian'=>$bagian,
             'pelaksana'=>$peg,
-            'catatan'=>$catatan);
+            'catatan'=>$catatan,
+            'time'=>date('Y-m-d H:i:s'));
         
         //var_dump($data);
         $disposisi->addDisposisiKasi($data);
@@ -555,7 +556,9 @@ class Suratmasuk_Controller extends Controller {
         $notif->set('id_surat', $id_surat);
         $notif->set('jenis_surat', 'SM');
         $notif->set('id_user', $peg);
-        $notif->set('stat_notif',1);        
+        $notif->set('stat_notif',1);
+        $notif->set('role', 3);
+        $notif->set('bagian',Session::get('bagian'));
         $notif->addNotifikasi(); //notifikasi pelaksana
         $datastat = array('stat'=>'13');
         $where = 'id_suratmasuk='.$id_surat;
