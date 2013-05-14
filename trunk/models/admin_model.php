@@ -228,6 +228,18 @@ class Admin_Model extends Model{
         
     }
     
+    public function cekPjs($bagian, $jabatan){
+        
+        $sql = "SELECT * FROM pjs WHERE bagian=$bagian AND jabatan=$jabatan ";
+        $data = count($this->select($sql));
+        if($data>0){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+    
     public function rekamPjs($data){
         return $this->insert('pjs', $data);        
     }

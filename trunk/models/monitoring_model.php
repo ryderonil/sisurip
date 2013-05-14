@@ -71,11 +71,11 @@ class Monitoring_Model extends Model {
         foreach ($data as $value) {
             $tgl1 = $value['start'];
             $tgl2 = $value['end'];
-            if($tgl2=='0000-00-00 00:00:00') $tgl2=$tgl1;
+            if($tgl2=='0000-00-00 00:00:00' OR $tgl2==null) $tgl2=$tgl1;
             $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
             $start = explode(" ", $value['start']);
             $start = trim($start[1]);
-            if($value['end']=='0000-00-00 00:00:00'){
+            if($value['end']=='0000-00-00 00:00:00' OR $value['end']==null){
                 $end = explode(" ",$value['start']);
             }else{
                 $end = explode(" ", $value['end']);
@@ -564,10 +564,11 @@ class Monitoring_Model extends Model {
         foreach ($data as $value) {
             $tgl1 = $value['start'];
             $tgl2 = $value['end'];
+            if($tgl2=='0000-00-00 00:00:00' OR $tgl2==null) $tgl2=$tgl1;
             $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
             $start = explode(" ", $value['start']);
             $start = trim($start[1]);
-            if ($value['end']=='0000-00-00 00:00:00') {
+            if ($value['end']=='0000-00-00 00:00:00' OR $value['end']==null) {
                 if(key_exists($value['nama'], $arraydata)){
                     $arraydata[$value['nama']][3]++;
                 }else{
@@ -624,8 +625,8 @@ class Monitoring_Model extends Model {
     
     public function grafikJmlSuratMasuk($bln=null) {
         if(is_null($bln)){
-//            $month = date('m');
-            $month = '04';
+            $month = date('m');
+//            $month = '04';
         }
         
         
@@ -665,8 +666,8 @@ class Monitoring_Model extends Model {
     
     public function grafikJmlSuratKeluar($bln=null) {
         if(is_null($bln)){
-//            $month = date('m');
-            $month = '04';
+            $month = date('m');
+//            $month = '04';
         }
         
         $sql = "SELECT tgl_surat as tgl

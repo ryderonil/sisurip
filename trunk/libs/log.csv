@@ -1,0 +1,128 @@
+DATETIME;USER;TAG;VALUE
+2013-05-11@23:56:26;admin;LOGIN;
+2013-05-11@23:56:43;admin;LOGOUT;
+2013-05-11@23:56:54;kasi;LOGIN;
+2013-05-11@23:56:57;kasi;"CHANGE ROLE";"user kasi mengganti role ke 2/1"
+2013-05-11@23:57:00;kasi;LOGOUT;
+2013-05-11@23:58:35;kk;LOGIN;
+2013-05-11@23:58:48;kk;LOGOUT;
+2013-05-12@11:31:18;huri;LOGIN;
+2013-05-12@12:19:49;huri;LOGOUT;
+2013-05-12@12:19:52;admin;LOGIN;
+2013-05-12@12:37:19;admin;LOGOUT;
+2013-05-12@12:37:25;huri;LOGIN;
+2013-05-12@12:38:25;huri;LOGOUT;
+2013-05-12@12:50:42;admin;LOGIN;
+2013-05-12@12:51:18;admin;LOGOUT;
+2013-05-12@12:51:24;kasi;LOGIN;
+2013-05-12@13:59:27;kasi;LOGOUT;
+2013-05-12@13:59:30;admin;LOGIN;
+2013-05-12@13:59:40;admin;LOGOUT;
+2013-05-12@13:59:43;huri;LOGIN;
+2013-05-12@14:08:05;huri;LOGOUT;
+2013-05-12@14:08:08;admin;LOGIN;
+2013-05-12@14:11:31;admin;LOGOUT;
+2013-05-12@14:11:34;kasi;LOGIN;
+2013-05-12@14:17:42;kasi;LOGOUT;
+2013-05-12@14:17:58;huri;LOGIN;
+2013-05-12@14:18:52;huri;LOGOUT;
+2013-05-12@14:18:55;admin;LOGIN;
+2013-05-12@14:19:06;admin;LOGOUT;
+2013-05-12@14:19:09;kasi;LOGIN;
+2013-05-12@14:19:16;kasi;LOGOUT;
+2013-05-12@14:19:21;huri;LOGIN;
+2013-05-12@14:22:50;huri;LOGOUT;
+2013-05-12@14:22:54;kk;LOGIN;
+2013-05-13@15:48:19;huri;LOGIN;
+2013-05-13@17:02:15;huri;LOGOUT;
+2013-05-13@17:02:22;admin;LOGIN;
+2013-05-13@17:02:54;admin;LOGOUT;
+2013-05-13@17:03:01;marni;LOGIN;
+2013-05-13@17:03:54;marni;LOGOUT;
+2013-05-13@17:03:59;kasi;LOGIN;
+2013-05-13@17:04:20;kasi;LOGOUT;
+2013-05-13@17:04:25;mastri;LOGIN;
+2013-05-13@17:05:05;mastri;LOGOUT;
+2013-05-13@17:05:10;kasi;LOGIN;
+2013-05-13@17:05:12;kasi;LOGOUT;
+2013-05-13@17:16:26;mastri;LOGIN;
+2013-05-13@19:13:53;mastri;LOGOUT;
+2013-05-13@19:13:57;admin;LOGIN;
+2013-05-13@20:01:20;admin;LOGOUT;
+2013-05-13@20:01:23;kk;LOGIN;
+2013-05-14@05:09:13;kk;LOGIN;
+2013-05-14@05:09:27;kk;LOGOUT;
+2013-05-14@05:09:31;kasi;LOGIN;
+2013-05-14@05:09:36;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-05-14@05:09:38;kasi;LOGOUT;
+2013-05-14@05:09:44;admin;LOGIN;
+2013-05-14@05:11:12;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0019"
+2013-05-14@05:11:45;admin;LOGOUT;
+2013-05-14@05:11:48;kk;LOGIN;
+2013-05-14@05:12:42;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0019"
+2013-05-14@05:12:55;kk;LOGOUT;
+2013-05-14@05:13:05;kasi;LOGIN;
+2013-05-14@05:13:34;kasi;"REKAM CATATAN KASI";"user kasi rekam catatan kasi no agenda SM0019"
+2013-05-14@05:13:51;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-05-14@05:13:56;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/2"
+2013-05-14@05:14:01;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-05-14@05:14:05;kasi;LOGOUT;
+2013-05-14@05:14:09;huri;LOGIN;
+2013-05-14@05:16:03;huri;LOGOUT;
+2013-05-14@05:16:06;kasi;LOGIN;
+2013-05-14@05:24:56;kasi;"REKAM CATATAN KASI";"user kasi rekam catatan kasi no agenda SM0019"
+2013-05-14@05:25:00;kasi;LOGOUT;
+2013-05-14@05:25:28;huri;LOGIN;
+2013-05-14@05:31:44;huri;"REKAM SK";"user huri rekam surat keluar tujuan 260018"
+2013-05-14@05:43:25;huri;"UBAH SK";"user huri ubah surat keluar tujuan: 45 perihal:Surat Dinas"
+2013-05-14@05:47:12;huri;"REKAM REVISI";"user huri rekam revisi surat keluar id 45 nama file K_44_260010_3.docx"
+2013-05-14@05:50:12;huri;"REKAM REVISI";"user huri rekam revisi surat keluar id 45 nama file K_45_260018.docx"
+2013-05-14@05:53:33;huri;"REKAM REVISI";"user huri rekam revisi surat keluar id 45 nama file K_45_260018.docx"
+2013-05-14@05:55:09;huri;"REKAM REVISI";"user huri rekam revisi surat keluar id 45 nama file K_45_260018_1.docx"
+2013-05-14@05:57:37;huri;"REKAM REVISI";"user huri rekam revisi surat keluar id 45 nama file K_45_260018_2.docx"
+2013-05-14@05:59:48;huri;"UBAH SK";"user huri ubah surat keluar tujuan: 45 perihal:Surat Dinas"
+2013-05-14@06:00:01;huri;"UBAH SK";"user huri ubah surat keluar tujuan: 45 perihal:Surat Dinas"
+2013-05-14@06:00:15;huri;LOGOUT;
+2013-05-14@06:00:20;kasi;LOGIN;
+2013-05-14@06:00:31;kasi;LOGOUT;
+2013-05-14@06:00:35;kk;LOGIN;
+2013-05-14@06:00:42;kk;LOGOUT;
+2013-05-14@06:00:48;huri;LOGIN;
+2013-05-14@06:01:19;huri;LOGOUT;
+2013-05-14@06:01:22;kk;LOGIN;
+2013-05-14@06:02:43;kk;LOGOUT;
+2013-05-14@06:03:39;kk;LOGIN;
+2013-05-14@08:51:27;admin;LOGIN;
+2013-05-14@10:21:52;kk;LOGIN;
+2013-05-14@10:36:50;kk;LOGOUT;
+2013-05-14@10:36:56;admin;LOGIN;
+2013-05-14@10:37:47;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0020"
+2013-05-14@10:37:58;admin;LOGOUT;
+2013-05-14@10:38:09;kk;LOGIN;
+2013-05-14@10:39:12;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0020"
+2013-05-14@10:39:25;kk;LOGOUT;
+2013-05-14@10:39:34;admin;LOGIN;
+2013-05-14@10:40:15;admin;LOGOUT;
+2013-05-14@10:40:19;kasi;LOGIN;
+2013-05-14@10:40:38;kasi;"REKAM CATATAN KASI";"user kasi rekam catatan kasi no agenda SM0020"
+2013-05-14@10:40:43;kasi;LOGOUT;
+2013-05-14@10:40:50;huri;LOGIN;
+2013-05-14@10:43:54;huri;UPLOAD;"user huri upload file surat no agenda SM0020 file:M_S-223_WPB.1_PK.12_2013_269001.pdf"
+2013-05-14@10:46:56;huri;"REKAM SK";"user huri rekam surat keluar tujuan 308152"
+2013-05-14@10:47:23;huri;LOGOUT;
+2013-05-14@10:47:29;kasi;LOGIN;
+2013-05-14@10:47:51;kasi;"REKAM REVISI";"user kasi rekam revisi surat keluar id 46 nama file K_46_308152.docx"
+2013-05-14@10:48:17;kasi;LOGOUT;
+2013-05-14@10:48:21;kk;LOGIN;
+2013-05-14@10:48:28;kk;LOGOUT;
+2013-05-14@10:48:37;huri;LOGIN;
+2013-05-14@10:49:01;huri;LOGOUT;
+2013-05-14@10:49:05;kk;LOGIN;
+2013-05-14@10:52:51;kk;LOGOUT;
+2013-05-14@10:52:55;kasi;LOGIN;
+2013-05-14@10:55:01;kasi;LOGOUT;
+2013-05-14@10:55:05;admin;LOGIN;
+2013-05-14@11:01:21;admin;LOGOUT;
+2013-05-14@11:01:25;kk;LOGIN;
+2013-05-14@11:02:42;kk;LOGOUT;
+2013-05-14@12:02:14;kk;LOGIN;
