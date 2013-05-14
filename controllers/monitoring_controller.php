@@ -373,6 +373,7 @@ class Monitoring_Controller extends Controller {
         foreach ($data as $val){
             $this->view->data[] = $val;
         }
+//        var_dump($this->view->data);
         $this->view->load('monitoring/kinerjapegawai');
     }
     

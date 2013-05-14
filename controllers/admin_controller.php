@@ -32,8 +32,14 @@ class Admin_Controller extends Controller {
         if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
             header('location:'.URL.'home');
         }
-        if(isset($_POST['submit'])){
+        if(isset($_POST['input_submit'])){
             if($this->inputRekamKantor()){
+                $this->view->success = "Rekam data berhasil";
+            }else{
+                $this->view->error = "Rekam data gagal!";
+            }
+        }elseif (isset($_POST['update_submit'])){
+            if($this->updateRekamKantor()){
                 $this->view->success = "Ubah data berhasil";
             }else{
                 $this->view->error = "Ubah data gagal!";
@@ -78,7 +84,7 @@ class Admin_Controller extends Controller {
             }
         }
         if(isset($_POST['submit'])){
-            if($this->updateRekamAlamat()){
+            if($this->inputRekamAlamat()){
                 $this->view->success = "Rekam alamat berhasil";
             }else{
                 $this->view->error = "Rekam alamat gagal! alamat satker ini telah ada.";
@@ -391,11 +397,8 @@ class Admin_Controller extends Controller {
             }
         }
         $this->view->user = $user;
-        //var_dump($user);
         $this->view->bagian = $this->model->getBagianLain($user);
-        //var_dump($this->view->bagian);
         $this->view->role = $this->model->getRole();
-        //var_dump($this->view->jabatan);
         $this->view->pjs = $this->model->getPjs();
         $dnama = $this->model->select("SELECT namaPegawai, NIP FROM user WHERE username='".$user."'");
         $this->view->nama = '';
@@ -681,10 +684,23 @@ class Admin_Controller extends Controller {
         $this->rekamUser();
     }
 
-    public function setAktifUser($id, $active) {
+    public function setAktifUser($id, $active) { //belum ada cek apakah ada pjs
         $user = new User();
         $user->set('id_user', $id);
         $aktif = ($active == 'Y') ? 'N' : 'Y';
+        $jabatan = 0;
+        $bagian = 0;
+        $datau = $this->model->select("SELECT jabatan, bagian FROM user WHERE id_user=".$id);
+        foreach ($datau as $val){
+            $jabatan = $val['jabatan'];
+            $bagian = $val['bagian'];
+        }
+        if($aktif=='Y'){ //cari bagian dulu
+            if($this->model->cekPjs($bagian,$jabatan)){
+                $this->rekamUser();
+                return false;
+            }
+        }
         $user->set('active', $aktif);
         $user->setAktifUser();
         //echo $aktif;
@@ -783,13 +799,11 @@ class Admin_Controller extends Controller {
             'email'=>$_POST['email']
         );
         
-        if($this->model->existAlamat($_POST['kode_satker'])){
+        /*if($this->model->existAlamat($_POST['kode_satker'])){
             return false;
-        }
+        }*/
         
         $where = ' id_alamat='.$_POST['id'];
-        //echo $where;
-        //var_dump($data);
         $this->model->updateAlamatSurat($data, $where);
 //        $this->rekamAlamat();
         return true;

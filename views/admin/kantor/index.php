@@ -1,10 +1,6 @@
 <h2>Pengaturan Kantor</h2>            
 <hr>
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php if ($this->cek > 0):
-    echo URL . 'admin/updateRekamKantor';
-else: echo URL . 'admin/inputRekamKantor';
-endif;
-?>">
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
 
 <?php if ($this->cek > 0)  ?><input type="hidden" name="id" value="<?php echo $this->id; ?>">
         <!--<label>BAGIAN ANGGARAN</label><input class="required" type="text" name="ba" value="<?php if ($this->cek > 0) echo $this->ba; ?>"></br>
@@ -53,7 +49,7 @@ endif;
         <label>WEBSITE</label><input class="required url" type="text" name="website" value="<?php if ($this->cek > 0) echo $this->website; ?>"></br>
         <label>SMS GATEWAY</label><input class="required" type="text" name="sms" value="<?php if ($this->cek > 0) echo $this->sms; ?>"></br>
         <label>LOGO</label><input type="file" name="logo" value="<?php if ($this->cek > 0) echo $this->logo; ?>"></br>
-        <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamKantor'" value="BATAL"><input type="submit" name="submit" value="SIMPAN">
+        <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamKantor'" value="BATAL"><input type="submit" <?php if ($this->cek > 0) { echo "name=update_submit"; }else{ echo "name=input_submit";} ?> value="SIMPAN">
     </form>
 </div>
 
