@@ -104,11 +104,12 @@ class Suratkeluar_Controller extends Controller {
         $notif = new Notifikasi();
         $upload = new Upload('upload');
         $time = date('Y-m-d H:i:s');
+        $tgl = $_POST['tgl_surat']=='0000-00-00'?date('Y-m-d'):$_POST['tgl_surat'];
         $data = array(
             'rujukan' => $_POST['rujukan'],
             'no_surat' => $_POST['nomor'],
             'tipe' => $_POST['tipe'],
-            'tgl_surat' => Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
+            'tgl_surat' => Tanggal::ubahFormatTanggal($tgl),
             'tujuan' => substr($_POST['tujuan'], 0, 6),
             'perihal' => $_POST['perihal'],
             'sifat' => $_POST['sifat'],
@@ -121,7 +122,7 @@ class Suratkeluar_Controller extends Controller {
 
         //var_dump($data);       
         //upload file surat, sementara di temp folder krn belom dapat nomor
-        if($this->model->rekamSurat($data)!=true){
+        if($this->model->input($data)!=true){
             $this->view->success = "rekam data surat keluar berhasil";
         }else{
             $this->view->error = "rekam data surat keluar tidak berhasil";
@@ -186,8 +187,9 @@ class Suratkeluar_Controller extends Controller {
 //        }
         
         $lamp = new Lampiran_Model();
-        $datal = $lamp->getLampiranSurat($this->view->id, 'SK');
-        $this->view->count = 0;
+        $this->view->datal = $lamp->getLampiranSurat($this->view->id, 'SK');
+        
+        $this->view->count = count($this->view->datal);
 
         $this->view->render('suratkeluar/detilsurat');
     }
@@ -373,9 +375,9 @@ class Suratkeluar_Controller extends Controller {
         $time = date('Y-m-d H:i:s');
         $filename ='';
         $datas = $this->model->getSuratById($id, 'detil');
-        foreach ($datas as $val){
-            $filename = $val['file'];
-        }
+//        foreach ($datas as $val){
+            $filename = $datas->getFile();
+//        }
         
         //---------------------------------
         $fln = array();
@@ -431,6 +433,7 @@ class Suratkeluar_Controller extends Controller {
         
         $upload->setDirTo('arsip/temp/');
         $upload->setFileTo($filename);
+        $upload->uploadFile();
         //upload file revisi
 //        $upl = $upload->uploadFile(); //upload dengan nama beda jika sudah terdapat file di arsip
 //        if(!$upl){
@@ -461,10 +464,10 @@ class Suratkeluar_Controller extends Controller {
         $notif->set('id_user', $user[0]);
         $notif->set('role',$user[1]);
         //tambah notifikasi untuk pelaksana
-//        $notif->addNotifikasi();
+        $notif->addNotifikasi();
         
         //tambah revisi
-//        $this->model->addRevisi($data);
+        $this->model->addRevisi($data);
         
 //        $this->showAll();
         @Session::createSession();

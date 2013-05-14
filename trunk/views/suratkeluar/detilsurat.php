@@ -35,7 +35,7 @@
         <tr><th>TIPE</th><th>NOMOR</th><th>TANGGAL</th></tr>
         <?php
             
-            foreach($this->lampiran as $value){
+            foreach($this->datal as $value){
                 echo "<tr><td>$value[tipe]</td><td>$value[nomor] ; ".Tanggal::tgl_indo($value['tanggal'])."</td>
                     <td><button class=btn onclick=viewlampiran($value[id_lamp]);>view</button>
                     <a href=".URL."lampiran/ubah/$value[id_lamp]><button class=btn >ubah</button></a>
@@ -73,5 +73,9 @@ function konfirmasi(){
         }else{
             return false;
         }
+    }
+
+function viewlampiran(id){
+        w = window.open("<?php echo URL; ?>lampiran/view/"+id, "Cetak Disposisi","toolbar=0,menubar=0,location=0,status=0,width=800,height=500");        
     }
 </script>
