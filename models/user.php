@@ -179,11 +179,22 @@ class User extends Model{
             $data = $this->select("SELECT * FROM user WHERE username='".$id."' AND password='". $password."'");
         }
         
-        return $data;
-    }
-    
-    public function getUserById($user){
-        $data = $this->select('SELECT * FROM user WHERE id_user='.$user->id_user);
+        $return = array();
+        foreach ($data as $val){
+            $user = new $this;
+            $user->set('id_user',$val['id_user']);
+            $user->set('namaPegawai',$val['namaPegawai']);
+            $user->set('NIP',$val['NIP']);
+            $user->set('nama_user',$val['username']);
+            $user->set('password',$val['password']);
+            $user->set('bagian',$val['bagian']);
+            $user->set('jabatan',$val['jabatan']);
+            $user->set('role',$val['role']);
+            $user->set('active',$val['active']);
+            $return[]= $user;
+        }
+        
+        return $return;
     }
     
     /*

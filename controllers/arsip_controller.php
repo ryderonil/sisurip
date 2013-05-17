@@ -15,8 +15,6 @@ class Arsip_Controller extends Controller{
         $this->view->js = array(
           'suratmasuk/js/default'  
         );
-        //$this->view = new View;
-        //echo "</br>kelas berhasil di bentuk";
     }
     
     public function rekam($id,$tipesurat=null){
@@ -36,38 +34,26 @@ class Arsip_Controller extends Controller{
             
             if($tipesurat=='SM'){
                 $data = $this->model->getSurat($id,'SM');
-//                $data = $this->model->select('SELECT id_suratmasuk, no_surat, asal_surat, perihal
-//                    FROM suratmasuk WHERE id_suratmasuk='.$id);
-//                foreach ($data as $value){
                     $this->view->data[0] = $data->getId();
                     $this->view->data[1] = $data->getNomor();
                     $this->view->data[2] = $data->getAlamat();
                     $this->view->data[3] = $data->getPerihal();
-//                }
             }elseif (($tipesurat=='SK')) {
                 $data = $this->model->getSurat($id,'SK');
-//                $data=$this->model->select('SELECT id_suratkeluar,no_surat,tujuan, perihal
-//                    FROM suratkeluar WHERE id_suratkeluar='.$id);
-//                foreach ($data as $value){
                     $this->view->data[0] = $data->getId();
                     $this->view->data[1] = $data->getNomor();
                     $this->view->data[2] = $data->getAlamat();
                     $this->view->data[3] = $data->getPerihal();
-//                }
             }
         }
         
         $dataa = $this->model->getArsip($id, $tipesurat);
-//        var_dump($dataa);
         $this->view->cek = count($dataa);
-        if($this->view->cek>0){
-//            ini yang susah ternyata
-//            foreach ($dataa  as $val){                
+        if($this->view->cek>0){             
                 $this->view->ar['rak'] = $dataa->lokasi[1];
                 $this->view->ar['baris'] = $dataa->lokasi[2];
                 $this->view->ar['box'] = $dataa->lokasi[3];
                 $this->view->ar['klas'] = $dataa->klas;
-//            }
             
             $this->view->rak = $this->model->getRak();
             $this->view->baris = $this->model->getBaris($this->view->ar['rak']);
@@ -75,7 +61,6 @@ class Arsip_Controller extends Controller{
             $this->view->klas = $this->model->getKlas();
             
         }else{
-//            if($this->view->data[1]==''){
             if($this->model->emptyNomor($this->view->data[1])){
                 $this->view->warning = 'surat belum mendapat nomor surat, tidak dapat diarsipkan';
             }
@@ -112,25 +97,15 @@ class Arsip_Controller extends Controller{
                 $datastat = array('stat'=>'15', 'end'=>$time);
                 $where = 'id_suratmasuk='.$id_surat;
                 $this->model->update('suratmasuk',$datastat,$where); //update status -> arsip
-//                header('location:'.URL.'suratmasuk/detil/'.$id_surat);
             }elseif($tipe_surat=='SK'){
                 $time = date('Y-m-d H:i:s');
                 $datastat = array('status'=>'23', 'end'=>$time);
                 $where = 'id_suratkeluar='.$id_surat;
                 $this->model->update('suratkeluar',$datastat,$where); //update status -> arsip
-//                header('location:'.URL.'suratkeluar/detil/'.$id_surat);
             }
         }
         
         return true;
-        
-//        pesan berhasilnya mana
-//        $this->view->rak = $this->model->getRak();
-//        $this->view->baris = $this->model->getBaris();
-//        $this->view->box = $this->model->getBox();
-//        $this->view->render('arsip/rekam');
-        
-        
     }
     
     public function ikhtisar($key=null,$value=null) {
@@ -140,8 +115,6 @@ class Arsip_Controller extends Controller{
         }else{
             $ikhtisar = $ikhtarsip->generateIkhtisharArsip();
         }
-        
-//        var_dump($ikhtisar);
         
         echo "<div id=table-wrapper><h2 align=center><font color=black>DAFTAR IKHTISAR DOKUMEN/ARSIP</font></h2>";
         echo "<h3 align=center>".Kantor::getNama()."</h3>";
@@ -157,11 +130,9 @@ class Arsip_Controller extends Controller{
             <td><font color=black><b>Ket</b></font></td>
             </tr>";
         $no=1;
-//        var_dump($ikhtisar);
         foreach ($ikhtisar as $key => $value) {
             $lokasi = $value['lokasi'];
             for($i=0;$i<count($lokasi);$i++){
-//                $lok = str_replace("-", ",", $lokasi[$i]);
                 $lokasi[$i] = "<a href=#><div onclick=getarsiplokasi('".$lokasi[$i]."');>$lokasi[$i]</div></a>";
             }
             $klas = $value['klas'];
@@ -187,7 +158,8 @@ class Arsip_Controller extends Controller{
     public function ikhtisarLokasi(){
         $lokasi = $_POST['queryString'];
         $lokasi = explode("-", $lokasi);
-        $id = $this->model->getArsipByLokasi($lokasi);        
+        $ikhtisar = new IkhtisharArsip();
+        $id = $ikhtisar->getArsipbyLokasi($lokasi);      
         
         echo "<div id=table-wrapper><h2 align=center><font color=black>DAFTAR IKHTISAR DOKUMEN/ARSIP</font></h2>";
         echo "<h3 align=center>LOKASI ARSIP : ".implode("->", $lokasi)."</h3>";
@@ -225,7 +197,8 @@ class Arsip_Controller extends Controller{
     public function ikhtisarKlas(){
         $klas = $_POST['queryString'];
         $klas = str_replace("-", " ", $klas);
-        $id = $this->model->getArsipByKlas($klas);        
+        $ikhtisar = new IkhtisharArsip();
+        $id = $ikhtisar->getArsipByKlasifikasi($klas);    
         
         echo "<div id=table-wrapper><h2 align=center><font color=black>DAFTAR IKHTISAR DOKUMEN/ARSIP</font></h2>";
         echo "<h3 align=center>KLASIFIKASI ARSIP : ".$klas."</h3>";

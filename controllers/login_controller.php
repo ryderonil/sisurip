@@ -30,10 +30,10 @@ class Login_Controller extends Controller{
 //        $data = $this->model->auth($username, $password);
         $data = $user->getUser($username,$password);
         foreach($data as $value){
-            $this->user = $value['username'];
-            $this->nama = $value['namaPegawai'];
-            $this->role = $value['role']; 
-            $this->bagian = $value['bagian']; 
+            $this->user = $value->get('nama_user');
+            $this->nama = $value->get('namaPegawai');
+            $this->role = $value->get('role'); 
+            $this->bagian = $value->get('bagian'); 
         }
         
         $int = count($data);

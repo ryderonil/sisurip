@@ -15,6 +15,10 @@ class Lokasi extends Model{
         parent::__construct();
     }
     
+    /*
+     * fungsi mendapatkan kode lengkap lokasi
+     * return string
+     */
     public function getLokasiBox($id_box,$bagian){
         $sql = "SELECT a.lokasi as box, 
                                     b.lokasi as baris,
@@ -22,13 +26,10 @@ class Lokasi extends Model{
                                     a.bagian as bagian
                                     FROM lokasi a LEFT JOIN lokasi b ON a.parent=b.id_lokasi
                                     LEFT JOIN lokasi c ON b.parent=c.id_lokasi 
-                                    WHERE a.id_lokasi=".$id_box." AND a.bagian ='".$bagian."'";
-//        var_dump($sql);
-                                                               
+                                    WHERE a.id_lokasi=".$id_box." AND a.bagian ='".$bagian."'";                                      
         $lokasi = '';
         $datal = $this->select($sql);
         foreach ($datal as $loc){
-//            $lokasi = $loc['bagian'];
             $lokasi .= '-'.$loc['rak'];
             $lokasi .= '-'.$loc['baris'];
             $lokasi .= '-'.$loc['box'];
@@ -37,10 +38,6 @@ class Lokasi extends Model{
             $this->lokasi = $lokasi;
         }
         return $this->bagian.$this->lokasi;
-    }
-    
-    public function setLokasi(){
-        
     }
     
     public function __toString() {

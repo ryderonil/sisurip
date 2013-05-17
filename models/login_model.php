@@ -13,7 +13,12 @@ class Login_Model extends Model {
         //echo 'ini adalah model</br>';
         parent::__construct();
     }
-
+    
+    /*
+     * fungsi cek pengguna 
+     * param username, password
+     * return data user array
+     */
     public function auth($username, $password) {
 
         $sql = "SELECT * FROM user WHERE username = :username AND password = :password AND active='Y'";
@@ -32,6 +37,11 @@ class Login_Model extends Model {
         return $data;
     }
 
+    /*
+     * fungsi mendapatkan nama role/peran
+     * param id role
+     * return nama role string
+     */
     public static function getRoleName($id) {
 
         $role = '';
@@ -46,7 +56,12 @@ class Login_Model extends Model {
         }
         return $role;
     }
-
+    
+    /*
+     * fungsi mendapatkan nama bagian
+     * param id bagian
+     * return nama bagian string
+     */
     public static function getBagianName($id) {
         $bagian = '';
         $sql = 'SELECT bagian FROM r_bagian WHERE id_bagian=' . $id;
