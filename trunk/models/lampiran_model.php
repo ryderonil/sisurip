@@ -24,10 +24,12 @@ class Lampiran_Model extends Model {
     var $file;    
 
     public function __construct() {
-        //echo 'ini adalah model</br>';
         parent::__construct();
     }
     
+    /*
+     * setter
+     */
     public function set($attr, $val){
         switch($attr){
             case 'id_lamp':
@@ -63,6 +65,9 @@ class Lampiran_Model extends Model {
         }
     }
     
+    /*
+     * getter
+     */
     public function get($attr){
         switch($attr){
             case 'id_lamp':
@@ -98,16 +103,29 @@ class Lampiran_Model extends Model {
         }
         
     }
-
+    
+    /*
+     * fungsi rekam lampiran
+     * param data array
+     * return boolean
+     */
     public function addLampiran($data) {
         return $this->insert('lampiran', $data);
     }
-
+    
+    /*
+     * fungsi hapus lampiran
+     * return boolean
+     */
     public function deleteLampiran() {
         $where = ' id_lamp='.$this->get('id_lamp');
         return $this->delete('lampiran', $where);
     }
-
+    
+    /*
+     * fungsi update data lampiran
+     * return boolean
+     */
     public function editLampiran() {
         $data = array(
             'jns_surat'=>$this->get('jns_surat'),
@@ -124,7 +142,12 @@ class Lampiran_Model extends Model {
         $where = ' id_lamp='.$this->get('id_lamp');
         return $this->update('lampiran', $data, $where);
     }
-
+    
+    /*
+     * fungsi mendapatkan data lampiran
+     * param id lampiran, default NULL
+     * return lampiran array
+     */
     public function getLampiran($id = null) {
 
         if (!is_null($id)) {
@@ -135,14 +158,23 @@ class Lampiran_Model extends Model {
 
         return $this->select($sql);
     }
-
+    
+    /*
+     * fungsi mendapatkan lampiran surat
+     * param id surat, jenis surat->SM,SK
+     * return lampiran array
+     */
     public function getLampiranSurat($id, $tipe) {
 
         $sql = "SELECT * FROM lampiran WHERE id_surat=" . $id . " AND jns_surat='" . $tipe . "'";
 
         return $this->select($sql);
     }
-
+    
+    /*
+     * fungsi mendapatkan list tipe naskah
+     * return tipe naskah array
+     */
     public function getTypeLampiran() {
         return $this->select('SELECT * FROM tipe_naskah');
     }

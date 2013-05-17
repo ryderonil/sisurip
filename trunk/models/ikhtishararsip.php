@@ -19,6 +19,9 @@ class IkhtisharArsip extends Model{
         parent::__construct();
     }
     
+    /*
+     * setter
+     */
     public function set($attr, $value){
         switch ($attr){
             case 'id_arsip':
@@ -42,6 +45,9 @@ class IkhtisharArsip extends Model{
         }
     }
     
+    /*
+     * getter
+     */
     public function get($attr){
         switch ($attr){
             case 'id_arsip':
@@ -65,6 +71,10 @@ class IkhtisharArsip extends Model{
         }
     }
     
+    /*
+     * fungsi ikhtisar arsip
+     * 
+     */
     public function generateIkhtisharArsip($key=null,$value=null){
         $lokasi = new Lokasi();
         $arsip = new Arsip_Model();
@@ -187,11 +197,133 @@ class IkhtisharArsip extends Model{
     }
     
     public function getArsipByKlasifikasi($klas){
-        $sql = "SELECT * FROM arsip WHERE klasifikasi=".$klas;        
+        $sql = "SELECT id_klasarsip FROM klasifikasi_arsip
+                WHERE klasifikasi='".$klas."'";        
+        
+        $datai = $this->select($sql);
+        $id = 0;
+        foreach ($datai as $val){
+            $id = $val['id_klasarsip'];
+        }
+        
+        $darsip = array();
+        $sql = "SELECT a.id_arsip as id_arsip,
+            a.id_surat as id_surat,
+            b.no_surat as no_surat,
+            b.tgl_surat as tgl_surat,
+            d.nama_satker as alamat,
+            a.tipe_surat as tipe, 
+            c.tipe_naskah as tipe_naskah
+            FROM arsip a LEFT JOIN suratmasuk b ON a.id_surat=b.id_suratmasuk             
+            LEFT JOIN tipe_naskah c ON a.jenis=c.id_tipe
+            LEFT JOIN alamat d ON b.asal_surat=d.kode_satker
+            WHERE a.jenis=".$id." AND a.tipe_surat='SM'";        
+        
+        $datasm = $this->select($sql);
+        foreach ($datasm as $val){
+            $arsip = new Arsip_Model();
+            $arsip->id_arsip = $val['id_arsip'];
+            $arsip->id_surat = $val['id_surat'];
+            $arsip->no_surat = $val['no_surat'];
+            $arsip->tgl_surat = $val['tgl_surat'];
+            $arsip->alamat = $val['alamat'];
+            $arsip->tipe = $val['tipe'];
+            $arsip->klas = $val['tipe_naskah'];            
+            $darsip[] = $arsip;
+        }
+        
+        $sql = "SELECT a.id_arsip as id_arsip,
+            a.id_surat as id_surat,
+            b.no_surat as no_surat,
+            b.tgl_surat as tgl_surat,
+            d.nama_satker as alamat,
+            a.tipe_surat as tipe, 
+            c.tipe_naskah as tipe_naskah
+            FROM arsip a LEFT JOIN suratkeluar b ON a.id_surat=b.id_suratkeluar             
+            LEFT JOIN tipe_naskah c ON a.jenis=c.id_tipe
+            LEFT JOIN alamat d ON b.tujuan=d.kode_satker
+            WHERE a.jenis=".$id." AND a.tipe_surat='SK'";        
+        
+        $datask = $this->select($sql);
+        foreach ($datask as $val){
+            $arsip = new Arsip_Model();
+            $arsip->id_arsip = $val['id_arsip'];
+            $arsip->id_surat = $val['id_surat'];
+            $arsip->no_surat = $val['no_surat'];
+            $arsip->tgl_surat = $val['tgl_surat'];
+            $arsip->alamat = $val['alamat'];
+            $arsip->tipe = $val['tipe'];
+            $arsip->klas = $val['tipe_naskah'];            
+            $darsip[] = $arsip;
+        }
+        
+        return $darsip;       
     }
     
     public function getArsipbyLokasi($lokasi){
-        $sql = "SELECT * FROM arsip WHERE lokasi=".$lokasi;
+        $sql = "SELECT id_lokasi FROM lokasi 
+                WHERE lokasi='".$lokasi[3]."'
+                AND parent=(SELECT id_lokasi FROM lokasi WHERE lokasi='".$lokasi[2]."'
+                AND parent=(SELECT id_lokasi FROM lokasi WHERE lokasi='".$lokasi[1]."' AND bagian='".$lokasi[0]."'))";        
+        
+        $datai = $this->select($sql);
+        $id = 0;
+        foreach ($datai as $val){
+            $id = $val['id_lokasi'];
+        }
+        
+        $darsip = array();
+        $sql = "SELECT a.id_arsip as id_arsip,
+            a.id_surat as id_surat,
+            b.no_surat as no_surat,
+            b.tgl_surat as tgl_surat,
+            d.nama_satker as alamat,
+            a.tipe_surat as tipe, 
+            c.tipe_naskah as tipe_naskah
+            FROM arsip a LEFT JOIN suratmasuk b ON a.id_surat=b.id_suratmasuk             
+            LEFT JOIN tipe_naskah c ON a.jenis=c.id_tipe
+            LEFT JOIN alamat d ON b.asal_surat=d.kode_satker
+            WHERE id_lokasi=".$id." AND a.tipe_surat='SM'";        
+        
+        $datasm = $this->select($sql);
+        foreach ($datasm as $val){
+            $arsip = new Arsip_Model();
+            $arsip->id_arsip = $val['id_arsip'];
+            $arsip->id_surat = $val['id_surat'];
+            $arsip->no_surat = $val['no_surat'];
+            $arsip->tgl_surat = $val['tgl_surat'];
+            $arsip->alamat = $val['alamat'];
+            $arsip->tipe = $val['tipe'];
+            $arsip->klas = $val['tipe_naskah'];            
+            $darsip[] = $arsip;
+        }
+        
+        $sql = "SELECT a.id_arsip as id_arsip,
+            a.id_surat as id_surat,
+            b.no_surat as no_surat,
+            b.tgl_surat as tgl_surat,
+            d.nama_satker as alamat,
+            a.tipe_surat as tipe, 
+            c.tipe_naskah as tipe_naskah
+            FROM arsip a LEFT JOIN suratkeluar b ON a.id_surat=b.id_suratkeluar             
+            LEFT JOIN tipe_naskah c ON a.jenis=c.id_tipe
+            LEFT JOIN alamat d ON b.tujuan=d.kode_satker
+            WHERE id_lokasi=".$id." AND a.tipe_surat='SK'";        
+        
+        $datask = $this->select($sql);
+        foreach ($datask as $val){
+            $arsip = new Arsip_Model();
+            $arsip->id_arsip = $val['id_arsip'];
+            $arsip->id_surat = $val['id_surat'];
+            $arsip->no_surat = $val['no_surat'];
+            $arsip->tgl_surat = $val['tgl_surat'];
+            $arsip->alamat = $val['alamat'];
+            $arsip->tipe = $val['tipe'];
+            $arsip->klas = $val['tipe_naskah'];            
+            $darsip[] = $arsip;
+        }
+        
+        return $darsip;
     }
     
     

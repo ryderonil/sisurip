@@ -30,7 +30,6 @@ class EkspedisiSurat extends Model{
                 WHERE  a.stat =11";
         
         $data = $this->select($sql);
-//        var_dump($data);
         foreach ($data as $val){
             $disp = explode(",", $val['disposisi']);
             if(count($disp)>1){
@@ -55,11 +54,6 @@ class EkspedisiSurat extends Model{
             }
         }
         return $this->getData();
-//        var_dump(count($this->dataEks));
-//        var_dump($this->dataEks);
-//        $view = new View();
-//        $view->data = $this->getData();
-//        $view->load('suratmasuk/expedisi');
     }
 }
 ?>

@@ -368,12 +368,15 @@ class Monitoring_Controller extends Controller {
     }
     
     public function grafikKinerjaPegawai(){
-        $data = $this->model->kinerjaPegawai();
+        /*$data = $this->model->kinerjaPegawai();
         $this->view->data = array();
         foreach ($data as $val){
             $this->view->data[] = $val;
-        }
-//        var_dump($this->view->data);
+        }*/
+        $kinerja = new KinerjaPegawai();
+        $data = $kinerja->displayKinerja();
+        $this->view->data = $data;
+        
         $this->view->load('monitoring/kinerjapegawai');
     }
     
@@ -417,6 +420,16 @@ class Monitoring_Controller extends Controller {
             }
         }
         $this->view->load('monitoring/grafik');
+    }
+    
+    public function test(){
+        $kinerja = new KinerjaPegawai();
+        $data = $kinerja->displayKinerja();
+        $this->view->data = array();
+        foreach ($data as $val){
+            $this->view->data[] = $val;
+        }
+        var_dump($this->view->data);
     }
 
 }

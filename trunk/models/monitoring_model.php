@@ -29,29 +29,6 @@ class Monitoring_Model extends Model {
     }
     
     /*
-     * 
-     */
-    public function monitoringKinerjaSuratMasuk() {
-        $sql = "SELECT no_agenda, tgl_terima, start, end FROM suratmasuk";
-        $data = $this->select($sql);
-        foreach ($data as $value) {
-            $selisihhari = $this->cekSelisihHari($value['start'], $value['end']);
-            $start = explode(" ", $value['start']);
-            $start = trim($start[1]);
-            $end = explode(" ", $value['end']);
-            $end = trim($end[1]);
-            if ($selisihhari > 0) {
-                $hari1 = $this->cekSelisihJam($this->jampulang, $start);
-                $hari2 = $this->cekSelisihJam($end, $this->jammasuk);
-                $selisihjam = $hari1 + $hari2;
-            } else {
-                $selisihjam = $this->cekSelisihJam($end, $start);
-            }
-            $kinerja = ceil(($selisihjam / $this.time_sm) * 100);
-        }
-    }
-    
-    /*
      * monitoring kinerja surat masuk tahun berjalan
      * param tahun, jenis surat-SM, SK
      * return data array kinerja per bulan:bulan, float
@@ -108,12 +85,6 @@ class Monitoring_Model extends Model {
                 $sum = round(array_sum($krj)/($count),2); 
                 $arraydata[$value['bulan']] = $sum;                          
             }
-            /*else if($count==1){                
-                $krj[] = $kinerja;
-                $sum = round(array_sum($krj)/($count),2); 
-                $arraydata[$value['bulan']] = $sum;                
-                $count++;
-            }*/
             $bulan = $value['bulan'];            
         }
         return $arraydata;
@@ -175,12 +146,7 @@ class Monitoring_Model extends Model {
                 $count = 1;
                 $sum = array_sum($krj)/($count); 
                 $arraydata[$value['tanggal']] = $sum;                          
-            }/*else if($count==1){                
-                $krj[] = $kinerja;
-                $sum = array_sum($krj)/($count); 
-                $arraydata[$value['tanggal']] = $sum;                
-                $count++;
-            }*/
+            }
             $tanggal = $value['tanggal'];            
         }
         return $arraydata;
@@ -199,7 +165,6 @@ class Monitoring_Model extends Model {
         }
         
         $data = $this->select($sql);
-        //var_dump($data);
         $arraydata = array();
         $krj = array();
         $count = 1;
@@ -243,12 +208,6 @@ class Monitoring_Model extends Model {
                 $sum = array_sum($krj)/($count); 
                 $arraydata[$value['no_agenda']] = $sum;                          
             }
-            /*else if($count==1){                
-                $krj[] = $kinerja;
-                $sum = array_sum($krj)/($count); 
-                $arraydata[$value['no_agenda']] = $sum;                
-                $count++;
-            }*/
             $agenda = $value['no_agenda'];            
         }
         return $arraydata;
@@ -285,7 +244,6 @@ class Monitoring_Model extends Model {
 
     public function cekSelisihHari($start, $end) {
         $libur = $this->cekLibur($start, $end);
-//        echo $libur.'<br>';
         $hari1 = explode(" ", $start); //memisahkan date dengan time
         
         $tgl1 = $hari1[0];
@@ -296,7 +254,6 @@ class Monitoring_Model extends Model {
         $hari2 = explode(" ", $end);
         $tgl2 = $hari2[0];
         $tgl2 = explode("-", $tgl2);
-//        var_dump($tgl2);
         if (((int) $tgl2[0] - (int) $tgl1[0]) == 0) { //jika tahunnya sama
             if (((int) $tgl2[1] - (int) $tgl1[1]) == 0) { //jika bulannya sama
                 if (((int) $tgl2[2] - (int) $tgl1[2]) == 0) { //jika tanggalnya sama
@@ -327,6 +284,7 @@ class Monitoring_Model extends Model {
     
     /*
      * fungsi mendapatkan jumlah libur antara selisih tanggal
+     * param tanggal awal, tanggal akhir
      * return int
      */
     function cekLibur($start, $end){
@@ -365,74 +323,10 @@ class Monitoring_Model extends Model {
         return $libur;
     }
     
-    // Set timezone
-    // Time format is UNIX timestamp or
-    // PHP strtotime compatible strings
-
-    function dateDiff($time1, $time2, $precision = 6) {
-        // If not numeric then convert texts to unix timestamps
-        if (!is_int($time1)) {
-            $time1 = strtotime($time1);
-        }
-        if (!is_int($time2)) {
-            $time2 = strtotime($time2);
-        }
-
-        // If time1 is bigger than time2
-        // Then swap time1 and time2
-        if ($time1 > $time2) {
-            $ttime = $time1;
-            $time1 = $time2;
-            $time2 = $ttime;
-        }
-
-        // Set up intervals and diffs arrays
-        $intervals = array('year', 'month', 'day', 'hour', 'minute', 'second');
-        $diffs = array();
-
-        // Loop thru all intervals
-        foreach ($intervals as $interval) {
-            // Set default diff to 0
-            $diffs[$interval] = 0;
-            // Create temp time from time1 and interval
-            $ttime = strtotime("+1 " . $interval, $time1);
-            // Loop until temp time is smaller than time2
-            while ($time2 >= $ttime) {
-                $time1 = $ttime;
-                $diffs[$interval]++;
-                // Create new temp time from time1 and interval
-                $ttime = strtotime("+1 " . $interval, $time1);
-            }
-        }
-
-        $count = 0;
-        $times = array();
-        // Loop thru all diffs
-        foreach ($diffs as $interval => $value) {
-            // Break if we have needed precission
-            if ($count >= $precision) {
-                break;
-            }
-            // Add value and interval 
-            // if value is bigger than 0
-            if ($value > 0) {
-                // Add s if value is not 1
-                if ($value != 1) {
-                    $interval .= "s";
-                }
-                // Add value and interval to times array
-                $times[] = $value . " " . $interval;
-                $count++;
-            }
-        }
-
-        // Return string with times
-        return implode(", ", $times);
-    }
-    
     /*
      * fungsi mendapatkan batas penyelesaian surat
-     * return int
+     * param tipe surat keluar -> segera, sangat segera, biasa 
+     * return float
      */
     private function getTimeLimit($tipe_sk){
         $sql = "SELECT batas_waktu FROM klasifikasi_surat WHERE kode_klassurat='".$tipe_sk."'";
@@ -449,7 +343,7 @@ class Monitoring_Model extends Model {
      * fungsi cek sifat surat keluar
      * return int
      */
-    private function cekSifatSuratKeluar($id){
+    public function cekSifatSuratKeluar($id){
         $batas=0;
         $sql = "SELECT rujukan,jenis FROM suratkeluar WHERE id_suratkeluar=".$id;        
         $data = $this->select($sql);        
@@ -548,6 +442,10 @@ class Monitoring_Model extends Model {
         }
     }
     
+    /*
+     * fungsi menghitung kinerja pegawai, jumlah surat tepat waktu, terlambat, belum selesai
+     * return array int
+     */
     public function kinerjaPegawai() {
         
         $sql = "SELECT a.id_suratkeluar as no_agenda,
@@ -607,6 +505,10 @@ class Monitoring_Model extends Model {
         return $arraydata;
     }
     
+    /*
+     * fungsi data jumlah surat per alamat
+     * return array int
+     */
     public function grafikAsalSurat() {
         
         $sql = "SELECT asal_surat 
@@ -623,10 +525,13 @@ class Monitoring_Model extends Model {
         return $arraydata;
     }
     
+    /*
+     * fungsi jumlah surat masuk harian bulan berjalan
+     * return array int
+     */
     public function grafikJmlSuratMasuk($bln=null) {
         if(is_null($bln)){
             $month = date('m');
-//            $month = '04';
         }
         
         
@@ -645,6 +550,10 @@ class Monitoring_Model extends Model {
         return $arraydata;
     }
     
+    /*
+     * mendapatkan jumlah surat keluar per tipe naskah dinas
+     * return array int
+     */
     public function grafikTipeSuratKeluar() {
         
         $sql = "SELECT a.tipe as tipe,
@@ -664,10 +573,13 @@ class Monitoring_Model extends Model {
         return $arraydata;
     }
     
+    /*
+     * mendapatkan jumlah surat keluar harian dalam bulan berjalan
+     * return array int
+     */
     public function grafikJmlSuratKeluar($bln=null) {
         if(is_null($bln)){
             $month = date('m');
-//            $month = '04';
         }
         
         $sql = "SELECT tgl_surat as tgl

@@ -90,7 +90,6 @@ class Notifikasi extends Model{
                 'bagian'=>$this->get('bagian'),
                 'stat_notif'=>$this->get('stat_notif')
             );
-            //var_dump($data);
         $insert = $this->insert('notifikasi', $data);
         if($insert){
             return true;
@@ -126,7 +125,6 @@ class Notifikasi extends Model{
         $id_user=0;
         if(is_numeric($user)){
             $id_user=$user;
-            //echo $id_user.'.</br>';
         }else{
             $sql = "SELECT id_user FROM user WHERE username = :username";            
             $sth = $this->prepare($sql);
@@ -136,9 +134,7 @@ class Notifikasi extends Model{
             foreach ($data as $value) {
                 $id_user = $value->id_user;
             }
-            //echo $id_user.'</br>';
         }
-        //echo $id_surat.','.$jenis_surat.','.$user.','.$id_user.'</br>';
         $sql = "SELECT * FROM notifikasi WHERE id_surat=:id_surat AND id_user=:id_user AND jenis_surat=:jenis_surat AND stat_notif=1";
         $sth = $this->prepare($sql);
         $sth->bindValue(':id_surat',$id_surat);
@@ -147,7 +143,6 @@ class Notifikasi extends Model{
         $sth->execute();
         $data = $sth->fetchAll(PDO::FETCH_ASSOC);
         $count = count($data);
-        //echo $count;
         if($count>0) return true;
         return false;
     }
@@ -179,15 +174,12 @@ class Notifikasi extends Model{
         $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE id_user=(SELECT id_user FROM user WHERE username=:user) AND stat_notif=1";
         
         $sth = $pdo->prepare($sql);
-//        $sth->bindValue(':role',$role);
-//        $sth->bindValue(':bagian',$bagian);
         $sth->bindValue(':user',$user);
         $sth->execute();
         $data = $sth->fetchAll(PDO::FETCH_OBJ);
         foreach ($data as $value) {
             $count = $value->jml;
         }
-        //var_dump($data);
         return $count;
     }
     
