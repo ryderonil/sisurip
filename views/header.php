@@ -77,7 +77,7 @@ $roleuser = Helper_Model::getRoleUser($user);
                                     </li>
                                 <?php } ?>
     <?php if (Auth::isRole($role, 5) OR Auth::isRole($role, 3)) { ?>
-                                    <li><a href="">Pengaturan</a>
+                                    <li><a >Pengaturan</a>
                                         <ul>
                                             <?php if (Auth::isRole($role, 5)) { ?><li onclick="menu('kantor')"><a >Kantor</a></li> <!--href="<?php echo URL; ?>admin/rekamKantor"--><?php } ?> 
                                             <li onclick="menu('alamat')"><a >Alamat Surat</a></li> <!--href="<?php echo URL; ?>admin/rekamAlamat"-->
