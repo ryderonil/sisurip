@@ -18,8 +18,8 @@
                     <option value="nomor">Nomor</option>
                     <option value="alamat">Alamat</option>
                 </select></td>
-                <td valign="top"><input type="text" id="datepicker" class="tip" title="Tanggal Awal" onchange=""></br>
-                <input type="text" id="datepicker2" class="tip" title="Tanggal Akhir" onchange=""></td></tr>        
+                <td valign="top"><input type="text" id="datepicker" class="tip" title="Tanggal Awal" onchange="" placeholder="dari (mm/dd/yyyy)"></br>
+                <input type="text" id="datepicker2" class="tip" title="Tanggal Akhir" onchange="" placeholder="sampai (mm/dd/yyyy)"></td></tr>        
     </table>
 </div>
 <br>

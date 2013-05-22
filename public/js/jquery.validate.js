@@ -263,7 +263,7 @@ $.extend($.validator, {
 	},
 
 	messages: {
-		required: "Kolom ini perlu diisi.",
+		required: "Kolom ini harus diisi.",
 		remote: "Please fix this field.",
 		email: "Isikan alamat email yang valid.",
 		url: "Isikan URL yang valid.",

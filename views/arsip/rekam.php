@@ -12,6 +12,8 @@ $html->hr();
 $html->heading('INFORMASI INDUK SURAT', 3);
 $html->hr();
 $html->br();
+$html->div_open('id', 'pesan');
+$html->div_close();
 $html->div_open('id', 'form-wrapper');
 $form->form_open('');
 $form->form_label('NOMOR SURAT');
@@ -32,7 +34,7 @@ $html->br();
 ?>
 
 
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+<div id="form-wrapper"><form id="form-rekam" >
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>arsip/rekamArsip">-->
         <?php 
         if(isset($this->error)){
@@ -40,9 +42,12 @@ $html->br();
         }elseif(isset($this->success)){
             echo "<div id=success>$this->success</div>";
         }
+        if(isset($this->ar)){
     ?>
-    <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
-    <input type="hidden" name="tipe" value="<?php echo $this->tipe;?>">
+    <input id="id_arsip" type="hidden" name="id_arsip" value="<?php echo $this->ar['id_arsip'];?>">
+        <?php }?>
+    <input id="id_surat" type="hidden" name="id" value="<?php echo $this->data[0];?>">
+    <input id="tipe" type="hidden" name="tipe" value="<?php echo $this->tipe;?>">
     <?php if(isset($this->warning)) { ?><div id="warning"><?php echo $this->warning;?></div><?php } ?>
 <?php if(!isset($this->warning)) { ?>
     <label>FILLING/RAK</label><select class="required" id="rak" name="rak" onchange="pilihbaris(this.value);">
@@ -117,7 +122,13 @@ $html->br();
         //}
         ?>
     </select></br>
-    <label></label><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="button" name="submit" value="SIMPAN" onclick="
+        <?php if(isset($this->ar)) {?>
+            selesai();
+        <?php }else{ ?>
+            rekam();
+        <?php } ?> "> 
+        
 </form></div> <?php } ?>
 
 <script type="text/javascript">
@@ -136,6 +147,60 @@ function pilihbox(baris){
             function(data){                
                 $('#box').html(data);
             });
+}
+
+function rekam(){
+    var box = document.getElementById('box').value;
+    var id_surat = document.getElementById('id_surat').value;
+    var tipe_surat = document.getElementById('tipe').value;
+    var jenis = document.getElementById('klas').value;
+    
+    $.ajax({
+       type:"POST",
+       url:'<?php echo URL;?>arsip/rekamArsip',
+       data:'box='+box+
+            '&id='+id_surat+
+            '&tipe='+tipe_surat+
+            '&jenis='+jenis,
+        success:function(data){
+            $('#pesan').fadeIn(500);
+            $('#pesan').html(data);
+        }
+    });
+}
+
+function ubah(){
+    var id_arsip = document.getElementById('id_arsip').value;
+    var box = document.getElementById('box').value;
+    var id_surat = document.getElementById('id_surat').value;
+    var tipe_surat = document.getElementById('tipe').value;
+    var jenis = document.getElementById('klas').value;
+    
+    $.ajax({
+       type:"POST",
+       url:'<?php echo URL;?>arsip/ubahArsip',
+       data:'box='+box+
+            '&id='+id_surat+
+            '&id_arsip='+id_arsip+
+            '&tipe='+tipe_surat+
+            '&jenis='+jenis,
+        success:function(data){
+            $('#pesan').fadeIn(500);
+            $('#pesan').html(data);
+        }
+    });
+}
+
+function selesai(){
+    
+    var answer = 'Anda yakin akan menyimpan perubahan data arsip?';
+    
+    if(confirm(answer)){
+        ubah();
+        return true;
+    }else{
+        return false;
+    }
 }
 
 </script>

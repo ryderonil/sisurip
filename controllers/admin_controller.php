@@ -199,7 +199,9 @@ class Admin_Controller extends Controller {
             }
         }
         $this->view->klasArsip = $this->model->select('SELECT * FROM klasifikasi_arsip');
-        $dataUbah = $this->model->select('SELECT * FROM klasifikasi_arsip WHERE id_klasarsip=' . $id);
+        //di bawah ini bisa pake getKlasifikasiById
+//        $dataUbah = $this->model->select('SELECT * FROM klasifikasi_arsip WHERE id_klasarsip=' . $id);
+        $dataUbah = $this->model->getKlasifikasiById($id);
         foreach ($dataUbah as $value) {
             $this->view->data[0] = $value['id_klasarsip'];
             $this->view->data[1] = $value['kode'];
@@ -242,7 +244,8 @@ class Admin_Controller extends Controller {
         $this->view->rak = $this->model->select('SELECT * FROM lokasi WHERE tipe=1');
         $this->view->baris = $this->model->select('SELECT * FROM lokasi WHERE tipe=2');
         $this->view->lokasi = $this->model->viewLokasi();
-        $dataUbah = $this->model->select('SELECT * FROM lokasi WHERE id_lokasi=' . $id);
+//        $dataUbah = $this->model->select('SELECT * FROM lokasi WHERE id_lokasi=' . $id);
+        $dataUbah = $this->model->getLokasibyId($id);
         foreach ($dataUbah as $value) {
             //jika rak maka langsung, jika baris maka dicari raknya dulu dari parent, jika box maka dua kali 
             //cari parent
@@ -300,7 +303,8 @@ class Admin_Controller extends Controller {
         }
         $this->view->bagian = $this->model->select('SELECT * FROM r_bagian');
         $this->view->nomor = $this->model->select('SELECT * FROM nomor');
-        $dataUbah = $this->model->select('SELECT * FROM nomor WHERE id_nomor=' . $id);
+//        $dataUbah = $this->model->select('SELECT * FROM nomor WHERE id_nomor=' . $id);
+        $dataUbah = $this->model->getNomorById($id);
         foreach ($dataUbah as $value) {
             $this->view->data[0] = $value['id_nomor'];
             $this->view->data[1] = $value['bagian'];
@@ -356,11 +360,13 @@ class Admin_Controller extends Controller {
             header('location:'.URL.'home');
         }
         $user = new User();
+//        $dataUbah = $user->getUser($id);
         if(isset($_POST['submit'])){
 //            if($user->cekUserExist($_POST['username'], $_POST['NIP'])){
 //                $this->view->error = "nama user telah dipakai, atau pegawai ini telah memiliki akun!";
 //            }
-            if($this->updateRekamUser()){
+            $update = $this->updateRekamUser();
+            if($update){
                 $this->view->success = "Ubah data berhasil";
             }else{
                 $this->view->error = "Ubah data gagal!";
@@ -371,6 +377,7 @@ class Admin_Controller extends Controller {
         $this->view->jabatan = $this->model->select('SELECT * FROM jabatan');
         $this->view->role = $this->model->select('SELECT * FROM role');
         $dataUbah = $this->model->select('SELECT * FROM user WHERE id_user=' . $id);
+        //belum disesuaikan dengan objek user
         foreach ($dataUbah as $value) {
             $this->view->data[0] = $value['id_user'];
             $this->view->data[1] = $value['username'];
@@ -446,6 +453,7 @@ class Admin_Controller extends Controller {
         foreach ($duser as $val){
             $user = $val['user'];
         }
+        //harusnya dilempar ke model
         $this->model->delete('pjs',$where);
         $this->view->success = "Hapus data pejabat sementara berhasil!";
         
@@ -669,10 +677,10 @@ class Admin_Controller extends Controller {
         );*/
 
 //        $where = ' id_user=' . $_POST['id'];
-        $user->editUser();
+        
 //        $this->model->updateUser($data, $where);
 //        $this->rekamUser();
-        return true;
+        return $user->editUser();
     }
 
     public function hapusUser($id) {
@@ -938,6 +946,34 @@ class Admin_Controller extends Controller {
         $this->view->data = $log->getLog('libs/log.csv');        
         
         $this->view->render('admin/log');
+    }
+    
+    public function test(){
+        $q = $_POST['queryString'];
+        $post = explode("-", $q);
+        $user = new User();
+        $user->set('id_user', $post[0]);
+        $aktif = ($post[1] == 'Y') ? 'N' : 'Y';
+        $jabatan = 0;
+        $bagian = 0;
+        $datau = $this->model->select("SELECT jabatan, bagian FROM user WHERE id_user=".$post[0]);
+        foreach ($datau as $val){
+            $jabatan = $val['jabatan'];
+            $bagian = $val['bagian'];
+        }
+        if($aktif=='Y'){ //cari bagian dulu
+            if($this->model->cekPjs($bagian,$jabatan)){
+//                $this->rekamUser();
+                echo "<div id=warning>Pejabat Sementara masih aktif, hapus dahulu data pejabat sementara!</div>";
+                return false;
+            }
+        }
+        $user->set('active', $aktif);
+        $user->setAktifUser();
+        echo "<div id=success>Set Aktif Pengguna berhasil.</div>";
+        //echo $aktif;
+//        $this->model->setAktifUser($id, $aktif);
+//        $this->rekamUser();
     }
             
     

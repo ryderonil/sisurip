@@ -48,13 +48,12 @@ class Arsip_Controller extends Controller{
         }
         
         $dataa = $this->model->getArsip($id, $tipesurat);
-        $this->view->cek = count($dataa);
-        if($this->view->cek>0){             
+        if($dataa->id_arsip>0){             
                 $this->view->ar['rak'] = $dataa->lokasi[1];
                 $this->view->ar['baris'] = $dataa->lokasi[2];
                 $this->view->ar['box'] = $dataa->lokasi[3];
                 $this->view->ar['klas'] = $dataa->klas;
-            
+                $this->view->ar['id_arsip'] = $dataa->id_arsip;
             $this->view->rak = $this->model->getRak();
             $this->view->baris = $this->model->getBaris($this->view->ar['rak']);
             $this->view->box = $this->model->getBox($this->view->ar['baris']);
@@ -64,7 +63,6 @@ class Arsip_Controller extends Controller{
             if($this->model->emptyNomor($this->view->data[1])){
                 $this->view->warning = 'surat belum mendapat nomor surat, tidak dapat diarsipkan';
             }
-
             $this->view->rak = $this->model->getRak();
             $this->view->baris = $this->model->getBaris();
             $this->view->box = $this->model->getBox();
@@ -80,7 +78,7 @@ class Arsip_Controller extends Controller{
         $id_lokasi = $_POST['box'];
         $id_surat = $_POST['id'];
         $tipe_surat = $_POST['tipe'];
-        $jenis = $_POST['klas'];
+        $jenis = $_POST['jenis'];
         
         $data = array(
             'id_lokasi'=>$id_lokasi,
@@ -103,9 +101,37 @@ class Arsip_Controller extends Controller{
                 $where = 'id_suratkeluar='.$id_surat;
                 $this->model->update('suratkeluar',$datastat,$where); //update status -> arsip
             }
+            
+            echo "<div id=success>Rekam arsip berhasil</div>";
+        }else{
+            echo "<div id=error>Rekam arsip gagal!</div>";
         }
         
-        return true;
+//        return true;
+    }
+    
+    public function ubahArsip(){
+        $id_arsip = $_POST['id_arsip'];
+        $id_lokasi = $_POST['box'];
+        $id_surat = $_POST['id'];
+        $tipe_surat = $_POST['tipe'];
+        $jenis = $_POST['jenis'];
+        
+        $data = array(
+            'id_lokasi'=>$id_lokasi,
+            'id_surat'=>$id_surat,
+            'tipe_surat'=>$tipe_surat,
+            'jenis'=>$jenis
+        );
+        
+        $where = ' id_arsip='.$id_arsip;
+        if($this->model->editArsip($data, $where)){
+            $this->view->success = "Data arsip telah berhasil disimpan";
+            
+            echo "<div id=success>Ubah arsip berhasil</div>";
+        }else{
+            echo "<div id=error>Ubah arsip gagal!</div>";
+        }
     }
     
     public function ikhtisar($key=null,$value=null) {

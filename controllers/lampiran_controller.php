@@ -260,7 +260,6 @@ class Lampiran_Controller extends Controller{
 
     public function view($id){
         $data = $this->model->getLampiran($id);
-//        var_dump($this->view->data);
         foreach($data as $val){
             $this->view->file = $val['file'];
         }

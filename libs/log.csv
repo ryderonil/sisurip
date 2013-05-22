@@ -146,3 +146,184 @@ DATETIME;USER;TAG;VALUE
 2013-05-17@22:20:48;kk;LOGIN;
 2013-05-17@22:43:32;kk;LOGOUT;
 2013-05-17@22:43:36;admin;LOGIN;
+2013-05-19@12:24:54;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0021"
+2013-05-19@12:28:23;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0021"
+2013-05-19@12:29:23;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0021"
+2013-05-19@12:30:56;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0022"
+2013-05-19@12:33:29;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0021"
+2013-05-19@12:35:44;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0022"
+2013-05-19@12:36:23;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0023"
+2013-05-19@12:37:05;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0024"
+2013-05-19@12:40:59;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0021"
+2013-05-19@12:41:52;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0021"
+2013-05-19@12:42:26;admin;LOGOUT;
+2013-05-19@12:42:28;admin;LOGIN;
+2013-05-19@12:42:48;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0022"
+2013-05-20@17:59:28;admin;LOGOUT;
+2013-05-20@17:59:42;admin;LOGIN;
+2013-05-20@18:10:31;admin;LOGIN;
+2013-05-20@18:12:44;admin;LOGOUT;
+2013-05-20@18:13:01;mastri;LOGIN;
+2013-05-20@18:13:48;mastri;LOGOUT;
+2013-05-20@18:14:03;huri;LOGIN;
+2013-05-20@18:18:55;huri;LOGOUT;
+2013-05-20@18:19:11;admin;LOGIN;
+2013-05-20@18:32:24;kk;LOGIN;
+2013-05-20@18:32:37;kk;LOGOUT;
+2013-05-20@18:32:39;admin;LOGIN;
+2013-05-20@18:32:45;admin;LOGOUT;
+2013-05-20@18:32:50;mastri;LOGIN;
+2013-05-20@18:33:49;mastri;LOGOUT;
+2013-05-20@18:33:52;admin;LOGIN;
+2013-05-20@18:36:22;admin;LOGOUT;
+2013-05-20@18:36:33;kasi;LOGIN;
+2013-05-20@18:36:38;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-05-20@18:37:44;kasi;LOGOUT;
+2013-05-20@18:37:46;admin;LOGIN;
+2013-05-20@18:38:17;admin;LOGOUT;
+2013-05-20@18:38:20;kasi;LOGIN;
+2013-05-20@18:38:22;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-05-20@21:07:48;kasi;LOGIN;
+2013-05-21@00:46:41;kasi;LOGOUT;
+2013-05-21@00:48:08;admin;LOGIN;
+2013-05-21@00:49:05;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0021"
+2013-05-21@00:49:32;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0022"
+2013-05-21@00:50:16;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0023"
+2013-05-21@00:51:05;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0024"
+2013-05-21@00:53:55;admin;LOGOUT;
+2013-05-21@00:53:57;kasi;LOGIN;
+2013-05-21@00:53:59;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-05-21@00:54:11;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda SM0020"
+2013-05-21@00:55:07;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda SM0020"
+2013-05-21@00:58:56;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda SM0020"
+2013-05-21@01:05:06;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda SM0020"
+2013-05-21@01:05:26;kasi;"DELETE SM";"user kasi menghapus surat masuk no agenda"
+2013-05-21@01:05:52;kasi;LOGOUT;
+2013-05-21@01:05:57;admin;LOGIN;
+2013-05-21@01:07:26;admin;LOGOUT;
+2013-05-21@01:07:32;huri;LOGIN;
+2013-05-21@01:07:48;huri;LOGOUT;
+2013-05-21@01:07:51;kk;LOGIN;
+2013-05-21@01:08:14;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0017"
+2013-05-21@01:09:06;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0016"
+2013-05-21@01:10:28;kk;LOGOUT;
+2013-05-21@01:10:33;kasi;LOGIN;
+2013-05-21@01:10:52;kasi;"REKAM CATATAN KASI";"user kasi rekam catatan kasi no agenda SM0019"
+2013-05-21@01:12:43;kasi;LOGOUT;
+2013-05-21@01:12:46;admin;LOGIN;
+2013-05-21@01:13:13;admin;LOGOUT;
+2013-05-21@01:13:19;mastri;LOGIN;
+2013-05-21@01:14:03;mastri;LOGOUT;
+2013-05-21@01:14:07;admin;LOGIN;
+2013-05-21@01:15:02;admin;LOGOUT;
+2013-05-21@01:15:07;mastri;LOGIN;
+2013-05-21@01:15:41;mastri;"REKAM REVISI";"user mastri rekam revisi surat keluar id 44 nama file K_44_260010_3.docx"
+2013-05-21@01:18:35;mastri;"REKAM REVISI";"user mastri rekam revisi surat keluar id 44 nama file K_44_260010_4.docx"
+2013-05-21@01:20:51;mastri;"REKAM REVISI";"user mastri rekam revisi surat keluar id 44 nama file K_44_260010_5.docx"
+2013-05-21@01:22:25;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan 260010"
+2013-05-21@01:23:36;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan 269001"
+2013-05-21@01:24:17;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 48 perihal:sdassdfsdfsafdsafas"
+2013-05-21@01:26:26;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 48 perihal:sdassdfsdfsafdsafas"
+2013-05-21@01:26:52;mastri;LOGOUT;
+2013-05-21@01:26:56;kasi;LOGIN;
+2013-05-21@01:27:05;kasi;"HAPUS SK";"user kasi hapus surat keluar id 48"
+2013-05-21@01:28:11;kasi;"HAPUS SK";"user kasi hapus surat keluar id 48"
+2013-05-21@01:30:58;kasi;LOGOUT;
+2013-05-21@01:31:03;mastri;LOGIN;
+2013-05-21@01:32:49;mastri;LOGOUT;
+2013-05-21@01:32:54;admin;LOGIN;
+2013-05-21@04:54:01;mastri;LOGIN;
+2013-05-21@05:40:13;mastri;LOGOUT;
+2013-05-21@05:40:17;kk;LOGIN;
+2013-05-21@05:42:41;kk;LOGOUT;
+2013-05-21@05:42:45;admin;LOGIN;
+2013-05-21@10:57:00;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0020"
+2013-05-21@10:58:33;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0021"
+2013-05-21@10:58:39;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0021"
+2013-05-21@10:59:47;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0021"
+2013-05-21@11:03:53;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0022"
+2013-05-21@11:04:31;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0023"
+2013-05-21@12:23:29;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0024"
+2013-05-21@12:24:51;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0025"
+2013-05-21@12:25:32;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0020"
+2013-05-21@12:27:41;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0021"
+2013-05-21@12:28:57;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0022"
+2013-05-21@12:29:41;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0023"
+2013-05-21@20:38:30;kasi;LOGIN;
+2013-05-21@20:38:43;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-05-21@20:38:56;kasi;"REKAM SM";"user kasi rekam surat masuk agenda SM0023"
+2013-05-21@20:39:36;kasi;"REKAM SM";"user kasi rekam surat masuk agenda SM0023"
+2013-05-21@20:40:23;kasi;"REKAM SM";"user kasi rekam surat masuk agenda SM0023"
+2013-05-21@20:40:44;kasi;"REKAM SM";"user kasi rekam surat masuk agenda SM0023"
+2013-05-21@20:42:09;kasi;"DELETE SM";"user kasi menghapus surat masuk no agenda"
+2013-05-21@20:42:12;kasi;"DELETE SM";"user kasi menghapus surat masuk no agenda"
+2013-05-21@20:42:16;kasi;"DELETE SM";"user kasi menghapus surat masuk no agenda"
+2013-05-21@20:42:23;kasi;"DELETE SM";"user kasi menghapus surat masuk no agenda"
+2013-05-21@20:43:03;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:43:59;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:44:33;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:45:10;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:45:35;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:47:47;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:47:48;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:47:49;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:47:50;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:47:52;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:47:54;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:49:05;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda "
+2013-05-21@20:49:50;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda SM0023"
+2013-05-21@20:50:02;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda SM0023"
+2013-05-21@21:04:34;kasi;LOGOUT;
+2013-05-21@21:04:37;kk;LOGIN;
+2013-05-21@23:08:30;kk;LOGIN;
+2013-05-21@23:32:36;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0023"
+2013-05-21@23:34:15;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0023"
+2013-05-21@23:35:50;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0023"
+2013-05-21@23:36:45;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0023"
+2013-05-21@23:37:24;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0023"
+2013-05-21@23:40:09;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0023"
+2013-05-21@23:51:07;kk;LOGOUT;
+2013-05-22@00:11:35;kk;LOGIN;
+2013-05-22@00:11:37;kk;LOGIN;
+2013-05-22@00:11:39;kk;LOGIN;
+2013-05-22@00:16:13;kk;LOGIN;
+2013-05-22@00:16:48;kk;LOGOUT;
+2013-05-22@00:27:48;huri;LOGIN;
+2013-05-22@00:27:50;huri;LOGOUT;
+2013-05-22@00:27:56;kk;LOGIN;
+2013-05-22@00:27:57;kk;LOGOUT;
+2013-05-22@00:29:25;kk;LOGIN;
+2013-05-22@00:29:27;kk;LOGOUT;
+2013-05-22@00:57:52;admin;LOGIN;
+2013-05-22@00:59:53;admin;LOGOUT;
+2013-05-22@05:11:26;kk;LOGIN;
+2013-05-22@05:12:03;kk;LOGOUT;
+2013-05-22@05:12:07;admin;LOGIN;
+2013-05-22@05:21:34;admin;LOGOUT;
+2013-05-22@05:23:10;kk;LOGIN;
+2013-05-22@08:44:37;kk;LOGIN;
+2013-05-22@16:12:52;kk;LOGIN;
+2013-05-22@16:31:16;kk;LOGOUT;
+2013-05-22@16:31:18;admin;LOGIN;
+2013-05-22@16:31:47;admin;LOGOUT;
+2013-05-22@16:31:51;kk;LOGIN;
+2013-05-22@16:59:51;kk;LOGOUT;
+2013-05-22@16:59:53;admin;LOGIN;
+2013-05-22@21:14:27;kk;LOGIN;
+2013-05-22@21:16:10;kk;LOGOUT;
+2013-05-22@21:16:15;mastri;LOGIN;
+2013-05-22@21:22:17;mastri;LOGOUT;
+2013-05-22@21:22:18;admin;LOGIN;
+2013-05-22@21:24:54;admin;LOGOUT;
+2013-05-22@21:24:55;admin;LOGIN;
+2013-05-22@21:26:25;admin;LOGOUT;
+2013-05-22@21:26:30;mastri;LOGIN;
+2013-05-22@22:45:22;mastri;LOGOUT;
+2013-05-22@22:45:26;kk;LOGIN;
+2013-05-22@23:24:44;kk;"UBAH DISPOSISI";"user kk rekam disposisi no agenda SM0023"
+2013-05-22@23:30:28;kk;"UBAH DISPOSISI";"user kk rekam disposisi no agenda SM0023"
+2013-05-22@23:31:48;kk;"UBAH DISPOSISI";"user kk rekam disposisi no agenda SM0023"
+2013-05-22@23:34:25;kk;"UBAH DISPOSISI";"user kk rekam disposisi no agenda SM0023"
+2013-05-22@23:36:57;kk;"UBAH DISPOSISI";"user kk rekam disposisi no agenda SM0023"
+2013-05-23@00:03:44;kk;LOGOUT;
+2013-05-23@00:03:52;huri;LOGIN;

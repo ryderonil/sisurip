@@ -101,13 +101,13 @@
 ?>
 <script>
     function selesai()
-{
-    
-  var answer = confirm ("Anda yakin menyimpan perubahan?")
-    if (answer)
-        return true;
-    else
+    {
+        
+        var answer = confirm ("Anda yakin menyimpan perubahan?")
+        if (answer)
+            return true;
+        else
         //window.location='cart_view.php';
-        return false;
+            return false;
     }
     </script>

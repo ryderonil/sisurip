@@ -417,7 +417,7 @@ iframe.grafik-rekap {
 #success{
     background: greenyellow;
     border: 1px solid greenyellow;
-    width:75%;
+    width:100%;
     border-radius: 4px;
     margin: 0 auto;
     margin-top: 5px;
@@ -617,7 +617,8 @@ iframe.grafik-rekap {
     display: block; 
     padding: 0 15px; 
     color: #fff; 
-    text-decoration: none; 
+    text-decoration: none;
+    cursor: pointer;
 }
 #trans-nav li a:hover { 
     color: #a3f1d7; 
@@ -1087,9 +1088,11 @@ form input.sb_input {
 /*    text-align: center;*/
     border: 1px solid;
     margin: 10px 0px;
-    padding:15px 10px 15px 50px;
+    padding:15px 10px 15px 15px;
     background-repeat: no-repeat;
     background-position: 10px center;
+    width: 100%;
+    text-align: center;
 }
 #info {
     color: #00529B;

@@ -46,6 +46,10 @@ class Arsip_Model extends Model {
         return $this->insert('arsip', $data);
     }
     
+    public function editArsip($data, $where){
+        return $this->update('arsip', $data, $where);
+    }
+    
     public function getKlas(){
         $sql = "SELECT * FROM klasifikasi_arsip";
         return $this->select($sql);

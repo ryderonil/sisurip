@@ -1,5 +1,5 @@
 <?php 
-//var_dump($this->data);
+var_dump($this->file);
 if($this->file!='' AND file_exists('arsip/'.$this->file)) {?>
 <div class="vlamp"><iframe  width= 800 height= 500 src="<?php echo URL;?>arsip/<?php echo $this->file;?>">
     <?php }else{

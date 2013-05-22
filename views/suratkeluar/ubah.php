@@ -80,7 +80,7 @@ if (isset($this->datasm)) {
         </select></br>
         <label>LAMPIRAN</label><input type="" name="lampiran" value="<?php echo $this->lampiran;?>"></br>
         <label>FILE SURAT</label><input type="file" name="upload"></br>
-        <label></label><input type="button" onclick="location.href='<?php echo URL; ?>suratkeluar'" value="BATAL"><input type="submit" name="submit" value="SIMPAN">
+        <label></label><input type="button" onclick="location.href='<?php echo URL; ?>suratkeluar'" value="BATAL"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai();">
     </form></div>
 <div id="test"></div>
 
@@ -142,4 +142,14 @@ if (isset($this->datasm)) {
 //                $('#test').html(data);
             });
         }
+        
+function selesai(){
+    var answer = 'anda yakin menyimpan perubahan?'
+    
+    if(confirm(answer)){
+        return true;
+    }else{
+        return false;
+    }
+}
 </script>

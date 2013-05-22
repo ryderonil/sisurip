@@ -5,11 +5,11 @@
     <?php if(isset($this->success)) {?>
     <div id="success"><?php echo $this->success;?></div>
     <?php } ?>
-    <form method="POST" action="<?php echo URL;?>admin/inputRekamPjs">
+    <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamPjs">
     <input type="hidden" name="id" value="<?php echo $this->user;?>">
     <table>
         <tr><td><label>NAMA/NIP</label></td><td><label><font color="black"><?php echo strtoupper($this->nama);?></font></label></td></tr>
-        <tr><td><label>BAGIAN</label></td><td><select id="" name="bagian">
+        <tr><td><label>BAGIAN</label></td><td><select class="required" id="" name="bagian">
                     <option value="">--PILIH BAGIAN--</option>
                     <?php 
                         foreach ($this->bagian as $val){
@@ -17,7 +17,7 @@
                         }
                     ?>
                 </select></td></tr>
-        <tr><td><label>JABATAN</label></td><td><select id="" name="jabatan">
+        <tr><td><label>JABATAN</label></td><td><select class="required" id="" name="jabatan">
                      <option value="">--PILIH JABATAN--</option>
                      <?php 
                         foreach ($this->role as $val){

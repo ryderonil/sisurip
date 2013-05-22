@@ -155,7 +155,6 @@ class Lampiran_Model extends Model {
         } else {
             $sql = 'SELECT * FROM lampiran';
         }
-
         return $this->select($sql);
     }
     

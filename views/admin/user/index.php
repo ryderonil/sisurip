@@ -39,6 +39,7 @@
 </br>
 <hr>
 </br>
+<div id="pesan"></div>
 <?php if($this->count>0) { $no=1;?>
 <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
     <tr><th>NO</th><th>NAMA PEGAWAI</th><th>NAMA USER</th><th>AKSI</th><th>AKTIF</th></tr>
@@ -48,7 +49,7 @@
         <td><?php echo $value['username']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="UBAH"></a> | 
             <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['username'];?>');"></a></td>
-        <td><a href="<?php echo URL;?>admin/setAktifUser/<?php echo $value['id_user'].'/'.$value['active'];?>"><input class="btn" type="button" value="<?php echo $value['active']; ?>"></a></td></tr>
+        <td><a ><input class="btn" type="button" value="<?php echo $value['active']; ?>" onclick="setaktifuser('<?php echo $value['id_user'].'-'.$value['active'];?>');"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
@@ -63,6 +64,14 @@ function selesai(user){
     }else{
         return false;
     }
+}
+
+function setaktifuser(id){
+    $.post("<?php echo URL;?>admin/test", {queryString:""+id+""},
+            function(data){
+                $('#pesan').fadeIn(500);
+                $('#pesan').html(data);
+            });
 }
 
 
