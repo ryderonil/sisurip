@@ -143,7 +143,7 @@ class Suratmasuk_Model extends Surat{
         }
         
         $this->delete('suratmasuk', $where);
-        header('location:'.URL.'suratmasuk');
+        
     }
     
     public function input($data=null){
@@ -266,6 +266,7 @@ class Suratmasuk_Model extends Surat{
     }
     
     public function distribusi($id, $data){
+        if(!is_array($data)) $data = explode (",", $data);
         $length = count($data);
         for($i=0;$i<$length;$i++){
             $dataInsert = array(

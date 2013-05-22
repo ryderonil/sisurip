@@ -110,9 +110,28 @@ class Disposisi extends Model{
         
     }
     
+    public function getDisposisiKasi($id_disposisi, $bagian){
+        $sql = "SELECT catatan FROM catatan WHERE id_disposisi=".$id_disposisi." AND 
+            bagian=(SELECT kd_bagian FROM r_bagian WHERE id_bagian=".$bagian.") AND
+                pelaksana=(SELECT id_user FROM user WHERE username='".Session::get('user')."')";
+        $data = $this->select($sql);
+        $return = '';
+        foreach ($data as $val){
+            $return = $val['catatan'];
+        }
+        
+        return $return;
+    }
+
+
     public function addDisposisi($data){
         $insert = $this->insert('disposisi', $data);
         return $insert;
+    }
+    
+    public function editDisposisi($data, $where){
+        $update = $this->update('disposisi', $data, $where);
+        return $update;
     }
     
     public function __destruct() {

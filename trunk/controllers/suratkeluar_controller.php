@@ -291,6 +291,7 @@ class Suratkeluar_Controller extends Controller {
         $log = new Log();
         $log->addLog($user,'HAPUS SK','user '.$user.' hapus surat keluar id '.$id);
         unset($log);
+        header('location:'.URL.'suratkeluar');
     }
     
     /*
@@ -497,7 +498,7 @@ class Suratkeluar_Controller extends Controller {
     }
     
     public function view($id){
-        $data = $this->model->getSuratById($id);
+        $data = $this->model->getSuratById($id,'detil');
         $this->view->file = $data->getFile();
         $this->view->load('suratkeluar/viewsurat');
     }

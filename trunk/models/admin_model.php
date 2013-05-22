@@ -299,6 +299,18 @@ class Admin_Model extends Model{
         $where = " tgl='".$tgl."'";
         return $this->delete('libur',$where);
     }
+    
+    public function getKlasifikasiById($id){
+        return $this->select('SELECT * FROM klasifikasi_arsip WHERE id_klasarsip=' . $id);
+    }
+    
+    public function getLokasiById($id){
+        return $this->select('SELECT * FROM lokasi WHERE id_lokasi=' . $id);
+    }
+    
+    public function getNomorById($id){
+        return $this->select('SELECT * FROM nomor WHERE id_nomor=' . $id);
+    }
    
 }
 ?>

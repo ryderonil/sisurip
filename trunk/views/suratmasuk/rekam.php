@@ -1,5 +1,6 @@
 <h2>Rekam Surat Masuk</h2>            
 <hr>
+<div id="pesan"></div>
 <script type="text/javascript">
     
   
@@ -13,6 +14,117 @@
         }); 
     });
     
+    function cek(){
+        var agenda = document.getElementById('agenda').value;
+        var tgl = document.getElementById('datepicker').value;
+        var alamat = document.getElementById('alamat').value;
+        var nosurat = document.getElementById('no_surat').value;
+        var hal = document.getElementById('perihal').value;
+        var sifat = document.getElementById('sifat').value;
+        var jenis = document.getElementById('jenis').value;
+        var status = document.getElementById('status').value;
+        var lampiran = document.getElementById('lampiran').value;
+        if(tgl==''){
+            var wtgl = '<div id=warning></div>'
+            $('#wtgl').fadeIn(500);
+            $('#wtgl').html(wtgl);
+        }
+        
+        if(alamat==''){
+            var walamat = '<div id=warning></div>'
+            $('#walamat').fadeIn(500);
+            $('#walamat').html(wtgl);
+        }
+        
+        if(nosurat==''){
+            var wtgl = '<div id=warning></div>'
+            $('#wnosurat').fadeIn(500);
+            $('#wnosurat').html(wtgl);
+        }
+        
+        if(hal==''){
+            var wtgl = '<div id=warning></div>'
+            $('#whal').fadeIn(500);
+            $('#whal').html(wtgl);
+        }
+        
+        if(jenis==''){
+            var wtgl = '<div id=warning></div>'
+            $('#wjenis').fadeIn(500);
+            $('#wjenis').html(wtgl);
+        }
+        
+        if(sifat==''){
+            var wtgl = '<div id=warning></div>'
+            $('#wsifat').fadeIn(500);
+            $('#wsifat').html(wtgl);
+        }
+        
+        if(lampiran==''){
+            var wtgl = '<div id=warning></div>'
+            $('#wlampiran').fadeIn(500);
+            $('#wlampiran').html(wtgl);
+        }
+    }
+    //cek input berupa angka
+    function checkInput(obj) 
+    {
+        var pola = "^";
+        pola += "[0-9]*";
+        pola += "$";
+        rx = new RegExp(pola);
+        
+        if (!obj.value.match(rx))
+        {
+            if (obj.lastMatched)
+            {
+                obj.value = obj.lastMatched;
+            }
+            else
+            {
+                obj.value = "";
+            }
+        }
+        else
+        {
+            obj.lastMatched = obj.value;
+        }
+    }
+
+    function rekam(){
+        var agenda = document.getElementById('agenda').value;
+        var tgl = document.getElementById('datepicker').value;
+        var alamat = document.getElementById('alamat').value;
+        var nosurat = document.getElementById('no_surat').value;
+        var hal = document.getElementById('perihal').value;
+        var sifat = document.getElementById('sifat').value;
+        var jenis = document.getElementById('jenis').value;
+        var status = document.getElementById('status').value;
+        var lampiran = document.getElementById('lampiran').value;
+//        var join = agenda+' '+tgl+' '+alamat+' '+nosurat+' '+hal+' '+sifat+' '+jenis+' '+status+' '+lampiran;
+//        alert(join);
+        $.ajax({
+            type:'POST',
+            url:'<?php echo URL; ?>suratmasuk/input',
+            data:'no_agenda='+agenda+
+                '&tgl_surat='+tgl+
+                '&asal_surat='+alamat+
+                '&no_surat='+nosurat+
+                '&perihal='+hal+
+                '&sifat='+sifat+
+                '&jenis='+jenis+
+                '&status='+status+
+                '&lampiran='+lampiran,
+            success:function(data){
+                $('#pesan').fadeIn(500);
+                $('#pesan').html(data);
+                $.post("<?php echo URL;?>suratmasuk/number", {queryString:""},
+                function(nomor){
+                    $('input#agenda').val(nomor);
+                });
+            }
+        });
+    }
     function lookup(alamat){
         if(alamat.length == 0){
             $('#result').fadeOut();
@@ -25,69 +137,11 @@
         }
     }
     
-    function simpan(){
-        hideshow('loading',1);
-        error(0);
-        success(0);
-        $.ajax({
-            type:"POST",
-            url:"<?php echo URL;?>suratmasuk/input",
-            data:$('#form-rekam').serialize(),
-            dataType:"json",
-            success: function(){
-//                if(parseInt(msg.status)==1){
-//                    success(1,msg.txt);
-//                    $('#error').removeClass('error').addClass('success');
-                    $('#agenda').val('');
-                    $('#datepicker').val('');
-                    $('#no_surat').val('');
-                    $('#alamat').val('');
-                    $('#perihal').val('');
-                    $('#status').val('');
-                    
-                    
-//                }else if(parseInt(msg.status)==0){
-//                    error(1,msg.txt);
-//                    $('#error').removeClass('success').addClass('error');
-//                }
-                
-//                hideshow('loading',0);
-            }
-        });
-    }
-    
-    function hideshow(el, act){
-        if(act) $('#'+el).css('visibility','visible');
-        else $('#'+el).css('visibility','hidden');
-    }
-    
-    function error(act, txt){
-//        hideshow('error',act);
-        if(txt) {
-            $('#error').fadeIn();
-            $('#error').html(txt);
-        }
-    }
-    
-    function success(act, txt){
-//        hideshow('success',act);
-        
-        if(txt) {
-            $('#success').fadeIn();
-            $('#success').html(txt);
-        }
-    }
-    
-    
-    //$(document).ready(function(){
-			//$('#alamat').autocomplete({source:'<?php echo URL; ?>helper/alamat', minLength:1});
-		//});
-    
 </script>
 <?php if(isset($this->error)) {?>
 <div id="error"><?php echo $this->error;?></div><?php } ?>
 <?php if(isset($this->success)) {?><div id="success"><?php echo $this->success;?></div><?php }?>
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo URL; ?>suratmasuk/input">
+<div id="form-wrapper"><form id="form-rekam" >
 <!--        action="<?php echo URL; ?>suratmasuk/input"-->
         <label>AGENDA</label><input id="agenda" type="text" name="no_agenda" value="<?php echo @$this->agenda; ?>" readonly></br>
         <!--<label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->
@@ -101,7 +155,7 @@
         
                                                     <label>PERIHAL</label><!--<input id="perihal" class="required" type="" name="perihal">--><textarea id="perihal" cols="10" rows="10" name="perihal" class="required"></textarea></br>
         <label>STATUS</label><input id="status" type="text" name="status"></br>
-        <label>SIFAT</label><select name="sifat" class="required">
+        <label>SIFAT</label><select id="sifat" name="sifat" class="required">
             <option value="">--PILIH SIFAT SURAT--</option>
             <?php            
                 foreach($this->sifat as $value){
@@ -114,7 +168,7 @@
                 }
             ?>
         </select></br>
-        <label>JENIS</label><select name="jenis" class="required">
+        <label>JENIS</label><select id="jenis" name="jenis" class="required">
             <option value="">--PILIH JENIS SURAT--</option>
             <?php 
                 foreach($this->jenis as $value){
@@ -127,12 +181,8 @@
                 }
             ?>
         </select></br>
-        <label>LAMPIRAN</label><input type="text" name="lampiran"></br>    
-        <label></label><input type="reset" value="RESET"><input type="submit" name="submit" value="SIMPAN" >
-<!--        <div id="loading">Proses Menyimpan ... </div>-->
-        <div id="errorr"></div>
-        <div id="succes"></div>
-    </form></div>
+        <label>LAMPIRAN</label><input class="required number" id="lampiran" type="text" name="lampiran" onkeyup="return checkInput(this)"></br>    
+        <label></label><input type="reset" value="RESET"><input type="button" name="submit" value="SIMPAN" onclick="rekam();">
 
 <?php 
     

@@ -13,7 +13,7 @@
     <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <label>TIPE NASKAH DINAS</label><input class="required" type="text" name="tipe_naskah" value="<?php echo $this->data[1];?>"></br>
     <label>KODE SURAT</label><input class="required" type="text" name="kode_naskah" value="<?php echo $this->data[2];?>"></br>
-    <label></label><input type="submit" name="submit" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamJenisLampiran';"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[2];?>');">
+    <label></label><input type="button" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamJenisLampiran';"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[2];?>');">
 </form></div>
 
 </br>

@@ -2,11 +2,11 @@
         <hr>
         </br>
 <table>
-    <tr><td width="30%" valign="top"><div class="span6"><div id="libur"><form method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
+    <tr><td width="30%" valign="top"><div class="span6"><div id="libur"><form id="form-rekam" method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
         <div id="warning"></div>
         </br>
-        <label>Tanggal</label><input id="tgl" type="text" name="tgl" value="<?php echo @Tanggal::tgl_indo($this->tgl);?>" readonly></br>
-    <label>Keterangan</label><input type="text" name="ket" value="<?php echo !$this->ket?'':$this->ket;?>"></br></br>
+        <label>Tanggal</label><input class="required" id="tgl" type="text" name="tgl" value="<?php echo @Tanggal::tgl_indo($this->tgl);?>" readonly></br>
+    <label>Keterangan</label><input class="required" type="text" name="ket" value="<?php echo !$this->ket?'':$this->ket;?>"></br></br>
     <label></label><input type="submit" class="btn" name="submit" value="SIMPAN" >
     <?php
         if($this->ket!=false){

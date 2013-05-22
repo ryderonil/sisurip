@@ -7,6 +7,11 @@
         <tr><td></td><td></td></tr>
         <tr><td>AGENDA</td><td><?php echo $this->data[1]; ?></td></tr>
         <tr><td>TANGGAL TERIMA</td><td><?php echo Tanggal::tgl_indo($this->data[2]); ?></td></tr>
+        <?php if(count($this->ddisp)>0)?>
+        <tr><td>CATATAN KEPALA</td><td><?php echo $this->ddisp->catatan; ?></td></tr>
+        <?php if($this->ddispkasi!='') ?>
+        <tr><td>CATATAN KASI</td><td><?php echo $this->ddispkasi; ?></td></tr>
+        <?php ?>
         <!--<tr><td>TANGGAL SURAT</td><td><?php echo $this->data[3]; ?></td></tr>
         <tr><td>NOMOR SURAT</td><td><?php echo $this->data[4]; ?></td></tr>
         <tr><td>ASAL</td><td><?php echo $this->data[5]; ?></td></tr>
@@ -36,7 +41,7 @@
                 </td>
                 <td><button class=btn onclick=viewlampiran($value[id_lamp]);>view</button>
                 <a href=".URL."lampiran/ubah/$value[id_lamp]><button class=btn >ubah</button></a>
-                <a href=".URL."lampiran/hapus/><button class=btn onclick='return konfirmasi()'>hapus</button></a></td></tr>";
+                <a href=".URL."lampiran/hapus/$value[id_lamp]><button class=btn onclick='return konfirmasi()'>hapus</button></a></td></tr>";
             }
         ?>
         

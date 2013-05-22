@@ -1,6 +1,7 @@
 <!-- INFORMASI SURAT -->
 <h2>Rekam Disposisi Kasubag/Kasi</h2>
 <hr>
+<div id="pesan"></div>
 </br>
 <?php
 if(isset($this->data)){
@@ -44,10 +45,10 @@ if(isset($this->data)){
                 
             
         ?>
-        <input type="hidden" name="id_surat" value="<?php echo $this->data[0];?>">
-        <input type="hidden" name="id_disp" value="<?php echo $this->datad->id_disposisi;?>">
-        <input type="hidden" name="bagian" value="<?php echo $this->bagian;?>">
-        <label>KEPADA :</label><select  name="peg" class="required">
+        <input id="id_surat" type="hidden" name="id_surat" value="<?php echo $this->data[0];?>">
+        <input id="id_disp" type="hidden" name="id_disp" value="<?php echo $this->datad->id_disposisi;?>">
+        <input id="bagian" type="hidden" name="bagian" value="<?php echo $this->bagian;?>">
+        <label>KEPADA :</label><select  id="peg" name="peg" class="required">
             <option value="">--PILIH PEGAWAI--</option>
             <?php 
                 foreach ($this->peg as $val){
@@ -56,7 +57,7 @@ if(isset($this->data)){
             ?>
         </select></br>
         <label>PETUNJUK :</label><br><textarea id="input" class="required" name="catatan" rows="10" cols="50"></textarea></br>
-        <label></label><input type="submit" name ="submit" value="SIMPAN" >
+        <label></label><input type="button" name ="submit" value="SIMPAN" onclick="rekam();">
             
         <?php }else{
             echo "<div id=warning>Surat belum didisposisi Kepala Kantor, Anda tidak dapat memberikan disposisi!</div>";
@@ -64,3 +65,29 @@ if(isset($this->data)){
         
         
     </form></div>
+
+<script type="text/javascript">
+
+function rekam(){
+        var id_surat = document.getElementById('id_surat').value;
+        var id_disp = document.getElementById('id_disp').value;
+        var bagian = document.getElementById('bagian').value;
+        var peg = document.getElementById('peg').value;
+        var catatan = document.getElementById('catatan').value;
+//        var join = agenda+' '+tgl+' '+alamat+' '+nosurat+' '+hal+' '+sifat+' '+jenis+' '+status+' '+lampiran;
+//        alert(join);
+        $.ajax({
+            type:'POST',
+            url:'<?php echo URL; ?>suratmasuk/rekamCatatan',
+            data:'id_surat='+id_surat+
+                '&id_disp='+id_disp+
+                '&bagian='+bagian+
+                '&peg='+peg+
+                '&catatan='+catatan,
+            success:function(data){
+                $('#pesan').fadeIn(500);
+                $('#pesan').html(data);
+            }
+        });
+    }
+</script>

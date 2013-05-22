@@ -22,15 +22,9 @@ class Suratmasuk_Controller extends Controller {
             'suratkeluar/js/jquery.tipTip',
             'suratkeluar/js/jquery.tipTip.minified'
         );
-        //$this->view = new View;
-        //echo "</br>kelas berhasil di bentuk";
     }
-
-    //put your code here
-
+    
     public function index($halaman=null, $batas=null) {
-        //$this->view->render('suratmasuk/index');
-        //header('location:'.URL.'suratmasuk/showall');
         if(is_null($halaman)) $halaman=1;
         if(is_null($batas)) $batas=10; 
         $this->showAll($halaman, $batas);
@@ -102,6 +96,7 @@ class Suratmasuk_Controller extends Controller {
         $log = new Log();
         $log->addLog($user,'DELETE SM','user '.$user.' menghapus surat masuk no agenda'.$this->model->getNomorAgenda($id));
         unset($log);
+        header('location:'.URL.'suratmasuk');
     }
 
     public function editSurat() {
@@ -119,7 +114,7 @@ class Suratmasuk_Controller extends Controller {
          */
         $data = array(
             "tgl_terima"=>$_POST['tgl_terima'],
-            "tgl_surat"=>$_POST['tgl_surat'],
+            "tgl_surat"=>  Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
             "no_surat"=>$_POST['no_surat'],
             "asal_surat"=>$_POST['asal_surat'],
             "perihal"=>$_POST['perihal'],
@@ -128,15 +123,18 @@ class Suratmasuk_Controller extends Controller {
             "jenis"=>$_POST['jenis'],
             "lampiran"=>$_POST['lampiran']
         );
-        
-        $id = $_POST['id'];
+        $id = $_POST['id_suratmasuk'];
         $where = "id_suratmasuk = '".$id."'";
         @Session::createSession();
         $user = Session::get('user');
         $log = new Log();
         $log->addLog($user,'UBAH SM','user '.$user.' ubah surat masuk no agenda '.$this->model->getNomorAgenda($id));
         unset($log);
-        return $this->model->editSurat($data,$where);
+        if($this->model->editSurat($data,$where)){
+            echo "<div id=success>Ubah data surat dengan nomor agenda $_POST[no_agenda] berhasil.</div>";
+        }else{
+            echo "<div id=error>Ubah data surat dengan nomor agenda $_POST[no_agenda] gagal!</div>";
+        }
         
     }
 
@@ -199,16 +197,16 @@ class Suratmasuk_Controller extends Controller {
             $log->addLog($user,'REKAM SM','user '.$user.' rekam surat masuk agenda '.$_POST['no_agenda']);
             unset($log);
 //            die($this->msg(1,"rekam data berhasil"));
-            $this->view->agenda = $this->nomor->generateNumber('SM');
-            $this->view->success = 'rekam data berhasil';
-            $this->view->render('suratmasuk/rekam');
-            
+            echo "<div id=success>rekam data berhasil</div>";
+//            $this->view->agenda = $this->nomor->generateNumber('SM');
+//            $this->view->success = 'rekam data berhasil';
+//            $this->view->render('suratmasuk/rekam');
         }else{
-            
+            echo "<div id=error>rekam data gagal</div>";
 //            die($this->msg(1,"rekam data tidak berhasil"));
-            $this->view->agenda = $this->nomor->generateNumber('SM');
-            $this->view->error = 'rekam data tidak berhasil';
-            $this->view->render('suratmasuk/rekam');
+//            $this->view->agenda = $this->nomor->generateNumber('SM');
+//            $this->view->error = 'rekam data tidak berhasil';
+//            $this->view->render('suratmasuk/rekam');
         }
         
         
@@ -243,7 +241,7 @@ class Suratmasuk_Controller extends Controller {
 
     public function detil($id) {
         $agenda = substr($id, 0, 1);
-        
+        $disposisi = new Disposisi();
         if($agenda != 'S'){
             $data = $this->model->getSuratById($id);
             $this->view->data[0] = $this->model->getId();
@@ -255,7 +253,7 @@ class Suratmasuk_Controller extends Controller {
             $this->view->data[6] = $this->model->getPerihal();
             $this->view->data[7] = $this->model->getFile();
             $this->view->dataSurat = array();
-            $this->view->dataSurat[] = $this->view->data;
+            $this->view->dataSurat[] = $this->view->data;            
         }else{
             $param = array('no_agenda'=>$id);
             $data = $this->model->getSuratById($param);
@@ -270,6 +268,10 @@ class Suratmasuk_Controller extends Controller {
             $this->view->dataSurat = array();
             $this->view->dataSurat[] = $this->view->data;
         }
+        $this->view->ddisp = $disposisi->getDisposisi(array('id_surat'=>$this->view->data[0]));
+        $id_disp = $disposisi->id_disposisi;
+        $bagian = Session::get('bagian');
+        $this->view->ddispkasi = $disposisi->getDisposisiKasi($id_disp,$bagian);
         $lamp = new Lampiran_Model();
         $this->view->lampiran = $lamp->getLampiranSurat($this->view->data[0], 'SM');
         $this->view->count = count($this->view->lampiran);
@@ -319,24 +321,26 @@ class Suratmasuk_Controller extends Controller {
 //        }
         $this->view->seksi = $this->model->get('r_bagian');
         $this->view->petunjuk = $this->model->get('r_petunjuk');
-        $this->view->data2 = $this->model->select('SELECT * FROM disposisi WHERE id_surat=' . $id);
+//        $this->view->data2 = $this->model->select('SELECT * FROM disposisi WHERE id_surat=' . $id);
+        $disposisi = new Disposisi();
+        $this->view->data2 = $disposisi->getDisposisi(array('id_surat'=>$id));
         $this->view->count = count($this->view->data2);
         //echo $this->view->count;
         //var_dump($this->view->petunjuk);
         if ($this->view->count > 0) {
 
-            foreach ($this->view->data2 as $key => $value) {
-                $this->view->disp[0] = $value['id_disposisi'];
-                $this->view->disp[1] = $value['id_surat'];
-                $this->view->disp[2] = $value['sifat'];
-                $this->view->disp[3] = $value['disposisi'];
-                $this->view->disp[4] = $value['petunjuk'];
-                $this->view->disp[5] = $value['catatan'];
-            }
-            $this->view->disposisi = explode(',', $this->view->disp[3]);
-            $this->view->petunjuk2 = explode(',', $this->view->disp[4]);
-            //var_dump($this->view->petunjuk2);
-
+//            foreach ($this->view->data2 as $key => $value) {
+                $this->view->disp[0] = $this->view->data2->id_disposisi;
+                $this->view->disp[1] = $this->view->data2->id_surat;
+                $this->view->disp[2] = $this->view->data2->sifat;
+                $this->view->disp[3] = $this->view->data2->dist;
+                $this->view->disp[4] = $this->view->data2->petunjuk;
+                $this->view->disp[5] = $this->view->data2->catatan;
+//            }
+            $this->view->disposisi = $this->view->disp[3]; //explode(',', $this->view->disp[3]);
+            $this->view->petunjuk2 = $this->view->disp[4]; //explode(',', $this->view->disp[4]);
+//            var_dump($this->view->petunjuk2);
+//            var_dump($this->view->disp);
             //$this->view->render('suratmasuk/disposisi');
         } 
             $this->view->render('suratmasuk/disposisi');
@@ -455,13 +459,13 @@ class Suratmasuk_Controller extends Controller {
         $petunjuk = $_POST['petunjuk'];
         $catatan = $_POST['catatan'];
         $disposisi = $_POST['disposisi'];
-        $disp = implode(',',$disposisi);
-        $petunjuk = implode(',',$petunjuk);
+//        $disp = implode(',',$disposisi);
+//        $petunjuk = implode(',',$petunjuk);
         
         $data = array(
             'id_surat'=>$id_surat,
             'sifat'=>$sifat,
-            'disposisi'=>$disp,
+            'disposisi'=>$disposisi,
             'petunjuk'=>$petunjuk,
             'catatan'=>$catatan
             );
@@ -470,9 +474,8 @@ class Suratmasuk_Controller extends Controller {
 //        $rekam = $this->model->rekamdisposisi($data);
         //var_dump($rekam);
         if(!$rekam){ //baris ini berhasil
-            echo "error";
             $this->view->error = "data tidak berhasil disimpan!";
-            
+            echo "<div id=error>Rekam disposisi surat masuk  gagal!</div>";
             
         }else{
             $this->model->distribusi($id_surat, $disposisi); 
@@ -511,9 +514,74 @@ class Suratmasuk_Controller extends Controller {
             unset($log);
             $this->model->update('suratmasuk',$datastat,$where); //update status -> disposisi
 //            header('location:'.URL.'suratmasuk');
+            echo "<div id=success>Rekam disposisi surat masuk  berhasil</div>";
         }
         
-        return true;
+//        return true;
+        
+    }
+    
+    public function ubahdisposisi() {
+        $id_disp = $_POST['id_disposisi'];
+        $id_surat = $_POST['id_surat'];
+        $sifat = $_POST['sifat'];
+        $petunjuk = $_POST['petunjuk'];
+        $catatan = $_POST['catatan'];
+        $disposisi = $_POST['disposisi'];
+        $data = array(
+            'id_surat'=>$id_surat,
+            'sifat'=>$sifat,
+            'disposisi'=>$disposisi,
+            'petunjuk'=>$petunjuk,
+            'catatan'=>$catatan
+            );
+        $where = ' id_disposisi='.$id_disp;
+        $dispos = new Disposisi();
+        $edit = $dispos->editDisposisi($data, $where);
+        if(!$edit){ //baris ini berhasil
+            $this->view->error = "data tidak berhasil disimpan!";
+            echo "<div id=error>Ubah disposisi surat masuk  no agenda ".$this->model->getNomorAgenda($id_surat)." gagal!</div>";
+            
+        }else{
+            $where = ' id_surat='.$id_surat;
+            $this->model->delete('distribusi', $where); //menghapus catatan distribusi lama
+            $this->model->distribusi($id_surat, $disposisi); 
+            $notif = new Notifikasi();
+            $notif->delete('notifikasi', ' id_surat='.$id_surat.' AND jenis_surat="SM"'); //menghapus notifikasi lama
+            $notif->set('id_surat', $id_surat);
+            $notif->set('jenis_surat', 'SM');
+            $notif->set('stat_notif', 1);
+            if(!is_array($disposisi)) $disposisi = explode (",", $disposisi);
+            $len = count($disposisi);
+            for($i=0;$i<$len;$i++){
+                echo $disposisi[$i];
+                $sql = "SELECT id_bagian FROM r_bagian WHERE kd_bagian='".$disposisi[$i]."'";
+                $data = $this->model->select($sql);
+                //var_dump($data);
+                foreach($data as $value){
+                    $id_bagian = $value['id_bagian'];
+                    $sql1 = "SELECT id_user FROM user WHERE bagian=$id_bagian AND role=2";
+                    $data1 = $this->model->select($sql1);
+                    //var_dump($data1);
+                    foreach($data1 as $value1){
+                        $id_user = $value1['id_user'];                        
+                        $notif->set('id_user', $id_user);
+                        $notif->set('role', 2);
+                        $notif->set('bagian', $id_bagian);
+                        $notif->addNotifikasi(); //notifikasi kasi
+                    }
+                }
+            }
+            $datastat = array('stat'=>'12');
+            $where = 'id_suratmasuk='.$id_surat;
+            @Session::createSession();
+            $user = Session::get('user');
+            $log = new Log();
+            $log->addLog($user,'UBAH DISPOSISI','user '.$user.' rekam disposisi no agenda '.$this->model->getNomorAgenda($id_surat));
+            unset($log);
+            $this->model->update('suratmasuk',$datastat,$where); //update status -> disposisi
+            echo "<div id=success>Ubah disposisi surat masuk  no agenda ".$this->model->getNomorAgenda($id_surat)." berhasil</div>";
+        }
         
     }
 
@@ -567,7 +635,11 @@ class Suratmasuk_Controller extends Controller {
         $log = new Log();
         $log->addLog($user,'REKAM CATATAN KASI','user '.$user.' rekam catatan kasi no agenda '.$this->model->getNomorAgenda($id_surat));
         unset($log);
-        $this->model->update('suratmasuk',$datastat,$where); //update status surat -> disposisi kasi
+        if($this->model->update('suratmasuk',$datastat,$where)){ //update status surat -> disposisi kasi
+            echo "<div id=success>Rekam disposisi Pj Eselon IV berhasil!</div>";
+        }  else {
+            echo "<div id=error>Rekam disposisi Pj Eselon IV gagal!</div>";
+        }
         //$this->model->insert('catatan',$data);
 //        header('location:'.URL.'suratmasuk');
         return true;
@@ -593,6 +665,7 @@ class Suratmasuk_Controller extends Controller {
         foreach ($bagian as $val){
             $this->view->bagian = $val['kd_bagian'];
         }
+        //dibawah ini bisa pake getSuratById
         $datas = $this->model->select("SELECT * FROM suratmasuk WHERE id_suratmasuk=".$this->view->datad->id_surat);
         foreach($datas as $value){
             $this->view->data[0] = $value['id_suratmasuk'];
@@ -679,6 +752,10 @@ class Suratmasuk_Controller extends Controller {
         $this->view->load('suratmasuk/viewsurat');
     }
     
+    public function number(){
+        $nomor = new Nomor();
+        echo $nomor->generateNumber('SM');
+    }
     
 
 }

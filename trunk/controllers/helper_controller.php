@@ -308,6 +308,8 @@ class Helper_Controller extends Controller{
         }
     }
     
+    //perlu dipindah ke monitoring
+    //perlu dibuat fungsi getNotifikasiByUser
     function notif($user){
         //$sm = new Suratmasuk_Model();
         //$sk = new Suratkeluar_Model();

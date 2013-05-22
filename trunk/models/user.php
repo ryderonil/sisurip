@@ -171,14 +171,18 @@ class User extends Model{
      */ 
     public function getUser($id=NULL,$password=NULL){
         //belum selesai
+        $data = null;
+//        echo is_int($id);
         if(is_null($id)){
+//            echo '1';
             $data = $this->select('SELECT * FROM user');
         }  elseif(is_int($id) AND is_null($password)) {
+//            echo '2';
             $data = $this->select('SELECT * FROM user WHERE id_user='.$id);
         }elseif(!is_int($id) AND !is_null($password)){
+//            echo '3';
             $data = $this->select("SELECT * FROM user WHERE username='".$id."' AND password='". $password."'");
         }
-        
         $return = array();
         foreach ($data as $val){
             $user = new $this;

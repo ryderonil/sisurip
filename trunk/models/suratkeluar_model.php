@@ -146,6 +146,7 @@ class Suratkeluar_Model extends Surat{
     }
 
     public function getSuratById($id=null, $aksi=null) {
+        $sql = '';
         if ($aksi == 'detil') {
             $sql = "SELECT a.id_suratkeluar as id_suratkeluar,
                 a.rujukan as rujukan,
@@ -203,8 +204,8 @@ class Suratkeluar_Model extends Surat{
          * ntar hapus juga menghapus semua hal yg 
          * berhubungan dengan surat ini, termasuk lampiran dsb
          */
-        echo $where;
-//        $this->delete('suratkeluar', $where);
+//        echo $where;
+        $this->delete('suratkeluar', $where);
     }
     
     public function uploadFile($data,$where){
