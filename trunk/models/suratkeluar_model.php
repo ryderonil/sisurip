@@ -199,12 +199,26 @@ class Suratkeluar_Model extends Surat{
         $this->update('suratkeluar', $data, $where);
     }
     
-    public function remove($where=null){
+    public function remove($id=null){
         /*
          * ntar hapus juga menghapus semua hal yg 
          * berhubungan dengan surat ini, termasuk lampiran dsb
          */
 //        echo $where;
+        $sk = $this->getSuratById($id);
+        if(file_exists('arsip/'.$sk->getFile())) unlink('arsip/'.$sk->getFile()); //hapus file surat
+        $where = ' id_suratkeluar=' . $id; 
+        $sql = "SELECT file FROM lampiran WHERE id_surat=".$id." AND jns_surat='SK'";
+        $datalamp = $this->select($sql);
+        foreach ($datalamp as $val){
+            if(file_exists('arsip/'.$val['file'])) unlink('arsip/'.$val['file']); //hapus file lampiran
+        }
+        
+        $sql = "SELECT file FROM revisisurat WHERE id_surat=".$id;
+        $datarev = $this->select($sql);
+        foreach ($datarev as $val){
+            if(file_exists('arsip/'.$val['file'])) unlink('arsip/'.$val['file']); //hapus file revisi
+        }
         $this->delete('suratkeluar', $where);
     }
     
