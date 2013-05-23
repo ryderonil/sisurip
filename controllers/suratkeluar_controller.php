@@ -284,8 +284,8 @@ class Suratkeluar_Controller extends Controller {
     }
 
     public function remove($id) {
-        $where = ' id_suratkeluar=' . $id;        
-        $this->model->remove($where);
+//        $where = ' id_suratkeluar=' . $id;        
+        $this->model->remove($id);
         @Session::createSession();
         $user = Session::get('user');
         $log = new Log();

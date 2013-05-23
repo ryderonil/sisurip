@@ -137,9 +137,18 @@ class Suratmasuk_Model extends Surat{
     
     public function remove($id=null){
         if(!is_null($id)){
+            $sm = $this->getSuratById($id);
             $where = 'id_suratmasuk='.$id;
+            $sql = "SELECT file FROM lampiran WHERE id_surat=".$id." AND jns_surat='SM'";
         }else{
+            $sm = $this->getSuratById($this->getId());
             $where = 'id_suratmasuk='.$this->getId();
+            $sql = "SELECT file FROM lampiran WHERE id_surat=".$this->getId()." AND jns_surat='SM'";
+        }
+        if(file_exists('arsip/'.$sm->getFile())) unlink('arsip/'.$sm->getFile()); //hapus file surat
+        $datalamp = $this->select($sql);
+        foreach ($datalamp as $val){
+            if(file_exists('arsip/'.$val['file'])) unlink('arsip/'.$val['file']); //hapus file lampiran
         }
         
         $this->delete('suratmasuk', $where);
