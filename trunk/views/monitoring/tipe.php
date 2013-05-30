@@ -32,7 +32,7 @@ $plot->SetPlotType('pie');
 $plot->SetDataType('text-data-single');
 $plot->SetDataValues($data);
 # Main plot title:
-$plot->SetTitle('TIPE NASKAH');
+$plot->SetTitle('TIPE NASKAH '.date('Y'));
 $plot->SetBackgroundColor('#eeeeff');
 # Make a legend for the 3 data sets plotted:
 # Turn off X tick labels and ticks because they don't apply here:

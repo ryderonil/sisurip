@@ -39,8 +39,9 @@
     <input type="hidden" name="jenis" value="<?php echo $this->lamp->get('jns_surat');?>">
     <input type="hidden" name="id_surat" value="<?php echo $this->lamp->get('id_surat');?>">
     <input type="hidden" name="file" value="<?php echo $this->lamp->get('file');?>">
-    <label>TIPE NASKAH DINAS</label><select class="required" name="tipe">
-        <option value="0">--PILIH TIPE NASKAH DINAS--</option>
+    <div id="wtipe"></div>
+    <label>TIPE NASKAH DINAS</label><select id="tipe" class="required" name="tipe" onchange="cekemptyfield(1,this.value)">
+        <option value="">--PILIH TIPE NASKAH DINAS--</option>
         <?php
             foreach ($this->tipe as $key=>$value){
                 if($value['id_tipe']==$this->lamp->get('tipe')){
@@ -52,12 +53,17 @@
             }
         ?>
     </select></br>
-    <label>NOMOR SURAT</label><input class="required" type="text" name="nomor" value="<?php echo $this->lamp->get('nomor');?>"></br>
-    <label>TANGGAL</label><input class="required" id="datepicker" type="text" name="tanggal" value="<?php echo $this->lamp->get('tanggal');?>"></br>
-    <label>HAL/TENTANG</label><input class="required" type="text" name="hal" value="<?php echo $this->lamp->get('hal');?>"></br>
-    <label>ASAL/PENANDA TANGAN</label><input class="required" type="text" name="asal" value="<?php echo $this->lamp->get('asal');?>"></br>
+    <div id="wnomor"></div>
+    <label>NOMOR SURAT</label><input id="nomor" class="required" type="text" name="nomor" value="<?php echo $this->lamp->get('nomor');?>" onkeyup="cekemptyfield(2,this.value)"></br>
+    <div id="wtgl"></div>
+    <label>TANGGAL</label><input class="required" id="datepicker" type="text" name="tanggal" value="<?php echo $this->lamp->get('tanggal');?>" onchange="cekemptyfield(3,this.value)"></br>
+    <div id="whal"></div>
+    <label>HAL/TENTANG</label><input id="hal" class="required" type="text" name="hal" value="<?php echo $this->lamp->get('hal');?>" onkeyup="cekemptyfield(4,this.value)"></br>
+    <div id="wasal"></div>
+    <label>ASAL/PENANDA TANGAN</label><input id="asal" class="required" type="text" name="asal" value="<?php echo $this->lamp->get('asal');?>" onkeyup="cekemptyfield(5,this.value)"></br>
     <label>KETERANGAN</label><input type="text" name="keterangan" value="<?php echo $this->lamp->get('keterangan');?>"></br>
-    <label>PILIH FILE</label><input type="file" name="upload" ></br>
+    <div id="wfile"></div>
+    <label>PILIH FILE</label><input id="file" type="file" name="upload" onchange="cekemptyfield(6,this.value)"></br>
     <label></label><input type="submit" name="submit" value="SIMPAN" onClick="return selesai();">
 </form></div>
 <?php 
@@ -108,13 +114,131 @@
 ?>
 <script>
     function selesai()
-{
-    
-  var answer = confirm ("Anda yakin menyimpan perubahan?")
-    if (answer)
-        return true;
-    else
+    {
+        
+        var answer = confirm ("Anda yakin menyimpan perubahan?")
+        if (answer){
+            cek();
+            return true;
+        }else{
         //window.location='cart_view.php';
-        return false;
+            return false;
+        }
+    }
+    
+    function cekemptyfield(num, content){
+        switch (num) {
+            case 1:
+                if(content==''){
+                    var walamat = '<div id=warning>Tipe Naskah Dinas belum dipilih!</div>'
+                    $('#wtipe').fadeIn(500);
+                    $('#wtipe').html(walamat);
+                }else{
+                    $('#wtipe').fadeOut(500);
+                } 
+                break;
+            case 2:
+                if(content==''){
+                    var wtgl = '<div id=warning>Nomor belum diisi!</div>'
+                    $('#wnomor').fadeIn(500);
+                    $('#wnomor').html(wtgl);
+                }else{
+                    $('#wnomor').fadeOut(500);
+                } 
+                break;
+            case 3:
+                if(content==''){
+                    var wtgl = '<div id=warning>Tanggal Naskah belum diisi!</div>'
+                    $('#wtgl').fadeIn(500);
+                    $('#wtgl').html(wtgl);
+                }else{
+                    $('#wtgl').fadeOut(500);
+                } 
+                break;
+            case 4:
+                if(content==''){
+                    var wtgl = '<div id=warning>Perihal Naskah belum diisi!</div>'
+                    $('#whal').fadeIn(500);
+                    $('#whal').html(wtgl);
+                }else{
+                    $('#whal').fadeOut(500);
+                } 
+                break;
+            case 5:
+                if(content==''){
+                    var wtgl = '<div id=warning>Asal/Penandatangan Naskah belum diisi!</div>'
+                    $('#wasal').fadeIn(500);
+                    $('#wasal').html(wtgl);
+                }else{
+                    $('#wasal').fadeOut(500);
+                } 
+                break;
+            case 6:
+                if(content==''){
+                    var wtgl = '<div id=warning>File belum dipilih!</div>'
+                    $('#wfile').fadeIn(500);
+                    $('#wfile').html(wtgl);
+                }else{
+                    $('#wfile').fadeOut(500);
+                } 
+                break;
+        }
+    }
+    
+    function cek(){
+        var tipe = document.getElementById('tipe').value;
+        var nomor = document.getElementById('nomor').value;
+        var tgl = document.getElementById('datepicker').value;
+        var hal = document.getElementById('hal').value;
+        var asal = document.getElementById('asal').value;
+        var file = document.getElementById('file').value;
+        var jml = 0;
+        if(tipe==''){
+            jml++;
+            var wtgl = '<div id=warning>Tipe Naskah Dinas belum dipilih!</div>'
+            $('#wtipe').fadeIn(500);
+            $('#wtipe').html(wtgl);
+        }
+        
+        if(nomor==''){
+            jml++;
+            var walamat = '<div id=warning>Nomor belum diisi!</div>'
+            $('#wnomor').fadeIn(500);
+            $('#wnomor').html(walamat);
+        }
+        
+        if(tgl==''){
+            jml++;
+            var wtgl = '<div id=warning>Tanggal Naskah belum diisi!</div>'
+            $('#wtgl').fadeIn(500);
+            $('#wtgl').html(wtgl);
+        }
+        
+        if(asal==''){
+            jml++;
+            var wtgl = '<div id=warning>Asal/Penandatangan Naskah belum diisi!</div>'
+            $('#wasal').fadeIn(500);
+            $('#wasal').html(wtgl);
+        }
+        
+        if(hal==''){
+            jml++;
+            var wtgl = '<div id=warning>Perihal Naskah belum diisi!</div>'
+            $('#whal').fadeIn(500);
+            $('#whal').html(wtgl);
+        }
+        
+        if(file==''){
+            jml++;
+            var wtgl = '<div id=warning>File belum dipilih!</div>'
+            $('#wfile').fadeIn(500);
+            $('#wfile').html(wtgl);
+        }
+        
+        if(jml>0){
+            return false;
+        }else{
+            return true;
+        }
     }
     </script>

@@ -1,7 +1,9 @@
 <h2>Tambah Format Nomor Surat</h2>
 <hr>
+<div id="pesan"></div>
+<div id="btn-show"></br><input  type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 <div id="form-wrapper">
-<form id="form-rekam" method="POST" action="#">
+<form id="form-rekam" >
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamNomor">-->
     <?php 
             if(isset($this->error)){
@@ -10,15 +12,16 @@
                 echo "<div id=success>$this->success</div>";
             }
         ?>
-       
-    <label>FORMAT NOMOR</label><input class="required" type="text" name="nomor" onkeyup="keyup();"></br>
-    <label>BAGIAN</label><select class="required" name="bagian">
-        <option name="" selected>--PILIH BAGIAN--</option>
+    <div id="wnomor"></div>   
+    <label>FORMAT NOMOR</label><input id="nomor"  type="text" name="nomor" onkeyup="cekemptyfield(1,this.value);"></br>
+    <div id="wbagian"></div> 
+    <label>BAGIAN</label><select id="bagian"  name="bagian" onchange="cekemptyfield(2,this.value);">
+        <option name="" value="" selected>--PILIH BAGIAN--</option>
         <?php foreach($this->bagian as $key=>$value) { ?>
         <option value="<?php echo $value['kd_bagian'];?>"> <?php echo strtoupper($value['bagian']);?></option>
         <?php } ?>
     </select></br>
-    <label></label><input type="reset" value="RESET"><input type="submit" name="submit" value="SIMPAN">
+    <label></label><input type="reset" value="RESET"><input type="button" name="submit" value="SIMPAN" onclick="cek()">
 </form></div>
 </br>
 <hr>
@@ -53,9 +56,89 @@
     
     }
     
-    function keyup(){
-        $('#error').fadeOut(0);
-        $('#success').fadeOut(0);
+    $(document).ready(function(){
+        $('#form-wrapper').fadeOut(0);
+    });
+    
+    function displayform(){
+        $('#btn-show').fadeOut(500);
+        $('#form-wrapper').fadeIn(500);
+    }
+    
+    function cekemptyfield(num, content){
+        switch (num) {
+            case 1:
+                if(content==''){
+                    var walamat = '<div id=warning>Format nomor harus diisi!</div>'
+                    $('#wnomor').fadeIn(500);
+                    $('#wnomor').html(walamat);
+                }else{
+                    $('#wnomor').fadeOut(500);
+                } 
+                break;
+            case 2:
+                if(content==''){
+                    var wtgl = '<div id=warning>Bagian belum dipilih!</div>'
+                    $('#wbagian').fadeIn(500);
+                    $('#wbagian').html(wtgl);
+                }else{
+                    $('#wbagian').fadeOut(500);
+                    
+                } 
+                break;
+        }
+    }
+    
+    function cek(){
+        var nomor = document.getElementById('nomor').value;
+        var bagian = document.getElementById('bagian').value;
+        var jml = 0;
+        if(nomor==''){
+            jml++;
+            var walamat = '<div id=warning>Format nomor harus diisi!</div>'
+            $('#wnomor').fadeIn(500);
+            $('#wnomor').html(walamat);
+        }
+        
+        if(bagian==''){
+            jml++;
+            var wtgl = '<div id=warning>Bagian belum dipilih!</div>'
+            $('#wbagian').fadeIn(500);
+            $('#wbagian').html(wtgl);
+        }
+        
+        if(jml>0){
+            return false;
+        }else{
+            rekam();
+            return true;
+        }
+    }
+    
+    function rekam(){
+        var bagian = document.getElementById('bagian').value;
+        var nomor = document.getElementById('nomor').value;
+        $.ajax({
+            type:'post',
+            url:'<?php echo URL;?>admin/inputRekamNomor',
+            data:'bagian='+bagian+
+                '&nomor='+nomor,
+            dataType:'json',
+            success:function(data){
+                if(data.status=='success'){
+                    $('#pesan').fadeIn();
+                    $('#pesan').html(data.message);
+                    window.setTimeout(function(){
+                        location.reload(500)
+                    }
+                    ,3000);
+                }else if(data.status=='error'){
+                    $('#pesan').fadeIn();
+                    $('#pesan').html(data.message);
+                }
+                
+            }
+        });
     }
     
     

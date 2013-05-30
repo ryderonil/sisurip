@@ -1,6 +1,8 @@
 <h2>Tambah Jenis Lampiran</h2><hr>
+<div id="pesan"></div>
+ <div id="btn-show"></br><input  type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 <div id="form-wrapper">
-<form id="form-rekam" method="POST" action="#">    
+<form id="form-rekam" >    
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamLampiran">    -->
      <?php 
             if(isset($this->error)){
@@ -9,10 +11,11 @@
                 echo "<div id=success>$this->success</div>";
             }
         ?>           
-        
-    <label>TIPE NASKAH DINAS</label><input class="required" type="text" name="tipe_naskah"></br>
-    <label>KODE SURAT</label><input class="required" type="text" name="kode_naskah"></br>
-    <label></label><input type="reset" name="submit" value="RESET"><input type="submit" name="submit" value="SIMPAN">
+    <div id="wtipe"></div>    
+    <div><label>TIPE NASKAH DINAS</label><input id="tipe" class="required" type="text" name="tipe_naskah" onkeyup="cekemptyfield(1,this.value)"></br>
+    </div><div id="wkdsurat"></div>
+    <div><label>KODE SURAT</label><input id="kdsurat" class="required" type="text" name="kode_naskah" onkeyup="cekemptyfield(2,this.value)"></br>
+    </div><label></label><input type="reset" name="submit" value="RESET"><input type="button" name="submit" value="SIMPAN" onclick="cek()">
 </form></div>
 </br>
 <hr>
@@ -31,6 +34,15 @@
 
 <script type="text/javascript">
 
+$(document).ready(function(){
+        $('#form-wrapper').fadeOut(0);
+    });
+    
+    function displayform(){
+        $('#btn-show').fadeOut(500);
+        $('#form-wrapper').fadeIn(500);
+    }
+    
 function selesai(lamp){
     
     var answer = 'Tipe naskah dinas : '+lamp+" akan dihapus?"
@@ -41,6 +53,96 @@ function selesai(lamp){
         return false;
     }
 }
+
+function cekemptyfield(num, content){
+        switch (num) {
+            case 1:
+                if(content==''){
+                    var walamat = '<div id=warning>Tipe naskah dinas harus diisi!</div>'
+                    $('#wtipe').fadeIn(500);
+                    $('#wtipe').html(walamat);
+                }else{
+                    $('#wtipe').fadeOut(500);
+                } 
+                break;
+            case 2:
+                if(content==''){
+                    var wtgl = '<div id=warning>Kode nomor surat harus diisi!</div>'
+                    $('#wkdsurat').fadeIn(500);
+                    $('#wkdsurat').html(wtgl);
+                }else{
+                    if(content.length>5){
+                        var wtgl = '<div id=warning>Kode nomor surat harus tidak lebih dari 5 karakter!</div>'
+                        $('#wkdsurat').fadeIn(500);
+                        $('#wkdsurat').html(wtgl);
+                    }else{
+                        $('#wkdsurat').fadeOut(500);
+                    }
+                    
+                } 
+                break;
+        }
+    }
+    
+    function cek(){
+        var tipe = document.getElementById('tipe').value;
+        var kode = document.getElementById('kdsurat').value;
+        var jml = 0;
+        if(tipe==''){
+            jml++;
+            var walamat = '<div id=warning>Tipe naskah dinas harus diisi!</div>'
+            $('#wtipe').fadeIn(500);
+            $('#wtipe').html(walamat);
+        }
+        
+        if(kode==''){
+            jml++;
+            var wtgl = '<div id=warning>Kode nomor surat harus diisi!</div>'
+            $('#wkdsurat').fadeIn(500);
+            $('#wkdsurat').html(wtgl);
+        }else{
+            if(kode.length>5){
+                var wtgl = '<div id=warning>Kode nomor surat harus tidak lebih dari 5 karakter!</div>'
+                $('#wkdsurat').fadeIn(500);
+                $('#wkdsurat').html(wtgl);
+            }else{
+                $('#wkdsurat').fadeOut(500);
+            }
+        }
+        
+        if(jml>0){
+            return false;
+        }else{
+            rekam();
+            return true;
+        }
+    }
+    
+    function rekam(){
+        var tipe = document.getElementById('tipe').value;
+        var kode = document.getElementById('kdsurat').value;
+        $.ajax({
+            type:'post',
+            url:'<?php echo URL;?>admin/inputRekamLampiran',
+            data:'tipe_naskah='+tipe+
+                '&kode_naskah='+kode,
+            dataType:'json',
+            success:function(data){
+                if(data.status=='success'){
+                    $('#pesan').fadeIn();
+                    $('#pesan').html(data.message);
+                    window.setTimeout(function(){
+                        location.reload(500)
+                    }
+                    ,3000);
+                }else if(data.status=='error'){
+                    $('#pesan').fadeIn();
+                    $('#pesan').html(data.message);
+                }
+                
+            }
+        });
+    }
 
 
 </script>

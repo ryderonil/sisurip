@@ -59,7 +59,7 @@ class Lampiran_Controller extends Controller{
             $this->view->data[4] = 'SK';
 //        }
         }
-        //var_dump($this->view->data);
+//        var_dump($this->view->data);
         $this->view->tipe = $this->model->getTypeLampiran();
         $this->view->render('lampiran/lampiran');
     }

@@ -275,6 +275,29 @@ class Suratmasuk_Controller extends Controller {
         $lamp = new Lampiran_Model();
         $this->view->lampiran = $lamp->getLampiranSurat($this->view->data[0], 'SM');
         $this->view->count = count($this->view->lampiran);
+        /*
+         * hapus notifikasi
+         */
+        $notif = new Notifikasi();
+        $id_user = 0;
+        $user = Session::get('user');
+        $sql = "SELECT id_user FROM user WHERE username=:user";
+        $param = array(':user'=>$user);
+        $data = $this->model->select($sql, $param);
+        //var_dump($data);
+        foreach($data as $val){
+            $id_user = $val['id_user'];
+        }
+        $sql = "SELECT id_notif FROM notifikasi WHERE id_user=:id_user AND id_surat=:id_surat AND jenis_surat=:jenis";
+        $param = array(':id_user'=>$id_user, ':id_surat'=>$id, ':jenis'=>'SM');
+        $data = $this->model->select($sql, $param);
+        foreach ($data as $val){
+            $notif->set('id_notif', $val['id_notif']);
+            $notif->set('stat_notif', 0);
+            $notif->setNotif();
+        }
+        
+        //render tampilan
         $this->view->render('suratmasuk/detilsurat');
     }
 
@@ -326,7 +349,7 @@ class Suratmasuk_Controller extends Controller {
         $this->view->data2 = $disposisi->getDisposisi(array('id_surat'=>$id));
         $this->view->count = count($this->view->data2);
         //echo $this->view->count;
-        //var_dump($this->view->petunjuk);
+//        var_dump($this->view->petunjuk);
         if ($this->view->count > 0) {
 
 //            foreach ($this->view->data2 as $key => $value) {

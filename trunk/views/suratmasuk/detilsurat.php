@@ -1,5 +1,6 @@
 <?php foreach($this->dataSurat as $value) { ?>
-<div class="span6">
+<table><tr><td>
+<div class="detil">
     <h2>INFORMASI SURAT :</h>
     <hr>
     </br>
@@ -50,8 +51,9 @@
     </div>
 <!-- menampilkan pdf hanya butuh iframe, cuman, browser harus embed ama pdf reader 
 (install pdf reader setelah browser) -->
-<div class="span7">
-    
+        </td><td>
+<!--<div class="span7">-->
+    <div class="detil">
     <!--<p><h2>TAMPILAN ARSIP ELEKTRONIK</h2></p>-->
     <?php if($this->data[7]!='' AND file_exists('arsip/'.$this->data[7])) {?>
     <iframe src="<?php echo URL;?>arsip/<?php echo $this->data[7];?>">
@@ -60,7 +62,9 @@
     }
 ?>
   <p align="center">Mohon segera upload file surat yang bersangkutan</p>
-</iframe></div>
+</iframe>
+</div>
+        </td></tr></table>
 <?php } ?>
 
 <script type="text/javascript">

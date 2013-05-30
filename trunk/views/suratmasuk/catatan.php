@@ -33,7 +33,7 @@ if(isset($this->data)){
     }
 ?>
 
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+<div id="form-wrapper"><form id="form-rekam">
         <?php 
             if(isset($this->error)){
                 echo "<div id=error>$this->error</div>";
@@ -48,7 +48,8 @@ if(isset($this->data)){
         <input id="id_surat" type="hidden" name="id_surat" value="<?php echo $this->data[0];?>">
         <input id="id_disp" type="hidden" name="id_disp" value="<?php echo $this->datad->id_disposisi;?>">
         <input id="bagian" type="hidden" name="bagian" value="<?php echo $this->bagian;?>">
-        <label>KEPADA :</label><select  id="peg" name="peg" class="required">
+        <div id="wpeg"></div>
+        <label>KEPADA :</label><select  id="peg" name="peg" class="required" onchange="cekemptyfield(1,this.value)">
             <option value="">--PILIH PEGAWAI--</option>
             <?php 
                 foreach ($this->peg as $val){
@@ -56,8 +57,9 @@ if(isset($this->data)){
                 }
             ?>
         </select></br>
-        <label>PETUNJUK :</label><br><textarea id="input" class="required" name="catatan" rows="10" cols="50"></textarea></br>
-        <label></label><input type="button" name ="submit" value="SIMPAN" onclick="rekam();">
+        <div id="wpetunjuk"></div>
+        <label>PETUNJUK :</label><br><textarea id="input" class="required" name="catatan" rows="10" cols="50" onkeyup="cekemptyfield(2,this.value)"></textarea></br>
+        <label></label><input type="button" name ="submit" value="SIMPAN" onclick="return cek();">
             
         <?php }else{
             echo "<div id=warning>Surat belum didisposisi Kepala Kantor, Anda tidak dapat memberikan disposisi!</div>";
@@ -68,12 +70,70 @@ if(isset($this->data)){
 
 <script type="text/javascript">
 
+function cek(){
+    var peg = document.getElementById('peg').value;
+    var petunjuk = document.getElementById('input').value;
+    var jml = 0;
+    if(peg==''){
+        jml++;
+        var wpeg = '<div id=warning>Anda belum memilih pegawai!</div>';
+        $('#wpeg').fadeIn(500);
+        $('#wpeg').html(wpeg);
+    }
+    
+    if(petunjuk==''){
+        jml++;
+        var wpetunjuk = '<div id=warning>Kolom Petunjuk harus diisi!</div>';
+        $('#wpetunjuk').fadeIn(500);
+        $('#wpetunjuk').html(wpetunjuk);
+    }else if(petunjuk.length<10){
+        var wpetunjuk = '<div id=warning>Petunjuk minimal 10 karakter</div>';
+        $('#wpetunjuk').fadeIn(500);
+        $('#wpetunjuk').html(wpetunjuk);
+    }
+    
+    if(jml>0){
+        return false;
+    }else{
+        rekam();
+        return true;
+    }
+    
+    
+}
+
+function cekemptyfield(num, content){
+    switch(num){
+        case 1:
+            if(content==''){
+                var wpeg = '<div id=warning>Anda belum memilih pegawai!</div>';
+                $('#wpeg').fadeIn(500);
+                $('#wpeg').html(wpeg); 
+            }else{
+                $('#wpeg').fadeOut(500);
+            }
+            break;
+        case 2:
+            if(content==''){
+                var wpeg = '<div id=warning>Anda belum memilih pegawai!</div>';
+                $('#wpetunjuk').fadeIn(500);
+                $('#wpetunjuk').html(wpeg); 
+            }else if(content.length<10){
+                var wpetunjuk = '<div id=warning>Petunjuk minimal 10 karakter</div>';
+                $('#wpetunjuk').fadeIn(500);
+                $('#wpetunjuk').html(wpetunjuk);
+            }else{
+                $('#wpetunjuk').fadeOut(500);
+            }
+            break;
+    }
+}
 function rekam(){
         var id_surat = document.getElementById('id_surat').value;
         var id_disp = document.getElementById('id_disp').value;
         var bagian = document.getElementById('bagian').value;
         var peg = document.getElementById('peg').value;
-        var catatan = document.getElementById('catatan').value;
+        var catatan = document.getElementById('input').value;
 //        var join = agenda+' '+tgl+' '+alamat+' '+nosurat+' '+hal+' '+sifat+' '+jenis+' '+status+' '+lampiran;
 //        alert(join);
         $.ajax({

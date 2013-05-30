@@ -1,5 +1,6 @@
 <h2>Ubah Surat Keluar</h2>            
 <hr>
+<div id="pesan"></div>
 <?php
 if (isset($this->datasm)) {
     $form = new Form_Generator();
@@ -24,7 +25,7 @@ if (isset($this->datasm)) {
 ?>
 
 
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="#" enctype="multipart/form-data">
     <!--<label>AGENDA</label><input type="text" name="no_agenda" value=""></br>
     <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->
         <?php 
@@ -34,9 +35,14 @@ if (isset($this->datasm)) {
                 echo "<div id=success>$this->success</div>";
             }
         ?>
-        <input type="hidden" name="id" value="<?php echo $this->id;?>">        
-        <label>TANGGAL SURAT</label><input type="text" id="datepicker" name="tgl_surat" class="required" value="<?php echo $this->tgl_surat;?>"></br>
-        <label>TIPE NASKAH DINAS</label><select name="tipe" id="tipe">
+        <input type="hidden" name="id" value="<?php echo $this->id;?>">
+        <div id="walamat"></div>
+        <div><label>ALAMAT TUJUAN</label><input id="alamat"  type="text" name="tujuan" value="<?php echo isset($this->alamat)?$this->alamat:$this->tujuan; ?>" title="isikan kode alamat tujuan(*)" onkeyup="cekemptyfield(1,this.value)">
+        <a href="<?php echo URL; ?>helper/pilihalamat/4<?php if (isset($this->id)) echo "/" . $this->id; ?>"><input type="button" name="" value="+"></input></a></br>
+        </div><div id="wtgl"></div>
+        <label>TANGGAL SURAT</label><input type="text" id="datepicker" name="tgl_surat"  value="<?php echo $this->tgl_surat;?>" onchange="cekemptyfield(2,this.value)" readonly></br>
+        <div id="wtipe"></div>
+        <label>TIPE NASKAH DINAS</label><select name="tipe" id="tipe" onchange="cekemptyfield(7,this.value)">
             <option value="">--PILIH TIPE NASKAH--</option>
             <?php
             foreach ($this->tipe as $key => $value) {
@@ -49,10 +55,10 @@ if (isset($this->datasm)) {
             }
             ?></select></br>
         <label>NOMOR</label><input type="text" name="nomor" id="nomor" value="<?php echo $this->no_surat;?>"> <input type="button" value="+" onclick="ambilNomor(document.getElementById('tipe').value);"></br>    
-        <label>ALAMAT TUJUAN</label><input class="required" type="text" name="tujuan" value="<?php echo isset($this->alamat)?$this->alamat:$this->tujuan; ?>">
-        <a href="<?php echo URL; ?>helper/pilihalamat/4<?php if (isset($this->id)) echo "/" . $this->id; ?>"><input type="button" name="" value="+"></input></a></br>
-        <label>PERIHAL</label><input class="required" type="text" name="perihal" value="<?php echo $this->perihal;?>"></br>
-        <label>SIFAT</label><select name="sifat">
+        <div id="whal"></div>
+        <label>PERIHAL</label><input id="perihal"  type="text" name="perihal" value="<?php echo $this->perihal;?>" title="isikan perihal surat(*)" onkeyup="cekemptyfield(3,this.value)"></br>
+        <div id="wsifat"></div>
+        <label>SIFAT</label><select name="sifat" id="sifat" onchange="cekemptyfield(4,this.value)">
             <option value="" selected>--PILIH SIFAT SURAT--</option>
             <?php
             foreach ($this->sifat as $key => $value) {
@@ -64,8 +70,9 @@ if (isset($this->datasm)) {
                 
             }
             ?>
-        </select></br>    
-        <label>JENIS</label><select name="jenis">
+        </select></br>
+        <div id="wjenis"></div>
+        <label>JENIS</label><select name="jenis" id="jenis" onchange="cekemptyfield(5,this.value)">
             <option value="" selected>--PILIH JENIS SURAT--</option>
             <?php
             foreach ($this->jenis as $key => $value) {
@@ -78,7 +85,8 @@ if (isset($this->datasm)) {
             }
             ?>
         </select></br>
-        <label>LAMPIRAN</label><input type="" name="lampiran" value="<?php echo $this->lampiran;?>"></br>
+        <div id="wlampiran"></div>
+        <label>LAMPIRAN</label><input id="lampiran" type="" name="lampiran" value="<?php echo $this->lampiran;?>" title="isikan jumlah lampiran(*)" onkeyup="cekemptyfield(6,this.value)"></br>
         <label>FILE SURAT</label><input type="file" name="upload"></br>
         <label></label><input type="button" onclick="location.href='<?php echo URL; ?>suratkeluar'" value="BATAL"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai();">
     </form></div>
@@ -147,9 +155,196 @@ function selesai(){
     var answer = 'anda yakin menyimpan perubahan?'
     
     if(confirm(answer)){
+        cek();
         return true;
     }else{
         return false;
     }
 }
+
+function cekemptyfield(num, content){
+        switch (num) {
+            case 1:
+                if(content==''){
+                    var walamat = '<div id=warning>Isikan kode alamat surat!</div>'
+                    $('#walamat').fadeIn(500);
+                    $('#walamat').html(walamat);
+                }else{
+                    $('#walamat').fadeOut(500);
+                } 
+                break;
+            case 2:
+                if(content==''){
+                    var wtgl = '<div id=warning>Isikan tanggal surat mm/dd/yyyy</div>'
+                    $('#wtgl').fadeIn(500);
+                    $('#wtgl').html(wtgl);
+                }else{
+                    $('#wtgl').fadeOut(500);
+                } 
+                break;
+            case 3:
+                if(content==''){
+                    var wtgl = '<div id=warning>Isikan perihal surat!</div>'
+                    $('#whal').fadeIn(500);
+                    $('#whal').html(wtgl);
+                }else{
+                    $('#whal').fadeOut(500);
+                } 
+                break;
+            case 4:
+                if(content==''){
+                    var wtgl = '<div id=warning>Pilih salah satu sifat surat</div>'
+                    $('#wsifat').fadeIn(500);
+                    $('#wsifat').html(wtgl);
+                }else{
+                    $('#wsifat').fadeOut(500);
+                } 
+                break;
+            case 5:
+                if(content==''){
+                    var wtgl = '<div id=warning>Pilih salah satu jenis surat</div>'
+                    $('#wjenis').fadeIn(500);
+                    $('#wjenis').html(wtgl);
+                }else{
+                    $('#wjenis').fadeOut(500);
+                } 
+                break;
+            case 6:
+                if(content==''){
+                    var wtgl = '<div id=warning>Kolom ini harus diisi dengan jumlah lampiran</div>'
+                    $('#wlampiran').fadeIn(500);
+                    $('#wlampiran').html(wtgl);
+                }else if(!checkInput(content)){
+                    var wlamp = '<div id=warning>Isikan dengan angka jumlah lampiran</div>'
+                    $('#wlampiran').fadeIn(500);
+                    $('#wlampiran').html(wlamp);
+                }else{
+                    $('#wlampiran').fadeOut(500);
+                } 
+                break;
+            case 7:
+                if(content==''){
+                    var wtgl = '<div id=warning>Pilih salah satu tipe surat</div>'
+                    $('#wtipe').fadeIn(500);
+                    $('#wtipe').html(wtgl);
+                }else{
+                    $('#wtipe').fadeOut(500);
+                } 
+                break;
+        }
+    }
+    
+    function cek(){
+        var tgl = document.getElementById('datepicker').value;
+        var alamat = document.getElementById('alamat').value;
+        var hal = document.getElementById('perihal').value;
+        var sifat = document.getElementById('sifat').value;
+        var jenis = document.getElementById('jenis').value;
+        var tipe = document.getElementById('tipe').value;
+        var lampiran = document.getElementById('lampiran').value;
+        var jml = 0;
+        if(tgl==''){
+            jml++;
+            var wtgl = '<div id=warning>Isikan tanggal surat mm/dd/yyyy</div>'
+            $('#wtgl').fadeIn(500);
+            $('#wtgl').html(wtgl);
+        }
+        
+        if(alamat==''){
+            jml++;
+            var walamat = '<div id=warning>Isikan kode alamat surat!</div>'
+            $('#walamat').fadeIn(500);
+            $('#walamat').html(walamat);
+        }
+        
+        if(hal==''){
+            jml++;
+            var wtgl = '<div id=warning>Isikan perihal surat!</div>'
+            $('#whal').fadeIn(500);
+            $('#whal').html(wtgl);
+        }
+        
+        if(tipe==''){
+            jml++;
+            var wtgl = '<div id=warning>Pilih salah satu tipe surat</div>'
+            $('#wtipe').fadeIn(500);
+            $('#wtipe').html(wtgl);
+        }
+        
+        if(jenis==''){
+            jml++;
+            var wtgl = '<div id=warning>Pilih salah satu jenis surat</div>'
+            $('#wjenis').fadeIn(500);
+            $('#wjenis').html(wtgl);
+        }
+        
+        if(sifat==''){
+            var wtgl = '<div id=warning>Pilih salah satu sifat surat</div>'
+            $('#wsifat').fadeIn(500);
+            $('#wsifat').html(wtgl);
+        }
+        
+        if(lampiran==''){
+            jml++;
+            var wlamp = '<div id=warning>Kolom ini harus diisi dengan jumlah lampiran</div>'
+            $('#wlampiran').fadeIn(500);
+            $('#wlampiran').html(wlamp);
+        }else if(!checkInput(lampiran)){
+            var wlamp = '<div id=warning>Isikan dengan angka jumlah lampiran</div>'
+            $('#wlampiran').fadeIn(500);
+            $('#wlampiran').html(wlamp);
+        }
+        
+        if(jml>0){
+            return false;
+        }else{
+            rekam();
+            return true;
+        }
+    }
+    //cek input berupa angka
+    function checkInput(value) 
+    {
+        var pola = "^";
+        pola += "[0-9]*";
+        pola += "$";
+        rx = new RegExp(pola);
+        
+        if(value.match(rx)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    function rekam(){
+        var id = document.getElementById('id').value;
+        var tgl = document.getElementById('datepicker').value;
+        var alamat = document.getElementById('alamat').value;
+        var nosurat = document.getElementById('no_surat').value;
+        var hal = document.getElementById('perihal').value;
+        var tipe = document.getElementById('tipe').value;
+        var sifat = document.getElementById('sifat').value;
+        var jenis = document.getElementById('jenis').value;
+        var lampiran = document.getElementById('lampiran').value;
+        //        var join = agenda+' '+tgl+' '+alamat+' '+nosurat+' '+hal+' '+sifat+' '+jenis+' '+status+' '+lampiran;
+        //        alert(join);
+        $.ajax({
+            type:'POST',
+            url:'<?php echo URL; ?>suratkeluar/editSurat',
+            data:'id_suratkeluar='+id+
+                '&tgl_surat='+tgl+
+                '&tujuan='+alamat+
+                '&no_surat='+nosurat+
+                '&perihal='+hal+
+                '&sifat='+sifat+
+                '&jenis='+jenis+
+                '&tipe='+tipe+
+                '&lampiran='+lampiran,
+            success:function(data){
+                $('#pesan').fadeIn(500);
+                $('#pesan').html(data);
+            }
+        });
+    }
 </script>

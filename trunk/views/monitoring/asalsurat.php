@@ -16,7 +16,7 @@ $plot->SetPlotType('thinbarline');
 $plot->SetDataType('text-data');
 $plot->SetDataValues($data);
 # Main plot title:
-$plot->SetTitle('ASAL SURAT');
+$plot->SetTitle('ASAL SURAT '.date('Y'));
 $plot->SetBackgroundColor('#eeeeff');
 $plot->SetDataColors(array('blue'));
 # Make a legend for the 3 data sets plotted:
