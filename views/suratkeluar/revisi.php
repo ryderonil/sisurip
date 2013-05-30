@@ -1,5 +1,6 @@
 <h2>Catatan Revisi</h2>
 <hr>
+<div id="pesan"></div>
 </br>
 <div id="table-wrapper"><table class="CSSTableGenerator">
         <tr><td></td><td></td></tr>

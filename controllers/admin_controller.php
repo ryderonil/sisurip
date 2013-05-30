@@ -337,7 +337,7 @@ class Admin_Controller extends Controller {
         $user = new User();
         if(isset($_POST['submit'])){
             $cekuser = $user->cekUserExist($_POST['username'], $_POST['NIP']);
-            var_dump($cekuser);
+//            var_dump($cekuser);
             if($cekuser){
                 $this->view->error = "nama user telah dipakai, atau pegawai ini telah memiliki akun!";
             }
@@ -353,6 +353,20 @@ class Admin_Controller extends Controller {
         $this->view->role = $this->model->select('SELECT * FROM role');
         $this->view->count = count($this->view->user);
         $this->view->render('admin/user/index');
+    }
+    
+    public function cekUser(){
+        $data = array();
+        if(isset($_POST['user'])){
+            $data = $this->model->select("SELECT * FROM user WHERE username = '".$_POST['user']."'");
+        }elseif (isset($_POST['nip'])) {
+            $data = $this->model->select("SELECT * FROM user WHERE NIP = '".$_POST['nip']."'");
+        }
+        
+        $count = count($data);
+        echo json_encode(array(
+            'hasil'=>$count
+        ));
     }
 
     public function ubahUser($id) {
@@ -519,9 +533,19 @@ class Admin_Controller extends Controller {
             'bagian' => $_POST['bagian'],
             'kd_nomor' => $_POST['nomor']
         );
-        $this->model->addPenomoran($data);
+        if($this->model->addPenomoran($data)){
+            echo json_encode(array(
+                'status'=>'success',
+                'message'=>'<div id=success>Rekam nomor berhasil</div>'
+            ));
+        }else{
+            echo json_encode(array(
+                'status'=>'error',
+                'message'=>'<div id=error>Rekam nomor gagal!</div>'
+            ));
+        }
 //        $this->rekamNomor();
-        return true;
+//        return true;
     }
 
     public function updateRekamNomor() {
@@ -531,9 +555,19 @@ class Admin_Controller extends Controller {
         );
 
         $where = ' id_nomor=' . $_POST['id'];
-        $this->model->updatePenomoran($data, $where);
+        if($this->model->updatePenomoran($data, $where)){
+            echo json_encode(array(
+                'status'=>'success',
+                'message'=>'<div id=success>Ubah nomor berhasil</div>'
+            ));
+        }else{
+            echo json_encode(array(
+                'status'=>'error',
+                'message'=>'<div id=error>Ubah nomor gagal!</div>'
+            ));
+        }
 //        $this->rekamNomor();
-        return true;
+//        return true;
     }
 
     public function hapusNomor($id) {
@@ -547,9 +581,16 @@ class Admin_Controller extends Controller {
             'kode' => $_POST['kode'],
             'klasifikasi' => $_POST['klasifikasi']
         );
-        $this->model->addKlasifikasiArsip($data);
+        if($this->model->addKlasifikasiArsip($data)){
+            echo json_encode(array(
+                "status"=>"success",
+                "message"=>"<div id=success>Rekam data klasifikasi kode $_POST[kode] berhasil</div>"
+                ));
+        }else{
+            echo "<div id=error>Rekam data klasifikasi kode $_POST[kode] gagal</div>";
+        }
 //        $this->rekamKlasifikasiArsip();
-        return true;
+//        return true;
     }
 
     public function updateRekamKlasArsip() {
@@ -559,9 +600,13 @@ class Admin_Controller extends Controller {
         );
 
         $where = ' id_klasarsip=' . $_POST['id'];
-        $this->model->updateKlasifikasiArsip($data, $where);
+        if($this->model->updateKlasifikasiArsip($data, $where)){
+            echo "<div id=success>Ubah data klasifikasi kode $_POST[kode] berhasil</div>";
+        }else{
+            echo "<div id=error>Ubah data klasifikasi kode $_POST[kode] gagal</div>";
+        }
 //        $this->rekamKlasifikasiArsip();
-        return true;
+//        return true;
     }
 
     public function hapusKlasifikasiArsip($id) {
@@ -575,9 +620,19 @@ class Admin_Controller extends Controller {
             'tipe_naskah' => $_POST['tipe_naskah'],
             'kode_naskah' => $_POST['kode_naskah']
         );
-        $this->model->addLampiran($data);
+        if($this->model->addLampiran($data)){
+            echo json_encode(array(
+                    'status' => 'success',
+                    'message' => '<div id=success>Rekam tipe naskah dinas '.$_POST['tipe_naskah'].' berhasil</div>'
+            ));
+        }else{
+            echo json_encode(array(
+                    'status' => 'error',
+                    'message' => '<div id=success>Rekam tipe naskah dinas '.$_POST['tipe_naskah'].' gagal</div>'
+            ));
+        }
 //        $this->rekamJenisLampiran();
-        return true;
+//        return true;
     }
 
     public function updateRekamLampiran() {
@@ -585,11 +640,20 @@ class Admin_Controller extends Controller {
             'tipe_naskah' => $_POST['tipe_naskah'],
             'kode_naskah' => $_POST['kode_naskah']
         );
-
         $where = ' id_tipe=' . $_POST['id'];
-        $this->model->updateLampiran($data, $where);
+        if($this->model->updateLampiran($data, $where)){
+            echo json_encode(array(
+                    'status' => 'success',
+                    'message' => '<div id=success>Ubah tipe naskah dinas '.$_POST['tipe_naskah'].' berhasil</div>'
+            ));
+        }else{
+            echo json_encode(array(
+                    'status' => 'error',
+                    'message' => '<div id=error>Ubah tipe naskah dinas '.$_POST['tipe_naskah'].' gagal</div>'
+            ));
+        }
 //        $this->rekamJenisLampiran();
-        return true;
+//        return true;
     }
     
     /*
@@ -648,10 +712,20 @@ class Admin_Controller extends Controller {
             'role' => $_POST['role'],
             'active' => 'Y'
         );*/
-        $user->addUser();
+        if($user->addUser()){
+            echo json_encode(array(
+                'status'=>'success',
+                'message'=>'<div id=success>Rekam pengguna atas nama '.$_POST['namaPegawai'].' berhasil</div>'
+            ));
+        }else{
+            echo json_encode(array(
+                'status'=>'error',
+                'message'=>'<div id=error>Rekam pengguna atas nama '.$_POST['namaPegawai'].' gagal</div>'
+            ));
+        }
 //        $this->model->addUser($data);
 //        $this->rekamUser();
-        return true;
+//        return true;
     }
 
     public function updateRekamUser() {
@@ -680,7 +754,17 @@ class Admin_Controller extends Controller {
         
 //        $this->model->updateUser($data, $where);
 //        $this->rekamUser();
-        return $user->editUser();
+        if($user->editUser()){
+            echo json_encode(array(
+                'status'=>'success',
+                'message'=>'<div id=success>Ubah data pengguna atas nama '.$_POST['namaPegawai'].' berhasil</div>'
+            ));
+        }else{
+            echo json_encode(array(
+                'status'=>'error',
+                'message'=>'<div id=error>Ubah data pengguna atas nama '.$_POST['namaPegawai'].' gagal</div>'
+            ));
+        }
     }
 
     public function hapusUser($id) {
@@ -737,9 +821,19 @@ class Admin_Controller extends Controller {
             'status' => 'E'
         );
 //        var_dump($data);
-        $this->model->addLokasi($data);
+        if($this->model->addLokasi($data)){
+            echo json_encode(array(
+                'status'=>'success',
+                'message'=>'<div id=success>Rekam lokasi berhasil</div>'
+            ));
+        }else{
+            echo json_encode(array(
+                'status'=>'error',
+                'message'=>'<div id=error>Rekam lokasi gagal!</div>'
+            ));
+        }
 //        $this->rekamLokasi();
-        return true;
+//        return true;
     }
 
     public function updateRekamLokasi() {
@@ -764,9 +858,19 @@ class Admin_Controller extends Controller {
             'status' => 'E'
         );
         $where = ' id_lokasi=' . $id;
-        $this->model->updateLokasi($data, $where);
+        if($this->model->updateLokasi($data, $where)){
+            echo json_encode(array(
+                'status'=>'success',
+                'message'=> '<div id=success>Rekam lokasi berhasil</div>'
+            ));
+        }else{
+            echo json_encode(array(
+                'status'=>'error',
+                'message'=> '<div id=success>Rekam lokasi gagal!</div>'
+            ));
+        }
 //        $this->rekamLokasi();
-        return true;
+//        return true;
     }
 
     public function ubahStatusLokasi($id, $status) {
@@ -788,13 +892,16 @@ class Admin_Controller extends Controller {
         );
         
         if($this->model->existAlamat($_POST['kode_satker'])){
+            echo "<div id=error>alamat dengan kode $_POST[kode_satker] telah ada di database!</div>";
             return false;
         }
         //var_dump($data);
-        $this->model->addAlamatSurat($data);
+        if($this->model->addAlamatSurat($data)){
+            echo "<div id=success>Rekam data alamat kode alamat $_POST[kode_satker] berhasil</div>";
+        }else{
+            echo "<div id=error>Rekam data alamat kode alamat $_POST[kode_satker] gagal!</div>";
+        }
 //        $this->rekamAlamat();
-        return true;
-        
     }
     
     public function updateRekamAlamat(){
@@ -812,9 +919,13 @@ class Admin_Controller extends Controller {
         }*/
         
         $where = ' id_alamat='.$_POST['id'];
-        $this->model->updateAlamatSurat($data, $where);
+        if($this->model->updateAlamatSurat($data, $where)){
+            echo "<div id=success>Ubah data alamat kode alamat $_POST[kode_satker] berhasil</div>";
+        }else{
+            echo "<div id=error>Ubah data alamat kode alamat $_POST[kode_satker] gagal!</div>";
+        }
 //        $this->rekamAlamat();
-        return true;
+//        return true;
         
     }
     
@@ -948,7 +1059,7 @@ class Admin_Controller extends Controller {
         $this->view->render('admin/log');
     }
     
-    public function test(){
+    public function setAktiveUser(){
         $q = $_POST['queryString'];
         $post = explode("-", $q);
         $user = new User();
@@ -974,6 +1085,17 @@ class Admin_Controller extends Controller {
         //echo $aktif;
 //        $this->model->setAktifUser($id, $aktif);
 //        $this->rekamUser();
+    }
+    
+    public function cekPejabat(){
+        $bagian = $_POST['bagian'];
+        $jabatan = $_POST['jabatan'];
+        $sql = "SELECT * FROM user WHERE bagian=".$bagian." AND jabatan=".$jabatan." AND active='Y'";
+        $data = $this->model->select($sql);
+        $return = count($data);
+        
+        echo json_encode(array('hasil'=>$return));
+        
     }
             
     

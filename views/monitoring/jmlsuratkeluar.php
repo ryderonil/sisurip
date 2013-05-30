@@ -16,7 +16,7 @@ $plot->SetPlotType('bars');
 $plot->SetDataType('text-data');
 $plot->SetDataValues($data);
 # Main plot title:
-$plot->SetTitle('SURAT KELUAR');
+$plot->SetTitle('SURAT KELUAR '. strtoupper(Tanggal::bulan_indo(date('m'))).' '.date('Y'));
 $plot->SetBackgroundColor('#eeeeff');
 $plot->SetDataColors(array('orange'));
 //$plot->SetShading(0);

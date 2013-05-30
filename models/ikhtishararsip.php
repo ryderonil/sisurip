@@ -283,8 +283,7 @@ class IkhtisharArsip extends Model{
             FROM arsip a LEFT JOIN suratmasuk b ON a.id_surat=b.id_suratmasuk             
             LEFT JOIN tipe_naskah c ON a.jenis=c.id_tipe
             LEFT JOIN alamat d ON b.asal_surat=d.kode_satker
-            WHERE id_lokasi=".$id." AND a.tipe_surat='SM'";        
-        
+            WHERE a.id_lokasi=".$id." AND a.tipe_surat='SM'";
         $datasm = $this->select($sql);
         foreach ($datasm as $val){
             $arsip = new Arsip_Model();
@@ -308,7 +307,7 @@ class IkhtisharArsip extends Model{
             FROM arsip a LEFT JOIN suratkeluar b ON a.id_surat=b.id_suratkeluar             
             LEFT JOIN tipe_naskah c ON a.jenis=c.id_tipe
             LEFT JOIN alamat d ON b.tujuan=d.kode_satker
-            WHERE id_lokasi=".$id." AND a.tipe_surat='SK'";        
+            WHERE a.id_lokasi=".$id." AND a.tipe_surat='SK'";        
         
         $datask = $this->select($sql);
         foreach ($datask as $val){

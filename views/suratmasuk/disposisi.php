@@ -118,7 +118,7 @@ if ($this->count > 0) {
                 <td>Penerima :</td><td><input type="text" name="" value=""></td></tr>
         </table> -->   
         <input type="button" name="submit" value="SIMPAN" onclick=" 
-               <?php if($this->count>0){?>
+               <?php if($this->disp[0]!=null){ ?>
                cek(2);
                <?php }else{?>
                cek(1);
@@ -135,25 +135,25 @@ function cek(attr){
     var sifat = $('input[name=sifat]:checked', '#form-rekam').val();
     var catatan = document.getElementById('input').value;
     if(jmldisp==0){
-        var wdisposisi = '<div id=warnin><font color=red><b>Anda belum memilih disposisi</b></font></div>';
+        var wdisposisi = '<div id=warning><font color=red><b>Anda belum memilih disposisi</b></font></div>';
         $('#wdisposisi').html(wdisposisi);
         jml++;
     }
     
     if(jmlpetunjuk==0){
-        var wpetunjuk = '<div id=warnin><font color=red><b>Anda belum memilih petunjuk</b></font></div>';
+        var wpetunjuk = '<div id=warning><font color=red><b>Anda belum memilih petunjuk</b></font></div>';
         $('#wpetunjuk').html(wpetunjuk);
         jml++;
     }
     
     if(sifat==undefined){
-        var wsifat = '<div id=warnin><font color=red><b>Anda belum memilih sifat disposisi</b></font></div>';
+        var wsifat = '<div id=warning><font color=red><b>Anda belum memilih sifat disposisi</b></font></div>';
         $('#wsifat').html(wsifat);
         jml++;
     }
     
     if(catatan==''){
-        var wcatatan = '<div id=warnin><font color=red><b>Catatan disposisi harus diisi!</b></font></div>';
+        var wcatatan = '<div id=warning><font color=red><b>Catatan disposisi harus diisi!</b></font></div>';
         $('#wcatatan').html(wcatatan);
         jml++;
     }

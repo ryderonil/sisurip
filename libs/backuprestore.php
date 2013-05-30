@@ -129,8 +129,8 @@ class Backuprestore {
         }
         return $ok;
     }
-
-    //backup database
+	
+    //backup database hanya table perlu ditambahkan backup trigger dsb
     function backupDatabase($name, $tables = '*') {
         $this->connect(DB_HOST, DB_USER, DB_PASS, $name);
         $return = '';

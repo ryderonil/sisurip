@@ -33,7 +33,7 @@ $html->br();
 
 ?>
 
-
+<div id="pesan"></div>
 <div id="form-wrapper"><form id="form-rekam" >
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>arsip/rekamArsip">-->
         <?php 
@@ -50,7 +50,8 @@ $html->br();
     <input id="tipe" type="hidden" name="tipe" value="<?php echo $this->tipe;?>">
     <?php if(isset($this->warning)) { ?><div id="warning"><?php echo $this->warning;?></div><?php } ?>
 <?php if(!isset($this->warning)) { ?>
-    <label>FILLING/RAK</label><select class="required" id="rak" name="rak" onchange="pilihbaris(this.value);">
+    <div id="wrak"></div>
+    <div><label>FILLING/RAK</label><select class="required" id="rak" name="rak" onchange="pilihbaris(this.value); cekemptyfield(1,this.value)">
         <option value="">--PILIH FILLING/RAK/LEMARI--</option>
         <?php 
         foreach ($this->rak as $key=>$value){
@@ -67,7 +68,8 @@ $html->br();
         }
         ?>
     </select></br>
-    <label>BARIS</label><select class="required" id="baris" name="baris" onchange="pilihbox(this.value);">
+    </div><div id="wbaris"></div>
+    <div><label>BARIS</label><select class="required" id="baris" name="baris" onchange="pilihbox(this.value);cekemptyfield(2,this.value)">
         <option value="">--PILIH BARIS--</option>
         <?php
         foreach ($this->baris as $value){
@@ -86,7 +88,8 @@ $html->br();
         
         ?>
     </select></br>
-    <label>BOX/ODNER</label><select class="required" id="box" name="box">
+    </div><div id="wbox"></div>
+    <div><label>BOX/ODNER</label><select class="required" id="box" name="box" onchange="cekemptyfield(3,this.value)">
         <option value="">--PILIH BOX/ODNER--</option>
         <?php
         foreach ($this->box as $value){
@@ -103,7 +106,8 @@ $html->br();
         //}
         ?>
     </select></br>
-    <label>KLASIFIKASI</label><select class="required" id="klas" name="klas">
+    </div><div id="wklas"></div>
+    <div><label>KLASIFIKASI</label><select class="required" id="klas" name="klas" onchange="cekemptyfield(4,this.value)">
         <option value="">--PILIH KLASIFIKASI ARSIP--</option>
         <?php
         foreach ($this->klas as $value){
@@ -121,12 +125,12 @@ $html->br();
             //echo "<option value='".$value['id_lokasi']."'>$value[lokasi]</option>";
         //}
         ?>
-    </select></br>
+    </select></div></br>
     <label></label><input type="button" name="submit" value="SIMPAN" onclick="
         <?php if(isset($this->ar)) {?>
-            selesai();
+            return cek(2);
         <?php }else{ ?>
-            rekam();
+            return cek(1);
         <?php } ?> "> 
         
 </form></div> <?php } ?>
@@ -148,6 +152,94 @@ function pilihbox(baris){
                 $('#box').html(data);
             });
 }
+
+function cekemptyfield(num, content){
+        switch (num) {
+            case 1:
+                if(content==''){
+                    var walamat = '<div id=warning>Rak belum dipilih!</div>'
+                    $('#wrak').fadeIn(500);
+                    $('#wrak').html(walamat);
+                }else{
+                    $('#wrak').fadeOut(500);
+                } 
+                break;
+            case 2:
+                if(content==''){
+                    var wtgl = '<div id=warning>Baris belum dipilih!</div>'
+                    $('#wbaris').fadeIn(500);
+                    $('#wbaris').html(wtgl);
+                }else{
+                    $('#wbaris').fadeOut(500);
+                } 
+                break;
+            case 3:
+                if(content==''){
+                    var wtgl = '<div id=warning>Box/Odner belum dipilih!</div>'
+                    $('#wbox').fadeIn(500);
+                    $('#wbox').html(wtgl);
+                }else{
+                    $('#wbox').fadeOut(500);
+                } 
+                break;
+            case 4:
+                if(content==''){
+                    var wtgl = '<div id=warning>Klasifikasi Arsip belum dipilih!</div>'
+                    $('#wklas').fadeIn(500);
+                    $('#wklas').html(wtgl);
+                }else{
+                    $('#wklas').fadeOut(500);
+                } 
+                break;
+        }
+    }
+    
+    function cek(num){
+        var rak = document.getElementById('rak').value;
+        var baris = document.getElementById('baris').value;
+        var box = document.getElementById('box').value;
+        var klas = document.getElementById('klas').value;
+        var jml = 0;
+        if(rak==''){
+            jml++;
+            var wtgl = '<div id=warning>Rak belum dipilih!</div>'
+            $('#wrak').fadeIn(500);
+            $('#wrak').html(wtgl);
+        }
+        
+        if(baris==''){
+            jml++;
+            var walamat = '<div id=warning>Baris belum dipilih!</div>'
+            $('#wbaris').fadeIn(500);
+            $('#wbaris').html(walamat);
+        }
+        
+        if(box==''){
+            jml++;
+            var wtgl = '<div id=warning>Box/Odner belum dipilih!</div>'
+            $('#wbox').fadeIn(500);
+            $('#wbox').html(wtgl);
+        }
+        
+        if(klas==''){
+            jml++;
+            var wtgl = '<div id=warning>Klasifikasi Arsip belum dipilih!</div>'
+            $('#wklas').fadeIn(500);
+            $('#wklas').html(wtgl);
+        }
+        
+        if(jml>0){
+            return false;
+        }else{
+            if(num==1){
+               rekam(); 
+            }else if(num==2){
+               return selesai(); 
+            }
+            
+            return true;
+        }
+    }
 
 function rekam(){
     var box = document.getElementById('box').value;

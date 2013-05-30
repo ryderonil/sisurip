@@ -48,11 +48,19 @@ class Login_Controller extends Controller{
             $log = new Log();
             $log->addLog(Session::get('user'),'LOGIN','');
             unset($log);
-            header('location:../home');
+//            header('location:../home');
+            echo json_encode(array(
+                'status' => 'success'
+            ));
         }else{
-            $this->view->error['invalid'] = 'Akun tidak ditemukan';
+//            $this->view->error['invalid'] = 'Akun tidak ditemukan';
             //header('location:../login');
-            $this->view->render('login/index');
+//            $this->view->render('login/index');
+//            echo 'Akun tidak ditemukan';
+            echo json_encode(array(
+                'status' => 'error',
+                'message'=> 'Akun tidak ditemukan'
+            ));
         }
     }
     

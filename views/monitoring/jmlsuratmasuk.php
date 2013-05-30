@@ -16,7 +16,7 @@ $plot->SetPlotType('bars');
 $plot->SetDataType('text-data');
 $plot->SetDataValues($data);
 # Main plot title:
-$plot->SetTitle('SURAT MASUK');
+$plot->SetTitle('SURAT MASUK'. strtoupper(Tanggal::bulan_indo(date('m'))).' '.date('Y'));
 $plot->SetBackgroundColor('#eeeeff');
 $plot->SetDataColors(array('red'));
 # Make a legend for the 3 data sets plotted:

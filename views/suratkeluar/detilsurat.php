@@ -1,5 +1,6 @@
-
-<div class="left">
+<table><tr><td>
+<!--<div class="left">-->
+<div class="detil">
     <h2>INFORMASI SURAT :</h>
     <hr>
     </br>
@@ -48,8 +49,9 @@
     </div>
 <!-- menampilkan pdf hanya butuh iframe, cuman, browser harus embed ama pdf reader 
 (install pdf reader setelah browser) -->
-<div class="right">
-    
+    </td><td>
+<!--<div class="right">-->
+<div class="detil">    
     <!--<p><h2>TAMPILAN ARSIP ELEKTRONIK</h2></p>-->
     <?php if($this->file!='' AND file_exists('arsip/'.$this->file)) {?>
     <iframe src="<?php echo URL;?>arsip/<?php echo $this->file;?>">
@@ -58,7 +60,7 @@
     }
 ?>
   <p align="center">Mohon segera upload file surat yang bersangkutan</p>
-</iframe></div>
+</iframe></div></td></tr></table>
 
 <script type="text/javascript">
 $(function(){

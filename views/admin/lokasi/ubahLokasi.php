@@ -1,5 +1,6 @@
 <h2>Pengaturan Lokasi Penyimpanan Arsip</h2>            
         <hr>
+        <div id="pesan"></div>
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/updateRekamLokasi">-->
         <?php 
@@ -9,10 +10,10 @@
                 echo "<div id=success>$this->success</div>";
             }
         ?>
-    <input type="hidden" name="id" value="<?php echo $this->data[0];?>">
-    
-    <label>BAGIAN</label><select class="required" id="bagian" name="bagian" onchange="pilihrak(this.value);">
-        <option value="0">--PILIH BAGIAN--</option>
+    <input id="id" type="hidden" name="id" value="<?php echo $this->data[0];?>">
+    <div id="wbag"></div>
+    <label>BAGIAN</label><select id="bagian" class="required" id="bagian" name="bagian" onchange="pilihrak(this.value); cekemptyfield(1,this.value)">
+        <option value="">--PILIH BAGIAN--</option>
         <?php 
             foreach($this->bagian as $value){
                 if($this->data[1]==$value['kd_bagian']){
@@ -44,9 +45,10 @@
             }
         ?>
     </select></br>
-    <label>LABEL</label><input class="required" type="text" name="nama" value="<?php echo $this->data[4];?>"></br>
+    <div id="wlabel"></div>
+    <label>LABEL</label><input id="label" class="required" type="text" name="nama" value="<?php echo $this->data[4];?>" onkeyup="cekemptyfield(2,this.value)"></br>
     <!--<label>KETERANGAN</label><input type="text" name="keterangan" width="40"></textarea></br>-->
-    <label></label><input type="reset" onclick="location.href='<?php echo URL;?>admin/rekamLokasi'" name="batal" value="BATAL"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai();"></br>
+    <label></label><input type="reset" onclick="location.href='<?php echo URL;?>admin/rekamLokasi'" name="batal" value="BATAL"><input type="button" name="submit" value="SIMPAN" onclick="return selesai();"></br>
     <p>Jika filling tidak dipilih, baris tidak dipilih->rekam filling</p>
     <p>Jika filling dipilih, baris tidak dipilih->rekam baris</p>
     <p>Jika filling dipilih, baris dipilih->rekam box</p>
@@ -72,31 +74,115 @@
 </table></div>
 <script type="text/javascript">
     
-function pilihbaris(rak){
-
-    $.post("<?php echo URL;?>helper/pilihbaris", {queryString:""+rak+""},
-            function(data){                
-                $('#baris').html(data);
-            });
-}
-
-function pilihrak(bagian){
-
-    $.post("<?php echo URL;?>helper/pilihrak", {queryString:""+bagian+""},
-            function(data){                
-                $('#rak').html(data);
-            });
-}
-
-    function selesai()
-{
+    function pilihbaris(rak){
+        
+        $.post("<?php echo URL; ?>helper/pilihbaris", {queryString:""+rak+""},
+        function(data){                
+            $('#baris').html(data);
+        });
+    }
     
-  var answer = confirm ("Anda yakin menyimpan perubahan?")
-    if (answer)
-        return true;
-    else
-        //window.location='<?php echo URL;?>admin/ubahLokasi/<?php echo $this->data[0];?>';
-        return false;
+    function pilihrak(bagian){
+        
+        $.post("<?php echo URL; ?>helper/pilihrak", {queryString:""+bagian+""},
+        function(data){                
+            $('#rak').html(data);
+        });
+    }
+    
+    function selesai()
+    {
+        
+        var answer = confirm ("Anda yakin menyimpan perubahan?")
+        if (answer){
+            cek();
+            return true;
+        }else{
+            //window.location='<?php echo URL; ?>admin/ubahLokasi/<?php echo $this->data[0]; ?>';
+            return false;
+        }
+    }
+    
+    function cekemptyfield(num, content){
+        switch (num) {
+            case 1:
+                if(content==''){
+                    var walamat = '<div id=warning>Bagian belum dipilih!</div>'
+                    $('#wbag').fadeIn(500);
+                    $('#wbag').html(walamat);
+                }else{
+                    $('#wbag').fadeOut(500);
+                } 
+                break;
+            case 2:
+                if(content==''){
+                    var wtgl = '<div id=warning>Label lokasi harus diisi!</div>'
+                    $('#wlabel').fadeIn(500);
+                    $('#wlabel').html(wtgl);
+                }else{
+                    $('#wlabel').fadeOut(500);
+                    
+                } 
+                break;
+        }
+    }
+    
+    function cek(){
+        var bagian = document.getElementById('bagian').value;
+        var label = document.getElementById('label').value;
+        var jml = 0;
+        if(bagian==''){
+            jml++;
+            var walamat = '<div id=warning>Bagian belum dipilih!</div>'
+            $('#wbag').fadeIn(500);
+            $('#wbag').html(walamat);
+        }
+        
+        if(label==''){
+            jml++;
+            var wtgl = '<div id=warning>Label lokasi harus diisi!</div>'
+            $('#wlabel').fadeIn(500);
+            $('#wlabel').html(wtgl);
+        }
+        
+        if(jml>0){
+            return false;
+        }else{
+            ubah();
+            return true;
+        }
+    }
+    
+    function ubah(){
+        var id = document.getElementById('id').value;
+        var bagian = document.getElementById('bagian').value;
+        var label = document.getElementById('label').value;
+        var rak = document.getElementById('rak').value;
+        var baris = document.getElementById('baris').value;
+        $.ajax({
+            type:'post',
+            url:'<?php echo URL; ?>admin/updateRekamLokasi',
+            data:'bagian='+bagian+
+                '&id='+id+
+                '&nama='+label+
+                '&rak='+rak+
+                '&baris='+baris,
+            dataType:'json',
+            success:function(data){
+                if(data.status=='success'){
+                    $('#pesan').fadeIn();
+                    $('#pesan').html(data.message);
+                    window.setTimeout(function(){
+                        location.reload(500)
+                    }
+                    ,3000);
+                }else if(data.status=='error'){
+                    $('#pesan').fadeIn();
+                    $('#pesan').html(data.message);
+                }
+                
+            }
+        });
     }
     
 

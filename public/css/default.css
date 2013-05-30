@@ -119,6 +119,11 @@ div {
 
 }
 
+.detil {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 #footer {
     float: bottom;
     font-size: 14px;
