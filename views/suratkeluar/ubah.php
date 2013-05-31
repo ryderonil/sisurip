@@ -317,6 +317,25 @@ function cekemptyfield(num, content){
         }
     }
     
+    function uploaddata(){
+        var formData = new FormData($('#form-rekam')[0]);
+        
+        $.ajax({
+            url: '<?php echo URL; ?>suratkeluar/editSurat',
+            type: 'POST',
+            data: formData,
+            async: false,
+            success: function (data) {
+                $('#pesan').html(data)
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+        
+        return false;
+    }
+    
     function rekam(){
         var id = document.getElementById('id').value;
         var tgl = document.getElementById('datepicker').value;

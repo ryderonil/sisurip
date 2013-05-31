@@ -274,7 +274,7 @@ foreach ($this->klas as $key => $value) {
         if(jml>0){
             return false;
         }else{
-            rekam();
+            rekamupload();
             return true;
         }
     }
@@ -291,6 +291,25 @@ foreach ($this->klas as $key => $value) {
         }else{
             return false;
         }
+    }
+    
+    function rekamupload(){
+        var formData = new FormData($('#form-rekam')[0]);
+        
+        $.ajax({
+            url: '<?php echo URL; ?>suratmasuk/input',
+            type: 'POST',
+            data: formData,
+            async: false,
+            success: function (data) {
+                $('#pesan').html(data)
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+        
+        return false;
     }
     
     function rekam(){

@@ -755,7 +755,7 @@ class Suratmasuk_Controller extends Controller {
         $data = array(
             'file'=>$namafile
         );
-        $upload->uploadFile();
+        if($upload->uploadFile()){
         $this->model->uploadFile($data,$where);
         $datastat = array('stat'=>'14');
         @Session::createSession();
@@ -764,7 +764,11 @@ class Suratmasuk_Controller extends Controller {
         $log->addLog($user,'UPLOAD','user '.$user.' upload file surat no agenda '.$this->model->getNomorAgenda($_POST['id']).' file:'.$namafile);
         unset($log);
         $this->model->update('suratmasuk',$datastat,$where); //update status -> pelaksana
-        return true;
+        echo "<div id=success>Upload file berhasil</div>";
+        }else{
+            echo "<div id=error>Upload file berhasil</div>";
+        }
+//        return true;
         //header('location:'.URL.'suratmasuk');
         
     }

@@ -538,7 +538,7 @@ class Suratkeluar_Controller extends Controller {
         $notif->addNotifikasi();
 
         //tambah revisi
-        $this->model->addRevisi($data);
+        if($this->model->addRevisi($data)){
 
 //        $this->showAll();
         @Session::createSession();
@@ -546,7 +546,11 @@ class Suratkeluar_Controller extends Controller {
         $log = new Log();
         $log->addLog($user, 'REKAM REVISI', 'user ' . $user . ' rekam revisi surat keluar id ' . $id . ' nama file ' . $filename);
         unset($log);
-        return $return;
+        echo "<div id=success>Rekam revisi berhasil</div>";
+        }else{
+            echo "<div id=error>Rekam revisi gagal</div>";
+        }
+//        return $return;
     }
 
     public function nomorSurat() {
