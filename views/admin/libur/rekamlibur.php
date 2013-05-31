@@ -5,9 +5,11 @@
     <tr><td width="30%" valign="top"><div class="span6"><div id="libur"><form id="form-rekam" method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
         <div id="warning"></div>
         </br>
-        <label>Tanggal</label><input class="required" id="tgl" type="text" name="tgl" value="<?php echo @Tanggal::tgl_indo($this->tgl);?>" readonly></br>
-    <label>Keterangan</label><input class="required" type="text" name="ket" value="<?php echo !$this->ket?'':$this->ket;?>"></br></br>
-    <label></label><input type="submit" class="btn" name="submit" value="SIMPAN" >
+        <div id="wtgl"></div>
+        <div><label>Tanggal</label><input class="required" id="tgl" type="text" name="tgl" value="<?php echo @Tanggal::tgl_indo($this->tgl);?>" readonly></br>
+        </div><div id="wket"></div>
+        <label>Keterangan</label><input id="ket" type="text" name="ket" value="<?php echo !$this->ket?'':$this->ket;?>" onkeyup="cekemptyfield(this.value)"></br></br>
+    <label></label><input type="submit" class="btn" name="submit" value="SIMPAN" onclick="return cek()">
     <?php
         if($this->ket!=false){
             ?>
@@ -98,6 +100,35 @@ function addEvent(data1,data2){
                 $('#warning').html(data);
             });
 }
+
+function cekemptyfield(content){
+        
+        if(content==''){
+            var wtgl = '<div id=warning>Kolom keterangan harus diisi!</div>'
+            $('#wket').fadeIn(500);
+            $('#wket').html(wtgl);
+        }else{
+            $('#wket').fadeOut(500);
+
+        }
+}
+
+    function cek(){
+        var ket = document.getElementById('ket').value;
+        var jml = 0;
+        if(ket==''){
+            jml++;
+            var wtgl = '<div id=warning>Kolom keterangan harus diisi!</div>'
+            $('#wket').fadeIn(500);
+            $('#wket').html(wtgl);
+        }
+        
+        if(jml>0){
+            return false;
+        }else{
+            return true;
+        }
+    }
     
 $(function(){
     $(".tip").tipTip({maxWidth: "auto", edgeOffset: 10});
