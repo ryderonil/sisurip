@@ -93,15 +93,20 @@ class Lampiran_Controller extends Controller{
             'file'=>$namafile//upload belom diurus
         );
         
-        $upload->uploadFile();
+        
         //var_dump($data);
-        $this->model->addLampiran($data);
+        if($this->model->addLampiran($data)){
+        $upload->uploadFile();
+        echo "<div id=success>Rekam lampiran berhasil</div>";
+        }else{
+            echo "<div id=error>Rekam lampiran gagal</div>";
+        }
         /*if($jns=='SM'){
             header('location:'.URL.'suratmasuk/detil/'.$data['id_surat']);
         }elseif ($jns=='SK') {
             header('location:'.URL.'suratkeluar/detil/'.$data['id_surat']);
         }*/
-        return true;
+//        return true;
         
     }
     
@@ -226,17 +231,22 @@ class Lampiran_Controller extends Controller{
             'keterangan'=>$_POST['keterangan'],
             'file'=>$namafile//upload belom diurus
         );*/
+              
+        //var_dump($data);
+        if($lamp->editLampiran()){
         if($_FILES['upload']['name']!=''){
             $upload->uploadFile();
-        }        
-        //var_dump($data);
-        $lamp->editLampiran();
+        }
+        echo "<div id=success>Ubah data lampiran berhasil</div>";
+        }else{
+            echo "<div id=error>Ubah data lampiran gagal!</div>";
+        }
         /*if($jns=='SM'){
             header('location:'.URL.'suratmasuk/detil/'.$data['id_surat']);
         }elseif ($jns=='SK') {
             header('location:'.URL.'suratkeluar/detil/'.$data['id_surat']);
         }*/
-        return true;
+//        return true;
         
     }
     

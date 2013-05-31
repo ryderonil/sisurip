@@ -88,5 +88,24 @@
         
         
     }
+    
+    function uploaddata(){
+        var formData = new FormData($('#form-rekam')[0]);
+        
+        $.ajax({
+            url: '<?php echo URL; ?>suratkeluar/uploadrev',
+            type: 'POST',
+            data: formData,
+            async: false,
+            success: function (data) {
+                $('#pesan').html(data)
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+        
+        return false;
+    }
 
 </script>

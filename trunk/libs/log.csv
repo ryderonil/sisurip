@@ -501,3 +501,11 @@ DATETIME;USER;TAG;VALUE
 2013-05-30@15:46:29;kk;LOGOUT;
 2013-05-30@15:50:15;admin;LOGIN;
 2013-05-31@10:35:50;admin;LOGIN;
+2013-05-31@19:24:46;admin;LOGOUT;
+2013-05-31@19:24:51;mastri;LOGIN;
+2013-05-31@19:25:10;mastri;UPLOAD;"user mastri upload file surat no agenda SM0024 file:M_ND-20_KP_2013_308152.pdf"
+2013-05-31@19:27:57;mastri;UPLOAD;"user mastri upload file surat no agenda SM0024 file:M_ND-20_KP_2013_308152.pdf"
+2013-05-31@19:52:04;mastri;UPLOAD;"user mastri upload file surat no agenda SM0024 file:M_ND-20_KP_2013_308152.pdf"
+2013-05-31@19:53:37;mastri;UPLOAD;"user mastri upload file surat no agenda SM0024 file:M_ND-20_KP_2013_308152.pdf"
+2013-05-31@19:53:55;mastri;UPLOAD;"user mastri upload file surat no agenda SM0024 file:M_ND-20_KP_2013_308152.pdf"
+2013-05-31@20:23:45;mastri;UPLOAD;"user mastri upload file surat no agenda SM0024 file:M_ND-20_KP_2013_308152.pdf"
