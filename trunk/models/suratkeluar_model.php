@@ -196,7 +196,7 @@ class Suratkeluar_Model extends Surat{
     }
     
     public function editSurat($data=null,$where=null){
-        $this->update('suratkeluar', $data, $where);
+        return $this->update('suratkeluar', $data, $where);
     }
     
     public function remove($id=null){

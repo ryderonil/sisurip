@@ -293,8 +293,9 @@ class Suratkeluar_Controller extends Controller {
 
         $id = $_POST['id'];
         $where = "id_suratkeluar = '" . $id . "'";
-        //var_dump($data);
-        //var_dump($where);
+//        var_dump($data);
+//        var_dump($where);
+//        var_dump($_FILES);
         //echo $where;
         if ($this->model->editSurat($data, $where)) { //status net
             if ($_POST['nomor'] != '') {

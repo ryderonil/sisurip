@@ -25,7 +25,7 @@ if (isset($this->datasm)) {
 ?>
 
 
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="#" enctype="multipart/form-data">
+<div id="form-wrapper"><form id="form-rekam" >
     <!--<label>AGENDA</label><input type="text" name="no_agenda" value=""></br>
     <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->
         <?php 
@@ -88,7 +88,7 @@ if (isset($this->datasm)) {
         <div id="wlampiran"></div>
         <label>LAMPIRAN</label><input id="lampiran" type="" name="lampiran" value="<?php echo $this->lampiran;?>" title="isikan jumlah lampiran(*)" onkeyup="cekemptyfield(6,this.value)"></br>
         <label>FILE SURAT</label><input type="file" name="upload"></br>
-        <label></label><input type="button" onclick="location.href='<?php echo URL; ?>suratkeluar'" value="BATAL"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai();">
+        <label></label><input type="button" onclick="location.href='<?php echo URL; ?>suratkeluar'" value="BATAL"><input type="button" name="submit" value="SIMPAN" onclick="return selesai();">
     </form></div>
 <div id="test"></div>
 
@@ -298,7 +298,7 @@ function cekemptyfield(num, content){
         if(jml>0){
             return false;
         }else{
-            rekam();
+            uploaddata();
             return true;
         }
     }
