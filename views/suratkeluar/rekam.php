@@ -53,7 +53,8 @@ if (isset($this->data)) {
                 echo "<option value='" . $value['id_tipe'] . "'>$value[tipe_naskah]</option>";
             }
             ?></select></br>
-        <label>NOMOR</label><input type="text" name="nomor" id="nomor"> <input type="button" value="+" onclick="ambilNomor(document.getElementById('tipe').value);"></br>    
+            <div id="wnomor"></div>
+        <label>NOMOR</label><input type="text" name="nomor" id="nomor"> <input type="button" value="+" onclick="return cekTipe();"></br>    
         <div id="whal"></div>
         <label>PERIHAL</label><input id="perihal"  type="text" name="perihal" width="300" title="isikah perihal surat(*)" onkeyup="cekemptyfield(3,this.value)"></br>
         <div id="wsifat"></div>
@@ -76,7 +77,8 @@ foreach ($this->klas as $key => $value) {
         </select></br>
         <div id="wlampiran"></div>
         <label>LAMPIRAN</label><input id="lampiran" type="" name="lampiran" title="isikan jumlah lampiran(*)" onkeyup="cekemptyfield(6,this.value)"></br>
-        <label>FILE SURAT</label><input type="file" name="upload"></br>
+        <div id="wfile"></div>
+        <label>FILE SURAT</label><input id="sfile" type="file" name="upload" onchange="cekemptyfield(8, this.value)"></br>
         <label></label><input type="reset" value="RESET"><input type="button" name="submit" value="SIMPAN" onclick="return cek();">
     </form></div>
 
@@ -136,6 +138,19 @@ foreach ($this->klas as $key => $value) {
             $('input#nomor').val(data);
             //                $('#test').html(data);
         });
+    }
+    
+    function cekTipe(){
+        var tipe = document.getElementById('tipe').value;
+        if(tipe==''){
+            var pesan = '<div id=warning>Tipe naskah dinas belum dipilih!</div>';
+            $('#wnomor').fadeIn(200);
+            $('#wnomor').html(pesan);
+            return false;
+        }else{
+            ambilNomor(document.getElementById('tipe').value);
+            return true;
+        }
     }
     
     function cekemptyfield(num, content){
@@ -207,6 +222,24 @@ foreach ($this->klas as $key => $value) {
                     $('#wtipe').fadeOut(500);
                 } 
                 break;
+            case 8:
+                if(content==''){
+                    var wfile = '<div id=warning>File surat belum dipilih!</div>'
+                    $('#wfile').fadeIn(200);
+                    $('#wfile').html(wfile);
+                }else{
+                    var csplit = content.split(".");
+                    var ext = csplit[csplit.length-1];
+                    if(ext!='docx' && ext!='doc'){
+                        var wfile = '<div id=info>Sebelum Net File surat harus dalam format document (doc/docx)!</br>\n\
+                            Setelah Net File surat harus dalam format pdf!</div>'
+                        $('#wfile').fadeIn(200);
+                        $('#wfile').html(wfile);
+                    }else{
+                        $('#wfile').fadeOut(200);
+                    }
+                }
+                break;
         }
     }
     
@@ -218,6 +251,7 @@ foreach ($this->klas as $key => $value) {
         var jenis = document.getElementById('jenis').value;
         var tipe = document.getElementById('tipe').value;
         var lampiran = document.getElementById('lampiran').value;
+        var sfile = document.getElementById('sfile').value;
         var jml = 0;
         if(tgl==''){
             jml++;
@@ -269,6 +303,27 @@ foreach ($this->klas as $key => $value) {
             var wlamp = '<div id=warning>Isikan dengan angka jumlah lampiran</div>'
             $('#wlampiran').fadeIn(500);
             $('#wlampiran').html(wlamp);
+        }
+        
+        if(sfile==''){
+            jml++;
+            var wfile = '<div id=warning>File surat belum dipilih!</div>'
+            $('#wfile').fadeIn(200);
+            $('#wfile').html(wfile);
+            return false;
+        }else{
+            var csplit = sfile.split(".");
+            var ext = csplit[csplit.length-1];
+            if(ext!='doc' && ext!='docx'){
+                if(ext!='pdf'){
+                    jml++;
+                    var wfile = '<div id=warning>File surat harus dalam format document (doc/docx) atau pdf!</div>'
+                    $('#wfile').fadeIn(200);
+                    $('#wfile').html(wfile);
+                }else{
+                    $('#wfile').fadeOut(200);
+                }
+            }
         }
         
         if(jml>0){

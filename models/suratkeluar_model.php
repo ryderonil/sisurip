@@ -228,7 +228,7 @@ class Suratkeluar_Model extends Surat{
     }
     
     public function addRevisi($data){
-        $this->insert('revisisurat', $data);
+        return $this->insert('revisisurat', $data);
     }
     
     public function lastIdInsert($tipe){

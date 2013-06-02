@@ -302,7 +302,7 @@ form label.right {
 }
 
 form input, form select, form textarea {
-    width: 250px;
+    min-width: 250px;
     max-width: 50%;
     margin: 5px 0 0 10px;
     border: 1px solid gray;

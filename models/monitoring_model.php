@@ -111,10 +111,11 @@ class Monitoring_Model extends Model {
             $tgl1 = $value['start'];
             $tgl2 = $value['end'];
             if($tgl2=='0000-00-00 00:00:00') $tgl2=$tgl1;
+            if(is_null($tgl2)) $tgl2=$tgl1;
             $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
             $start = explode(" ", $value['start']);
             $start = trim($start[1]);
-            if($value['end']=='0000-00-00 00:00:00'){
+            if($value['end']=='0000-00-00 00:00:00' OR is_null($value['end'])){
                 $end = explode(" ", $value['start']);
             }  else {
                 $end = explode(" ", $value['end']);

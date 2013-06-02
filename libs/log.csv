@@ -510,3 +510,12 @@ DATETIME;USER;TAG;VALUE
 2013-05-31@19:53:55;mastri;UPLOAD;"user mastri upload file surat no agenda SM0024 file:M_ND-20_KP_2013_308152.pdf"
 2013-05-31@20:23:45;mastri;UPLOAD;"user mastri upload file surat no agenda SM0024 file:M_ND-20_KP_2013_308152.pdf"
 2013-05-31@21:44:30;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 50 perihal:Jawaban Nota Dinas"
+2013-06-01@18:36:32;kk;LOGIN;
+2013-06-02@14:34:47;mastri;LOGIN;
+2013-06-02@14:35:00;mastri;UPLOAD;"user mastri upload file surat no agenda SM0024 file:M_ND-20_KP_2013_308152.pdf"
+2013-06-02@17:16:24;mastri;LOGIN;
+2013-06-02@20:16:57;mastri;LOGOUT;
+2013-06-02@20:16:59;admin;LOGIN;
+2013-06-02@20:17:08;admin;LOGOUT;
+2013-06-02@20:17:12;mastri;LOGIN;
+2013-06-02@20:34:58;mastri;"REKAM REVISI";"user mastri rekam revisi surat keluar id 48 nama file K_48_260018_6.docx"

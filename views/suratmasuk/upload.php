@@ -57,23 +57,39 @@ function uploaddata(){
 function cek(){
     var content = document.getElementById('sfile').value;
     if(content==''){
-        var wfile = '<div id=warning>File surat belm dipilih!</div>'
+        var wfile = '<div id=warning>File surat belum dipilih!</div>'
         $('#wfile').fadeIn(200);
         $('#wfile').html(wfile);
         return false;
     }else{
-        uploaddata();
-        return true;
+        var csplit = content.split(".");
+        var ext = csplit[csplit.length-1];
+        if(ext!='pdf'){
+            var wfile = '<div id=warning>File surat harus dalam format pdf!</div>'
+            $('#wfile').fadeIn(200);
+            $('#wfile').html(wfile);
+        }else{
+            uploaddata();
+            return true;
+        }
     }
 }
 
 function cekemptyfield(content){
     if(content==''){
-        var wfile = '<div id=warning>File surat belm dipilih!</div>'
+        var wfile = '<div id=warning>File surat belum dipilih!</div>'
         $('#wfile').fadeIn(200);
         $('#wfile').html(wfile);
     }else{
-        $('#wfile').fadeOut(200);
+        var csplit = content.split(".");
+        var ext = csplit[csplit.length-1];
+        if(ext!='pdf'){
+            var wfile = '<div id=warning>File surat harus dalam format pdf!</div>'
+            $('#wfile').fadeIn(200);
+            $('#wfile').html(wfile);
+        }else{
+            $('#wfile').fadeOut(200);
+        }
     }
 }
 //});

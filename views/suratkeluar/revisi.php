@@ -21,7 +21,7 @@
 <hr>
 </br>
 <div id="form-wrapper">
-    <form id="form-rekam" name="form_rekam" method="POST" action="#" enctype="multipart/form-data" >
+    <form id="form-rekam"   >
 <!--        <form method="POST" action="<?php echo URL; ?>suratkeluar/uploadrev" enctype="multipart/form-data">-->
         <?php
             if(isset($this->error)){
@@ -32,11 +32,11 @@
         ?>
         <input type="hidden" name="id" value="<?php echo $id;?>">
         <input type="hidden" name="user" value="<?php echo $user;?>">       
-        <table>
-            <tr><td valign="top"><label>CATATAN REVISI</label></td><td><textarea id="input" class="required" name="catatan" cols="60" rows="20"></textarea><div id="errinput"></div></td></tr>
-            <tr><td><label>UPLOAD</label></td><td><input id="file" class="required" type="file" name="upload"><div id="errfile"></div></td></tr>
-            <tr><td></td><td><input type="submit" name="submit" value="SIMPAN" ></td></tr>
-        </table>
+        <div id="winput"></div>
+        <label>CATATAN REVISI</label><textarea id="catatan" name="catatan" cols="80" rows="10" onkeyup="cekemptyfield(1,this.value)"></textarea></br>
+        <div id="wfile"></div>
+        <label>UPLOAD</label><input id="sfile"  type="file" name="upload" onchange="cekemptyfield(2,this.value)"></br>
+        <label></label><input type="button" name="submit" value="SIMPAN" onclick="return cekinput()">
     </form>
 </div>
 <div id="table-wrapper" style="overflow:scroll; max-height:400px;">
@@ -59,32 +59,76 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-        $('#errinput').fadeOut();
-        $('#errfile').fadeOut();
+        $('#winput').fadeOut();
+        $('#wfile').fadeOut();
          
     });
     
-    function cekInput(){
-        var txt = document.form_rekam.catatan.value;
-        var file = document.form_rekam.upload.value;
-        var pesan = '';
+    function cekemptyfield(num, content){
+        switch(num){
+            case 1:
+                if(content==''){
+                    var winput = '<div id=warning>kolom catatan belum diisi!</div>';
+                    $('#winput').fadeIn(500);
+                    $('#winput').html(winput);
+                }else{
+                    $('#winput').fadeOut(200);
+                }
+                break;
+            case 2:
+                if(content==''){
+                    var wfile = '<div id=warning>file revisi belum dipilih!</div>';
+                    $('#wfile').fadeIn(500);
+                    $('#wfile').html(wfile);
+                }else{
+                    var x = content.split(".");
+                    var ext = x[x.length-1];
+                    if(ext!='docx' && ext!='doc'){
+                        var wfile = '<div id=warning>file revisi harus dalam format doc/docx!</div>';
+                        $('#wfile').fadeIn(200);
+                        $('#wfile').html(wfile);
+                    }else{
+                        $('#wfile').fadeOut(200);
+                    }
+                }
+                break;
+        }
+    }
+    
+    function cekinput(){
+        var txt = document.getElementById('catatan').value;
+        var file = document.getElementById('sfile').value;
+        var jml = 0;
         if(txt==""){
-            pesan = 'kolom catatan belum diisi!';
-            alert(pesan);
-            return false;
-            $('#errinput').fadeIn(500);
-            $('#errinput').html(pesan);
+            jml++;
+            var winput = '<div id=warning>kolom catatan belum diisi!</div>';
+            $('#winput').fadeIn(500);
+            $('#winput').html(winput);
             
         }
         
         if(file==""){
-            pesan = 'file revisi belum dipilih!';
-            alert(pesan);
+            jml++;
+            var wfile = '<div id=warning>file revisi belum dipilih!</div>';
+            $('#wfile').fadeIn(500);
+            $('#wfile').html(wfile);
+        }else{
+            var content = file.split(".");
+            var ext = content[content.length-1];
+            if(ext!='doc' && ext!='docx'){
+                jml++;
+                var wfile = '<div id=warning>file revisi harus dalam format doc/docx!</div>';
+                $('#wfile').fadeIn(500);
+                $('#wfile').html(wfile);
+            }
+        }
+        
+        if(jml>0){
             return false;
-            $('#errfile').fadeIn(500);
-            $('#errfile').html(pesan);
-            
-        }       
+        }else{
+            uploaddata();
+            return true;
+        }
         
         
     }
@@ -99,6 +143,10 @@
             async: false,
             success: function (data) {
                 $('#pesan').html(data)
+                window.setTimeout(function(){
+                        location.reload(500)
+                    }
+                    ,3000);
             },
             cache: false,
             contentType: false,

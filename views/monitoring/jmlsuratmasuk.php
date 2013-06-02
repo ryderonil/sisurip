@@ -23,5 +23,9 @@ $plot->SetDataColors(array('red'));
 # Turn off X tick labels and ticks because they don't apply here:
 $plot->SetXTickLabelPos('none');
 $plot->SetXTickPos('none');
-$plot->DrawGraph();
+if(count($data)==0){
+   echo "<p>Tidak ada data surat masuk bulan ini</p>"; 
+}else{
+   $plot->DrawGraph();  
+}
 ?>
