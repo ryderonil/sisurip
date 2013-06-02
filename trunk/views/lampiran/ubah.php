@@ -118,7 +118,7 @@
         
         var answer = confirm ("Anda yakin menyimpan perubahan?")
         if (answer){
-            cek();
+            return cek();
             return true;
         }else{
         //window.location='cart_view.php';
@@ -179,7 +179,15 @@
                     $('#wfile').fadeIn(500);
                     $('#wfile').html(wtgl);
                 }else{
-                    $('#wfile').fadeOut(500);
+                    var csplit = content.split(".");
+                    var ext = csplit[csplit.length-1];
+                    if(ext!='pdf'){
+                        var wfile = '<div id=warning>Sebelum Net File surat harus dalam format pdf!</div>'
+                        $('#wfile').fadeIn(200);
+                        $('#wfile').html(wfile);
+                    }else{
+                        $('#wfile').fadeOut(200);
+                    }
                 } 
                 break;
         }
@@ -233,11 +241,21 @@
             var wtgl = '<div id=warning>File belum dipilih!</div>'
             $('#wfile').fadeIn(500);
             $('#wfile').html(wtgl);
+        }else{
+            var csplit = file.split(".");
+            var ext = csplit[csplit.length-1];
+            if(ext!='pdf'){
+                jml++;
+                var wfile = '<div id=warning>Sebelum Net File surat harus dalam format pdf!</div>'
+                $('#wfile').fadeIn(200);
+                $('#wfile').html(wfile);
+            }
         }
         
         if(jml>0){
             return false;
         }else{
+            uploaddata();
             return true;
         }
     }
