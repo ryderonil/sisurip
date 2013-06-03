@@ -15,11 +15,11 @@
                 <form id="form-rekam">
                 <input id="id" type="hidden" name="id" value="<?php echo $this->data[0];?>">
                 <tr><td colspan="2" halign="center">UBAH PASSWORD</td></tr>
-                <tr><td>PASSWORD LAMA</td><td><input id="pwlama" type="text" ></td></tr>
-                <tr><td>PASSWORD BARU</td><td><input id="pwbaru1" type="text"></td></tr>
-                <tr><td>ULANGI PASSWORD BARU</td><td><input id="pwbaru2" type="text"></td></tr>
-                <tr><td>STATUS AKTIF</td><td><a ><input class="btn" type="button" value="<?php echo $this->data[8]; ?>" onclick="setaktifuser('<?php echo $this->data[0].'-'.$this->data[8];?>');"></a></td></tr>
-                <tr><td></td><td><input type="button" name="submit" value="SIMPAN" onclick="cek()"></td></tr>
+                <tr><td>PASSWORD LAMA</td><td><input id="pwlama" type="password" ></td></tr>
+                <tr><td>PASSWORD BARU</td><td><input id="pwbaru1" type="password"></td></tr>
+                <tr><td>ULANGI PASSWORD BARU</td><td><input id="pwbaru2" type="password"></td></tr>
+                <tr><td>STATUS AKTIF</td><td><a ><input class="btn" type="button" value="<?php echo $this->data[8]; ?>" onclick="return setaktifuser('<?php echo $this->data[0].'-'.$this->data[8];?>',<?php echo $this->data[0];?>,<?php echo $this->data[6];?>,<?php echo $this->data[7];?>);"></a></td></tr>
+                <tr><td></td><td><input type="button" class="btn"name="submit" value="SIMPAN" onclick="return cek()"></td></tr>
                 </form>
             </table></div>
 </br>
@@ -27,11 +27,11 @@
 <h3>Rekam Pengganti</h3><hr>
 <?php if($this->count>0) { $no=1;?>
 <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
-    <tr><th>NO</th><th>NAMA PEGAWAI</th><th>AKSI</th></tr>
+    <tr><th>NO</th><th>NAMA PEGAWAI</th><th>PILIH PJS</th></tr>
     <?php foreach($this->user as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['namaPegawai']; ?></td>
-        <td><a ><input class="btn" type="button" value="Rekam Pjs" onclick="return cekrole(<?php echo $role;?>,'<?php echo $value['username'];?>',<?php echo $this->data[6];?>,<?php echo $this->data[7];?>)"></td>
+        <td><a ><input class="btn" type="button" value="Pilih" onclick="return cekrole(<?php echo $role;?>,'<?php echo $value['username'];?>',<?php echo $this->data[6];?>,<?php echo $this->data[7];?>)"></td>
     <?php $no++; }?>
 <!--                href="<?php echo URL;?>admin/rekamPjs/<?php echo $value['username'];?>"-->
 </table></div>
@@ -41,7 +41,7 @@
 
 <script type="text/javascript">
     function cekrole(roleu, id, bagian, rolep){
-        if(role==3){
+        if(roleu==3){
             alert('Anda tidak bisa mengakses fasilitas ini');
             return false;
         }else{
@@ -111,16 +111,77 @@
         
     }
     
-    function setaktifuser(id){
-        $.post("<?php echo URL; ?>admin/setAktiveUser", {queryString:""+id+""},
-        function(data){
-            $('#pesan').fadeIn(500);
-            $('#pesan').html(data);
-            window.setTimeout(function(){
-                location.reload(500)
+    function setaktifuser(id,id_user, bagian, jabatan){
+        $.ajax({
+            type:'post',
+            url:'<?php echo URL?>admin/cekExistPjs',
+            data:'bagian='+bagian+
+                '&jabatan='+jabatan,
+            dataType:'json',
+            success:function(data){
+                if(data.pjs>=1){
+                    var walamat = '<div id=warning>Pejabat sementara Jabatan ini masih ada, hubungi Admin untuk menghapusnya!</div>';
+                    $('#pesan').fadeIn(500);
+                    $('#pesan').html(walamat);
+                    return false;
+                }else{
+                    $.post("<?php echo URL; ?>admin/setAktiveUser", {queryString:""+id+""},
+                        function(data){
+                            $('#pesan').fadeIn(500);
+                            $('#pesan').html(data);
+                            window.setTimeout(function(){
+                                location.reload(500)
+                            }
+                            ,5000);
+                        });
+                }
             }
-            ,5000);
         });
+        
+        
+    }
+    
+    function cek(){
+        var id = document.getElementById('id').value;
+        var pwlama = document.getElementById('pwlama').value;
+        var pwbaru1 = document.getElementById('pwbaru1').value;
+        var pwbaru2 = document.getElementById('pwbaru2').value;
+        if(pwlama==''){
+            var data = '<div id=error>Password lama harus diisi!</div>'
+            $('#pesan').fadeIn(200);
+            $('#pesan').html(data);
+            return false;
+        }else if(pwbaru1=='' || pwbaru2==''){
+            var data = '<div id=error>Password baru harus diisi!</div>'
+            $('#pesan').fadeIn(200);
+            $('#pesan').html(data);
+            return false;
+        }else if(pwbaru1!=pwbaru2){
+            var data = '<div id=error>Password baru tidak sama!</div>'
+            $('#pesan').fadeIn(200);
+            $('#pesan').html(data);
+            return false;
+        }else{
+            $('#pesan').fadeOut(500);
+            $.ajax({
+                type:'post',
+                url:'<?php echo URL;?>admin/cekUserPassword',
+                data:'id='+id+
+                    '&password='+pwlama,
+                dataType:'json',
+                success:function(data){
+                    if(data.hasil==0){
+                        var pesan = '<div id=error>Password lama tidak sama dengan database!</div>'
+                        $('#pesan').fadeIn();
+                        $('#pesan').html(pesan);
+                        return false;
+                    }
+                }
+            });
+        }
+        
+        
+        
     }
     
     function rekam(id, bagian, role){

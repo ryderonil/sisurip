@@ -60,7 +60,7 @@ div {
 }
 
 #content {
-    background: #fff;
+    background: #0f527a;
     padding-top: 90px;
     padding-left: 20px;
     padding-right: 20px;
@@ -94,10 +94,12 @@ div {
 }
 
 #cwrapper {
-    background: #0073c8;
-    color: #ffffff;
+    background: #eeeeee; 
+/*    #0073c8;*/
+    color: #1a1a1a;
+/*        #ffffff;*/
     min-height: 500px;
-    max-width: 80%;
+    max-width: 90%;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 40px;

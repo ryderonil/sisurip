@@ -745,7 +745,7 @@ class Admin_Controller extends Controller {
         $user->set('bagian', $_POST['bagian']);
         $user->set('jabatan', $_POST['jabatan']);
         $user->set('role', $_POST['role']);
-        $user->set('active', 'Y');
+        $user->set('active', 'Y'); //harusnya post aktif
         /*$data = array(
             'namaPegawai' => $_POST['namaPegawai'],
             'NIP' => $_POST['NIP'],
@@ -1147,7 +1147,31 @@ class Admin_Controller extends Controller {
         $this->view->render('admin/user/userhome');
     }
             
+    public function setPassword(){
+        $id = $_POST['id'];
+        $password = $_POST['password'];
+        
+        $pwd = Hash::create('md5', $password, HASH_SALT_KEY);
+        $user = new User();
+        $user->set('id_user', $id);
+        $user->set('password', $pwd);
+        $where = ' id_user='.$user->get('id');
+        $data = array('password'=>$pwd);
+        
+        $user->update('user', $data, $where); //masih prosedural
+        //belum selesai
+    }
     
+    public function cekUserPassword(){
+        $id = $_POST['id'];
+        
+        $pwd = Hash::create('md5', $_POST['password'], HASH_SALT_KEY);
+        
+        $sql = "SELECT * FROM user WHERE id_user=".$id." AND password='".$pwd."'";
+        $data = $this->model->select($sql);
+        $return = count($data);
+        echo json_encode(array('hasil'=>$return));
+    }
 }
 
 ?>
