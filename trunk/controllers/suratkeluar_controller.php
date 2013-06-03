@@ -567,7 +567,7 @@ class Suratkeluar_Controller extends Controller {
         //var_dump($tipe);
         $no = new Nomor();
         $nosurat = $no->generateNumber($tipe, $bagian);
-        echo $nosurat;
+        echo $nosurat.'/'.date('Y');
     }
 
     public function view($id) {

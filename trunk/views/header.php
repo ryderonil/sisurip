@@ -58,7 +58,7 @@ $roleuser = Helper_Model::getRoleUser($user);
                     <div id="brand"> <?php echo $this->kantor; ?></div>
                     <!--<div id="pull-right"><img id="user-icon" src="<?php echo URL; ?>public/images/User-Executive.png"> <b><?php echo Session::get('nama'); ?></b>-->
                     <?php if ($notif > 0) { ?><div id="notif" onclick="location.href='<?php echo URL; ?>helper/notif/<?php echo $user; ?>'" title="lihat notifikasi"><font color="white"><?php echo $notif > 0 ? $notif : ''; ?></font></div><?php } ?>
-                    <div id="user"> <b><?php echo $nama; ?></b></div>
+                    <div id="user" onclick="location.href='<?php echo URL; ?>admin/userHome/<?php echo $user; ?>'" title="beranda pengguna"> <b><?php echo $nama; ?></b></div>
 
                     <div>
                         <ul id="trans-nav">

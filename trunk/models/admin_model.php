@@ -311,6 +311,26 @@ class Admin_Model extends Model{
     public function getNomorById($id){
         return $this->select('SELECT * FROM nomor WHERE id_nomor=' . $id);
     }
+    
+    public static function getJabatanUser($jabatan, $bagian=null){
+        $model = new Admin_Model;
+        $return = '';
+        if($jabatan==6){
+            $sql = "SELECT bagian FROM r_bagian WHERE id_bagian=".$bagian;
+            $data = $model->select($sql);
+            foreach($data as $val){
+                $return = 'Pelaksana '.$val['bagian'];
+            }
+        }else{
+            $sql = "SELECT nama_jabatan FROM jabatan WHERE id_jabatan=".$jabatan;
+            $data = $model->select($sql);
+            foreach($data as $val){
+                $return = $val['nama_jabatan'];
+            }
+        }
+        
+        return $return;
+    }
    
 }
 ?>

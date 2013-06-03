@@ -1,3 +1,5 @@
+<h2>Rekam Pejabat Sementara</h2><hr>
+<div id="pesan"></div>
 <div id="form-wrapper" >
     <?php if(isset($this->warning)) {?>
     <div id="warning"><?php echo $this->warning;?></div>
@@ -6,10 +8,9 @@
     <div id="success"><?php echo $this->success;?></div>
     <?php } ?>
     <form id="form-rekam" >
-<!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamPjs">-->
-    <input type="hidden" name="id" value="<?php echo $this->user;?>">
+    <input id="id" type="hidden" name="id" value="<?php echo $this->user;?>">
     <table>
-        <tr><td><label>NAMA/NIP</label></td><td><label><font color="black"><?php echo strtoupper($this->nama);?></font></label></td></tr>
+        <tr><td><label>NAMA/NIP</label></td><td><label class="pjs"><font color="black"><?php echo strtoupper($this->nama);?></font></label></td></tr>
         <tr><td colspan="2"><div id="wbag"></div></td></tr>
         <tr><td><label>BAGIAN</label></td><td><select class="required" id="bagian" name="bagian" onchange="cekemptyfield(1,this.value)">
                     <option value="">--PILIH BAGIAN--</option>
@@ -28,7 +29,7 @@
                         }
                     ?>
                 </select></td></tr>
-        <tr><td></td><td><input type="button" name="submit" value="simpan" onclick="cek()"></td></tr>
+        <tr><td></td><td><input type="button" name="submit" value="simpan" onclick="return cek()"></td></tr>
     </table>        
     
     </form>
@@ -125,6 +126,24 @@ function cekemptyfield(num, content){
                     var walamat = '<div id=warning>Non aktifkan pejabat definitif terlebih dahulu!</div>';
                     $('#wbag').fadeIn(500);
                     $('#wbag').html(walamat);
+                    return false;
+                }else{
+                    $.ajax({ //bagian ini kayaknya gak perlu
+                            type:'post',
+                            url:'<?php echo URL?>admin/cekExistPjs',
+                            data:'bagian='+bagian+
+                                '&jabatan='+jabatan,
+                            dataType:'json',
+                            success:function(data){
+                                if(data.pjs>=1){
+                                    jml+=data.pjs;
+                                    var walamat = '<div id=warning>Pejabat sementara Jabatan ini telah ada!</div>';
+                                    $('#pesan').fadeIn(500);
+                                    $('#pesan').html(walamat);
+                                    return false
+                                }
+                            }
+                        });
                 }
             }
         });
@@ -139,12 +158,14 @@ function cekemptyfield(num, content){
     
     function rekam(){
         var bagian = document.getElementById('bagian').value;
-        var nomor = document.getElementById('nomor').value;
+        var jabatan = document.getElementById('jabatan').value;
+        var id = document.getElementById('id').value;
         $.ajax({
             type:'post',
-            url:'<?php echo URL;?>admin/inputRekamNomor',
+            url:'<?php echo URL;?>admin/inputRekamPjs',
             data:'bagian='+bagian+
-                '&nomor='+nomor,
+                '&jabatan='+jabatan+
+                '&id='+id,
             dataType:'json',
             success:function(data){
                 if(data.status=='success'){
