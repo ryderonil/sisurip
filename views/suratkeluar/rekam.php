@@ -220,6 +220,7 @@ foreach ($this->klas as $key => $value) {
                     $('#wtipe').html(wtgl);
                 }else{
                     $('#wtipe').fadeOut(500);
+                    $('#wnomor').fadeOut(500);
                 } 
                 break;
             case 8:

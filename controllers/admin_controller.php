@@ -407,7 +407,7 @@ class Admin_Controller extends Controller {
     }
 
     public function rekamPjs($user){
-        if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
+        if(Auth::isAllow(3, Session::get('role'))){
             header('location:'.URL.'home');
         }
         if(isset($_POST['submit'])){
@@ -418,7 +418,8 @@ class Admin_Controller extends Controller {
             }
         }
         $this->view->user = $user;
-        $this->view->bagian = $this->model->getBagianLain($user);
+//        $this->view->bagian = $this->model->getBagianLain($user);
+        $this->view->bagian = $this->model->select('SELECT * FROM r_bagian');
         $this->view->role = $this->model->getRole();
         $this->view->pjs = $this->model->getPjs();
         $dnama = $this->model->select("SELECT namaPegawai, NIP FROM user WHERE username='".$user."'");
@@ -433,20 +434,26 @@ class Admin_Controller extends Controller {
         $bagian = $_POST['bagian'];
         $jabatan = $_POST['jabatan'];
         $user = $_POST['id'];
-        $this->view->user = $user;         
+        /*$this->view->user = $user;         
         $this->view->bagian = $this->model->getBagianLain($user);           
         $this->view->role = $this->model->getRole();        
         if($this->model->cekPejabatLama($bagian, $jabatan)){
             $this->view->warning = "Pejabat lama masih aktif, nonaktifkan terlebih dahulu!";         
+        }else{*/
+        $data = array(
+            'user'=>$user,
+            'bagian'=>$bagian,
+            'jabatan'=>$jabatan
+        );
+
+        if($this->model->rekamPjs($data)){
+            echo json_encode(array('status'=>'success',  
+                'message'=>'<div id=success>Rekam pejabat sementara berhasil!</div>'));
         }else{
-            $data = array(
-                'user'=>$user,
-                'bagian'=>$bagian,
-                'jabatan'=>$jabatan
-            );
-            
-            $this->model->rekamPjs($data);
-            $this->view->success = "Input data pejabat sementara berhasil!";     
+            echo json_encode(array('status'=>'error',  
+                'message'=>'<div id=error>Rekam pejabat sementara berhasil!</div>'));
+        }
+           /* $this->view->success = "Input data pejabat sementara berhasil!";     
         }
         $this->view->pjs = $this->model->getPjs();
         //var_dump($this->view->pjs);
@@ -455,7 +462,7 @@ class Admin_Controller extends Controller {
         foreach ($dnama as $val){
             $this->view->nama .= $val['namaPegawai'].'/'.$val['NIP'];
         }
-        $this->view->render('admin/user/pjs');
+        $this->view->render('admin/user/pjs');*/
             
     
     }
@@ -1090,12 +1097,54 @@ class Admin_Controller extends Controller {
     public function cekPejabat(){
         $bagian = $_POST['bagian'];
         $jabatan = $_POST['jabatan'];
-        $sql = "SELECT * FROM user WHERE bagian=".$bagian." AND jabatan=".$jabatan." AND active='Y'";
+        $sql = "SELECT * FROM user WHERE bagian=".$bagian." AND role=".$jabatan." AND active='Y'";
         $data = $this->model->select($sql);
+        
         $return = count($data);
         
         echo json_encode(array('hasil'=>$return));
         
+    }
+    
+    public function cekExistPjs(){
+        $bagian = $_POST['bagian'];
+        $jabatan = $_POST['jabatan'];
+        if(isset($_POST['id'])){
+            $id = $_POST['id'];
+            $sql = "SELECT * FROM pjs WHERE user='".$id."' AND bagian=".$bagian." AND jabatan=".$jabatan;
+        }else{
+            $sql = "SELECT * FROM pjs WHERE bagian=".$bagian." AND jabatan=".$jabatan;
+        }
+        
+        $data = $this->model->select($sql);
+        
+        $return = count($data);
+        
+        echo json_encode(array('pjs'=>$return));
+        
+    }
+    
+    public function userHome($username) {
+        $user = new User();
+        $this->view->bagian = $this->model->select('SELECT * FROM r_bagian');
+        $this->view->user = $this->model->select('SELECT * FROM user');
+        $this->view->jabatan = $this->model->select('SELECT * FROM jabatan');
+        $this->view->role = $this->model->select('SELECT * FROM role');
+        $dataUbah = $this->model->select("SELECT * FROM user WHERE username='" . $username."'");
+        $this->view->count = count($this->view->user);
+        //belum disesuaikan dengan objek user
+        foreach ($dataUbah as $value) {
+            $this->view->data[0] = $value['id_user'];
+            $this->view->data[1] = $value['username'];
+            $this->view->data[2] = $value['password'];
+            $this->view->data[3] = $value['namaPegawai'];
+            $this->view->data[4] = $value['NIP'];
+            $this->view->data[5] = $value['jabatan'];
+            $this->view->data[6] = $value['bagian'];
+            $this->view->data[7] = $value['role'];
+            $this->view->data[8] = $value['active'];
+        }
+        $this->view->render('admin/user/userhome');
     }
             
     

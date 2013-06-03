@@ -243,6 +243,7 @@ function cekemptyfield(num, content){
                     $('#wtipe').fadeIn(500);
                     $('#wtipe').html(wtgl);
                 }else{
+                    $('#wnomor').fadeOut(500);
                     $('#wtipe').fadeOut(500);
                 } 
                 break;
