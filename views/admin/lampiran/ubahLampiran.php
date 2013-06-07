@@ -1,5 +1,6 @@
 <h2>Ubah Jenis Lampiran</h2>
 <hr>
+<table><tr><td width="50%" valign="top">
 <div id="pesan"></div>
 <div id="form-wrapper">
 <form id="form-rekam" >
@@ -22,8 +23,9 @@
 </br>
 <hr>
 </br>
+</td><td width="50%">
 <div id="table-wrapper"><table class="CSSTableGenerator">
-    <tr><th>NO</th><th>TIPE NASKAH</th><th>AKSI</th></tr>
+    <tr><td>NO</td><td>TIPE NASKAH</td><td>AKSI</td></tr>
     <?php $no=1; foreach($this->lampiran as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>        
         <td><?php echo $value['tipe_naskah']; ?></td>
@@ -31,7 +33,7 @@
             <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['tipe_naskah']; ?>');" ></a></td></tr>
     <?php $no++; }?>
 </table></div>
-
+</td></tr></table>
 <script type="text/javascript">
 
     function selesai(num,lamp)

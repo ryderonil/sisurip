@@ -49,7 +49,7 @@
 <hr>
 </br>
 <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
-    <tr><th>NO</th><th>BAGIAN</th><th>RAK</th><th>BARIS</th><th>BOX</th><th>STATUS</th><th>AKSI</th></tr>
+    <tr><td>NO</td><td>BAGIAN</td><td>RAK</td><td>BARIS</td><td>BOX</td><td>STATUS</td><td>AKSI</td></tr>
     <?php 
         foreach($this->lokasi as $data){            
             echo "<tr><td>$data[0]</td>

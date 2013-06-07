@@ -8,8 +8,10 @@
 }*/
 body {
     background: silver;
-    font: 12px 'trebuchet ms', arial, sans-serif;    
+    font: 12px 'segoe ui', 'trebuchet ms', arial, sans-serif;    
     text-align: center;
+    min-width: 950px;
+    overflow-x: scroll;
 }
 
 div {
@@ -32,9 +34,11 @@ div {
     font-size: 14px;
     position: fixed;
     width: 100%;
+    min-width: 950px;
     background: #12407f;
-    color: #fff;    
-    border-bottom: 4px solid #436fac;
+    color: #fff;
+/*    #436fac*/
+    border-bottom: 4px solid #fa6800;
     background-image: linear-gradient(bottom, rgb(19,101,173) 0%, rgb(18,65,127) 53%);
     background-image: -o-linear-gradient(bottom, rgb(19,101,173) 0%, rgb(18,65,127) 53%);
     background-image: -moz-linear-gradient(bottom, rgb(19,101,173) 0%, rgb(18,65,127) 53%);
@@ -60,7 +64,7 @@ div {
 }
 
 #content {
-    background: #0f527a;
+    background: #0087c9;
     padding-top: 90px;
     padding-left: 20px;
     padding-right: 20px;
@@ -99,7 +103,7 @@ div {
     color: #1a1a1a;
 /*        #ffffff;*/
     min-height: 500px;
-    max-width: 90%;
+    max-width: 95%;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 40px;
@@ -132,9 +136,10 @@ div {
     background: #12407f;
     color: #fff;
     padding: 20px;
-    border-top: 4px solid #436fac;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top: 4px solid #fa6800;
+    text-align: center;
+/*    border-bottom-left-radius: 10px;*/
+/*    border-bottom-right-radius: 10px;*/
     background-image: linear-gradient(top, rgb(19,101,173) 0%, rgb(18,65,127) 56%);
     background-image: -o-linear-gradient(top, rgb(19,101,173) 0%, rgb(18,65,127) 56%);
     background-image: -moz-linear-gradient(top, rgb(19,101,173) 0%, rgb(18,65,127) 56%);
@@ -171,6 +176,7 @@ div {
     margin: 0 auto;
     margin-top: 5px;
     width: 75%;
+    min-width: 400px;
     padding: 10px;
     font-family: tahoma;
     color: #0073c8;
@@ -256,12 +262,12 @@ div {
     
 
 form {
-    padding-left: 30px;
+    padding-left: 5px;
 /*    margin-left: 200px; */
     text-align: left;
 /*    margin: 0 auto;*/
     display: inline-block;
-    font: 100% verdana,arial,sans-serif;
+    font: 100% 'segoe ui',verdana,arial,sans-serif;
 }
 
 form.backup {
@@ -270,7 +276,7 @@ form.backup {
     text-align: left;
 /*    margin: 0 auto;*/
     display: inline-block;
-    font: 100% verdana,arial,sans-serif;
+    font: 100% 'segoe ui',verdana,arial,sans-serif;
 }
 
 form .admin_form{
@@ -304,7 +310,8 @@ form label.right {
 }
 
 form input, form select, form textarea {
-    width: 250px;
+    background-color: #d6d6d6;
+    width: 400px;
     max-width: 50%;
     margin: 5px 0 0 10px;
     border: 1px solid gray;
@@ -330,7 +337,25 @@ form input#search {
     margin-right: 0px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    width: 400px;
+    width: 450px;
+    height: 20px;
+
+}
+
+form input#iuser {
+    margin-right: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 300px;
+    height: 20px;
+
+}
+
+form input#pass {
+    margin-right: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 300px;
     height: 20px;
 
 }
@@ -390,7 +415,9 @@ form br {clear: left;}
 
 iframe {
     width: 100%;
+/*    min-height: 100%;*/
     min-height: 400px;
+/*    border: solid 2px gray;*/
 }
 
 iframe.grafik-kinerja {
@@ -772,7 +799,7 @@ table th {
     text-align:left;
     padding:4px;
     font-size:12px;
-    font-family:'trebuchet ms';
+    font-family:'segoe ui','trebuchet ms';
     font-weight:normal;
     color:#000000;
 }.CSSTableGenerator tr:last-child td{
@@ -783,7 +810,10 @@ table th {
     border-width:0px 0px 0px 0px;
 }
 .CSSTableGenerator tr:first-child td{
-    background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3a97f4), color-stop(1, #1c6dbf) );
+/*    #1c6dbf
+background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3a97f4), color-stop(1, #1c6dbf) );
+*/
+    background:-o-linear-gradient(bottom, #dd282d 5%, #ac1b1e 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dd282d), color-stop(1, #ac1b1e) );
     background:-moz-linear-gradient( center top, #3a97f4 5%, #1c6dbf 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a97f4", endColorstr="#1c6dbf");	background: -o-linear-gradient(top,#3a97f4,1c6dbf);
 
@@ -792,7 +822,7 @@ table th {
     text-align:center;
     border-width:0px 0px 1px 1px;
     font-size:14px;
-    font-family:'trebuchet ms';
+    font-family:'segoe ui','trebuchet ms';
     font-weight:bold;
     color:#ffffff;
 }
@@ -813,7 +843,7 @@ table th {
 }
 
 .CSSTableGenerator tr:first-child:hover td{
-    background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3a97f4), color-stop(1, #1c6dbf) );
+    background:-o-linear-gradient(bottom, #e04145 5%, #cc2024 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e04145), color-stop(1, #cc2024) );
     background:-moz-linear-gradient( center top, #3a97f4 5%, #1c6dbf 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a97f4", endColorstr="#1c6dbf");	background: -o-linear-gradient(top,#3a97f4,1c6dbf);
 
@@ -861,6 +891,18 @@ table th {
     /*background: linear-gradient(to bottom,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%); /* W3C */
     /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', endColorstr='#d5ebfb',GradientType=0 ); /* IE6-9 */
 
+}
+
+.btn.btn-danger {
+    background: #e81123;
+}
+
+.btn.btn-green {
+    background: #107c0f;
+}
+
+.btn.btn-grey {
+    background:#333333;
 }
 
 .btn:hover {
@@ -1486,7 +1528,7 @@ tr {
  margin-right: 40px;
  margin-bottom: 40px;
  border-left: 0px solid #A2ADBC;
- font: normal 20px/20px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+ font: normal 20px/20px 'segoe ui',"Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
  color: #616B76;
  text-align: center;
  background-color: #fff;
@@ -1554,9 +1596,10 @@ tr {
     margin-left: 10px;
     margin-top: 250px;
     width: 40%;
+    min-width: 370px;
     min-height: 200px;
     padding: 10px;
-    font-family: tahoma;
+    font-family: 'segoe ui',tahoma;
     color: #0073c8;
 /*    border: 2px solid chocolate;
     background-color: greenyellow;*/

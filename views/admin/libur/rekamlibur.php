@@ -2,7 +2,7 @@
         <hr>
         </br>
 <table>
-    <tr><td width="30%" valign="top"><div class="span6"><div id="libur"><form id="form-rekam" method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
+    <tr><td width="50%" valign="top"><div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
         <div id="warning"></div>
         </br>
         <div id="wtgl"></div>
@@ -19,7 +19,7 @@
     ?>
     </br>
     </br>
-</form></div></div></td><td>
+</form></div></td><td width="50%">
 <!--<div class="span6"><div id="form-wrapper"><form method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
         <div id="warning"></div>
         <h3>Rekam/ Ubah Data Hari Libur</h3>
@@ -55,10 +55,10 @@ foreach ($this->event as $val){
     $cal->addEvent($event,$date,$month,$year);
 }
 
-echo "<div class=span7><div id=table-wrapper>";
+echo "<div id=table-wrapper>";
 $cal->makeCalendar();
 //$cal->makeEvents();
-echo "</div></div>";
+echo "</div>";
 ?>
 
     </td></tr>

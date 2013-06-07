@@ -1,7 +1,6 @@
-<table><tr><td>
-<!--<div class="left">-->
+<table><tr><td width="50%" valign="top">
 <div class="detil">
-    <h2>INFORMASI SURAT :</h>
+    <h2>INFORMASI SURAT :</h2>
     <hr>
     </br>
     <div id="table-wrapper"><table class="CSSTableGenerator">
@@ -39,8 +38,8 @@
             foreach($this->datal as $value){
                 echo "<tr><td>$value[tipe]</td><td>$value[nomor] ; ".Tanggal::tgl_indo($value['tanggal'])."</td>
                     <td><button class=btn onclick=viewlampiran($value[id_lamp]);>view</button>
-                    <a href=".URL."lampiran/ubah/$value[id_lamp]><button class=btn >ubah</button></a>
-                    <a href=".URL."lampiran/hapus/><button class=btn onclick='return konfirmasi()'>hapus</button></a></td></tr>";
+                    <a href=".URL."lampiran/ubah/$value[id_lamp]><button class='btn btn-green' >ubah</button></a>
+                    <a href=".URL."lampiran/hapus/><button class='btn btn-danger' onclick='return konfirmasi()'>hapus</button></a></td></tr>";
             }
         ?>
         
@@ -49,7 +48,7 @@
     </div>
 <!-- menampilkan pdf hanya butuh iframe, cuman, browser harus embed ama pdf reader 
 (install pdf reader setelah browser) -->
-    </td><td>
+    </td><td width="50%">
 <!--<div class="right">-->
 <div class="detil">    
     <!--<p><h2>TAMPILAN ARSIP ELEKTRONIK</h2></p>-->

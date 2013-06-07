@@ -27,7 +27,7 @@
 <h3>Rekam Pengganti</h3><hr>
 <?php if($this->count>0) { $no=1;?>
 <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
-    <tr><th>NO</th><th>NAMA PEGAWAI</th><th>PILIH PJS</th></tr>
+    <tr><td>NO</td><td>NAMA PEGAWAI</td><td>PILIH PJS</td></tr>
     <?php foreach($this->user as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['namaPegawai']; ?></td>

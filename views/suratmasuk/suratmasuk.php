@@ -47,11 +47,11 @@
         //echo '<td>' . $value['asal_surat'] . '</td>';
         //echo '<td>' . $value['perihal'] . '</td>';
         echo '<td halign=center>';
-                if(Auth::isRole($role, 2) AND Auth::isBagian($bagian, 1))echo '<a href="'.URL.'suratmasuk/edit/'.$value->getId().'" title="ubah data surat" class=tip><input class=btn type=button value=ubah></a> 
-                <a href="'.URL.'suratmasuk/hapus/'.$value->getId().'" title="hapus data surat" class=tip><input class=btn type=button value="hapus" onclick="return selesai(\'' . $value->getAgenda() . '\');"></a>';
+                if(Auth::isRole($role, 2) AND Auth::isBagian($bagian, 1))echo '<a href="'.URL.'suratmasuk/edit/'.$value->getId().'" title="ubah data surat" class=tip><input class="btn btn-green" type=button value=ubah></a> 
+                <a href="'.URL.'suratmasuk/hapus/'.$value->getId().'" title="hapus data surat" class=tip><input class="btn btn-danger" type=button value="hapus" onclick="return selesai(\'' . $value->getAgenda() . '\');"></a>';
                 if(Auth::isRole($role, 1) OR Auth::isRole($role, 4)) echo '<a href="'.URL.'suratmasuk/disposisi/'.$value->getId().'" title="rekam disposisi" class=tip><input class="btn" type=button value=disposisi></a>';
                 if(Auth::isRole($role, 5)) echo '<a title="cetak disposisi" class=tip><input class="btn" type=button value="print disposisi" onclick="cetakdisposisi('.$value->getId().');"></a> ';
-                if(Auth::isRole($role, 5) OR Auth::isRole($role, 3)) echo '<a href="'.URL.'suratmasuk/upload/'.$value->getId().'" title="upload file surat" class=tip><input class="btn" type=button value="upload"></a>
+                if(Auth::isRole($role, 5) OR Auth::isRole($role, 3)) echo '<a href="'.URL.'suratmasuk/upload/'.$value->getId().'" title="upload file surat" class=tip><input class="btn btn-grey" type=button value="upload"></a>
                 <!--<a href="'.URL.'suratmasuk/updatestatus/'.$value->getId().'"><input class=btn type=button value=Status></a>
                     <a href="'.URL.'suratmasuk/distribusi/'.$value->getId().'"><input class=btn type=button value=Distribusi></a>--></td>';
         echo '</tr>';        
