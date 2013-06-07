@@ -181,7 +181,7 @@ class User extends Model{
             $data = $this->select('SELECT * FROM user WHERE id_user='.$id);
         }elseif(!is_int($id) AND !is_null($password)){
 //            echo '3';
-            $data = $this->select("SELECT * FROM user WHERE username='".$id."' AND password='". $password."'");
+            $data = $this->select("SELECT * FROM user WHERE username='".$id."' AND password='". $password."' AND active='Y'");
         }
         $return = array();
         foreach ($data as $val){

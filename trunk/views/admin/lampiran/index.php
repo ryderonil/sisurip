@@ -1,6 +1,7 @@
 <h2>Tambah Jenis Lampiran</h2><hr>
+<table><tr><td width="50%" valign="top">
 <div id="pesan"></div>
- <div id="btn-show"></br><input  type="button" name="submit" value="REKAM" onclick="displayform()"></div>
+<div id="btn-show"></br><input  type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 <div id="form-wrapper">
 <form id="form-rekam" >    
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamLampiran">    -->
@@ -20,9 +21,10 @@
 </br>
 <hr>
 </br>
+        </td><td width="50%">
 <?php if($this->count>0) { $no=1;?>
 <div id="table-wrapper"><table class="CSSTableGenerator">
-    <tr><th>NO</th><th>TIPE NASKAH</th><th>AKSI</th></tr>
+    <tr><td>NO</td><td>TIPE NASKAH</td><td>AKSI</td></tr>
     <?php foreach($this->lampiran as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>        
         <td><?php echo $value['tipe_naskah']; ?></td>
@@ -31,7 +33,7 @@
     <?php $no++; }?>
 </table></div>
 <?php } ?>
-
+        </td></tr></table>
 <script type="text/javascript">
 
 $(document).ready(function(){

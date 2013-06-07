@@ -51,14 +51,14 @@
 <div id="pesan"></div>
 <?php if($this->count>0) { $no=1;?>
 <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
-    <tr><th>NO</th><th>NAMA PEGAWAI</th><th>NAMA USER</th><th>AKSI</th><th>AKTIF</th></tr>
+    <tr><td>NO</td><td>NAMA PEGAWAI</td><td>NAMA USER</td><td>AKSI</td><td>AKTIF</td></tr>
     <?php foreach($this->user as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['namaPegawai']; ?></td>
         <td><?php echo $value['username']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="UBAH"></a> | 
             <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['username'];?>');"></a></td>
-        <td><a ><input class="btn" type="button" value="<?php echo $value['active']; ?>" onclick="setaktifuser('<?php echo $value['id_user'].'-'.$value['active'];?>');"></a></td></tr>
+        <td><a ><input class="btn" type="button" value="<?php echo $value['active']; ?>" onclick="return setaktifuser('<?php echo $value['id_user'].'-'.$value['active'];?>',<?php echo $value['bagian']; ?>,<?php echo $value['role']; ?>); "></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
@@ -75,15 +75,31 @@
         }
     }
     
-    function setaktifuser(id){
-        $.post("<?php echo URL; ?>admin/setAktiveUser", {queryString:""+id+""},
-        function(data){
-            $('#pesan').fadeIn(500);
-            $('#pesan').html(data);
-            window.setTimeout(function(){
-                location.reload(500)
+    function setaktifuser(id, bagian, jabatan){
+        $.ajax({
+            type:'post',
+            url:'<?php echo URL?>admin/cekExistPjs',
+            data:'bagian='+bagian+
+                '&jabatan='+jabatan,
+            dataType:'json',
+            success:function(data){
+                if(data.pjs>=1){
+                    var walamat = '<div id=warning>Pejabat sementara Jabatan ini masih ada, hubungi Admin untuk menghapusnya!</div>';
+                    $('#pesan').fadeIn(500);
+                    $('#pesan').html(walamat);
+                    return false;
+                }else{
+                    $.post("<?php echo URL; ?>admin/setAktiveUser", {queryString:""+id+""},
+                        function(data){
+                            $('#pesan').fadeIn(500);
+                            $('#pesan').html(data);
+                            window.setTimeout(function(){
+                                location.reload(500)
+                            }
+                            ,5000);
+                        });
+                }
             }
-            ,5000);
         });
     }
     
@@ -243,19 +259,21 @@
                     $.ajax({
                         type:'post',
                         url:'<?php echo URL; ?>admin/cekUser',
-                        data:'nip='+content,
+                        data:'nip='+nip,
                         dataType:'json',
                         success:function(data){
                             if(data.hasil==1){
                                 var walamat = '<div id=warning>Pegawai ini telah memiliki akun user!</div>'
                                 $('#wnip').fadeIn(500);
                                 $('#wnip').html(walamat);
+                                return false;
                             }else{
                                 $('#wnip').fadeOut(500);
                             }
                         }
                     });
                 }else{
+                    jml++;
                     var walamat = '<div id=warning>NIP tidak valid!</div>'
                     $('#wnip').fadeIn(500);
                     $('#wnip').html(walamat);
@@ -281,6 +299,7 @@
                         var walamat = '<div id=warning>Nama user ini telah dipakai!</div>'
                         $('#wuser').fadeIn(500);
                         $('#wuser').html(walamat);
+                        return false;
                     }
                 }
             });

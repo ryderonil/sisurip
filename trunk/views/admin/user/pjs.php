@@ -114,7 +114,10 @@ function cekemptyfield(num, content){
             $('#wjabatan').html(wtgl);
         }
         
-        $.ajax({
+        if(jml>0){
+            return false;
+        }else{
+            $.ajax({
             type:'post',
             url:'<?php echo URL?>admin/cekPejabat',
             data:'bagian='+bagian+
@@ -141,17 +144,14 @@ function cekemptyfield(num, content){
                                     $('#pesan').fadeIn(500);
                                     $('#pesan').html(walamat);
                                     return false
+                                }else{
+                                    rekam();
                                 }
                             }
                         });
+                    }
                 }
-            }
-        });
-        
-        if(jml>0){
-            return false;
-        }else{
-            rekam();
+            });
             return true;
         }
     }

@@ -68,7 +68,7 @@
 <hr>
 </br>
 <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
-    <tr><th>NO</th><th>NAMA PEGAWAI</th><th>NAMA USER</th><th>AKSI</th><th>AKTIF</th></tr>
+    <tr><td>NO</td><td>NAMA PEGAWAI</td><td>NAMA USER</td><td>AKSI</td><td>AKTIF</td></tr>
     <?php $no=1; foreach($this->user as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['namaPegawai']; ?></td>

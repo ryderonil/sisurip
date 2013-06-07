@@ -51,10 +51,10 @@
         //echo '<td>' . $value['asal_surat'] . '</td>';
         //echo '<td>' . $value['perihal'] . '</td>';
         echo '<td>';
-                if(Auth::isRole($role, 2)) echo '<a href="'.URL.'suratkeluar/edit/'.$value->getId().'" title="ubah data surat" class=tip><input class=btn type=button value=Ubah></a> 
-                <a href="'.URL.'suratkeluar/remove/'.$value->getId().'" title="hapus data surat" class=tip><input class=btn type=button value=Hapus onclick="return selesai()"></a> ';
+                if(Auth::isRole($role, 2)) echo '<a href="'.URL.'suratkeluar/edit/'.$value->getId().'" title="ubah data surat" class=tip><input class="btn btn-green" type=button value=Ubah></a> 
+                <a href="'.URL.'suratkeluar/remove/'.$value->getId().'" title="hapus data surat" class=tip><input class="btn btn-danger" type=button value=Hapus onclick="return selesai()"></a> ';
                 if(!Auth::isRole($role, 5) AND !Auth::isRole($role, 4)) echo '<a href="'.URL.'suratkeluar/rekamrev/'.$value->getId().'" title="rekam revisi surat" class=tip><input class=btn type=button value="Rekam Revisi"></a> ';
-                echo '<a href="'.URL.'suratkeluar/download/'.$value->getId().'" title="download file surat" class=tip><input class=btn type=button value="Download"></a></td>';
+                echo '<a href="'.URL.'suratkeluar/download/'.$value->getId().'" title="download file surat" class=tip><input class="btn btn-grey" type=button value="Download"></a></td>';
         echo '</tr>';
     }
 ?>

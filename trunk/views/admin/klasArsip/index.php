@@ -1,5 +1,6 @@
 <h2>Tambah Klasifikasi Arsip</h2>
  <hr>
+ <table><tr><td width="50%" valign="top">
  <div id="pesan"></div>
  <div id="btn-show"></br><input  type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 <div id="form-wrapper">
@@ -22,9 +23,10 @@
 </br>
 <hr>
 </br>
+         </td><td width="50%">
 <?php if($this->count>0) { $no=1;?>
 <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
-    <tr><th>NO</th><th>KODE</th><th>KLASIFIKASI</th><th>AKSI</th></tr>
+    <tr><td>NO</td><td>KODE</td><td>KLASIFIKASI</td><td>AKSI</td></tr>
     <?php foreach($this->klasArsip as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['kode']; ?></td>
@@ -34,7 +36,7 @@
     <?php $no++; }?>
 </table></div>
 <?php } ?>
-
+         </td></tr></table>
 <script type="text/javascript">
     
     $(document).ready(function(){

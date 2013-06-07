@@ -1,5 +1,6 @@
 <h2>Tambah Format Nomor Surat</h2>
 <hr>
+<table><tr><td width="50%" valign="top">
 <div id="pesan"></div>
 <div id="btn-show"></br><input  type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 <div id="form-wrapper">
@@ -26,9 +27,10 @@
 </br>
 <hr>
 </br>
+</td><td width="50%">
 <?php if($this->count>0) { $no=1;?>
 <div id="table-wrapper"><table class="CSSTableGenerator">
-    <tr><th>NO</th><th>BAGIAN</th><th>KODE NOMOR</th><th>AKSI</th></tr>
+    <tr><td>NO</td><td>BAGIAN</td><td>KODE NOMOR</td><td>AKSI</td></tr>
     <?php foreach($this->nomor as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['bagian']; ?></td>
@@ -38,7 +40,7 @@
     <?php $no++; }?>
 </table></div>
 <?php } ?>
-
+</td></tr></table>
 <script type="text/javascript">
     
     function selesai()

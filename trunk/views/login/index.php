@@ -4,9 +4,9 @@
 </br>
 <div ><form id="form-login">
         <div id="error"></div>
-        <div><label>Nama Pengguna</label><input id="iuser" class="require" type="text" name="username"  onkeyup="hidewarning(1,this.value);"></br>
+        <div><label>NAMA PENGGUNA</label><input id="iuser" class="require" type="text" name="username"  onkeyup="hidewarning(1,this.value);"></br>
         </div><div id="wuser"></div>
-        <div><label>Password</label><input id="pass" class="require" type="password" name="password" onkeyup="hidewarning(2,this.value);"></br>
+        <div><label>PASSWORD</label><input id="pass" class="require" type="password" name="password" onkeyup="hidewarning(2,this.value);"></br>
         </div><div id="wpass"></div>
     <label></label><input type="button" name="submit" value="LOGIN" onclick="return cek();"></br>
     <?php if(isset($this->error['invalid'])) {?>

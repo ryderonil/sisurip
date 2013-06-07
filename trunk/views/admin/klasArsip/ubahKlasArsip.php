@@ -1,5 +1,6 @@
 <h2>Ubah Klasifikasi Arsip</h2>
 <hr>
+<table><tr><td width="50%" valign="top">
 <div id="pesan"></div>
 <div id="form-wrapper">
 <form id="form-rekam" >
@@ -22,8 +23,9 @@
 </br>
 <hr>
 </br>
+</td><td width="50%">
 <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
-    <tr><th>NO</th><th>KODE</th><th>KLASIFIKASI</th><th>AKSI</th></tr>
+    <tr><td>NO</td><td>KODE</td><td>KLASIFIKASI</td><td>AKSI</td></tr>
     <?php $no=1; foreach($this->klasArsip as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['kode']; ?></td>
@@ -32,7 +34,7 @@
             <a href="#"><input class="btn" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['klasifikasi']?>');"></a></td></tr>
     <?php $no++; }?>
 </table></div>
-
+</td></tr></table>
 <script type="text/javascript">
     
     function selesai(num,klas)
