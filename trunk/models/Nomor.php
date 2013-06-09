@@ -23,7 +23,7 @@ class Nomor extends Model{
     /*
      * 
      */
-    public function generateAgenda(){
+    public function generateAgenda($tipe_surat,$tipe_naskah=null){
         
     }
     
@@ -202,12 +202,8 @@ class Nomor extends Model{
         
     }
     
-    public function getNomorAgenda(){
-        
-    }
-    
-    public function getNumber(){
-        
+    function __destruct() {
+        ;
     }
 }
 ?>

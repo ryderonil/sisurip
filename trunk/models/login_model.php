@@ -77,6 +77,10 @@ class Login_Model extends Model {
         return $bagian;
     }
     
+    function __destruct() {
+        ;
+    }
+    
 
 }
 

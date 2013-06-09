@@ -2,9 +2,9 @@
 <hr>
 </br>
 <div id="pesan"></div>
-<div id="form-wrapper"><table class="CSSTableGenerator">
+<div id="form-wrapper"><table class="tableinfo">
     <tr><th></th><th></th></tr>
-    <tr><td>Nomor Agenda</td><td><?php echo $this->no_agenda;?></td></tr>
+    <tr><td width="20%">Nomor Agenda</td><td><?php echo $this->no_agenda;?></td></tr>
     <tr><td>Nomor Surat</td><td><?php echo $this->no_surat;?></td></tr>
     <tr><td>Tanggal Surat</td><td><?php echo Tanggal::tgl_indo($this->tgl_surat);?></td></tr>
 </table></div>
@@ -27,7 +27,7 @@
         <input type="hidden" name="satker" value="<?php echo $this->satker;?>">
         <div id="wfile"></div>
         <div><label>PILIH FILE</label><input id="sfile" type ="file" name="upload" onchange="cekemptyfield(this.value)">
-        <input type="button" name="submit" value="UPLOAD" onclick="return cek()"></div>
+        <input type="button" class="btn upload" name="submit" value="UPLOAD" onclick="return cek()"></div>
         </p>
 <!--        <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>-->
     </form>

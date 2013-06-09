@@ -48,7 +48,7 @@
     <div id="wlabel"></div>
     <label>LABEL</label><input id="label" class="required" type="text" name="nama" value="<?php echo $this->data[4];?>" onkeyup="cekemptyfield(2,this.value)"></br>
     <!--<label>KETERANGAN</label><input type="text" name="keterangan" width="40"></textarea></br>-->
-    <label></label><input type="reset" onclick="location.href='<?php echo URL;?>admin/rekamLokasi'" name="batal" value="BATAL"><input type="button" name="submit" value="SIMPAN" onclick="return selesai();"></br>
+    <label></label><input class="btn cancel" type="reset" onclick="location.href='<?php echo URL;?>admin/rekamLokasi'" name="batal" value="BATAL"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="return selesai();"></br>
     <p>Jika filling tidak dipilih, baris tidak dipilih->rekam filling</p>
     <p>Jika filling dipilih, baris tidak dipilih->rekam baris</p>
     <p>Jika filling dipilih, baris dipilih->rekam box</p>
@@ -67,8 +67,8 @@
             <td>$data[3]</td>
             <td>$data[4]</td>
             <td>$data[5]</td>
-            <td><a href=".URL."admin/ubahLokasi/".$data[6]."><input class=btn type=button value=UBAH></a> | 
-                <a href=".URL."admin/ubahStatusLokasi/".$data[6]."/".$data[5]."><input class=btn type=button value=STATUS></a></td></tr>";
+            <td><a href=".URL."admin/ubahLokasi/".$data[6]."><input class='btn edit' type=button value=UBAH></a> | 
+                <a href=".URL."admin/ubahStatusLokasi/".$data[6]."/".$data[5]."><input class='btn edit' type=button value=STATUS></a></td></tr>";
         }
     ?>
 </table></div>

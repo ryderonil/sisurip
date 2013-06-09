@@ -93,7 +93,7 @@ function getBagianName($kd_bag){
 
 $pdf = new PDF('P', 'cm', 'A4');
 $pdf->Open();
-$pdf->SetAutoPageBreak(true, 3);
+$pdf->SetAutoPageBreak(true, 4);
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 14);

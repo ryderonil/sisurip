@@ -182,6 +182,10 @@ class Cari_Controller extends Controller {
             }
         }
     }
+    
+    function __destruct() {
+        ;
+    }
 
 }
 

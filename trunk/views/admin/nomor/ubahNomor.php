@@ -23,7 +23,7 @@
             <?php echo strtoupper($value['bagian']);?></option>
         <?php } ?>
     </select></br>
-    <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamNomor'" value="BATAL"><input type="button" name="submit" value="SIMPAN" onclick="return selesai(1);">
+    <label></label><input class="btn cancel" type="button" onclick="location.href='<?php echo URL;?>admin/rekamNomor'" value="BATAL"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="return selesai(1);">
 </form></div>
 
 </br>
@@ -36,8 +36,8 @@
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['bagian']; ?></td>
         <td><?php echo $value['kd_nomor']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai(2);"></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahNomor/<?php echo $value['id_nomor'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2);"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 </td></tr></table>

@@ -2,8 +2,9 @@
 <hr>
 <div id="pesan"></div>
 </br>
-<div id="table-wrapper"><table class="CSSTableGenerator">
-        <tr><td></td><td></td></tr>
+<table><tr><td width="40%" valign="top">
+<div id="table-wrapper"><table class="tableinfo">
+        <tr><td width="30%"></td><td></td></tr>
     <?php 
     $id = 0;
 //    foreach ($this->data as $val) { 
@@ -20,6 +21,7 @@
 </br>
 <hr>
 </br>
+        </td><td width="60%" halign="left">
 <div id="form-wrapper">
     <form id="form-rekam"   >
 <!--        <form method="POST" action="<?php echo URL; ?>suratkeluar/uploadrev" enctype="multipart/form-data">-->
@@ -33,12 +35,12 @@
         <input type="hidden" name="id" value="<?php echo $id;?>">
         <input type="hidden" name="user" value="<?php echo $user;?>">       
         <div id="winput"></div>
-        <label>CATATAN REVISI</label><textarea id="catatan" name="catatan" cols="80" rows="10" onkeyup="cekemptyfield(1,this.value)"></textarea></br>
+        <label>CATATAN REVISI</label><textarea id="catatan" name="catatan" cols="100" rows="10" onkeyup="cekemptyfield(1,this.value)"></textarea></br>
         <div id="wfile"></div>
         <label>UPLOAD</label><input id="sfile"  type="file" name="upload" onchange="cekemptyfield(2,this.value)"></br>
-        <label></label><input type="button" name="submit" value="SIMPAN" onclick="return cekinput()">
+        <label></label><input type="button" class="btn save" name="submit" value="SIMPAN" onclick="return cekinput()">
     </form>
-</div>
+</div></td></tr></table>
 <div id="table-wrapper" style="overflow:scroll; max-height:400px;">
     <table class="CSSTableGenerator">
         <tr><td>REV</td><td>CATATAN</td><td>DOWNLOAD</td></tr>
@@ -47,7 +49,7 @@
         $no=1;
             foreach ($this->datar as $val){
                 echo "<tr><td>$no</td><td>$val[time] [$val[user]]</br><p>$val[catatan]</p></td>
-                    <td><a href=".URL."suratkeluar/downloadrev/".$val['id_revisi']."><input class=btn type=button value=Download></a></td></tr>";
+                    <td><a href=".URL."suratkeluar/downloadrev/".$val['id_revisi']."><input class='btn download' type=button value=Download></a></td></tr>";
                 $no++;
                 
             }

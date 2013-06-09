@@ -1,7 +1,7 @@
 <h2>Pengaturan Lokasi Penyimpanan Arsip</h2>            
         <hr>
         <div id="pesan"></div>
-<div id="btn-show"></br><input  type="button" name="submit" value="REKAM" onclick="displayform()"></div>
+<div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 <div id="form-wrapper"><form id="form-rekam" >
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamLokasi">-->
         <?php 
@@ -39,7 +39,7 @@
     <div id="wlabel"></div>
     <div><label>LABEL</label><input id="label"  type="text" name="nama" onkeyup="cekemptyfield(2,this.value)"></div></br>
     <!--<label>KETERANGAN</label><input type="text" name="keterangan" width="40"></textarea></br>-->
-    <label></label><input type="reset" value="RESET"><input type="button" name="submit" value="SIMPAN" onclick="cek()"></br>
+    <label></label><input class="btn reset" type="reset" value="RESET"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="cek()"></br>
     <p>Jika filling tidak dipilih, baris tidak dipilih->rekam filling</p>
     <p>Jika filling dipilih, baris tidak dipilih->rekam baris</p>
     <p>Jika filling dipilih, baris dipilih->rekam box</p>
@@ -58,8 +58,8 @@
             <td>$data[3]</td>
             <td>$data[4]</td>
             <td>$data[5]</td>
-            <td><a href=".URL."admin/ubahLokasi/".$data[6]."><input class=btn type=button value=UBAH></a> | 
-                <a href=".URL."admin/ubahStatusLokasi/".$data[6]."/".$data[5]."><input class=btn type=button value=STATUS></a></td></tr>";
+            <td><a href=".URL."admin/ubahLokasi/".$data[6]."><input class='btn edit' type=button value=UBAH></a> | 
+                <a href=".URL."admin/ubahStatusLokasi/".$data[6]."/".$data[5]."><input class='btn edit' type=button value=STATUS></a></td></tr>";
         }
     ?>
 </table></div>

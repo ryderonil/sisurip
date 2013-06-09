@@ -7,7 +7,7 @@
   @author: hairul azami a.k.a dr.emi
   @contact: webmaster@dremi.info
   @website: www.dremi.info
- * dengan penambahan fungsi xcopy dan modifikasi sesuai kebutuhan SiSURIP
+ * dengan penambahan fungsi xcopy, backup triggers dan modifikasi sesuai kebutuhan SiSURIP
  */
 
 class Backuprestore {
@@ -134,6 +134,9 @@ class Backuprestore {
     function backupDatabase($name, $tables = '*') {
         $this->connect(DB_HOST, DB_USER, DB_PASS, $name);
         $return = '';
+        /*
+         * backup tables
+         */
         if ($tables == '*') {
             $tables = array();
             $result = $this->query('SHOW TABLES');
@@ -145,12 +148,17 @@ class Backuprestore {
         }
 
         foreach ($tables as $table) {
-
+            $return .= "--\n";
+            $return .= "--Table structure for table `".$table."`\n";
+            $return .= "--\n\n";
             $result = $this->query('SELECT * FROM ' . $table);
             $num_fields = $this->numfield($result);
             $return .= 'DROP TABLE IF EXISTS ' . $table . ';';
             $row2 = $this->fetchrow($this->query('SHOW CREATE TABLE ' . $table));
             $return.= "\n\n" . $row2[1] . ";\n\n";
+            $return .= "--\n";
+            $return .= "--Dumping data for table `".$table."`\n";
+            $return .= "--\n\n";
             for ($i = 0; $i < $num_fields; $i++) {
                 while ($row = $this->fetchrow($result)) {
                     $return.= 'INSERT INTO ' . $table . ' VALUES(';
@@ -178,6 +186,34 @@ class Backuprestore {
             }
             $return.="\n\n\n";
         }
+        
+        /*
+         * backup triggers
+         */
+        
+        $model = new Model();
+        $sql = 'show triggers';
+        $data = $model->select($sql);
+        foreach($data as $val){
+            $return .= "--\n";
+            $return .= "-- triggers `".$val['Table']."`\n";
+            $return .= "--\n";
+            $return .= "DROP TRIGGER IF EXISTS `".$val['Trigger']."`;";
+            $return .= "\n";
+            $return .= "DELIMITER //";
+            $return .= "\n";
+            $return .= "CREATE TRIGGER `".$val['Trigger']."` ".$val['Timing']." ".$val['Event']." ON `".$val['Table']."`";
+            $return .= "\n";
+            $return .= "FOR EACH ROW ".$val['Statement'];
+            $return .= "\n";
+            $return .= "//";
+            $return .= "\n";
+            $return .= "DELIMITER ;";
+            $return .= "\n";
+            $return .= "\n";
+            
+        }
+        
         $dir = 'db-backup-' . $name . '-' . time() . '-' . (md5(implode(',', $tables)));
         $fileName = 'db-backup-' . $name . '-' . time() . '-' . (md5(implode(',', $tables))) . '.sql';
         $handle = fopen($fileName, 'w+');

@@ -117,5 +117,8 @@ abstract class Surat extends Model{
     
     abstract protected function uploadFile($data,$where);
     
+    function __destruct() {
+        ;
+    }
 }
 ?>

@@ -1,6 +1,6 @@
 <h2>Rekam Pengguna</h2><hr>
 <div id="pesan"></div>
-<div id="btn-show"></br><input  type="button" name="submit" value="REKAM" onclick="displayform()"></div>
+<div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 <div id="form-wrapper">
 <form id="form-rekam" >
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamUser">-->
@@ -43,7 +43,7 @@
             }
         ?>
     </select></br>   
-    <label></label><input type="reset" name="submit" value="RESET"><input type="button" name="submit" value="SIMPAN" onclick="cek()">
+    <label></label><input class="btn reset" type="reset" name="submit" value="RESET"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="cek()">
 </form></div>
 </br>
 <hr>
@@ -56,8 +56,8 @@
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['namaPegawai']; ?></td>
         <td><?php echo $value['username']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['username'];?>');"></a></td>
+        <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['username'];?>');"></a></td>
         <td><a ><input class="btn" type="button" value="<?php echo $value['active']; ?>" onclick="return setaktifuser('<?php echo $value['id_user'].'-'.$value['active'];?>',<?php echo $value['bagian']; ?>,<?php echo $value['role']; ?>); "></a></td></tr>
     <?php $no++; }?>
 </table></div>

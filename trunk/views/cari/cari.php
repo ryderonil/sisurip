@@ -1,7 +1,7 @@
 <div>
     <form id="form-search" name="frm">
-    <input id="search" type="input" size="30" name="search" placeholder="masukkan kata kunci pencarian" onkeyup="keyup();">
-    <a title="cari" class="tip"><input  type="button" value="CARI" onclick="searchs();"></a>
+    <span><input id="search" type="input" size="30" name="search" placeholder="masukkan kata kunci pencarian" onkeyup="keyup();">
+    <a title="cari" class="tip"><input  class="btn search"type="button" value="CARI" onclick="searchs();"></a></span>
 <!--    <a title="cari" class="tip"><input  type="button" value="CARI" onClick="return cari(document.getElementById('search').value);"></a>-->
         
     <br>

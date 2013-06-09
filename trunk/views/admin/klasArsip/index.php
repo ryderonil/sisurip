@@ -2,7 +2,7 @@
  <hr>
  <table><tr><td width="50%" valign="top">
  <div id="pesan"></div>
- <div id="btn-show"></br><input  type="button" name="submit" value="REKAM" onclick="displayform()"></div>
+ <div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 <div id="form-wrapper">
 <form id="form-rekam" >
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamKlasArsip">-->
@@ -17,7 +17,7 @@
     <label>KODE KLASIFIKASI</label><input id="kode"  type="text" name="kode" onkeyup="cekemptyfield(1,this.value)"></br>
     <div id="wklas"></div>
     <label>KLASIFIKASI</label><input id="klas"  type="text" name="klasifikasi" onkeyup="cekemptyfield(2,this.value)"></br>
-    <label></label><input type="reset" value="RESET"><input type="button" name="submit" value="SIMPAN" onclick="cek()">
+    <label></label><input class="btn reset" type="reset" value="RESET"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="cek()">
 </form>
 </div>
 </br>
@@ -31,8 +31,8 @@
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['kode']; ?></td>
         <td><?php echo $value['klasifikasi']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['klasifikasi'];?>');"></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['klasifikasi'];?>');"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>

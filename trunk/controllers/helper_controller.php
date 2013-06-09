@@ -361,6 +361,10 @@ class Helper_Controller extends Controller{
         //var_dump($notifsm);
         $this->view->render('notifikasi/notifikasi');
     }
+    
+    function __destruct() {
+        ;
+    }
 
 }
 

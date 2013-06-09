@@ -22,7 +22,7 @@
         <label>TELEPON</label><input id="telp" type="text" name="telepon" value="<?php echo $this->telepon;?>" onkeyup="cekemptyfield(4,this.value)"></br>
         <div id="wemail"></div>
         <label>EMAIL</label><input id="email" type="text" name="email" value="<?php echo $this->email;?>" onkeyup="cekemptyfield(5,this.value)"></br>
-        <label></label><input type="button" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamAlamat'"><input type="submit" name="submit" value="SIMPAN" onclick="return selesai()">
+        <label></label><input class="btn cancel" type="button" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamAlamat'"><input type="submit" class="btn save" name="submit" value="SIMPAN" onclick="return selesai()">
         <?php 
             if(isset($this->error)){
                 echo "<div id=error>$this->error</div>";

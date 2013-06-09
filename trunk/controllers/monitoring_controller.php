@@ -326,7 +326,7 @@ class Monitoring_Controller extends Controller {
                     $date = new DateTime($prog['start']);
                     $add = $this->model->getDueDate('SM');
                     $date->add(new DateInterval('PT' . $add . 'H0M0S'));
-                    $due_date = $date->format('Y-m-d H:i:s');
+                    $due_date = $date->format('Y-m-d H:i:s'); //cek lagi dengan hari libur
                     echo "<tr><td><font color=black><b>$no</b></font></td>
                         <td><font color=black><b>$prog[no_surat]/</br>$prog[tgl_surat]</b></font></td>
                         <td><font color=black><b>$prog[alamat]</b></font></td>
@@ -339,11 +339,11 @@ class Monitoring_Controller extends Controller {
             } else {
                 echo '<tr><td></td><td colspan=5><font size=4><strong>SURAT KELUAR</strong></font></td></tr>';
                 foreach ($val as $prog) {
-                    $date = new DateTime($prog['start']);
+//                    $date = new DateTime($prog['start']);
                     $add = (string) $this->model->getDueDate('SK', $prog['id']);
-//                    var_dump($add);
-                    $date->add(new DateInterval('PT' . $add . 'H0M0S'));
-                    $due_date = $date->format('Y-m-d H:i:s');
+//                    $date->add(new DateInterval('PT' . $add . 'H0M0S'));
+//                    $due_date = $date->format('Y-m-d H:i:s');
+                    $due_date = $this->model->cekNextDay($prog['start'],false,($add/24));
                     echo "<tr><td><font color=black><b>$no</b></font></td>
                         <td><font color=black><b>$prog[no_surat]/</br>$prog[tgl_surat]</b></font></td>
                         <td><font color=black><b>$prog[alamat]</b></font></td>
@@ -423,13 +423,11 @@ class Monitoring_Controller extends Controller {
     }
     
     public function test(){
-        $kinerja = new KinerjaPegawai();
-        $data = $kinerja->displayKinerja();
-        $this->view->data = array();
-        foreach ($data as $val){
-            $this->view->data[] = $val;
-        }
-        var_dump($this->view->data);
+        
+    }
+    
+    function __destruct() {
+        ;
     }
 
 }

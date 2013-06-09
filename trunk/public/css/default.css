@@ -19,6 +19,10 @@ div {
 /*    text-align: right;*/
 }
 
+a:visited {
+    color: red;
+}
+
 .nav-paging{
     margin-top: 3px;
     margin-bottom: 15px;
@@ -416,8 +420,9 @@ form br {clear: left;}
 iframe {
     width: 100%;
 /*    min-height: 100%;*/
-    min-height: 400px;
-/*    border: solid 2px gray;*/
+    min-height: 485px;
+    border: solid 2px #000000;
+    background-color: #127e11;
 }
 
 iframe.grafik-kinerja {
@@ -718,24 +723,6 @@ iframe.grafik-rekap {
     -webkit-transition: height 0.5s; 
 }
 
-/**-----------table----------**/
-
-table {
-
-}
-
-table tr {
-
-}
-
-table td {
-
-}
-
-table th {
-
-}
-
 .CSSTableGenerator {
     /*overflow-y: scroll;*/
     margin:0px;padding:0px;
@@ -856,6 +843,36 @@ background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-web
     border-width:0px 0px 1px 1px;
 }
 
+.tableinfo {
+    width:100%;
+    margin:0px;padding:0px;
+}
+
+.tableinfo table {
+    width:100%;
+    margin:0px;padding:0px;
+    height: 100%;
+    background-color: #dc3c00;
+}
+
+.tableinfo tr {
+    padding: 4px;
+}
+
+.tableinfo td {
+    vertical-align:top;
+    border:1px solid #4d4d4f;
+    border-width:0px 1px 1px 0px;
+    text-align:left;
+    padding:4px;
+    font-size:12px;
+    font-family:'segoe ui','trebuchet ms';
+    font-weight:normal;
+    color:#ffffff;
+    font-weight: bolder;
+    background-color: #4d4d4f;
+}
+
 .limit-select {
     height: 30px;
     min-width: 60px;
@@ -881,6 +898,7 @@ background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-web
     padding:0px;
     border-radius: 0px;
     margin-top: 0px;
+    padding-right: 10px;
     
     /*background: #ebf1f6; /* Old browsers */
     /*background: -moz-linear-gradient(top,  #ebf1f6 0%, #abd3ee 50%, #89c3eb 51%, #d5ebfb 100%); /* FF3.6+ */
@@ -894,15 +912,269 @@ background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-web
 }
 
 .btn.btn-danger {
-    background: #e81123;
+    background: url(../images/delete.png) no-repeat left center;
+    background-color: #e81123;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.btn-danger:hover {
+    background: url(../images/delete.png) no-repeat left center;
+    background-color: #c00e1c;
+    border: 3px #12407f;
+    background-position: 5px center;
 }
 
 .btn.btn-green {
-    background: #107c0f;
+    background: url(../images/edit.png) no-repeat left center;
+    background-color: #0a4b0a;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.btn-green:hover {
+    background: url(../images/edit.png) no-repeat left center;
+    background-color: #107c0f;
+    border: 3px #12407f;
+    background-position: 5px center;
 }
 
 .btn.btn-grey {
     background:#333333;
+}
+
+.btn.btn-grey:hover {
+    background:#4e4e4e;
+}
+
+.btn.print {
+    background: url(../images/print16.png) no-repeat left center;
+    background-color: #498af2;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.print:hover {
+    background: url(../images/print16.png) no-repeat left center;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.edit {
+    background: url(../images/edit.png) no-repeat left center;
+    background-color: #498af2;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.edit:hover {
+    background: url(../images/edit.png) no-repeat left center;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.attachment {
+    background: url(../images/attachment.png) no-repeat left center;
+    background-color: #498af2;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.attachment:hover {
+    background: url(../images/attachment.png) no-repeat left center;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.arsip {
+    background: url(../images/arsip.png) no-repeat left center;
+    background-color: #498af2;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.arsip:hover {
+    background: url(../images/arsip.png) no-repeat left center;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.save {
+    margin:5px 10px 0px 0px;
+    background: url(../images/save.png) no-repeat left center;
+    background-color: #498af2;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.save:hover {
+    background: url(../images/save.png) no-repeat left center;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.reset {
+    margin:5px 10px 0px 10px;
+    background: url(../images/reset.png) no-repeat left center;
+    background-color: #498af2;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.reset:hover {
+    background: url(../images/reset.png) no-repeat left center;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.backup {
+    margin:5px 10px 0px 0px;
+    background: url(../images/backup.png) no-repeat left center;
+    background-color: #498af2;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.backup:hover {
+    background: url(../images/backup.png) no-repeat left center;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.restore {
+    margin:5px 10px 0px 0px;
+    background: url(../images/restore.png) no-repeat left center;
+    background-color: #498af2;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.restore:hover {
+    background: url(../images/restore.png) no-repeat left center;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.cancel {
+    margin:5px 10px 0px 10px;
+    background: url(../images/cancel.png) no-repeat left center;
+    background-color: #498af2;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.cancel:hover {
+    background: url(../images/cancel.png) no-repeat left center;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.write {
+    background: url(../images/write.png) no-repeat left center;
+    background-color: #498af2;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.write:hover {
+    background: url(../images/write.png) no-repeat left center;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.download {
+    background: url(../images/download.png) no-repeat left center;
+    background-color: #333333;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.download:hover {
+    background: url(../images/download.png) no-repeat left center;
+    background-color: #4e4e4e;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.upload {
+    background: url(../images/upload.png) no-repeat left center;
+    background-color: #333333;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.upload:hover {
+    background: url(../images/upload.png) no-repeat left center;
+    background-color: #4e4e4e;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.view{
+    background: url(../images/search16.png) no-repeat left center;
+    background-color: #498af2;
+    padding-left: 25px;
+    background-position: 5px center;
+}
+
+.btn.view:hover{
+    background: url(../images/search16.png) no-repeat left center;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 5px center;
+}
+
+.btn.icon {
+    padding-left: 0px;
+    padding-right: 0px;
+    
+}
+
+a.button.icon span{
+    padding-left: 36px;
+}
+
+.btn.search{
+    height: 30px;
+    background: url(../images/search16.png) no-repeat left;
+    margin-left: 0px;
+    background-color: #498af2;
+    background-position: 10px center;
+}
+
+.btn.search:hover{
+    height: 30px;
+    background: url(../images/search16.png) no-repeat left;
+    margin-left: 0px;
+    background-color: #0049be;
+    border: 3px #12407f;
+    background-position: 10px center;
+}
+
+.btn.icon.rekam{
+    background: url(../images/icons/Add.png) no-repeat 0 0px;
+}
+
+.btn.icon.ctkdisposisi{
+    background: url(../images/icons/Printer.png) no-repeat 0 0px;
+}
+
+.btn.icon.upload{
+    background: url(../images/icons/upload.png) no-repeat 0 0px;
+}
+
+.btn.icon.edit{
+    background: url(../images/icons/notes_edit.png) no-repeat 0 0px;
 }
 
 .btn:hover {
@@ -928,43 +1200,6 @@ background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-web
     background: bottom;
     border: 3px #12407f;
 }
-
-.btn.icon {
-    padding-left: 0px;
-    padding-right: 0px;
-    
-}
-
-a.button.icon span{
-    padding-left: 36px;
-}
-
-.btn.icon.search{
-    height: 30px;
-    background: url(../images/icons/Search16.png) no-repeat 0 0px;
-    margin: 0;
-    cursor: context-menu;   
-    color: #000000;
-    background-color: #498af2;
-    background-position: 18px center;
-}
-
-.btn.icon.rekam{
-    background: url(../images/icons/Add.png) no-repeat 0 0px;
-}
-
-.btn.icon.ctkdisposisi{
-    background: url(../images/icons/Printer.png) no-repeat 0 0px;
-}
-
-.btn.icon.upload{
-    background: url(../images/icons/upload.png) no-repeat 0 0px;
-}
-
-.btn.icon.edit{
-    background: url(../images/icons/notes_edit.png) no-repeat 0 0px;
-}
-
 label.error {
     min-width: 200px;
     color: red; padding-left: .5em;

@@ -55,7 +55,7 @@
     <!--<input type="" name="jenis" value="<?php echo $value['jenis'] ?>">--></br>
     </div><div id="wlampiran"></div>
     <label>LAMPIRAN</label><input id="lampiran" type="" name="lampiran" value="<?php echo $this->data->getJmlLampiran() ?>" title="isikan jumlah lampiran(*)" onkeyup="cekemptyfield(7,this.value)"></br>
-    <label></label><input type="button" onclick="location.href='<?php echo URL;?>suratmasuk'" value="BATAL"><input type="button" name="submit" value="SIMPAN" onclick="return selesai();">
+    <label></label><input type="button" class="btn cancel" onclick="location.href='<?php echo URL;?>suratmasuk'" value="BATAL"><input type="button" class="btn save" name="submit" value="SIMPAN" onclick="return selesai();">
 </form></div>
 
 <?php // } ?>

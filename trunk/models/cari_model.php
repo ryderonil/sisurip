@@ -246,6 +246,10 @@ class Cari_Model extends Model {
         }
         return $result;
     }
+    
+    function __destruct() {
+        ;
+    }
 
 }
 

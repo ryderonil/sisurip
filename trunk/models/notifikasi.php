@@ -183,5 +183,9 @@ class Notifikasi extends Model{
         return $count;
     }
     
+    function __destruct() {
+        ;
+    }
+    
 }
 ?>

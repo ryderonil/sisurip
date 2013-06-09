@@ -43,6 +43,10 @@ class Lokasi extends Model{
     public function __toString() {
         return $this->bagian.$this->lokasi;
     }
+    
+    function __destruct() {
+        ;
+    }
             
 }
 ?>

@@ -258,6 +258,10 @@ class Arsip_Controller extends Controller{
             $no++;
         }
     }
+    
+    function __destruct() {
+        ;
+    }
 
 }
 ?>

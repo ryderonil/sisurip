@@ -20,7 +20,7 @@
         <label>TELEPON</label><input id="telp"  type="text" name="telepon" onkeyup="cekemptyfield(4,this.value)"></br>
         <div id="wemail"></div>
         <label>EMAIL</label><input id="email"  type="text" name="email" onkeyup="cekemptyfield(5,this.value)"></br>
-        <label></label><input type="reset" value="RESET"><input type="submit" name="submit" value="SIMPAN" onclick="return cek()">
+        <label></label><input class="btn reset" type="reset" value="RESET"><input type="submit" class="btn save" name="submit" value="SIMPAN" onclick="return cek()">
         <?php 
             if(isset($this->error)){
                 echo "<div id=error>$this->error</div>";

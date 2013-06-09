@@ -17,7 +17,7 @@
     <label>KODE KLASIFIKASI</label><input id="kode"  type="text" name="kode" value="<?php echo $this->data[1];?>" onkeyup="cekemptyfield(1,this.value)"></br>
     <div id="wklas"></div>
     <label>KLASIFIKASI</label><input id="klas"  type="text" name="klasifikasi" value="<?php echo $this->data[2];?>" onkeyup="cekemptyfield(2,this.value)"></br>
-    <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamKlasifikasiArsip'" value="BATAL"><input type="button" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[2];?>');">
+    <label></label><input class="btn cancel" type="button" onclick="location.href='<?php echo URL;?>admin/rekamKlasifikasiArsip'" value="BATAL"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[2];?>');">
 </form></div>
 
 </br>
@@ -30,8 +30,8 @@
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['kode']; ?></td>
         <td><?php echo $value['klasifikasi']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="#"><input class="btn" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['klasifikasi']?>');"></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
+            <a href="#"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['klasifikasi']?>');"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 </td></tr></table>

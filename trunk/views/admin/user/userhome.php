@@ -2,8 +2,8 @@
 <div id="pesan"></div>
 <table><tr><td width="50%" valign="top">
             <h3>Informasi Pengguna</h3><hr>
-            <div id="table-wrapper" ><table class="CSSTableGenerator">
-                <tr><td></td><td></td></tr>
+            <div id="table-wrapper" ><table class="tableinfo">
+                <tr><td width="30%"></td><td></td></tr>
                 <tr><td>NAMA PEGAWAI</td><td><?php echo $this->data[3]; ?></td></tr>
                 <tr><td>NIP</td><td><?php echo $this->data[4]; ?></td></tr>
                 <tr><td>NAMA USER</td><td><?php echo $this->data[1]; ?></td></tr>
@@ -19,7 +19,7 @@
                 <tr><td>PASSWORD BARU</td><td><input id="pwbaru1" type="password"></td></tr>
                 <tr><td>ULANGI PASSWORD BARU</td><td><input id="pwbaru2" type="password"></td></tr>
                 <tr><td>STATUS AKTIF</td><td><a ><input class="btn" type="button" value="<?php echo $this->data[8]; ?>" onclick="return setaktifuser('<?php echo $this->data[0].'-'.$this->data[8];?>',<?php echo $this->data[0];?>,<?php echo $this->data[6];?>,<?php echo $this->data[7];?>);"></a></td></tr>
-                <tr><td></td><td><input type="button" class="btn"name="submit" value="SIMPAN" onclick="return cek()"></td></tr>
+                <tr><td></td><td><input class="btn save" type="button" class="btn"name="submit" value="SIMPAN" onclick="return cek()"></td></tr>
                 </form>
             </table></div>
 </br>
@@ -31,7 +31,7 @@
     <?php foreach($this->user as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['namaPegawai']; ?></td>
-        <td><a ><input class="btn" type="button" value="Pilih" onclick="return cekrole(<?php echo $role;?>,'<?php echo $value['username'];?>',<?php echo $this->data[6];?>,<?php echo $this->data[7];?>)"></td>
+        <td><a ><input class="btn write" type="button" value="Pilih" onclick="return cekrole(<?php echo $role;?>,'<?php echo $value['username'];?>',<?php echo $this->data[6];?>,<?php echo $this->data[7];?>)"></td>
     <?php $no++; }?>
 <!--                href="<?php echo URL;?>admin/rekamPjs/<?php echo $value['username'];?>"-->
 </table></div>

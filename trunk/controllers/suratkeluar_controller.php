@@ -107,7 +107,8 @@ class Suratkeluar_Controller extends Controller {
     public function input() {
         $notif = new Notifikasi();
         $upload = new Upload('upload');
-        $time = date('Y-m-d H:i:s');
+        $mon = new Monitoring_Model();
+        $time = $mon->cekNextDay(date('Y-m-d H:i:s'),true);
         $tgl = $_POST['tgl_surat'] == '0000-00-00' ? date('Y-m-d') : $_POST['tgl_surat'];
         $data = array(
             'rujukan' => $_POST['rujukan'],
@@ -574,6 +575,10 @@ class Suratkeluar_Controller extends Controller {
         $data = $this->model->getSuratById($id, 'detil');
         $this->view->file = $data->getFile();
         $this->view->load('suratkeluar/viewsurat');
+    }
+    
+    function __destruct() {
+        ;
     }
 
 }

@@ -49,7 +49,7 @@
         <label>WEBSITE</label><input class="required url" type="text" name="website" value="<?php if ($this->cek > 0) echo $this->website; ?>"></br>
         <label>SMS GATEWAY</label><input class="required" type="text" name="sms" value="<?php if ($this->cek > 0) echo $this->sms; ?>"></br>
         <label>LOGO</label><input type="file" name="logo" value="<?php if ($this->cek > 0) echo $this->logo; ?>"></br>
-        <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamKantor'" value="BATAL"><input type="submit" <?php if ($this->cek > 0) { echo "name=update_submit"; }else{ echo "name=input_submit";} ?> value="SIMPAN">
+        <label></label><input type="button" class="btn cancel" onclick="location.href='<?php echo URL;?>admin/rekamKantor'" value="BATAL"><input class="btn save" type="submit" <?php if ($this->cek > 0) { echo "name=update_submit"; }else{ echo "name=input_submit";} ?> value="SIMPAN">
     </form>
 </div>
 

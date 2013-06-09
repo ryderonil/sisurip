@@ -1,7 +1,7 @@
 <h2>Tambah Jenis Lampiran</h2><hr>
 <table><tr><td width="50%" valign="top">
 <div id="pesan"></div>
-<div id="btn-show"></br><input  type="button" name="submit" value="REKAM" onclick="displayform()"></div>
+<div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 <div id="form-wrapper">
 <form id="form-rekam" >    
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamLampiran">    -->
@@ -16,7 +16,7 @@
     <div><label>TIPE NASKAH DINAS</label><input id="tipe" class="required" type="text" name="tipe_naskah" onkeyup="cekemptyfield(1,this.value)"></br>
     </div><div id="wkdsurat"></div>
     <div><label>KODE SURAT</label><input id="kdsurat" class="required" type="text" name="kode_naskah" onkeyup="cekemptyfield(2,this.value)"></br>
-    </div><label></label><input type="reset" name="submit" value="RESET"><input type="button" name="submit" value="SIMPAN" onclick="cek()">
+    </div><label></label><input class="btn reset" type="reset" name="submit" value="RESET"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="cek()">
 </form></div>
 </br>
 <hr>
@@ -28,8 +28,8 @@
     <?php foreach($this->lampiran as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>        
         <td><?php echo $value['tipe_naskah']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['tipe_naskah']; ?>');"></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_tipe'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['tipe_naskah']; ?>');"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>

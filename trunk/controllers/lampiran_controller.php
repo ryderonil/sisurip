@@ -276,6 +276,10 @@ class Lampiran_Controller extends Controller{
         $this->view->load('lampiran/viewlampiran');
     }
     
+    function __destruct() {
+        ;
+    }
+    
     
 }
 ?>
