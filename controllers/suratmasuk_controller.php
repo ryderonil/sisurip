@@ -142,10 +142,12 @@ class Suratmasuk_Controller extends Controller {
         if(!Auth::isAllow(5, Session::get('role'), 1, Session::get('bagian'))){
             header('location:'.URL.'home');
         }
+        $mon = new Monitoring_Model();
         $tglagenda = date('Y-m-d');
         $asal = trim($_POST['asal_surat']);
         $asal = explode(' ', $asal);
-        $start = date('Y-m-d h:m:s');
+        $start = $mon->cekNextDay(date('Y-m-d h:m:s'),true); //jika hari kerja, catat waktu tersebut
+//        $start = 
         /*$this->model->setAgenda($_POST['no_agenda']);
         $this->model->setTglTerima($tglagenda);
         $this->model->setTglSurat(Tanggal::ubahFormatTanggal($_POST['tgl_surat']));
@@ -706,11 +708,14 @@ class Suratmasuk_Controller extends Controller {
         $this->view->render('suratmasuk/catatan');
     }
     
-    public function ctkEkspedisi(){
+    public function ctkEkspedisi($id=null){
         $eks = new EkspedisiSurat();
 //        $id = $this->model->select("SELECT id_suratmasuk FROM suratmasuk");
-        $this->view->data = $eks->displayEkspedisi();
-//        $this->view->data = $this->model->showAll();
+        if(!is_null($id)){
+            $this->view->data = $eks->displayEkspedisiArray($id);
+        }else{
+            $this->view->data = $eks->displayEkspedisi();
+        }
         
         $this->view->load('suratmasuk/expedisi');
     }
@@ -782,6 +787,10 @@ class Suratmasuk_Controller extends Controller {
     public function number(){
         $nomor = new Nomor();
         echo $nomor->generateNumber('SM');
+    }
+    
+    function __destruct() {
+        ;
     }
     
 

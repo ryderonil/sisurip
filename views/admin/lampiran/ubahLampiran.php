@@ -17,7 +17,7 @@
     <div><label>TIPE NASKAH DINAS</label><input id="tipe" class="required" type="text" name="tipe_naskah" value="<?php echo $this->data[1];?>" onkeyup="cekemptyfield(1,this.value)"></br>
     </div><div id="wkdsurat"></div>
     <div><label>KODE SURAT</label><input id="kdsurat" class="required" type="text" name="kode_naskah" value="<?php echo $this->data[2];?>" onkeyup="cekemptyfield(2,this.value)"></br>
-    </div><label></label><input type="button" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamJenisLampiran';"><input type="button" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[2];?>');">
+    </div><label></label><input class="btn cancel" type="button" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamJenisLampiran';"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[2];?>');">
 </form></div>
 
 </br>
@@ -29,8 +29,8 @@
     <?php $no=1; foreach($this->lampiran as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>        
         <td><?php echo $value['tipe_naskah']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['tipe_naskah']; ?>');" ></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_tipe'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['tipe_naskah']; ?>');" ></a></td></tr>
     <?php $no++; }?>
 </table></div>
 </td></tr></table>

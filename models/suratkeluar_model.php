@@ -274,6 +274,9 @@ class Suratkeluar_Model extends Surat{
         return $data;
     }
     
+    function __destruct() {
+        ;
+    }
     
 
 }

@@ -95,5 +95,9 @@ class Login_Controller extends Controller{
         exit();
     }
     
+    function __destruct() {
+        ;
+    }
+    
 }
 ?>

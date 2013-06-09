@@ -184,5 +184,9 @@ class Arsip_Model extends Model {
         return $tgl;
         
     }
+    
+    function __destruct() {
+        ;
+    }
 }
 ?>

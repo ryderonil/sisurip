@@ -1172,6 +1172,10 @@ class Admin_Controller extends Controller {
         $return = count($data);
         echo json_encode(array('hasil'=>$return));
     }
+    
+    function __destruct() {
+        ;
+    }
 }
 
 ?>

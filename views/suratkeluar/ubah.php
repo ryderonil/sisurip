@@ -90,7 +90,7 @@ if (isset($this->datasm)) {
         <label>LAMPIRAN</label><input id="lampiran" type="" name="lampiran" value="<?php echo $this->lampiran;?>" title="isikan jumlah lampiran(*)" onkeyup="cekemptyfield(6,this.value)"></br>
         <div id="wfile"></div>
         <label>FILE SURAT</label><input id="sfile" type="file" name="upload" onchange="cekemptyfield(8,this.value)"></br>
-        <label></label><input type="button" onclick="location.href='<?php echo URL; ?>suratkeluar'" value="BATAL"><input type="button" name="submit" value="SIMPAN" onclick="return selesai();">
+        <label></label><input type="button" class="btn cancel" onclick="location.href='<?php echo URL; ?>suratkeluar'" value="BATAL"><input type="button" class="btn save" name="submit" value="SIMPAN" onclick="return selesai();">
     </form></div>
 <div id="test"></div>
 

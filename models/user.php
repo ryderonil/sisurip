@@ -239,7 +239,9 @@ class User extends Model{
         return $return; 
     }
     
-    
+    function __destruct() {
+        ;
+    }
     
     
     

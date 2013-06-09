@@ -10,9 +10,9 @@
     <form id="form-rekam" >
     <input id="id" type="hidden" name="id" value="<?php echo $this->user;?>">
     <table>
-        <tr><td><label>NAMA/NIP</label></td><td><label class="pjs"><font color="black"><?php echo strtoupper($this->nama);?></font></label></td></tr>
+        <tr><td><label>NAMA/NIP</label></td><td valign="center">&nbsp;&nbsp;&nbsp;<font color="black"><?php echo strtoupper($this->nama);?></font></td></tr>
         <tr><td colspan="2"><div id="wbag"></div></td></tr>
-        <tr><td><label>BAGIAN</label></td><td><select class="required" id="bagian" name="bagian" onchange="cekemptyfield(1,this.value)">
+        <tr><td><label>BAGIAN</label></td><td><select  id="bagian" name="bagian" onchange="cekemptyfield(1,this.value)">
                     <option value="">--PILIH BAGIAN--</option>
                     <?php 
                         foreach ($this->bagian as $val){
@@ -21,7 +21,7 @@
                     ?>
                 </select></td></tr>
         <tr><td colspan="2"><div id="wjabatan"></div></td></tr>
-        <tr><td><label>JABATAN</label></td><td><select class="required" id="jabatan" name="jabatan" onchange="cekemptyfield(2,this.value)">
+        <tr><td><label>JABATAN</label></td><td><select  id="jabatan" name="jabatan" onchange="cekemptyfield(2,this.value)">
                      <option value="">--PILIH JABATAN--</option>
                      <?php 
                         foreach ($this->role as $val){
@@ -29,7 +29,7 @@
                         }
                     ?>
                 </select></td></tr>
-        <tr><td></td><td><input type="button" name="submit" value="simpan" onclick="return cek()"></td></tr>
+        <tr><td></td><td>&nbsp;&nbsp;&nbsp;<input class="btn save" type="button" name="submit" value="simpan" onclick="return cek()"></td></tr>
     </table>        
     
     </form>
@@ -53,7 +53,7 @@
                     echo "Pjs ".$value['jabatan'];
                 }
                 echo "</td>
-                    <td><a href=".URL."admin/hapuspjs/".$value['id_pjs']."><input type=button onclick='return selesai()' value=HAPUS></a></td>
+                    <td><a href=".URL."admin/hapuspjs/".$value['id_pjs']."><input class='btn btn-danger' type=button onclick='return selesai()' value=HAPUS></a></td>
                     </tr>";
                 $no++;
             }

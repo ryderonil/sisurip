@@ -61,8 +61,8 @@
             }
         ?>
     </select></br>   
-    <label></label><input type="button" onclick="location.href='<?php echo URL;?>admin/rekamUser'" value="BATAL" ><input type="submit" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[3];?>');">
-                    <input type="button" onclick="location.href='<?php echo URL;?>admin/rekamPjs/<?php echo $this->data[1];?>'" value="REKAM PJS">
+    <label></label><input class="btn cancel" type="button" onclick="location.href='<?php echo URL;?>admin/rekamUser'" value="BATAL" ><input class="btn save"type="submit" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[3];?>');">
+                    <input class="btn write" type="button" onclick="location.href='<?php echo URL;?>admin/rekamPjs/<?php echo $this->data[1];?>'" value="PENGGANTI">
 </form></div>
 </br>
 <hr>
@@ -73,8 +73,8 @@
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['namaPegawai']; ?></td>
         <td><?php echo $value['username']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['namaPegawai'];?>');"></a></td>
+        <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['namaPegawai'];?>');"></a></td>
         <td><a ><input class="btn" type="button" value="<?php echo $value['active']; ?>" onclick="setaktifuser('<?php echo $value['id_user'].'-'.$value['active'];?>');"></a></td></tr>
     <?php $no++; }?>
 </table></div>

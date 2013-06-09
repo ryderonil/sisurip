@@ -117,7 +117,7 @@ if ($this->count > 0) {
             <tr><td>Penerima :</td><td><input type="text" name="" value=""></td>
                 <td>Penerima :</td><td><input type="text" name="" value=""></td></tr>
         </table> -->   
-        <input type="button" name="submit" value="SIMPAN" onclick=" 
+        <input type="button" class="btn save" name="submit" value="SIMPAN" onclick=" 
                <?php if($this->disp[0]!=null){ ?>
                cek(2);
                <?php }else{?>

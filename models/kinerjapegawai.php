@@ -124,6 +124,10 @@ class KinerjaPegawai extends Model{
         
     }
     
+    function __destruct() {
+        ;
+    }
+    
     
 }
 ?>

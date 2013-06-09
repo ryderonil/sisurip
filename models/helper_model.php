@@ -104,5 +104,9 @@ class Helper_Model extends Model{
         return $roleuser;
     }
     
+    function __destruct() {
+        ;
+    }
+    
 }
 ?>

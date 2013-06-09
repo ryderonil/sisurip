@@ -282,7 +282,7 @@
         </select></br>
         </div><div id="wlampiran"></div>
         <label>LAMPIRAN</label><input id="lampiran" type="text" name="lampiran" onkeyup="cekemptyfield(7,this.value);" title="isikan jumlah lampiran(*)"></br>    
-        <label></label><input type="reset" value="RESET"><input type="button" name="submit" value="SIMPAN" onclick="return cek();">
+        <label></label><input type="reset" class="btn reset" value="RESET"><input type="button" class="btn save" name="submit" value="SIMPAN" onclick="return cek();">
     </form></div>
 <?php 
     

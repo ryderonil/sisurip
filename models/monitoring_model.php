@@ -419,7 +419,7 @@ class Monitoring_Model extends Model {
      * return int (jam)
      */
     public function getDueDate($tipe,$id=null){
-        $due_date = 4;
+        $due_date = 24;
         if($tipe=='SM'){
             return $due_date;
         }elseif ($tipe='SK' AND !is_null($id)) {
@@ -596,6 +596,91 @@ class Monitoring_Model extends Model {
                 }
         }
         return $arraydata;
+    }
+    
+    /*
+     * fungsi cek jam/hari kerja, jika bukan hari kerja maka akan dicari hari kerja ke depan
+     * yang paling dekat
+     * fungsi mendapatkan hari kerja yang paling dekat dengan rentang waktu yang telah ditentukan
+     * param time, rentang, $cek (true[cek hari kerja atau bukan], false[])
+     */
+    public function cekNextDay($start, $param=true, $rentang=null){
+        
+        $start = explode(" ", $start);
+        $from = strtotime($this->jammasuk);
+        $to = strtotime($this->jampulang);
+        $time = strtotime($start[1]);
+        
+        $sql = "SELECT tgl FROM libur"; //mendapatkan hari libur
+        $data = $this->select($sql);
+        //cek dulu hari libur apa nggak!
+        if($param){
+            $harikerja = true;
+            foreach ($data as $val){
+                if(strtotime($start[0])==  strtotime($val['tgl'])) {
+                    $harikerja=false;
+                    break;
+                }  
+            }
+
+            //cek hari sabtu minggu
+            $date = date('Y-m-d', strtotime($start[0]));
+            if(date('w',  strtotime($date))==0 OR date('w',  strtotime($date))==6) {
+                $harikerja=false;
+            }
+
+            if($harikerja){
+                if($time<$from) return date('Y-m-d H:i:s',  strtotime ($start[0].' '.$this->jammasuk)); //jika kurang dari jam masuk, catak sbg jam masuk
+                if($time<$to AND $time>$from) return implode (" ", $start); //jika di jam kerja, catat sebagai jam kerja
+            }
+        }
+        
+        $rentang = (is_null($rentang)? 1 : $rentang);
+        
+        $startdate = $start[0]; //awal hari untuk perhitungan
+        $count = 0;
+        $cek = true;
+        while($cek==true){
+            $startday = strtotime('+1 day', strtotime($startdate)); //masalahnya kayake ada disini
+            $startdate = date('Y-m-d',$startday); //diubah ke date dulu
+            $wday = date('w',strtotime($startdate)); //ubah lagi ke strtotime->date  
+            $k = false;
+            if($wday!=0 AND $wday!=6){
+                foreach ($data as $val){
+                    if(strtotime($startdate)==  strtotime($val['tgl'])){
+                        $k=true;
+                        break;
+                    }
+                }   
+            }else{
+                $k=true;
+            }
+            
+            if(!$k){
+                $count++; 
+            }else{
+                $k=false;
+            }
+            
+            if($count==$rentang){
+                $cek=false;
+            }
+        }
+        
+        if($param){
+            return date('Y-m-d H:i;s',  strtotime($startdate.' '.$this->jammasuk));
+        }else{
+            $hms = $start[1];
+            if($time<$from) $hms = date('Y-m-d H:i:s',  strtotime ($startdate.' '.$this->jammasuk));
+            if($time>$to) $hms = date('Y-m-d H:i:s',  strtotime ($startdate.' '.$this->jampulang));
+            if($time<$to AND $time>$from) $hms = implode (" ", $start);
+            return date('Y-m-d H:i;s',  strtotime($hms));
+        }
+        
+    }
+    
+    function __destruct() {
+        ;
     }
 
 }

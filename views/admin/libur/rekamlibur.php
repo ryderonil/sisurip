@@ -9,11 +9,11 @@
         <div><label>Tanggal</label><input class="required" id="tgl" type="text" name="tgl" value="<?php echo @Tanggal::tgl_indo($this->tgl);?>" readonly></br>
         </div><div id="wket"></div>
         <label>Keterangan</label><input id="ket" type="text" name="ket" value="<?php echo !$this->ket?'':$this->ket;?>" onkeyup="cekemptyfield(this.value)"></br></br>
-    <label></label><input type="submit" class="btn" name="submit" value="SIMPAN" onclick="return cek()">
+        <label></label>&nbsp;&nbsp;&nbsp;<input type="submit" class="btn save" name="submit" value="SIMPAN" onclick="return cek()">
     <?php
         if($this->ket!=false){
             ?>
-            <input type="button" class="btn" name="hapus" value="HAPUS" onclick="hapusEvent(document.getElementById('tgl').value)">
+            <input type="button" class="btn btn-danger" name="hapus" value="HAPUS" onclick="hapusEvent(document.getElementById('tgl').value)">
         <?php
             }
     ?>

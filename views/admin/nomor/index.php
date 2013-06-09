@@ -2,7 +2,7 @@
 <hr>
 <table><tr><td width="50%" valign="top">
 <div id="pesan"></div>
-<div id="btn-show"></br><input  type="button" name="submit" value="REKAM" onclick="displayform()"></div>
+<div id="btn-show"></br><input  class="btn save" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 <div id="form-wrapper">
 <form id="form-rekam" >
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamNomor">-->
@@ -22,7 +22,7 @@
         <option value="<?php echo $value['kd_bagian'];?>"> <?php echo strtoupper($value['bagian']);?></option>
         <?php } ?>
     </select></br>
-    <label></label><input type="reset" value="RESET"><input type="button" name="submit" value="SIMPAN" onclick="cek()">
+    <label></label><input class="btn reset" type="reset" value="RESET"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="cek()">
 </form></div>
 </br>
 <hr>
@@ -35,8 +35,8 @@
     <tr><td><?php echo $no; ?></td>
         <td><?php echo $value['bagian']; ?></td>
         <td><?php echo $value['kd_nomor']; ?></td>
-        <td><a href="<?php echo URL;?>admin/ubahNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn" type="button" value="HAPUS" onclick="return selesai();"></a></td></tr>
+        <td><a href="<?php echo URL;?>admin/ubahNomor/<?php echo $value['id_nomor'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
+            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai();"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>

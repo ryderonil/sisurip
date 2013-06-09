@@ -325,6 +325,9 @@ class IkhtisharArsip extends Model{
         return $darsip;
     }
     
+    function __destruct() {
+        ;
+    }
     
 }
 ?>

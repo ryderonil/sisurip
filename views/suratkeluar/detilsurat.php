@@ -3,8 +3,8 @@
     <h2>INFORMASI SURAT :</h2>
     <hr>
     </br>
-    <div id="table-wrapper"><table class="CSSTableGenerator">
-        <tr><td></td><td></td></tr>
+    <div id="table-wrapper"><table class="tableinfo">
+        <tr><td width="25%"></td><td></td></tr>
         <?php if($this->rujukan != 0 AND $this->rujukan !=''){?>
         <tr><td>NOMOR SURAT MASUK</td><td><?php echo $this->rujukan; ?></td></tr>
         <?php } ?>
@@ -19,10 +19,10 @@
         <!--<tr><td>JENIS</td><td><?php echo $this->jenis; ?></td></tr>        
         <tr><td>STATUS</td><td><?php echo $this->status; ?></td></tr>-->        
         <tr><td></td><td>                
-                <?php if(Auth::isRole($role, 3)) { ?><a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->id; ?>/SK" title="rekam lampiran surat" class="tip"><input class="btn" type="button" value="REKAM LAMPIRAN"></a>
-                <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->id; ?>/SK" title="rekam ke dalam lokasi arsip" class="tip"><input class="btn" type="button" value="ARSIP"></a>
-                <a href="<?php echo URL;?>suratkeluar/edit/<?php echo $this->id; ?>" title="ubah data surat keluar" class="tip"><input class="btn" type="button" value="U B A H"></a><?php } ?>
-                <?php if(Auth::isRole($role, 2) OR Auth::isRole($role, 1)) { ?><a href="<?php echo URL;?>suratkeluar/rekamrev/<?php echo $this->id; ?>" title="rekam dan upload revisi konsep surat" class="tip"><input class="btn" type="button" value="REKAM REVISI"></a><?php } ?></td></tr>
+                <?php if(Auth::isRole($role, 3)) { ?><a href="<?php echo URL;?>lampiran/rekam/<?php echo $this->id; ?>/SK" title="rekam lampiran surat" class="tip"><input class="btn attachment" type="button" value="LAMPIRAN"></a>
+                <a href="<?php echo URL;?>arsip/rekam/<?php echo $this->id; ?>/SK" title="rekam ke dalam lokasi arsip" class="tip"><input class="btn arsip" type="button" value="ARSIP"></a>
+                <a href="<?php echo URL;?>suratkeluar/edit/<?php echo $this->id; ?>" title="ubah data surat keluar" class="tip"><input class="btn edit" type="button" value="U B A H"></a><?php } ?>
+                <?php if(Auth::isRole($role, 2) OR Auth::isRole($role, 1)) { ?><a href="<?php echo URL;?>suratkeluar/rekamrev/<?php echo $this->id; ?>" title="rekam dan upload revisi konsep surat" class="tip"><input class="btn write" type="button" value="REVISI"></a><?php } ?></td></tr>
     </table></div>
     
     <?php if($this->count>0){?>
@@ -37,7 +37,7 @@
             
             foreach($this->datal as $value){
                 echo "<tr><td>$value[tipe]</td><td>$value[nomor] ; ".Tanggal::tgl_indo($value['tanggal'])."</td>
-                    <td><button class=btn onclick=viewlampiran($value[id_lamp]);>view</button>
+                    <td><button class='btn view' onclick=viewlampiran($value[id_lamp]);>view</button>
                     <a href=".URL."lampiran/ubah/$value[id_lamp]><button class='btn btn-green' >ubah</button></a>
                     <a href=".URL."lampiran/hapus/><button class='btn btn-danger' onclick='return konfirmasi()'>hapus</button></a></td></tr>";
             }
@@ -52,9 +52,17 @@
 <!--<div class="right">-->
 <div class="detil">    
     <!--<p><h2>TAMPILAN ARSIP ELEKTRONIK</h2></p>-->
-    <?php if($this->file!='' AND file_exists('arsip/'.$this->file)) {?>
+    <?php if($this->file!='' AND file_exists('arsip/'.$this->file)) {
+            $ext = end(explode('.',$this->file));
+            if($ext=='pdf') {
+        ?>
     <iframe src="<?php echo URL;?>arsip/<?php echo $this->file;?>">
-    <?php }else{
+    <?php 
+            }else{
+                echo "</br></br></br></br></br><h2 align=center>Status Konsep:File Pdf Surat Belum Diupload</h2>";
+            }
+    
+    }else{
         echo "</br></br></br></br></br><h2 align=center>File Surat Belum Ada</h2>";
     }
 ?>

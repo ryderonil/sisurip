@@ -331,6 +331,10 @@ class Admin_Model extends Model{
         
         return $return;
     }
+    
+    function __destruct() {
+        ;
+    }
    
 }
 ?>

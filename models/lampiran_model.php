@@ -177,6 +177,10 @@ class Lampiran_Model extends Model {
     public function getTypeLampiran() {
         return $this->select('SELECT * FROM tipe_naskah');
     }
+    
+    function __destruct() {
+        ;
+    }
 
 }
 

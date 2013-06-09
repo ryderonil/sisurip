@@ -49,7 +49,7 @@ if(isset($this->data)){
         <input id="id_disp" type="hidden" name="id_disp" value="<?php echo $this->datad->id_disposisi;?>">
         <input id="bagian" type="hidden" name="bagian" value="<?php echo $this->bagian;?>">
         <div id="wpeg"></div>
-        <label>KEPADA :</label><select  id="peg" name="peg" class="required" onchange="cekemptyfield(1,this.value)">
+        <label>KEPADA :</label><select  id="peg" name="peg" onchange="cekemptyfield(1,this.value)">
             <option value="">--PILIH PEGAWAI--</option>
             <?php 
                 foreach ($this->peg as $val){
@@ -58,8 +58,8 @@ if(isset($this->data)){
             ?>
         </select></br>
         <div id="wpetunjuk"></div>
-        <label>PETUNJUK :</label><br><textarea id="input" class="required" name="catatan" rows="10" cols="50" onkeyup="cekemptyfield(2,this.value)"></textarea></br>
-        <label></label><input type="button" name ="submit" value="SIMPAN" onclick="return cek();">
+        <label>PETUNJUK :</label><textarea id="inputs" name="catatan" rows="10" cols="50" onkeyup="cekemptyfield(2,this.value)"></textarea></br>
+        <label></label><input type="button" class="btn save" name ="submit" value="SIMPAN" onclick="return cek();">
             
         <?php }else{
             echo "<div id=warning>Surat belum didisposisi Kepala Kantor, Anda tidak dapat memberikan disposisi!</div>";
@@ -72,7 +72,7 @@ if(isset($this->data)){
 
 function cek(){
     var peg = document.getElementById('peg').value;
-    var petunjuk = document.getElementById('input').value;
+    var petunjuk = document.getElementById('inputs').value;
     var jml = 0;
     if(peg==''){
         jml++;
@@ -133,7 +133,7 @@ function rekam(){
         var id_disp = document.getElementById('id_disp').value;
         var bagian = document.getElementById('bagian').value;
         var peg = document.getElementById('peg').value;
-        var catatan = document.getElementById('input').value;
+        var catatan = document.getElementById('inputs').value;
 //        var join = agenda+' '+tgl+' '+alamat+' '+nosurat+' '+hal+' '+sifat+' '+jenis+' '+status+' '+lampiran;
 //        alert(join);
         $.ajax({

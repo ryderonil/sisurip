@@ -9,10 +9,10 @@
             <?php } ?>
         <?php if(Auth::isRole($role, 5) OR Auth::isRole($role, 4)) {?><a href="<?php echo URL;?>suratmasuk/ctkEkspedisi" title="cetak ekspedisi surat" class="tip"><input class="btn" type="button" value="CETAK EKSPEDISI"></a><?php } ?>-->
         <div class="nav-paging"><div class="limit">
-                <?php if(Auth::isRole($role, 5)) {?><a href="<?php echo URL;?>suratmasuk/rekam" title="rekam surat masuk" class="tip"><input class="btn" type="button" value="R E K A M"></a>
-        <a title="cetak disposisi lebih dari satu surat, pilih surat yang akan dicetak!" class="tip"><input class="btn" id="x" type="button" value="CETAK DISPOSISI" onclick="cetakdisp();"></a>
+                <?php if(Auth::isRole($role, 5)) {?><a href="<?php echo URL;?>suratmasuk/rekam" title="rekam surat masuk" class="tip"><input class="btn write" type="button" value="R E K A M"></a>
+        <a title="cetak disposisi lebih dari satu surat, pilih surat yang akan dicetak!" class="tip"><input class="btn print" id="x" type="button" value="DISPOSISI" onclick="cetakdisp(1);"></a>
             <?php } ?>
-        <?php if(Auth::isRole($role, 5) OR Auth::isRole($role, 4)) {?><a  title="cetak ekspedisi surat" class="tip"><input class="btn" id="exp" type="button" value="CETAK EKSPEDISI" onclick="cetakekspedisi();"></a><?php } ?>
+        <?php if(Auth::isRole($role, 5) OR Auth::isRole($role, 4)) {?><a  title="cetak ekspedisi surat" class="tip"><input class="btn print" id="exp" type="button" value="EKSPEDISI" onclick="cetakdisp(2);;"></a><?php } ?>
             </div>            
         <?php
         if($this->jmlData>0){
@@ -49,9 +49,9 @@
         echo '<td halign=center>';
                 if(Auth::isRole($role, 2) AND Auth::isBagian($bagian, 1))echo '<a href="'.URL.'suratmasuk/edit/'.$value->getId().'" title="ubah data surat" class=tip><input class="btn btn-green" type=button value=ubah></a> 
                 <a href="'.URL.'suratmasuk/hapus/'.$value->getId().'" title="hapus data surat" class=tip><input class="btn btn-danger" type=button value="hapus" onclick="return selesai(\'' . $value->getAgenda() . '\');"></a>';
-                if(Auth::isRole($role, 1) OR Auth::isRole($role, 4)) echo '<a href="'.URL.'suratmasuk/disposisi/'.$value->getId().'" title="rekam disposisi" class=tip><input class="btn" type=button value=disposisi></a>';
-                if(Auth::isRole($role, 5)) echo '<a title="cetak disposisi" class=tip><input class="btn" type=button value="print disposisi" onclick="cetakdisposisi('.$value->getId().');"></a> ';
-                if(Auth::isRole($role, 5) OR Auth::isRole($role, 3)) echo '<a href="'.URL.'suratmasuk/upload/'.$value->getId().'" title="upload file surat" class=tip><input class="btn btn-grey" type=button value="upload"></a>
+                if(Auth::isRole($role, 1) OR Auth::isRole($role, 4)) echo '<a href="'.URL.'suratmasuk/disposisi/'.$value->getId().'" title="rekam disposisi" class=tip><input class="btn write" type=button value=disposisi></a>';
+                if(Auth::isRole($role, 5)) echo '<a title="cetak disposisi" class=tip><input class="btn print" type=button value="disposisi" onclick="cetakdisposisi('.$value->getId().');"></a> ';
+                if(Auth::isRole($role, 5) OR Auth::isRole($role, 3)) echo '<a href="'.URL.'suratmasuk/upload/'.$value->getId().'" title="upload file surat" class=tip><input class="btn upload" type=button value="upload"></a>
                 <!--<a href="'.URL.'suratmasuk/updatestatus/'.$value->getId().'"><input class=btn type=button value=Status></a>
                     <a href="'.URL.'suratmasuk/distribusi/'.$value->getId().'"><input class=btn type=button value=Distribusi></a>--></td>';
         echo '</tr>';        
@@ -77,31 +77,7 @@
 //        $('#x').fadeOut(0);
 //        $('#exp').fadeOut(0);
     });
-
-//yang dianggap memiliki id hanya checkbox pertama, belum berhasil!
-$('#cek').change(function(){
-
-    var  counter=0,
-        input_obj = document.getElementsByTagName('input');    
-    for (i = 0; i < input_obj.length; i++) {        
-        if (input_obj[i].type === 'checkbox' && input_obj[i].checked === true) {
-            counter++;
-                       
-        }
-    }
-
-    if(counter>0){
-//        alert(counter+',');
-        $('#x').fadeIn(500);
-//        $('#exp').fadeIn(500); 
-    }else if(counter==0){
-        $('#x').fadeOut(500);
-//        $('#exp').fadeOut(500); 
-    }
-});
-        
     
-
 function selesai(agenda){
     var answer = 'anda yakin menghapus data surat dengan nomor agenda : '+agenda+'?'
     
@@ -113,7 +89,7 @@ function selesai(agenda){
     
 }
 
-function cetakdisp(){ 
+function cetakdisp(num){ 
     
     var counter = 0,       
         url = '', 
@@ -129,11 +105,21 @@ function cetakdisp(){
 //          alert(counter+',');
         url = url.substr(1);        
 //        alert(url);
-        var w = window.open("<?php echo URL; ?>suratmasuk/disposisix/"+url, "Cetak Disposisi","toolbar=0,menubar=0,location=0,status=0,width=800,height=500");        
+        if(num==1){
+            var w = window.open("<?php echo URL; ?>suratmasuk/disposisix/"+url, "Cetak Disposisi","toolbar=0,menubar=0,location=0,status=0,width=800,height=500");        
+        }else if(num==2){
+            w = window.open("<?php echo URL; ?>suratmasuk/ctkEkspedisi/"+url, "Cetak Disposisi","toolbar=0,menubar=0,location=0,status=0,width=800,height=500");
+        }
+        
         
     }
     else {
-        alert('Surat belum dipilih!');
+        if(num==2){
+            cetakekspedisi();
+        }else{
+            alert('Surat belum dipilih!'); 
+        }
+        
     }    
    
     
