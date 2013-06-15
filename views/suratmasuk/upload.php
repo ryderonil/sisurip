@@ -1,4 +1,4 @@
-<h2>Upload File Surat</h2>
+<div class="divleft"><h2>Upload File Surat</h2></div>
 <hr>
 </br>
 <div id="pesan"></div>

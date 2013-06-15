@@ -19,6 +19,9 @@ div {
 /*    text-align: right;*/
 }
 
+.divleft {
+    text-align: left;
+}
 a:visited {
     color: red;
 }
@@ -104,6 +107,7 @@ a:visited {
 #cwrapper {
     background: #eeeeee; 
 /*    #0073c8;*/
+    text-align: center;
     color: #1a1a1a;
 /*        #ffffff;*/
     min-height: 500px;
@@ -136,10 +140,11 @@ a:visited {
 
 #footer {
     float: bottom;
+/*    position: absolute;*/
     font-size: 14px;
     background: #12407f;
     color: #fff;
-    padding: 20px;
+    padding: 5px;
     border-top: 4px solid #fa6800;
     text-align: center;
 /*    border-bottom-left-radius: 10px;*/
@@ -233,7 +238,7 @@ a:visited {
     background-color: white;
 
 }
-
+/*
 #form-wrapper:before, #form-wrapper:after {
     z-index: -1;
     position: absolute;
@@ -242,7 +247,7 @@ a:visited {
     left: 10px;
     width: 50%;
     top: 80%;
-/*    max-width: 300px;*/
+    max-width: 300px;
     background: rgba(0,0,0,0.7);
     -webkit-box-shadow: 0 15px 10px rgba(0,0,0,0.7);
     -moz-box-shadow: 0 15px 10px rgba(0,0,0,0.7);
@@ -264,7 +269,7 @@ a:visited {
     left: auto;
 }
     
-
+*/
 form {
     padding-left: 5px;
 /*    margin-left: 200px; */
@@ -281,6 +286,7 @@ form.backup {
 /*    margin: 0 auto;*/
     display: inline-block;
     font: 100% 'segoe ui',verdana,arial,sans-serif;
+    
 }
 
 form .admin_form{
@@ -296,11 +302,11 @@ form .admin_form{
 form label { 
     display: block;
     float: left; 
-    width: 150px; 
+    width: 100px; 
     padding: 0; 
     margin: 9px 0 0;
 /*    text-align: right; */
-    text-align: right;
+    text-align: left;
 }
 
 form label.right { 
@@ -313,7 +319,7 @@ form label.right {
 
 }
 
-form input, form select, form textarea {
+form input, form select  {
     background-color: #d6d6d6;
     width: 400px;
     max-width: 50%;
@@ -321,6 +327,19 @@ form input, form select, form textarea {
     border: 1px solid gray;
     padding: 4px;
 /*    border-radius: 4px;*/
+}
+
+form textarea {
+    background-color: #d6d6d6;
+    width: 400px;
+    max-width: 70%;
+    margin: 5px 0 0 10px;
+    border: 1px solid gray;
+    padding: 4px;
+}
+
+form textarea.txtinput {
+    max-width: 90%;
 }
 
 form search {
@@ -471,13 +490,13 @@ iframe.grafik-rekap {
     position: relative;
     font-weight: bolder;
     font-size: 25px;
-    color: #0b2348;
-    text-shadow: 0 1px 0 #000000;
+    color: #00a4ef; /*#0b2348;*/
+    text-shadow: 0 1px 0 #7dd5ff;
     font-family: Arial,Helvetica,sans-serif;
 }
 
 #brand:hover {
-    color: white;
+    color: #ffffff;
     -webkit-transition: all 1s;
     text-shadow: 0 1px 0 silver;
 }
@@ -608,8 +627,8 @@ iframe.grafik-rekap {
     padding: 0px 15px;
     float: left;
     position: relative;    
-    color: maroon;
-    text-shadow: 0 1px 0 #000000;
+    color: #ff1a1a;
+    text-shadow: 0 1px 0 #7dd5ff;
     font-family: Arial,Helvetica,sans-serif;
 }
 
@@ -654,7 +673,7 @@ iframe.grafik-rekap {
 }
 #trans-nav li a { 
     display: block; 
-    padding: 0 15px; 
+    padding: 0 10px; 
     color: #fff; 
     text-decoration: none;
     cursor: pointer;
@@ -946,6 +965,14 @@ background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-web
 .btn.btn-grey:hover {
     background:#4e4e4e;
 }
+
+.btn.btn-red {
+    background: #e81123;
+}
+
+/*.btn.btn-red:hover {
+    background: #c00e1c;
+}*/
 
 .btn.print {
     background: url(../images/print16.png) no-repeat left center;
@@ -1248,134 +1275,15 @@ label.error {
     margin: -1px;
 }
 
-/*-- search drpdown --*/ 
-.sb_wrapper{
-    margin:0;
-    padding:0;
-    /*	position: absolute;*/
-    top:5px;
-    left:40px;
-    width:372px;
-}
-.sb_wrapper input[type="text"],
-ul.sb_dropdown{
-    color: black;
-    float: next;
-    border:1px solid #fff;
-    background: #fafafa; 
-    background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fafafa)); 
-    background: -moz-linear-gradient(top, #f2f2f2, #fafafa);
-    font-size:24px;
-    font-family:"Myriad Pro", "Trebuchet MS", sans-serif;
-    -moz-box-shadow:1px 1px 3px #555;
-    -webkit-box-shadow:1px 1px 3px #555;
-    -box-shadow:1px 1px 3px #555;
-    outline:none;
-    padding:6px 5px 6px 20px;
-    text-shadow:1px 1px 1px #fff;
-    width:295px;
-    float:left;
-    margin:3px 0px;
-}
-ul.sb_dropdown{
-    float:left;
-    list-style:none;
-    width:360px;
-    padding:6px 5px;
-    -moz-border-radius:0px 0px 10px 10px;
-    -webkit-border-bottom-right-radius:10px;
-    -webkit-border-bottom-left-radius:10px;
-    border-bottom-right-radius:10px;
-    border-bottom-left-radius:10px;
-}
-ul.sb_dropdown li{
-    font-size:16px;
-    line-height:32px;
-    height:32px;
-    float:left;
-    width:50%;
-}
-ul.sb_dropdown li input[type="checkbox"]{
-    float:left;
-    margin:10px 4px 0 5px;
-}
-
-ul.sb_dropdown li label{
-    float:left;
-    margin:10px 4px 0 5px;
-}
-
-ul.sb_dropdown li.sb_filter{
-    width:348px;
-    border:1px solid #f9f9f9;
-    clear:both;
-    background: #ddd;
-    font-size:12px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    color:#444;
-    height:16px;
-    line-height:16px;
-    padding:5px;
-    -moz-box-shadow:0px 0px 2px #777;
-    -webkit-box-shadow:0px 0px 3px #555 inset;
-    -box-shadow:0px 0px 3px #555 inset;
-
-}
-span.sb_up,
-span.sb_down{
-    position:absolute;
-    top:3px;
-    left:0px;
-    width:14px;
-    height:41px;
-    background-color:#f2f2f2;
-    background-position:center center;
-    background-repeat: no-repeat;
-    z-index:10;
-    border:1px solid #fff;
-    -moz-box-shadow:1px 0px 1px #ddd;
-    -webkit-box-shadow:1px 0px 1px #ddd;
-    -box-shadow:1px 0px 1px #ddd;
-
-}
-span.sb_up{
-    background-image:url(../images/up.png);
-}
-span.sb_down{
-    background-image:url(../images/down.png);
-}
-form input.sb_search{
-    background:#f2f2f2 url(../images/search.png) no-repeat center center;
-    height:30px;
-    width:50px;
-    float:left;
-    border:none;
-    margin:3px 0px;
-    border:1px solid #fff;
-    -moz-box-shadow:1px 1px 3px #555;
-    -webkit-box-shadow:1px 1px 3px #555;
-    -box-shadow:1px 1px 3px #555;
-    outline:none;
-    cursor:pointer;
-}
-form input.sb_search:hover{
-    background-color:#fff;
-}
-
-form input.sb_input {
-    height: 30px;
-}
-
 /*-- info, success, warning, error --*/
 #info, #success, #warning, #error, #validation {
 /*    text-align: center;*/
     border: 1px solid;
-    margin: 10px 0px;
+    margin: 10px 10px;
     padding:15px 10px 15px 15px;
     background-repeat: no-repeat;
     background-position: 10px center;
-    width: 100%;
+    width: 95%;
     text-align: center;
 }
 #info {

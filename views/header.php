@@ -1,13 +1,3 @@
-<?php
-$role = Session::get('role');
-$bagian = Session::get('bagian');
-$nama = Session::get('nama');
-$user = Session::get('user');
-$notif = Notifikasi::getJumlahNotifikasi($user);
-$roleuser = Helper_Model::getRoleUser($user);
-//var_dump($roleuser);
-//echo $role."-".$bagian."-".$user."-".$nama;
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,14 +40,23 @@ $roleuser = Helper_Model::getRoleUser($user);
     <body>
         <div id="wrapper">
             <div id="header">
-
+<?php
+$role = Session::get('role');
+$bagian = Session::get('bagian');
+$nama = Session::get('nama');
+$user = Session::get('user');
+$notif = Notifikasi::getJumlahNotifikasi($user);
+$roleuser = Helper_Model::getRoleUser($user);
+//var_dump($roleuser);
+//echo $role."-".$bagian."-".$user."-".$nama;
+?>
                 <!-- menu atas -->
                 <div id="menu">
                     <div id="depkeu-logo"><img border="1" src="<?php echo URL; ?>public/images/depkeu-kecil2.jpg"></div>
                     <!--<div id="depkeu-logo"></div>-->
                     <div id="brand"> <?php echo $this->kantor; ?></div>
                     <!--<div id="pull-right"><img id="user-icon" src="<?php echo URL; ?>public/images/User-Executive.png"> <b><?php echo Session::get('nama'); ?></b>-->
-                    <?php if ($notif > 0) { ?><div id="notif" onclick="location.href='<?php echo URL; ?>helper/notif/<?php echo $user; ?>'" title="lihat notifikasi"><font color="white"><?php echo $notif > 0 ? $notif : ''; ?></font></div><?php } ?>
+                    <?php // if ($notif > 0) { ?><div id="notif" onclick="location.href='<?php echo URL; ?>monitoring/notif/<?php echo $user; ?>'" title="lihat notifikasi"><font color="white"><?php echo $notif > 0 ? $notif : ''; ?></font></div><?php // } ?>
                     <div id="user" onclick="location.href='<?php echo URL; ?>admin/userHome/<?php echo $user; ?>'" title="beranda pengguna"> <b><?php echo $nama; ?></b></div>
 
                     <div>
@@ -133,8 +132,38 @@ $roleuser = Helper_Model::getRoleUser($user);
 
             <div id="content">
                 <div id="cwrapper">
+                    <div id="test"></div>
                     <script type="text/javascript">
-                         
+                        $(document).ready(function(){
+                            $('#notif').fadeOut(0);
+                            setInterval(function(){
+                                //ntar pake ajax
+                                $.ajax({
+                                   type:"post",
+                                   url:"<?php echo URL; ?>monitoring/getJmlNotifikasi/<?php echo $user; ?>/<?php echo $notif; ?>",
+                                   data:'',
+                                   dataType:'json',
+                                   success:function(data){
+                                       if(data.cek>0){
+//                                           alert(data.cek+' '+data.notifikasi);
+                                           $('#notif').fadeIn(0);
+                                           $('#notif').html(data.notifikasi);
+                                           //bunyikan suara
+                                           $('<audio id="chatAudio" src="public/sound/sounds-847-office-2.mp3" type="audio/mpeg"></audio>').appendTo('body');
+                                           $('#chatAudio')[0].play(1);
+                                           //tampilkan jendela notifikasi
+                                       }else if(data.notifikasi>0){
+//                                           alert(data.cek+' '+data.notifikasi);
+                                           $('#notif').fadeIn(0);
+                                           $('#notif').html(data.notifikasi);
+                                       }else if(data.notifikasi==0){
+//                                           alert(data.cek+' '+data.notifikasi);
+                                           $('#notif').fadeOut(0);
+                                       }
+                                   }
+                                });
+                            },10*1000); // every 10 seconds
+                        }) 
         
                         function changerole(role){
 

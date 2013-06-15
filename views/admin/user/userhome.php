@@ -1,4 +1,4 @@
-<h2>Beranda Pengguna</h2><hr>
+<div class="divleft"><h2>Beranda Pengguna</h2><hr></div>
 <div id="pesan"></div>
 <table><tr><td width="50%" valign="top">
             <h3>Informasi Pengguna</h3><hr>

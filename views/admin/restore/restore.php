@@ -1,4 +1,4 @@
-<div id="form-wrapper">
+<div class="divleft"><div id="form-wrapper">
     <div id="message"><?php echo isset($this->message)?$this->message:'';?></div>
     <div class="preload">
         <img src="<?php echo URL; ?>public/images/loading.gif">
@@ -17,7 +17,7 @@
             <p><input id="file" type="file" name="file" onchange="hidemessage();"></p>
         </br><p><input class="btn restore"type="submit" value="RESTORE" name="submitRestoreDB" onclick="preload();"></form>
     </div>
-</div>
+</div></div>
 
 <script type="text/javascript">
    

@@ -1,4 +1,4 @@
-<h2>Ubah Pengguna</h2><hr>
+<div class="divleft"><h2>Ubah Pengguna</h2><hr></div>
 <div id="pesan"></div>
 <div id="form-wrapper">
 <form id="form-rekam" method="POST" action="#">

@@ -508,19 +508,20 @@ class Suratmasuk_Controller extends Controller {
             $notif->set('id_surat', $id_surat);
             $notif->set('jenis_surat', 'SM');
             $notif->set('stat_notif', 1);
+            $disposisi=  explode(",", $disposisi);
             $len = count($disposisi);
             //echo $len;
             //foreach ($disposisi as $val){
             for($i=0;$i<$len;$i++){
-                echo $disposisi[$i];
+//                echo $disposisi[$i];
                 $sql = "SELECT id_bagian FROM r_bagian WHERE kd_bagian='".$disposisi[$i]."'";
                 $data = $this->model->select($sql);
-                //var_dump($data);
+//                var_dump($data);
                 foreach($data as $value){
                     $id_bagian = $value['id_bagian'];
                     $sql1 = "SELECT id_user FROM user WHERE bagian=$id_bagian AND role=2";
                     $data1 = $this->model->select($sql1);
-                    //var_dump($data1);
+//                    var_dump($data1);
                     foreach($data1 as $value1){
                         $id_user = $value1['id_user'];                        
                         $notif->set('id_user', $id_user);
@@ -579,7 +580,7 @@ class Suratmasuk_Controller extends Controller {
             if(!is_array($disposisi)) $disposisi = explode (",", $disposisi);
             $len = count($disposisi);
             for($i=0;$i<$len;$i++){
-                echo $disposisi[$i];
+//                echo $disposisi[$i];
                 $sql = "SELECT id_bagian FROM r_bagian WHERE kd_bagian='".$disposisi[$i]."'";
                 $data = $this->model->select($sql);
                 //var_dump($data);

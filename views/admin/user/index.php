@@ -1,4 +1,4 @@
-<h2>Rekam Pengguna</h2><hr>
+<div class="divleft"><h2>Rekam Pengguna</h2><hr></div>
 <div id="pesan"></div>
 <div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 <div id="form-wrapper">

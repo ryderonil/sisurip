@@ -1,9 +1,9 @@
-<h2>Tambah Format Nomor Surat</h2>
+<div class="divleft"><h2>Tambah Format Nomor Surat</h2></div>
 <hr>
 <table><tr><td width="50%" valign="top">
 <div id="pesan"></div>
-<div id="btn-show"></br><input  class="btn save" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
-<div id="form-wrapper">
+<div class="divleft"><div id="btn-show"></br><input  class="btn save" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
+</div><div id="form-wrapper">
 <form id="form-rekam" >
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamNomor">-->
     <?php 

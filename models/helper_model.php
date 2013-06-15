@@ -24,8 +24,20 @@ class Helper_Model extends Model{
     }
     
     function getKodeSatker($data=null){
+        $config = array('host'=>DB_HOST,
+                        'db_name'=>DB_NAME_KPPN,
+                        'pass'=>DB_PASS,
+                        'port'=>DB_PORT_KPPN,
+                        'user'=>DB_USER);
+        
+        $con = new Koneksi();
+        $pdo = $con->getConnection($config);
         $sql = "SELECT kdsatker,nmsatker FROM t_satker LIMIT 0,30";
-        return $this->select($sql);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        unset($con);
+        return $data;
     }
     
     static function getRoleName($id){

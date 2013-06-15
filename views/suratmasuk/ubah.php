@@ -1,4 +1,4 @@
-<h2>Ubah Surat Masuk</h2>            
+<div class="divleft"><h2>Ubah Surat Masuk</h2></div>            
 <hr>
 <div id="pesan"></div>
 <?php // foreach($this->data as $key=>$value) { ?>

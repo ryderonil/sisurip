@@ -1,4 +1,4 @@
-<h2>Pengaturan Lokasi Penyimpanan Arsip</h2>            
+<div class="divleft"><h2>Pengaturan Lokasi Penyimpanan Arsip</h2></div>            
         <hr>
         <div id="pesan"></div>
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="#">

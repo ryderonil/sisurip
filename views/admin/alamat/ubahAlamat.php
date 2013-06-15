@@ -1,4 +1,4 @@
-<h2>Ubah Alamat Surat</h2>            
+<div class="divleft"><h2>Ubah Alamat Surat</h2></div>            
 <hr>
 <div id="pesan"></div>
 <div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
@@ -7,8 +7,12 @@
         <input id="id" type="hidden" name="id" value="<?php echo $this->id;?>">
         <!--<label>KEMENTERIAN/LEMBAGA</label><select></select></br>
         <label>UNIT</label><select></select></br>-->
+        <div><label>TIPE ALAMAT</label><select id="tipe" name="tipe">
+                <option value="A" <?php if($this->tipe == 'A') echo 'selected';?>>KANTOR PEMERINTAH</option>
+                <option value="B" <?php if($this->tipe == 'B') echo 'selected'; ?>>NON PEMERINTAH</option>
+            </select></div>
         <div id="wkode"></div>
-        <div><label>KODE SATKER</label><input type="text" id="kdsatker" name="kode_satker" 
+        <div><label>KODE ALAMAT</label><input type="text" id="kdsatker" name="kode_satker" 
                                          value="<?php echo isset($this->satker)?$this->satker:$this->kode_satker;?>" onkeyup="cekemptyfield(1,this.value)">
         <a href="<?php echo URL;?>helper/pilihsatker/<?php echo $this->id;?>"><input type="button" value="+"></a></br>
         </div><div id="wnama"></div>

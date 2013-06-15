@@ -1,4 +1,4 @@
-<h2>Ubah Format Nomor Surat</h2><hr>
+<div class="divleft"><h2>Ubah Format Nomor Surat</h2><hr></div>
 <table><tr><td width="50%" valign="top">
 <div id="pesan"></div>
 <div id="form-wrapper">

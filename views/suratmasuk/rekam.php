@@ -1,4 +1,4 @@
-<h2>Rekam Surat Masuk</h2>            
+<div class="divleft"><h2>Rekam Surat Masuk</h2></div>            
 <hr>
 <div id="pesan"></div>
 <script type="text/javascript">

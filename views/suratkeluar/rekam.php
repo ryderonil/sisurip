@@ -1,4 +1,4 @@
-<h2>Rekam Surat Keluar</h2>            
+<div class="divleft"><h2>Rekam Surat Keluar</h2></div>         
 <hr>
 <div id="pesan"></div>
 <?php

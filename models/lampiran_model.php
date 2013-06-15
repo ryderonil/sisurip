@@ -165,7 +165,11 @@ class Lampiran_Model extends Model {
      */
     public function getLampiranSurat($id, $tipe) {
 
-        $sql = "SELECT * FROM lampiran WHERE id_surat=" . $id . " AND jns_surat='" . $tipe . "'";
+        $sql = "SELECT a.id_lamp as id_lamp, a.jns_surat as jns_surat,
+            a.id_surat as id_surat, b.tipe_naskah as tipe,
+            a.nomor as nomor, a.tanggal as tanggal, a.hal as hal,
+            a.asal as asal, a.keterangan as keterangan, a.file as file 
+            FROM lampiran a LEFT JOIN tipe_naskah b ON a.tipe=b.id_tipe WHERE a.id_surat=" . $id . " AND a.jns_surat='" . $tipe . "'";
 
         return $this->select($sql);
     }

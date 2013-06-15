@@ -1,4 +1,4 @@
-<h2>Daftar Surat Keluar</h2>
+<div class="divleft"><h2>Daftar Surat Keluar</h2></div>
 <!--<select id="pull-right">-->
 <!--    <option>pilih semua</option>-->
 <!--</select></div>-->
@@ -35,12 +35,13 @@
         //echo '<td>' . $value['no_agenda'] . '</td>';
         
         if($this->notif->isRead($value->getId(),$user,'SK')){
-            echo '<td><input type=checkbox name=cek[] value=' . $value->getId() . ' > <font color=blue><b>' . Tanggal::tgl_indo($value->getTglSurat()) . '</br>'.$no_surat. '</td>';
+//            <input type=checkbox name=cek[] value=' . $value->getId() . ' >
+            echo '<td> <font color=blue><b>' . Tanggal::tgl_indo($value->getTglSurat()) . '</br>'.$no_surat. '</td>';
             echo '<td>' . $value->getTipeSurat() . ' 
             </br><a href="'.URL.'suratkeluar/detil/'.$value->getId().'" title="klik disini untuk melihat detil surat!" class=tip>'. $value->getAlamat() . '</br>'. $value->getPerihal() .
              '</a></b></font></td>';
         }else{
-            echo '<td><input type=checkbox name=cek[] value=' . $value->getId() . ' > ' . Tanggal::tgl_indo($value->getTglSurat()) . '</br>'.$no_surat. '</td>';
+            echo '<td> ' . Tanggal::tgl_indo($value->getTglSurat()) . '</br>'.$no_surat. '</td>';
             echo '<td>' . $value->getTipeSurat() . ' 
             </br><a href="'.URL.'suratkeluar/detil/'.$value->getId().'" title="klik disini untuk melihat detil surat!" class=tip>'. $value->getAlamat() . '</br>'. $value->getPerihal() .
              '</a></td>';

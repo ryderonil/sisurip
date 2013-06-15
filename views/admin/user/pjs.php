@@ -1,4 +1,5 @@
-<h2>Rekam Pejabat Sementara</h2><hr>
+<div class="divleft"><h2>Rekam Pejabat Sementara</h2></div>
+<hr>
 <div id="pesan"></div>
 <div id="form-wrapper" >
     <?php if(isset($this->warning)) {?>
