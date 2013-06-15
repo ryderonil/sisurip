@@ -198,9 +198,30 @@ class Helper_Controller extends Controller{
         }
         //var_dump($this->view->id);
         $this->view->data = $this->model->getKodeSatker();
-        $this->view->lokasi = $this->model->select("SELECT * FROM t_lokasi");
-        $this->view->dept = $this->model->select("SELECT * FROM t_dept");
-        $this->view->kab = $this->model->select("SELECT * FROM t_kabkota");
+        $config = array('host'=>DB_HOST,
+                        'db_name'=>DB_NAME_KPPN,
+                        'pass'=>DB_PASS,
+                        'port'=>DB_PORT_KPPN,
+                        'user'=>DB_USER);
+        
+        $con = new Koneksi();
+        $pdo = $con->getConnection($config);
+        $stmt = $pdo->prepare("SELECT * FROM t_lokasi");
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//        $this->view->lokasi = $this->model->select("SELECT * FROM t_lokasi");
+//        $this->view->dept = $this->model->select("SELECT * FROM t_dept");
+//        $this->view->kab = $this->model->select("SELECT * FROM t_kabkota");
+        $this->view->lokasi = $data;
+        $stmt = $pdo->prepare("SELECT * FROM t_dept");
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->view->dept = $data;
+        $stmt = $pdo->prepare("SELECT * FROM t_kabkota");
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->view->kab = $data;
+        unset($con);
         $this->view->render('helper/pilihsatker');
     }
     

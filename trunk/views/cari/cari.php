@@ -1,13 +1,13 @@
 <div>
-    <form id="form-search" name="frm">
+    <div class="divleft"><form id="form-search" name="frm">
     <span><input id="search" type="input" size="30" name="search" placeholder="masukkan kata kunci pencarian" onkeyup="keyup();">
     <a title="cari" class="tip"><input  class="btn search"type="button" value="CARI" onclick="searchs();"></a></span>
 <!--    <a title="cari" class="tip"><input  type="button" value="CARI" onClick="return cari(document.getElementById('search').value);"></a>-->
         
     <br>
     
-    </form>
-    <table class="cari-param">
+    </form></div>
+    <table class="cari-param" >
         <tr width="50%">
             <td width="15%" valign="top">
                 <select id="kat" name="kategori" class="tip" title="Kategori Pencarian" onchange="">
@@ -18,7 +18,7 @@
                     <option value="nomor">Nomor</option>
                     <option value="alamat">Alamat</option>
                 </select></td>
-                <td valign="top"><input type="text" id="datepicker" class="tip" title="Tanggal Awal" onchange="" placeholder="dari (mm/dd/yyyy)"></br>
+                <td valign="top" align="left"><input type="text" id="datepicker" class="tip" title="Tanggal Awal" onchange="" placeholder="dari (mm/dd/yyyy)"></br>
                 <input type="text" id="datepicker2" class="tip" title="Tanggal Akhir" onchange="" placeholder="sampai (mm/dd/yyyy)"></td></tr>        
     </table>
 </div>

@@ -1,5 +1,5 @@
 <div class="form-login">
-    <h2>LOGIN</h2>
+    <div class="divleft"><h2>LOGIN</h2></div>
 <hr>
 </br>
 <div ><form id="form-login">

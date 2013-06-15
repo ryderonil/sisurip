@@ -1,7 +1,7 @@
 <!--<form method="POST" action="<?php echo URL; ?>/helper/pilihsatker" >
     <input type="text" name="cari"><input type="submit" name="submit" value="CARI">
 </form>-->
-<form>
+<div class="divleft"><form>
     <select id="lokasi" onchange="lookupkab(this.value);">
         <option>-- PILIH WILAYAH --</option>
         <?php
@@ -31,7 +31,7 @@
     ?>
     </select>-->
 
-</form>
+</form></div>
 
 <hr>
 <br>

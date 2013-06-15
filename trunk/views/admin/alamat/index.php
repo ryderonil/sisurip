@@ -1,12 +1,16 @@
-<h2>Rekam Alamat Surat</h2>            
+<div class="divleft"><h2>Rekam Alamat Surat</h2></div>            
 <hr>
 <div id="pesan"></div>
 <div id="form-wrapper"><form class="admin_form" id="form-rekam" method="POST" action="#">
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamAlamat">-->
         <!--<label>KEMENTERIAN/LEMBAGA</label><select></select></br>
         <label>UNIT</label><select></select></br>-->
+        <div><label>TIPE ALAMAT</label><select id="tipe" name="tipe">
+                <option value="A" selected>KANTOR PEMERINTAH</option>
+                <option value="B">NON PEMERINTAH</option>
+            </select></div>
         <div id="wkode"></div>
-        <div><label>KODE SATKER</label><input type="text" id="kdsatker" name="kode_satker" 
+        <div><label>KODE ALAMAT</label><input type="text" id="kdsatker" name="kode_satker" 
                                          value="<?php if(isset($this->satker)) echo $this->satker;?>" onkeyup="cekemptyfield(1,this.value)">
         <a href="<?php echo URL;?>helper/pilihsatker"><input type="button" value="+"></a></br>
         </div><div id="wnama"></div>

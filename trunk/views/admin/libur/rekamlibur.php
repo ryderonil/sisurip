@@ -1,4 +1,4 @@
-<h2>Rekam/ Ubah Data Hari Libur</h2>
+<div class="divleft"><h2>Rekam/ Ubah Data Hari Libur</h2></div>
         <hr>
         </br>
 <table>

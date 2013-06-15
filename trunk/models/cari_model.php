@@ -32,12 +32,21 @@ class Cari_Model extends Model {
         $result = array();
         $int = 0;
         foreach ($data as $val) {
-            $result[$int][0] = $val['id_lamp'];
+            $cari = new SearchResult();
+            $cari->setId($val['id_lamp']);
+            $cari->setTanggal($val['tanggal']);
+            $cari->setNomor($val['nomor']);
+            $cari->setPerihal($val['hal']);
+            $cari->setTipe($val['tipe']);
+            $cari->setFile($val['file']);
+            $result[] = $cari;
+            /*$result[$int][0] = $val['id_lamp'];
             $result[$int][1] = $val['tanggal'];
             $result[$int][2] = $val['nomor'];
             $result[$int][3] = $val['hal'];
             $result[$int][4] = $val['tipe'];
-            $int++;
+            $result[$int][5] = $val['file'];
+            $int++;*/
         }
         return $result;
     }
@@ -57,12 +66,21 @@ class Cari_Model extends Model {
         $result = array();
         $int = 0;
         foreach ($data as $val) {
-            $result[$int][0] = $val['id_suratmasuk'];
+            $cari = new SearchResult();
+            $cari->setId($val['id_suratmasuk']);
+            $cari->setTanggal($val['tgl_surat']);
+            $cari->setNomor($val['no_surat']);
+            $cari->setPerihal($val['perihal']);
+            $cari->setTipe($val['tipe']);
+            $cari->setFile($val['file']);
+            $result[] = $cari;
+            /*$result[$int][0] = $val['id_suratmasuk'];
             $result[$int][1] = $val['tgl_surat'];
             $result[$int][2] = $val['no_surat'];
             $result[$int][3] = $val['perihal'];
             $result[$int][4] = $val['tipe'];
-            $int++;
+            $result[$int][5] = $val['file'];
+            $int++;*/
         }
         return $result;
     }
@@ -82,11 +100,20 @@ class Cari_Model extends Model {
         $result = array();
         $int = 0;
         foreach ($data as $val) {
-            $result[$int][0] = $val['id_suratkeluar'];
+            $cari = new SearchResult();
+            $cari->setId($val['id_suratkeluar']);
+            $cari->setTanggal($val['tgl_surat']);
+            $cari->setNomor($val['no_surat']);
+            $cari->setPerihal($val['perihal']);
+            $cari->setTipe($val['tipe']);
+            $cari->setFile($val['file']);
+            $result[] = $cari;
+            /*$result[$int][0] = $val['id_suratkeluar'];
             $result[$int][1] = $val['tgl_surat'];
             $result[$int][2] = $val['no_surat'];
             $result[$int][3] = $val['perihal'];
             $result[$int][4] = $val['tipe'];
+            $result[$int][5] = $val['file'];*/
             $int++;
         }
         return $result;
@@ -109,6 +136,7 @@ class Cari_Model extends Model {
             $result[$int][2] = $val['nomor'];
             $result[$int][3] = $val['hal'];
             $result[$int][4] = $val['tipe'];
+            $result[$int][5] = $val['file'];
             $int++;
         }
         return $result;
@@ -193,12 +221,14 @@ class Cari_Model extends Model {
         $result = array();
         $int = 0;
         foreach ($data as $val) {
-            $result[$int][0] = $val['id'];
-            $result[$int][1] = $val['tgl'];
-            $result[$int][2] = $val['nomor'];
-            $result[$int][3] = $val['hal'];
-            $result[$int][4] = $val['tipe'];
-            $int++;
+            $cari = new SearchResult();
+            $cari->setId($val['id']);
+            $cari->setTanggal($val['tgl']);
+            $cari->setNomor($val['nomor']);
+            $cari->setPerihal($val['hal']);
+            $cari->setTipe($val['tipe']);
+            $cari->setFile($val['file']);
+            $result[] = $cari;
         }
         return $result;
     }
@@ -242,6 +272,7 @@ class Cari_Model extends Model {
             $result[$int][2] = $val['nomor'];
             $result[$int][3] = $val['hal'];
             $result[$int][4] = $val['tipe'];
+            $result[$int][5] = $val['file'];
             $int++;
         }
         return $result;

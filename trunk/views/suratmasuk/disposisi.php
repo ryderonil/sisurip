@@ -103,7 +103,7 @@ if ($this->count > 0) {
         <div id="wpetunjuk"></div>
         <hr>
         <h2>Catatan :</h2></br>
-        <textarea id="input" name="catatan" rows="10" cols="60"><?php if($this->count > 0) echo $this->disp[5];?></textarea>
+        <textarea class="txtinput" id="inputs" name="catatan" rows="10" cols="150"><?php if($this->count > 0) echo $this->disp[5];?></textarea>
         <div id="wcatatan"></div>
         <hr>
         <!--<table>
@@ -133,7 +133,7 @@ function cek(attr){
     var jmldisp = $("input[name='disposisi']:checked").length;
     var jmlpetunjuk = $("input[name='petunjuk']:checked").length;
     var sifat = $('input[name=sifat]:checked', '#form-rekam').val();
-    var catatan = document.getElementById('input').value;
+    var catatan = document.getElementById('inputs').value;
     if(jmldisp==0){
         var wdisposisi = '<div id=warning><font color=red><b>Anda belum memilih disposisi</b></font></div>';
         $('#wdisposisi').html(wdisposisi);
@@ -183,7 +183,7 @@ function rekam(){
         
         var id_surat = document.getElementById('id_surat').value;
         var sifat = $('input[name=sifat]:checked', '#form-rekam').val();
-        var catatan = document.getElementById('input').value;
+        var catatan = document.getElementById('inputs').value;
         var join = id_surat+' '+sifat+' '+petunjuk+' '+catatan+' '+disposisi;
         $.ajax({
             type:'POST',
@@ -217,7 +217,7 @@ function rekam(){
         
         var id_surat = document.getElementById('id_surat').value;
         var sifat = $('input[name=sifat]:checked', '#form-rekam').val();
-        var catatan = document.getElementById('input').value;
+        var catatan = document.getElementById('inputs').value;
         var join = id_surat+' '+sifat+' '+petunjuk+' '+catatan+' '+disposisi;
         $.ajax({
             type:'POST',

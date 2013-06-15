@@ -47,7 +47,6 @@ class Admin_Controller extends Controller {
         }
 
         $this->view->cek = $this->model->cekKantor();
-        //echo $this->view->cek;
         if ($this->view->cek > 0) {
             $data = $this->model->selectTable('kantor');
             //var_dump($data);
@@ -67,11 +66,34 @@ class Admin_Controller extends Controller {
                 $this->view->logo = $value['logo'];
             }
         }
-        $this->view->kanwil = $this->model->select("SELECT * FROM t_kanwil");
+        $config = array('host'=>DB_HOST,
+                        'db_name'=>DB_NAME_KPPN,
+                        'pass'=>DB_PASS,
+                        'port'=>DB_PORT_KPPN,
+                        'user'=>DB_USER);
+        
+        $con = new Koneksi();
+        $sql = "SELECT * FROM t_kanwil";
+        $pdo = $con->getConnection($config);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//        $this->view->kanwil = $this->model->select("SELECT * FROM t_kanwil");
+        $this->view->kanwil = $data;
         if ($this->view->cek > 0) {
-            $this->view->kppn = $this->model->select("SELECT * FROM t_kppn WHERE kdkanwil=" . $this->view->es2);
+            $sql = "SELECT * FROM t_kppn WHERE kdkanwil=" . $this->view->es2;
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $this->view->kppn = $data;
+//            $this->view->kppn = $this->model->select("SELECT * FROM t_kppn WHERE kdkanwil=" . $this->view->es2);
         } else {
-            $this->view->kppn = $this->model->select("SELECT * FROM t_kppn");
+            $sql = "SELECT * FROM t_kppn";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $this->view->kppn = $data;
+//            $this->view->kppn = $this->model->select("SELECT * FROM t_kppn");
         }
 
         $this->view->render('admin/kantor/index');
@@ -92,10 +114,23 @@ class Admin_Controller extends Controller {
         }
         if (!is_null($satker)) {
             $this->view->satker = $satker;
-            $nm = $this->model->select('SELECT nmsatker FROM t_satker WHERE kdsatker=' . $satker);
+            $config = array('host'=>DB_HOST,
+                        'db_name'=>DB_NAME_KPPN,
+                        'pass'=>DB_PASS,
+                        'port'=>DB_PORT_KPPN,
+                        'user'=>DB_USER);
+        
+            $con = new Koneksi();
+            $sql = 'SELECT nmsatker FROM t_satker WHERE kdsatker=' . $satker;
+            $pdo = $con->getConnection($config);
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $nm = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//            $nm = $this->model->select('SELECT nmsatker FROM t_satker WHERE kdsatker=' . $satker);
             foreach ($nm as $value){
                 $this->view->nm_satker = $value['nmsatker'];
             }
+            unset($con);
         }
         $this->view->data = $this->model->getAlamat();
         $this->view->render('admin/alamat/index');
@@ -115,7 +150,9 @@ class Admin_Controller extends Controller {
         $alamat = $this->model->getAlamat($kd);
         foreach($alamat as $value){
             $this->view->id = $value['id_alamat'];
-            $this->view->kode_satker = $value['kode_satker'];
+            $tmp = explode('.',$value['kode_satker']);
+            $this->view->tipe = $tmp[0];
+            $this->view->kode_satker = $tmp[1];
             $this->view->nama_satker = $value['nama_satker'];
             $this->view->jabatan = $value['jabatan'];
             $this->view->alamat = $value['alamat'];
@@ -125,10 +162,23 @@ class Admin_Controller extends Controller {
         //var_dump($this->view->id);
         if (!is_null($satker)) {
             $this->view->satker = $satker;
-            $nm = $this->model->select('SELECT nmsatker FROM t_satker WHERE kdsatker=' . $satker);
+            $config = array('host'=>DB_HOST,
+                        'db_name'=>DB_NAME_KPPN,
+                        'pass'=>DB_PASS,
+                        'port'=>DB_PORT_KPPN,
+                        'user'=>DB_USER);
+        
+            $con = new Koneksi();
+            $sql = 'SELECT nmsatker FROM t_satker WHERE kdsatker=' . $satker;
+            $pdo = $con->getConnection($config);
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $nm = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//            $nm = $this->model->select('SELECT nmsatker FROM t_satker WHERE kdsatker=' . $satker);
             foreach ($nm as $value){
                 $this->view->nm_satker = $value['nmsatker'];
             }
+            unset($con);
         }
         $this->view->data = $this->model->getAlamat();
         $this->view->render('admin/alamat/ubahAlamat');
@@ -889,8 +939,9 @@ class Admin_Controller extends Controller {
     }
     
     public function inputRekamAlamat(){
+        $tipe=$_POST['tipe'];
         $data = array(
-            'kode_satker'=>$_POST['kode_satker'],
+            'kode_satker'=>$tipe.'.'.$_POST['kode_satker'],
             'nama_satker'=>$_POST['nama_satker'],
             'jabatan'=>$_POST['jabatan'],
             'alamat'=>$_POST['alamat'],
@@ -912,8 +963,9 @@ class Admin_Controller extends Controller {
     }
     
     public function updateRekamAlamat(){
+        $tipe = $_POST['tipe'];
         $data = array(
-            'kode_satker'=>$_POST['kode_satker'],
+            'kode_satker'=>$tipe.'.'.$_POST['kode_satker'],
             'nama_satker'=>$_POST['nama_satker'],
             'jabatan'=>$_POST['jabatan'],
             'alamat'=>$_POST['alamat'],

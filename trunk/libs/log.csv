@@ -667,3 +667,130 @@ DATETIME;USER;TAG;VALUE
 2013-06-09@23:44:53;mastri;LOGOUT;
 2013-06-09@23:45:00;kasi;LOGIN;
 2013-06-09@23:45:15;kasi;LOGOUT;
+2013-06-10@12:49:11;admin;LOGIN;
+2013-06-10@12:49:42;admin;LOGOUT;
+2013-06-10@12:59:43;admin;LOGIN;
+2013-06-10@13:03:07;admin;LOGOUT;
+2013-06-10@13:03:18;huri;LOGIN;
+2013-06-10@13:03:21;huri;"CHANGE ROLE";"user huri mengganti role/bagian ke 5/1"
+2013-06-10@13:10:42;huri;"CHANGE ROLE";"user huri mengganti role/bagian ke 3/2"
+2013-06-10@16:20:06;kk;LOGIN;
+2013-06-10@17:24:24;kk;LOGOUT;
+2013-06-10@17:24:33;huri;LOGIN;
+2013-06-10@17:24:36;huri;"CHANGE ROLE";"user huri mengganti role/bagian ke 5/1"
+2013-06-10@17:54:52;huri;LOGOUT;
+2013-06-10@17:54:57;kk;LOGIN;
+2013-06-10@18:04:30;kk;LOGOUT;
+2013-06-10@18:04:32;admin;LOGIN;
+2013-06-11@07:44:38;kasi;LOGIN;
+2013-06-11@07:46:20;kasi;LOGOUT;
+2013-06-11@07:49:24;admin;LOGIN;
+2013-06-11@00:55:55;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0026"
+2013-06-11@07:56:57;admin;LOGOUT;
+2013-06-11@07:57:02;kasi;LOGIN;
+2013-06-11@07:57:05;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-06-11@08:00:12;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda SM0026"
+2013-06-11@08:00:26;kasi;"UBAH SM";"user kasi ubah surat masuk no agenda SM0026"
+2013-06-11@08:02:17;kasi;"DELETE SM";"user kasi menghapus surat masuk no agenda"
+2013-06-11@08:03:59;kasi;LOGOUT;
+2013-06-11@08:04:04;mastri;LOGIN;
+2013-06-11@08:05:58;mastri;UPLOAD;"user mastri upload file surat no agenda SM0024 file:M_ND-20_KP_2013_308152.pdf"
+2013-06-11@08:07:58;mastri;LOGOUT;
+2013-06-11@08:08:00;admin;LOGIN;
+2013-06-11@08:11:31;admin;LOGOUT;
+2013-06-11@08:11:35;mastri;LOGIN;
+2013-06-11@08:11:47;mastri;LOGOUT;
+2013-06-11@08:11:49;admin;LOGIN;
+2013-06-11@08:12:00;admin;LOGOUT;
+2013-06-11@08:12:06;mastri;LOGIN;
+2013-06-11@08:15:49;mastri;LOGOUT;
+2013-06-11@08:15:53;kk;LOGIN;
+2013-06-11@08:17:44;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0020"
+2013-06-11@08:18:38;kk;LOGOUT;
+2013-06-11@08:18:50;kasi;LOGIN;
+2013-06-11@08:19:19;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-06-11@08:26:38;kasi;LOGOUT;
+2013-06-11@08:26:42;kk;LOGIN;
+2013-06-11@08:27:00;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0020"
+2013-06-11@08:27:02;kk;LOGOUT;
+2013-06-11@08:27:20;kk;LOGIN;
+2013-06-11@08:27:42;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0020"
+2013-06-11@08:29:52;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0020"
+2013-06-11@08:30:27;kk;LOGOUT;
+2013-06-11@08:30:32;kasi;LOGIN;
+2013-06-11@08:30:34;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-06-11@08:33:17;kasi;LOGOUT;
+2013-06-11@08:33:32;admin;LOGIN;
+2013-06-11@01:35:04;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0026"
+2013-06-11@08:36:07;admin;LOGOUT;
+2013-06-11@08:36:11;kk;LOGIN;
+2013-06-11@08:36:28;kk;LOGOUT;
+2013-06-11@08:36:33;kasi;LOGIN;
+2013-06-11@08:36:36;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-06-11@08:36:40;kasi;"DELETE SM";"user kasi menghapus surat masuk no agenda"
+2013-06-11@08:36:57;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/2"
+2013-06-11@08:43:22;kasi;"REKAM CATATAN KASI";"user kasi rekam catatan kasi no agenda SM0020"
+2013-06-11@08:44:34;kasi;LOGOUT;
+2013-06-11@08:44:38;mastri;LOGIN;
+2013-06-11@08:56:44;mastri;LOGOUT;
+2013-06-11@08:56:50;kasi;LOGIN;
+2013-06-11@09:00:44;kasi;LOGOUT;
+2013-06-11@09:00:46;admin;LOGIN;
+2013-06-11@09:00:51;admin;LOGOUT;
+2013-06-11@09:00:57;marni;LOGIN;
+2013-06-11@10:12:57;kk;LOGIN;
+2013-06-11@10:14:01;kk;"UBAH DISPOSISI";"user kk rekam disposisi no agenda SM0025"
+2013-06-11@10:18:33;kk;LOGOUT;
+2013-06-11@10:18:38;kasi;LOGIN;
+2013-06-11@10:22:03;kasi;LOGOUT;
+2013-06-11@10:22:09;kk;LOGIN;
+2013-06-11@10:28:12;kk;LOGOUT;
+2013-06-11@10:28:13;admin;LOGIN;
+2013-06-11@11:18:30;admin;LOGOUT;
+2013-06-11@11:18:34;kasi;LOGIN;
+2013-06-11@11:18:44;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-06-11@11:18:46;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/2"
+2013-06-11@11:24:48;kasi;LOGOUT;
+2013-06-11@11:24:50;admin;LOGIN;
+2013-06-12@16:20:36;admin;LOGOUT;
+2013-06-12@16:20:43;kk;LOGIN;
+2013-06-12@16:24:18;kk;LOGOUT;
+2013-06-12@16:24:37;admin;LOGIN;
+2013-06-12@16:29:03;admin;LOGOUT;
+2013-06-12@16:29:07;kk;LOGIN;
+2013-06-12@16:29:22;kk;LOGOUT;
+2013-06-12@16:29:23;admin;LOGIN;
+2013-06-12@09:30:56;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0026"
+2013-06-12@16:31:07;admin;LOGOUT;
+2013-06-12@16:31:26;kk;LOGIN;
+2013-06-12@16:35:38;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0026"
+2013-06-12@16:35:43;kk;LOGOUT;
+2013-06-12@16:36:07;kasi;LOGIN;
+2013-06-12@16:36:14;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-06-12@16:36:17;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/2"
+2013-06-12@16:36:55;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-06-12@16:38:57;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/2"
+2013-06-12@16:40:32;kasi;LOGOUT;
+2013-06-12@16:40:34;admin;LOGIN;
+2013-06-12@16:40:38;admin;LOGOUT;
+2013-06-12@16:40:52;admin;LOGIN;
+2013-06-12@16:46:39;admin;LOGOUT;
+2013-06-12@16:46:45;kasi;LOGIN;
+2013-06-12@16:47:01;kasi;"REKAM CATATAN KASI";"user kasi rekam catatan kasi no agenda SM0026"
+2013-06-12@16:47:03;kasi;LOGOUT;
+2013-06-12@16:47:09;mastri;LOGIN;
+2013-06-12@16:56:55;mastri;LOGOUT;
+2013-06-12@16:56:57;admin;LOGIN;
+2013-06-12@16:57:26;admin;LOGOUT;
+2013-06-12@16:57:29;kk;LOGIN;
+2013-06-12@16:59:39;kk;LOGOUT;
+2013-06-12@16:59:47;mastri;LOGIN;
+2013-06-12@17:13:49;mastri;LOGOUT;
+2013-06-12@17:13:53;admin;LOGIN;
+2013-06-14@05:09:04;kk;LOGIN;
+2013-06-14@05:47:10;kk;LOGIN;
+2013-06-14@08:27:03;kk;LOGIN;
+2013-06-14@15:06:30;kk;LOGIN;
+2013-06-15@16:03:35;kk;LOGIN;
+2013-06-15@17:31:15;kk;LOGOUT;
+2013-06-15@17:31:18;admin;LOGIN;

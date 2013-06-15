@@ -1,7 +1,7 @@
 <?php foreach($this->dataSurat as $value) { ?>
 <table><tr><td width="50%" valign="top">
 <div class="detil">
-    <h2>INFORMASI SURAT :</h2>
+    <div class="divleft"><h2>INFORMASI SURAT :</h2><div>
     <hr>
     </br>
     <div id="table-wrapper"><table class="tableinfo">

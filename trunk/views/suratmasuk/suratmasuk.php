@@ -1,4 +1,4 @@
-<h2>Daftar Surat Masuk</h2>
+<div class="divleft"><h2>Daftar Surat Masuk</h2></div>
 <!--<select id="pull-right">-->
 <!--    <option>pilih semua</option>-->
 <!--</select></div>-->

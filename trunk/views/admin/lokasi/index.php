@@ -1,8 +1,8 @@
-<h2>Pengaturan Lokasi Penyimpanan Arsip</h2>            
+<div class="divleft"><h2>Pengaturan Lokasi Penyimpanan Arsip</h2></div>            
         <hr>
         <div id="pesan"></div>
-<div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
-<div id="form-wrapper"><form id="form-rekam" >
+<div class="divleft"><div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
+</div><div id="form-wrapper"><form id="form-rekam" >
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamLokasi">-->
         <?php 
             if(isset($this->error)){

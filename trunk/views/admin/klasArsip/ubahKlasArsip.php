@@ -1,4 +1,4 @@
-<h2>Ubah Klasifikasi Arsip</h2>
+<div class="divleft"><h2>Ubah Klasifikasi Arsip</h2></div>
 <hr>
 <table><tr><td width="50%" valign="top">
 <div id="pesan"></div>

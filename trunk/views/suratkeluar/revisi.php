@@ -1,8 +1,8 @@
-<h2>Catatan Revisi</h2>
+<div class="divleft"><h2>Catatan Revisi</h2></div>
 <hr>
 <div id="pesan"></div>
 </br>
-<table><tr><td width="40%" valign="top">
+<table><tr><td width="40%" valign="top" align="right">
 <div id="table-wrapper"><table class="tableinfo">
         <tr><td width="30%"></td><td></td></tr>
     <?php 
@@ -21,7 +21,7 @@
 </br>
 <hr>
 </br>
-        </td><td width="60%" halign="left">
+        </td><td width="60%" align="left">
 <div id="form-wrapper">
     <form id="form-rekam"   >
 <!--        <form method="POST" action="<?php echo URL; ?>suratkeluar/uploadrev" enctype="multipart/form-data">-->
