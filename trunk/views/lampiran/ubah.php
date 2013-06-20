@@ -23,9 +23,8 @@
     $html->hr();
     $html->br();
 ?>
-
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="#"
-                             enctype="multipart/form-data">
+<div id="pesan"></div>
+<div id="form-wrapper"><form id="form-rekam" >
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>lampiran/addRekamLampiran"-->
 <!--                             enctype="multipart/form-data">-->
     <?php 
@@ -54,14 +53,14 @@
         ?>
     </select></br>
     <div id="wnomor"></div>
-    <label>NOMOR SURAT</label><input id="nomor" class="required" type="text" name="nomor" value="<?php echo $this->lamp->get('nomor');?>" onkeyup="cekemptyfield(2,this.value)"></br>
+    <label>NOMOR SURAT</label><input id="nomor" type="text" size="30" name="nomor" value="<?php echo $this->lamp->get('nomor');?>" onkeyup="cekemptyfield(2,this.value)"></br>
     <div id="wtgl"></div>
     <label>TANGGAL</label><input class="required" id="datepicker" type="text" name="tanggal" value="<?php echo $this->lamp->get('tanggal');?>" onchange="cekemptyfield(3,this.value)"></br>
     <div id="whal"></div>
-    <label>HAL/TENTANG</label><input id="hal" class="required" type="text" name="hal" value="<?php echo $this->lamp->get('hal');?>" onkeyup="cekemptyfield(4,this.value)"></br>
+    <label>HAL/TENTANG</label><input id="hal" type="text" size="60" name="hal" value="<?php echo $this->lamp->get('hal');?>" onkeyup="cekemptyfield(4,this.value)"></br>
     <div id="wasal"></div>
-    <label>ASAL/PENANDA TANGAN</label><input id="asal" class="required" type="text" name="asal" value="<?php echo $this->lamp->get('asal');?>" onkeyup="cekemptyfield(5,this.value)"></br>
-    <label>KETERANGAN</label><input type="text" name="keterangan" value="<?php echo $this->lamp->get('keterangan');?>"></br>
+    <label>ASAL/PENANDA TANGAN</label><input id="asal" type="text" size="40" name="asal" value="<?php echo $this->lamp->get('asal');?>" onkeyup="cekemptyfield(5,this.value)"></br>
+    <label>KETERANGAN</label><input type="text" size="60" name="keterangan" value="<?php echo $this->lamp->get('keterangan');?>"></br>
     <div id="wfile"></div>
     <label>PILIH FILE</label><input id="file" type="file" name="upload" onchange="cekemptyfield(6,this.value)"></br>
     <label></label><input type="submit" name="submit" value="SIMPAN" onClick="return selesai();">

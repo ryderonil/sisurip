@@ -12,13 +12,13 @@
         ?>
     <input id="id" type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <div id="wnama"></div>
-    <label>NAMA PEGAWAI</label><input id="nama"  type="text" name="namaPegawai" value="<?php echo $this->data[3]; ?>" onkeyup="cekemptyfield(1,this.value)"></br>
+    <label>NAMA PEGAWAI</label><input id="nama"  type="text" size="50" name="namaPegawai" value="<?php echo $this->data[3]; ?>" onkeyup="cekemptyfield(1,this.value)"></br>
     <div id="wnip"></div>
-    <label>NIP</label><input id="nip"  type="text" name="NIP" value="<?php echo $this->data[4]; ?>" onkeyup="cekemptyfield(2,this.value)"></br>
+    <label>NIP</label><input id="nip"  type="text" size="18" name="NIP" value="<?php echo $this->data[4]; ?>" onkeyup="cekemptyfield(2,this.value)"></br>
     <div id="wuser"></div>
-    <label>NAMA USER</label><input id="usern"  type="text" name="username" value="<?php echo $this->data[1]; ?>" onkeyup="cekemptyfield(3,this.value)"></br>
+    <label>NAMA USER</label><input id="usern"  type="text" size="15" name="username" value="<?php echo $this->data[1]; ?>" onkeyup="cekemptyfield(3,this.value)"></br>
     <div id="wpass"></div>
-    <label>PASSWORD</label><input id="pass"  type="text" name="password" value="<?php //echo $this->data[2]; ?>"></br>
+    <label>PASSWORD</label><input id="pass"  type="text" size="20" name="password" value="<?php //echo $this->data[2]; ?>"></br>
     <div id="wbag"></div>
     <label>BAGIAN</label><select id="bag"  name="bagian" onchange="cekemptyfield(5,this.value)">
         <option value="">--PILIH BAGIAN--</option>

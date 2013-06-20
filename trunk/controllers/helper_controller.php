@@ -29,7 +29,7 @@ class Helper_Controller extends Controller{
 //        if ($rs && mysql_num_rows($rs)) {
         if(count($data)>0){
             echo "<table class='CSSTableGenerator'>
-                    <tr><th>No</th><th>Kode Satker</th><th>Nama Satker</th><th>Pilih</th></tr>";           
+                    <tr><td>No</td><td>Kode Satker</td><td>Nama Satker</td><td>Pilih</td></tr>";           
             $no=1;
 //            while ($row = mysql_fetch_array($rs, MYSQL_ASSOC)) {
             foreach($data as $row){

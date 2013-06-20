@@ -237,20 +237,20 @@
 <?php if(isset($this->success)) {?><div id="success"><?php echo $this->success;?></div><?php }?>
 <div id="form-wrapper"><form id="form-rekam" >
 <!--        action="<?php echo URL; ?>suratmasuk/input"-->
-        <label>AGENDA</label><input id="agenda" type="text" name="no_agenda" value="<?php echo @$this->agenda; ?>" readonly></br>
+        <label>AGENDA</label><input id="agenda" type="text" name="no_agenda" value="<?php echo @$this->agenda; ?>" size="6" readonly></br>
         <!--<label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->
         <div id="walamat"></div>
         <div><label>ASAL</label><input id="alamat" type="text" name="asal_surat" 
-                                  value="<?php if(isset($this->alamat)) echo $this->alamat; ?>" onkeyup="cekemptyfield(1,this.value);" title="isikan kode alamat asal surat(*)"><a href="<?php echo URL;?>helper/pilihalamat/1"><input type="button" name="" value="+"></a></br>
+                                  value="<?php if(isset($this->alamat)) echo $this->alamat; ?>" onkeyup="cekemptyfield(1,this.value);" title="isikan kode alamat asal surat(*)" size="8"><a href="<?php echo URL;?>helper/pilihalamat/1"><input type="button" name="" value="+"></a> *</br>
         </div><div id="wtgl"></div>
-        <div><label>TANGGAL SURAT</label><input type="text" id="datepicker" name="tgl_surat" title="tanggal surat (*)" onkeyup="cekemptyfield(2,this.value);" onchange="cekemptyfield(2,this.value);" readonly></br>
+        <div><label>TANGGAL SURAT</label><input type="text" id="datepicker" name="tgl_surat" title="tanggal surat (*)" onkeyup="cekemptyfield(2,this.value);" onchange="cekemptyfield(2,this.value);" readonly> *</br>
         </div><div id="wnosurat"></div>
-        <div><label>NOMOR SURAT</label><input id="no_surat" type="text" name="no_surat" title="isikan nomor surat(*)" onkeyup="cekemptyfield(3,this.value);"></br>
+        <div><label>NOMOR SURAT</label><input id="no_surat" type="text" name="no_surat" title="isikan nomor surat(*)" size="40" onkeyup="cekemptyfield(3,this.value);"> *</br>
         
 <!--        onclick="window.open('<?php echo URL?>helper/pilihalamat/1','pilih alamat asal','location=0,toolbar=0,menubar=0,status=0,scrollbar=1,width=500,height=400')"-->
         <div id="result"></div>
         </div><div id="whal"></div>
-        <label>PERIHAL</label><!--<input id="perihal" class="required" type="" name="perihal">--><textarea id="perihal" cols="10" rows="10" name="perihal" title="isikan perihal surat(*)" onkeyup="cekemptyfield(4,this.value);"></textarea></br>
+        <label>PERIHAL</label><!--<input id="perihal" class="required" type="" name="perihal">--><textarea id="perihal" cols="30" rows="5" name="perihal" title="isikan perihal surat(*)" onkeyup="cekemptyfield(4,this.value);"></textarea> *</br>
         <div><label>STATUS</label><input id="status" type="text" name="status" title="isikan status surat"></br>
         </div><div id="wsifat"></div>
         <div><label>SIFAT</label><select id="sifat" name="sifat" onchange="cekemptyfield(5,this.value);">
@@ -265,7 +265,7 @@
                     
                 }
             ?>
-        </select></br>
+        </select> *</br>
         </div><div id="wjenis"></div>
         <div><label>JENIS</label><select id="jenis" name="jenis" onchange="cekemptyfield(6,this.value);">
             <option value="">--PILIH JENIS SURAT--</option>
@@ -279,9 +279,9 @@
                     
                 }
             ?>
-        </select></br>
+        </select> *</br>
         </div><div id="wlampiran"></div>
-        <label>LAMPIRAN</label><input id="lampiran" type="text" name="lampiran" onkeyup="cekemptyfield(7,this.value);" title="isikan jumlah lampiran(*)"></br>    
+        <label>LAMPIRAN</label><input id="lampiran" type="text" name="lampiran" onkeyup="cekemptyfield(7,this.value);" title="isikan jumlah lampiran(*)" size="5"> *(isikan angka)</br>    
         <label></label><input type="reset" class="btn reset" value="RESET"><input type="button" class="btn save" name="submit" value="SIMPAN" onclick="return cek();">
     </form></div>
 <?php 

@@ -133,14 +133,19 @@ $roleuser = Helper_Model::getRoleUser($user);
             <div id="content">
                 <div id="cwrapper">
                     <div id="test"></div>
+                    <div display="none"><input type="hidden" id="jmlnotif" value="<?php echo $notif;?>"></div>
+                    <div id="notifwindow" display="none"></div>
                     <script type="text/javascript">
                         $(document).ready(function(){
                             $('#notif').fadeOut(0);
+                            $('#notif').fadeOut(0);
+//                            alert(document.getElementById('jmlnotif').value);
                             setInterval(function(){
                                 //ntar pake ajax
                                 $.ajax({
                                    type:"post",
-                                   url:"<?php echo URL; ?>monitoring/getJmlNotifikasi/<?php echo $user; ?>/<?php echo $notif; ?>",
+//                                   url:"<?php echo URL; ?>monitoring/getJmlNotifikasi/<?php echo $user; ?>/<?php echo $notif; ?>",
+                                   url:"<?php echo URL; ?>monitoring/getJmlNotifikasi/<?php echo $user; ?>/"+document.getElementById('jmlnotif').value,
                                    data:'',
                                    dataType:'json',
                                    success:function(data){
@@ -148,17 +153,24 @@ $roleuser = Helper_Model::getRoleUser($user);
 //                                           alert(data.cek+' '+data.notifikasi);
                                            $('#notif').fadeIn(0);
                                            $('#notif').html(data.notifikasi);
+                                           $('#jmlnotif').val(data.notifikasi);
+//                                           alert(document.getElementById('jmlnotif').value);
                                            //bunyikan suara
                                            $('<audio id="chatAudio" src="public/sound/sounds-847-office-2.mp3" type="audio/mpeg"></audio>').appendTo('body');
-                                           $('#chatAudio')[0].play(1);
+                                           $('#chatAudio')[0].play();
+                                           /*var audioElement = document.createElement('audio');
+                                           audioElement.setAttribute('src', 'public/sound/sounds-847-office-2.mp3');
+                                           audioElement.play();*/
                                            //tampilkan jendela notifikasi
-                                       }else if(data.notifikasi>0){
+                                       }else if(data.cek<=0 && data.notifikasi>0){
 //                                           alert(data.cek+' '+data.notifikasi);
                                            $('#notif').fadeIn(0);
                                            $('#notif').html(data.notifikasi);
+                                           $('#jmlnotif').val(data.notifikasi);
                                        }else if(data.notifikasi==0){
 //                                           alert(data.cek+' '+data.notifikasi);
                                            $('#notif').fadeOut(0);
+                                           $('#jmlnotif').val(data.notifikasi);
                                        }
                                    }
                                 });

@@ -8,8 +8,9 @@
 require 'libs/phplot/phplot.php';
 
 $data = $this->data;
-
-$plot = new PHPlot(800);
+$lebar = $this->lebar*0.675;
+//var_dump($lebar);
+$plot = new PHPlot($lebar);
 $plot->SetImageBorderType('plain');
 $plot->SetPlotType('bars');
 

@@ -37,7 +37,7 @@ if (isset($this->datasm)) {
         ?>
         <input type="hidden" name="id" value="<?php echo $this->id;?>">
         <div id="walamat"></div>
-        <div><label>ALAMAT TUJUAN</label><input id="alamat"  type="text" name="tujuan" value="<?php echo isset($this->alamat)?$this->alamat:$this->tujuan; ?>" title="isikan kode alamat tujuan(*)" onkeyup="cekemptyfield(1,this.value)">
+        <div><label>ALAMAT TUJUAN</label><input id="alamat"  type="text" size="8" name="tujuan" value="<?php echo isset($this->alamat)?$this->alamat:$this->tujuan; ?>" title="isikan kode alamat tujuan(*)" onkeyup="cekemptyfield(1,this.value)">
         <a href="<?php echo URL; ?>helper/pilihalamat/4<?php if (isset($this->id)) echo "/" . $this->id; ?>"><input type="button" name="" value="+"></input></a></br>
         </div><div id="wtgl"></div>
         <label>TANGGAL SURAT</label><input type="text" id="datepicker" name="tgl_surat"  value="<?php echo $this->tgl_surat;?>" onchange="cekemptyfield(2,this.value)" readonly></br>
@@ -55,9 +55,9 @@ if (isset($this->datasm)) {
             }
             ?></select></br>
             <div id="wnomor"></div>
-        <label>NOMOR</label><input type="text" name="nomor" id="nomor" value="<?php echo $this->no_surat;?>"> <input type="button" value="+" onclick="return cekTipe();"></br>    
+        <label>NOMOR</label><input type="text" size="30" name="nomor" id="nomor" value="<?php echo $this->no_surat;?>"> <input type="button" value="+" onclick="return cekTipe();"></br>    
         <div id="whal"></div>
-        <label>PERIHAL</label><input id="perihal"  type="text" name="perihal" value="<?php echo $this->perihal;?>" title="isikan perihal surat(*)" onkeyup="cekemptyfield(3,this.value)"></br>
+        <label>PERIHAL</label><input id="perihal"  type="text" size="60" name="perihal" value="<?php echo $this->perihal;?>" title="isikan perihal surat(*)" onkeyup="cekemptyfield(3,this.value)"></br>
         <div id="wsifat"></div>
         <label>SIFAT</label><select name="sifat" id="sifat" onchange="cekemptyfield(4,this.value)">
             <option value="" selected>--PILIH SIFAT SURAT--</option>
@@ -87,7 +87,7 @@ if (isset($this->datasm)) {
             ?>
         </select></br>
         <div id="wlampiran"></div>
-        <label>LAMPIRAN</label><input id="lampiran" type="" name="lampiran" value="<?php echo $this->lampiran;?>" title="isikan jumlah lampiran(*)" onkeyup="cekemptyfield(6,this.value)"></br>
+        <label>LAMPIRAN</label><input id="lampiran" type="" size="5" name="lampiran" value="<?php echo $this->lampiran;?>" title="isikan jumlah lampiran(*)" onkeyup="cekemptyfield(6,this.value)"></br>
         <div id="wfile"></div>
         <label>FILE SURAT</label><input id="sfile" type="file" name="upload" onchange="cekemptyfield(8,this.value)"></br>
         <label></label><input type="button" class="btn cancel" onclick="location.href='<?php echo URL; ?>suratkeluar'" value="BATAL"><input type="button" class="btn save" name="submit" value="SIMPAN" onclick="return selesai();">
@@ -248,11 +248,7 @@ function cekemptyfield(num, content){
                 } 
                 break;
             case 8:
-                if(content==''){
-                    var wfile = '<div id=warning>File surat belum dipilih!</div>'
-                    $('#wfile').fadeIn(200);
-                    $('#wfile').html(wfile);
-                }else{
+                if(content!=''){
                     var csplit = content.split(".");
                     var ext = csplit[csplit.length-1];
                     if(ext!='docx' && ext!='doc'){
@@ -330,13 +326,8 @@ function cekemptyfield(num, content){
             $('#wlampiran').html(wlamp);
         }
         
-        if(sfile==''){
+        if(sfile!=''){
             jml++;
-            var wfile = '<div id=warning>File surat belum dipilih!</div>'
-            $('#wfile').fadeIn(200);
-            $('#wfile').html(wfile);
-            return false;
-        }else{
             var csplit = sfile.split(".");
             var ext = csplit[csplit.length-1];
             if(ext!='doc' && ext!='docx'){

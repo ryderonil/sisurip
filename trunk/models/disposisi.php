@@ -96,11 +96,11 @@ class Disposisi extends Model{
             }
         }else{
             $this->id_disposisi = null;
-                $this->id_surat = null;
-                $this->sifat = null;
-                $this->petunjuk = null;
-                $this->dist = null;
-                $this->catatan = null;
+            $this->id_surat = null;
+            $this->sifat = null;
+            $this->petunjuk = null;
+            $this->dist = null;
+            $this->catatan = null;
         }       
         
         return $this;

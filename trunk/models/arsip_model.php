@@ -171,7 +171,7 @@ class Arsip_Model extends Model {
             case 'SK':
                 $sql = "SELECT tgl_surat as tgl
                     FROM suratkeluar
-                    WHERE id_suratmasuk=".$id_surat;
+                    WHERE id_suratkeluar=".$id_surat;
                 break;
         }
         
@@ -185,6 +185,31 @@ class Arsip_Model extends Model {
         
     }
     
+    public function isAllowWrite($id, $tipe){
+        $file = '';
+        switch($tipe){
+            case 'SM':
+                $sm = new Suratmasuk_Model();
+                $data = $sm->getSuratById($id);
+                $file = $data->getFile(); 
+                break;
+            case 'SK':
+                $sk = new Suratkeluar_Model();
+                $data = $sk->getSuratById($id, 'ubah');
+                $file = $data->getFile();
+                break;
+            default:
+                throw new Exception('parameter yang dimasukkan salah!');
+                break;
+        }
+        if($file=='' OR $file==null) return false;
+        $ext = end(explode('.', $file));
+        if($ext!='pdf') return false;
+        if(!file_exists('arsip/'.$file)) return false;
+        return true;
+    }
+
+
     function __destruct() {
         ;
     }

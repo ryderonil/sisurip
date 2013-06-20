@@ -481,6 +481,7 @@ class Admin_Controller extends Controller {
     }
     
     public function inputRekamPjs(){
+        $time = date('Y-m-d H:i:s');
         $bagian = $_POST['bagian'];
         $jabatan = $_POST['jabatan'];
         $user = $_POST['id'];
@@ -493,7 +494,8 @@ class Admin_Controller extends Controller {
         $data = array(
             'user'=>$user,
             'bagian'=>$bagian,
-            'jabatan'=>$jabatan
+            'jabatan'=>$jabatan,
+            'time'=>$time
         );
 
         if($this->model->rekamPjs($data)){
@@ -525,7 +527,8 @@ class Admin_Controller extends Controller {
             $user = $val['user'];
         }
         //harusnya dilempar ke model
-        $this->model->delete('pjs',$where);
+//        $this->model->delete('pjs',$where);
+        $this->model->hapuspjs($where);
         $this->view->success = "Hapus data pejabat sementara berhasil!";
         
         $this->view->user = $user;         
@@ -1163,9 +1166,9 @@ class Admin_Controller extends Controller {
         $jabatan = $_POST['jabatan'];
         if(isset($_POST['id'])){
             $id = $_POST['id'];
-            $sql = "SELECT * FROM pjs WHERE user='".$id."' AND bagian=".$bagian." AND jabatan=".$jabatan;
+            $sql = "SELECT * FROM pjs WHERE user='".$id."' AND bagian=".$bagian." AND jabatan=".$jabatan." AND aktif='Y'";
         }else{
-            $sql = "SELECT * FROM pjs WHERE bagian=".$bagian." AND jabatan=".$jabatan;
+            $sql = "SELECT * FROM pjs WHERE bagian=".$bagian." AND jabatan=".$jabatan." AND aktif='Y'";
         }
         
         $data = $this->model->select($sql);

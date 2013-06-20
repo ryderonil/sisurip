@@ -91,7 +91,9 @@ function srkeluarhari(val){
 }
 
 function kinerja(){
-    $.post("<?php echo URL;?>monitoring/kinerjaPegawai", {tanggal:""},
+    //seharusnya resolusi layar browser!!!
+    var lebar=screen.width;
+    $.post("<?php echo URL;?>monitoring/kinerjaPegawai", {lebar:""+lebar+""},
             function(data){
 //                document.write(val);
                 $('#reportknj').fadeIn(500);

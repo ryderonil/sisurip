@@ -1,5 +1,5 @@
 <div class="divleft"><h2>Ubah Format Nomor Surat</h2><hr></div>
-<table><tr><td width="50%" valign="top">
+<!--<table><tr><td width="50%" valign="top">-->
 <div id="pesan"></div>
 <div id="form-wrapper">
 <form id="form-rekam" >
@@ -14,7 +14,7 @@
     
     <input id="id" type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <div id="wnomor"></div>
-    <label>FORMAT NOMOR</label><input id="nomor"  type="text" name="nomor" value="<?php echo $this->data[2]; ?>" onkeyup="cekemptyfield(1,this.value)"></br>
+    <label>FORMAT NOMOR</label><input id="nomor"  type="text" size="30" name="nomor" value="<?php echo $this->data[2]; ?>" onkeyup="cekemptyfield(1,this.value)"></br>
     <div id="wbagian"></div>
     <label>BAGIAN</label><select id="bagian"  name="bagian" onchange="cekemptyfield(2,this.value)">
         <option value="" name="" selected>--PILIH BAGIAN--</option>
@@ -29,7 +29,7 @@
 </br>
 <hr>
 </br>
-</td><td width="50%">
+<!--</td><td width="50%">-->
 <div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><td>NO</td><td>BAGIAN</td><td>KODE NOMOR</td><td>AKSI</td></tr>
     <?php $no=1; foreach($this->nomor as $key=>$value) {?>
@@ -40,7 +40,7 @@
             <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2);"></a></td></tr>
     <?php $no++; }?>
 </table></div>
-</td></tr></table>
+<!--</td></tr></table>-->
 <script type="text/javascript">
     
     function selesai(num)

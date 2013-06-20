@@ -120,7 +120,7 @@ class Admin_Model extends Model{
     
     public function deleteUser($where){
         
-        $this->delete('user', $where);
+        return $this->delete('user', $where);
     }
     
     public function setAktifUser($id, $aktif){
@@ -248,14 +248,22 @@ class Admin_Model extends Model{
         $sql = "SELECT a.id_pjs as id_pjs, 
             b.namaPegawai as user, 
             c.bagian as bagian, 
-            d.role as jabatan
+            d.role as jabatan,
+            a.time as time,
+            a.aktif as aktif
             FROM pjs a JOIN user b ON a.user = b.username
             JOIN r_bagian c ON a.bagian = c.id_bagian 
-            JOIN role d ON a.jabatan = d.id_role";
+            JOIN role d ON a.jabatan = d.id_role WHERE a.aktif ='Y'";
         
         return $this->select($sql);
     }
     
+    public function hapuspjs($where){
+        $data = array('aktif'=>'N');
+        return $this->update('pjs',$data,$where);
+    }
+
+
     public function getNomor($bagian){
         $sql = "SELECT kd_nomor FROM nomor WHERE bagian='".$bagian."'";
         $datan = $this->select($sql);

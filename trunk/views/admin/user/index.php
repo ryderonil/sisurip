@@ -1,6 +1,6 @@
 <div class="divleft"><h2>Rekam Pengguna</h2><hr></div>
 <div id="pesan"></div>
-<div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
+<div class="divleft"><div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div></div>
 <div id="form-wrapper">
 <form id="form-rekam" >
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/inputRekamUser">-->
@@ -12,13 +12,13 @@
             }
         ?>
     <div id="wnama"></div>
-    <label>NAMA PEGAWAI</label><input id="nama" type="text" name="namaPegawai" onkeyup="cekemptyfield(1,this.value)"></br>
+    <label>NAMA PEGAWAI</label><input id="nama" type="text" size="50" name="namaPegawai" onkeyup="cekemptyfield(1,this.value)"></br>
     <div id="wnip"></div>
-    <label>NIP</label><input id="nip"  type="text" name="NIP" onkeyup="cekemptyfield(2,this.value)"></br>
+    <label>NIP</label><input id="nip"  type="text" size="18" name="NIP" onkeyup="cekemptyfield(2,this.value)"></br>
     <div id="wuser"></div>
-    <div><label>NAMA USER</label><input id="usern"  type="text" name="username" onkeyup="cekemptyfield(3,this.value)"></br>
+    <div><label>NAMA USER</label><input id="usern"  type="text" size="15" name="username" onkeyup="cekemptyfield(3,this.value)"></br>
     </div><div id="wpass"></div>
-    <div><label>PASSWORD</label><input id="pass"  type="text" name="password" onkeyup="cekemptyfield(4,this.value)"></br>
+    <div><label>PASSWORD</label><input id="pass"  type="text" size="20" name="password" onkeyup="cekemptyfield(4,this.value)"></br>
     </div><div id="wbag"></div>
     <label>BAGIAN</label><select id="bag"  name="bagian" onchange="cekemptyfield(5,this.value)">
         <option value="">--PILIH BAGIAN--</option>

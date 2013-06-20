@@ -1,6 +1,6 @@
 <div class="divleft"><h2>Tambah Klasifikasi Arsip</h2></div>
  <hr>
- <table><tr><td width="50%" valign="top">
+<!-- <table><tr><td width="50%" valign="top">-->
  <div id="pesan"></div>
  <div class="divleft"><div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
  </div><div id="form-wrapper">
@@ -14,18 +14,18 @@
     }
     ?>
     <div id="wkode"></div>   
-    <label>KODE KLASIFIKASI</label><input id="kode"  type="text" name="kode" onkeyup="cekemptyfield(1,this.value)"></br>
+    <label>KODE KLASIFIKASI</label><input id="kode"  type="text" size="10" name="kode" onkeyup="cekemptyfield(1,this.value)"></br>
     <div id="wklas"></div>
-    <label>KLASIFIKASI</label><input id="klas"  type="text" name="klasifikasi" onkeyup="cekemptyfield(2,this.value)"></br>
+    <label>KLASIFIKASI</label><input id="klas"  type="text" size="40" name="klasifikasi" onkeyup="cekemptyfield(2,this.value)"></br>
     <label></label><input class="btn reset" type="reset" value="RESET"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="cek()">
 </form>
 </div>
 </br>
 <hr>
 </br>
-         </td><td width="50%">
+<!--         </td><td width="50%">-->
 <?php if($this->count>0) { $no=1;?>
-<div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
+<div id="table-wrapper" style="overflow:scroll; max-height:400px;"><table class="CSSTableGenerator">
     <tr><td>NO</td><td>KODE</td><td>KLASIFIKASI</td><td>AKSI</td></tr>
     <?php foreach($this->klasArsip as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
@@ -36,7 +36,7 @@
     <?php $no++; }?>
 </table></div>
 <?php } ?>
-         </td></tr></table>
+<!--         </td></tr></table>-->
 <script type="text/javascript">
     
     $(document).ready(function(){

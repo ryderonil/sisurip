@@ -182,6 +182,44 @@ class Lampiran_Model extends Model {
         return $this->select('SELECT * FROM tipe_naskah');
     }
     
+    public function isAllowWrite($id_surat, $tipe_surat){
+        $isAllow = true;
+        switch($tipe_surat){
+            case 'SM':
+                $sql = "SELECT COUNT(a.id_lamp) as jumlah, b.lampiran as lampiran FROM lampiran a LEFT JOIN suratmasuk b 
+                    ON a.id_surat = b.id_suratmasuk WHERE b.id_suratmasuk=".$id_surat;
+                $data = $this->select($sql);
+                $lampds = 0;
+                $lampt = 0;
+                foreach ($data as $val){
+                    $lampds = $val['lampiran'];
+                    $lampt = $val['jumlah'];
+                }
+                
+                if((int) $lampds == (int) $lampt) $isAllow = false;
+                break;
+            case 'SK':
+                $sql = "SELECT COUNT(a.id_lamp) as jumlah, b.lampiran as lampiran FROM lampiran a LEFT JOIN suratkeluar b 
+                    ON a.id_surat = b.id_suratkeluar WHERE b.id_suratkeluar=".$id_surat;
+                $data = $this->select($sql);
+                $lampds = 0;
+                $lampt = 0;
+                foreach ($data as $val){
+                    $lampds = $val['lampiran'];
+                    $lampt = $val['jumlah'];
+                }
+                
+                if((int) $lampds == (int) $lampt) $isAllow = false;
+                break;
+            default:
+                echo "<script type=text/javascript>alert(fungsi tidak diijinkan!);</script>";
+                break;
+        }
+        
+        return $isAllow;
+    }
+
+
     function __destruct() {
         ;
     }

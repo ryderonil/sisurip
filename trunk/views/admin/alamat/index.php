@@ -1,7 +1,7 @@
 <div class="divleft"><h2>Rekam Alamat Surat</h2></div>            
 <hr>
 <div id="pesan"></div>
-<div id="form-wrapper"><form class="admin_form" id="form-rekam" method="POST" action="#">
+<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamAlamat">-->
         <!--<label>KEMENTERIAN/LEMBAGA</label><select></select></br>
         <label>UNIT</label><select></select></br>-->
@@ -11,19 +11,19 @@
             </select></div>
         <div id="wkode"></div>
         <div><label>KODE ALAMAT</label><input type="text" id="kdsatker" name="kode_satker" 
-                                         value="<?php if(isset($this->satker)) echo $this->satker;?>" onkeyup="cekemptyfield(1,this.value)">
+                                         value="<?php if(isset($this->satker)) echo $this->satker;?>" size="8" onkeyup="cekemptyfield(1,this.value)">
         <a href="<?php echo URL;?>helper/pilihsatker"><input type="button" value="+"></a></br>
         </div><div id="wnama"></div>
         <label>NAMA ALAMAT</label><input  type="text" id="nmsatker" name="nama_satker" 
-                                         value="<?php if(isset($this->nm_satker)) echo $this->nm_satker;?>" onkeyup="cekemptyfield(2,this.value)">
+                                         size="40" value="<?php if(isset($this->nm_satker)) echo $this->nm_satker;?>"  onkeyup="cekemptyfield(2,this.value)">
         <!--<div id="nmsatker"></div>--></br>
-        <label>JABATAN</label><input id="jabatan" type="text" name="jabatan"></br>
+        <label>JABATAN</label><input id="jabatan" type="text" name="jabatan" size="30"></br>
         <div id="walamat"></div>
-        <label>ALAMAT</label><input id="alamat"  type="text" name="alamat" onkeyup="cekemptyfield(3,this.value)"></br>
+        <label>ALAMAT</label><input id="alamat"  type="text" name="alamat" onkeyup="cekemptyfield(3,this.value)" size="60" ></br>
         <div id="wtelp"></div>
         <label>TELEPON</label><input id="telp"  type="text" name="telepon" onkeyup="cekemptyfield(4,this.value)"></br>
         <div id="wemail"></div>
-        <label>EMAIL</label><input id="email"  type="text" name="email" onkeyup="cekemptyfield(5,this.value)"></br>
+        <label>EMAIL</label><input id="email"  type="text" name="email" size="25" onkeyup="cekemptyfield(5,this.value)"></br>
         <label></label><input class="btn reset" type="reset" value="RESET"><input type="submit" class="btn save" name="submit" value="SIMPAN" onclick="return cek()">
         <?php 
             if(isset($this->error)){
