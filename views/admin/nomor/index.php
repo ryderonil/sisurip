@@ -1,6 +1,6 @@
 <div class="divleft"><h2>Tambah Format Nomor Surat</h2></div>
 <hr>
-<table><tr><td width="50%" valign="top">
+<!--<table><tr><td width="50%" valign="top">-->
 <div id="pesan"></div>
 <div class="divleft"><div id="btn-show"></br><input  class="btn save" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 </div><div id="form-wrapper">
@@ -14,7 +14,7 @@
             }
         ?>
     <div id="wnomor"></div>   
-    <label>FORMAT NOMOR</label><input id="nomor"  type="text" name="nomor" onkeyup="cekemptyfield(1,this.value);"></br>
+    <label>FORMAT NOMOR</label><input id="nomor"  type="text" size="30" name="nomor" onkeyup="cekemptyfield(1,this.value);"></br>
     <div id="wbagian"></div> 
     <label>BAGIAN</label><select id="bagian"  name="bagian" onchange="cekemptyfield(2,this.value);">
         <option name="" value="" selected>--PILIH BAGIAN--</option>
@@ -27,7 +27,7 @@
 </br>
 <hr>
 </br>
-</td><td width="50%">
+<!--</td><td width="50%">-->
 <?php if($this->count>0) { $no=1;?>
 <div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><td>NO</td><td>BAGIAN</td><td>KODE NOMOR</td><td>AKSI</td></tr>
@@ -40,7 +40,7 @@
     <?php $no++; }?>
 </table></div>
 <?php } ?>
-</td></tr></table>
+<!--</td></tr></table>-->
 <script type="text/javascript">
     
     function selesai()

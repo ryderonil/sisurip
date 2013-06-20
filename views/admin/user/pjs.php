@@ -11,7 +11,7 @@
     <form id="form-rekam" >
     <input id="id" type="hidden" name="id" value="<?php echo $this->user;?>">
     <table>
-        <tr><td><label>NAMA/NIP</label></td><td valign="center">&nbsp;&nbsp;&nbsp;<font color="black"><?php echo strtoupper($this->nama);?></font></td></tr>
+        <tr><td><label>NAMA/NIP</label></td><td valign="center">&nbsp;&nbsp;&nbsp;<font color="#bcd9e1"><?php echo strtoupper($this->nama);?></font></td></tr>
         <tr><td colspan="2"><div id="wbag"></div></td></tr>
         <tr><td><label>BAGIAN</label></td><td><select  id="bagian" name="bagian" onchange="cekemptyfield(1,this.value)">
                     <option value="">--PILIH BAGIAN--</option>
@@ -38,7 +38,7 @@
 <br>
 <div id="table-wrapper">
     <table class="CSSTableGenerator">
-        <tr><td>NO</td><td>NAMA</td><td>PJS</td><td>AKSI</td></tr>
+        <tr><td>NO</td><td>NAMA</td><td>PJS</td><td>WAKTU REKAM</td><td>AKSI</td></tr>
         <?php
             $no=1;
             foreach($this->pjs as $value){
@@ -53,7 +53,9 @@
                 }else{
                     echo "Pjs ".$value['jabatan'];
                 }
-                echo "</td>
+                
+                $dtime = explode(' ',$value['time']);
+                echo "</td><td>".Tanggal::tgl_indo($dtime[0])." ".$dtime[1]."</td>
                     <td><a href=".URL."admin/hapuspjs/".$value['id_pjs']."><input class='btn btn-danger' type=button onclick='return selesai()' value=HAPUS></a></td>
                     </tr>";
                 $no++;

@@ -1,14 +1,14 @@
 <div class="divleft"><h2>Rekam/ Ubah Data Hari Libur</h2></div>
         <hr>
         </br>
-<table>
-    <tr><td width="50%" valign="top"><div id="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
+<!--<table><tr><td width="50%" valign="top">-->
+            <div class="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
         <div id="warning"></div>
         </br>
         <div id="wtgl"></div>
-        <div><label>Tanggal</label><input class="required" id="tgl" type="text" name="tgl" value="<?php echo @Tanggal::tgl_indo($this->tgl);?>" readonly></br>
+        <div><label>TANGGAL</label><input class="required" id="tgl" type="text" name="tgl" value="<?php echo @Tanggal::tgl_indo($this->tgl);?>" readonly></br>
         </div><div id="wket"></div>
-        <label>Keterangan</label><input id="ket" type="text" name="ket" value="<?php echo !$this->ket?'':$this->ket;?>" onkeyup="cekemptyfield(this.value)"></br></br>
+        <label>KETERANGAN</label><input id="ket" type="text" size="60" name="ket" value="<?php echo !$this->ket?'':$this->ket;?>" onkeyup="cekemptyfield(this.value)"></br></br>
         <label></label>&nbsp;&nbsp;&nbsp;<input type="submit" class="btn save" name="submit" value="SIMPAN" onclick="return cek()">
     <?php
         if($this->ket!=false){
@@ -19,7 +19,10 @@
     ?>
     </br>
     </br>
-</form></div></td><td width="50%">
+</form></div>
+        </br>
+        <hr>
+<!--</td><td width="50%">-->
 <!--<div class="span6"><div id="form-wrapper"><form method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
         <div id="warning"></div>
         <h3>Rekam/ Ubah Data Hari Libur</h3>
@@ -61,8 +64,7 @@ $cal->makeCalendar();
 echo "</div>";
 ?>
 
-    </td></tr>
-</table>
+<!--    </td></tr></table>-->
 <script>
     
     $(document).ready(function(){

@@ -1,9 +1,14 @@
 <?php
     $html = new Html();
     $form = new Form_Generator();
+    $html->div_open('class', 'divleft');
     $html->heading('REKAM LAMPIRAN', 2);
-    $html->hr();    
+    $html->div_close();
+    $html->hr();
+    $form = new Form_Generator();
+    $html->div_open('class', 'divleft');
     $html->heading('INFORMASI INDUK SURAT', 3);
+    $html->div_close();
     $html->hr();
     $html->br();
     $html->div_open('id', 'form-wrapper');
@@ -22,10 +27,11 @@
     $html->br();
     $html->hr();
     $html->br();
+    
+    if($this->isAllow){
 ?>
-
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="#"
-                             enctype="multipart/form-data">
+<div id="pesan"></div>
+<div id="form-wrapper"><form id="form-rekam">
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>lampiran/addRekamLampiran"-->
 <!--                             enctype="multipart/form-data">-->
     <?php 
@@ -47,20 +53,22 @@
         ?>
     </select></br>
     <div id="wnomor"></div>
-    <label>NOMOR SURAT</label><input id="nomor"  type="text" name="nomor" onkeyup="cekemptyfield(2,this.value)"></br>
+    <label>NOMOR SURAT</label><input id="nomor"  type="text" size="30" name="nomor" onkeyup="cekemptyfield(2,this.value)"></br>
     <div id="wtgl"></div>
     <label>TANGGAL</label><input  id="datepicker" type="text" name="tanggal" onchange="cekemptyfield(3,this.value)" readonly></br>
     <div id="whal"></div>
-    <label>HAL/TENTANG</label><input id="hal"  type="text" name="hal" onkeyup="cekemptyfield(4,this.value)"></br>
+    <label>HAL/TENTANG</label><input id="hal"  type="text" size="60" name="hal" onkeyup="cekemptyfield(4,this.value)"></br>
     <div id="wasal"></div>
-    <label>ASAL/PENANDA TANGAN</label><input id="asal"  type="text" name="asal" onkeyup="cekemptyfield(5,this.value)"></br>
-    <label>KETERANGAN</label><input type="text" name="keterangan"></br>
+    <label>ASAL/PENANDA TANGAN</label><input id="asal"  type="text" size="40" name="asal" onkeyup="cekemptyfield(5,this.value)"></br>
+    <label>KETERANGAN</label><input type="text" name="keterangan" size="60"></br>
     <div id="wfile"></div>
     <label>PILIH FILE</label><input id="file"  type="file" name="upload" onchange="cekemptyfield(6,this.value)"></br>
-    <label></label><input type="submit" name="submit" value="SIMPAN" onclick="return cek()">
+    <label></label><input type="button" name="submit" value="SIMPAN" onclick="return cek();">
 </form></div>
 <?php 
-    
+    }else{
+        echo "<div id=error>Jumlah lampiran yang direkam telah sesuai dengan data rekam surat!</div>";
+    }
     $mlibur = new Admin_Model();
     
     $libur = $mlibur->getLibur();
@@ -183,7 +191,7 @@
         }
     }
     
-    function cek(num){
+    function cek(){
         var tipe = document.getElementById('tipe').value;
         var nomor = document.getElementById('nomor').value;
         var tgl = document.getElementById('datepicker').value;

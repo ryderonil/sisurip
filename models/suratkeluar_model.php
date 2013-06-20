@@ -269,11 +269,24 @@ class Suratkeluar_Model extends Surat{
             a.time as time
             FROM revisisurat a LEFT JOIN user b
             ON a.user=b.username
-            WHERE a.id_surat=".$id;
+            WHERE a.id_surat=".$id." ORDER BY a.time DESC";
         $data = $this->select($sql);
         return $data;
     }
     
+    public function getJmlRevisi($id){
+        $sql = "SELECT COUNT(*) as jumlah FROM revisisurat WHERE id_surat=".$id;
+        $data = $this->select($sql);
+        $jml=0;
+        foreach ($data as $val){
+            $jml = $val['jumlah'];
+        }
+        
+        return $jml;
+        
+    }
+
+
     function __destruct() {
         ;
     }

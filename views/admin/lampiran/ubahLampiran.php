@@ -1,6 +1,6 @@
 <div class="divleft"><h2>Ubah Jenis Lampiran</h2></div>
 <hr>
-<table><tr><td width="50%" valign="top">
+<!--<table><tr><td width="50%" valign="top">-->
 <div id="pesan"></div>
 <div id="form-wrapper">
 <form id="form-rekam" >
@@ -14,16 +14,16 @@
         ?>
     <input id="id" type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <div id="wtipe"></div>
-    <div><label>TIPE NASKAH DINAS</label><input id="tipe" class="required" type="text" name="tipe_naskah" value="<?php echo $this->data[1];?>" onkeyup="cekemptyfield(1,this.value)"></br>
+    <div><label>TIPE NASKAH DINAS</label><input id="tipe"  type="text" size="40" name="tipe_naskah" value="<?php echo $this->data[1];?>" onkeyup="cekemptyfield(1,this.value)"></br>
     </div><div id="wkdsurat"></div>
-    <div><label>KODE SURAT</label><input id="kdsurat" class="required" type="text" name="kode_naskah" value="<?php echo $this->data[2];?>" onkeyup="cekemptyfield(2,this.value)"></br>
+    <div><label>KODE SURAT</label><input id="kdsurat"  type="text" size="10" name="kode_naskah" value="<?php echo $this->data[2];?>" onkeyup="cekemptyfield(2,this.value)"></br>
     </div><label></label><input class="btn cancel" type="button" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamJenisLampiran';"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[2];?>');">
 </form></div>
 
 </br>
 <hr>
 </br>
-</td><td width="50%">
+<!--</td><td width="50%">-->
 <div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><td>NO</td><td>TIPE NASKAH</td><td>AKSI</td></tr>
     <?php $no=1; foreach($this->lampiran as $key=>$value) {?>
@@ -33,7 +33,7 @@
             <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['tipe_naskah']; ?>');" ></a></td></tr>
     <?php $no++; }?>
 </table></div>
-</td></tr></table>
+<!--</td></tr></table>-->
 <script type="text/javascript">
 
     function selesai(num,lamp)

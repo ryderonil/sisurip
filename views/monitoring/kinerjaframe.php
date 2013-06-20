@@ -2,6 +2,6 @@
 <hr>
 </br>
 <iframe class="grafik-kinerja" align="center" 
-        src="<?php echo URL; ?>monitoring/grafikKinerjaPegawai" width="900" height="500">
+        src="<?php echo URL; ?>monitoring/grafikKinerjaPegawai/<?php echo $this->lebar;?>" width="900" height="500">
 <p align="center">data tidak ada</p>
 </iframe>

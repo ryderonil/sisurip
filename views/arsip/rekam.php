@@ -7,9 +7,13 @@
 
 $html = new Html();
 $form = new Form_Generator();
+$html->div_open('class', 'divleft');
 $html->heading('REKAM ARSIP', 2);
+$html->div_close();
 $html->hr();
+$html->div_open('class', 'divleft');
 $html->heading('INFORMASI INDUK SURAT', 3);
+$html->div_close();
 $html->hr();
 $html->br();
 $html->div_open('id', 'pesan');
@@ -31,6 +35,7 @@ $html->br();
 $html->hr();
 $html->br();
 
+if($this->isAllow){
 ?>
 
 <div id="pesan"></div>
@@ -133,7 +138,12 @@ $html->br();
             return cek(1);
         <?php } ?> "> 
         
-</form></div> <?php } ?>
+</form></div> <?php } 
+
+}else{
+    echo "<div id=error>File surat belum diupload/file pdf belum diupload, arsip belum bisa dicatat!</div>";
+}
+?>
 
 <script type="text/javascript">
     

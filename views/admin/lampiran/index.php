@@ -1,5 +1,5 @@
 <div class="divleft"><h2>Tambah Jenis Lampiran</h2><hr></div>
-<table><tr><td width="50%" valign="top">
+<!--<table><tr><td width="50%" valign="top">-->
 <div id="pesan"></div>
 <div class="divleft"><div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
 </div><div id="form-wrapper">
@@ -13,15 +13,15 @@
             }
         ?>           
     <div id="wtipe"></div>    
-    <div><label>TIPE NASKAH DINAS</label><input id="tipe" class="required" type="text" name="tipe_naskah" onkeyup="cekemptyfield(1,this.value)"></br>
+    <div><label>TIPE NASKAH DINAS</label><input id="tipe"  type="text" size="40" name="tipe_naskah" onkeyup="cekemptyfield(1,this.value)"></br>
     </div><div id="wkdsurat"></div>
-    <div><label>KODE SURAT</label><input id="kdsurat" class="required" type="text" name="kode_naskah" onkeyup="cekemptyfield(2,this.value)"></br>
+    <div><label>KODE SURAT</label><input id="kdsurat"  type="text" size="10" name="kode_naskah" onkeyup="cekemptyfield(2,this.value)"></br>
     </div><label></label><input class="btn reset" type="reset" name="submit" value="RESET"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="cek()">
 </form></div>
 </br>
 <hr>
 </br>
-        </td><td width="50%">
+<!--        </td><td width="50%">-->
 <?php if($this->count>0) { $no=1;?>
 <div id="table-wrapper"><table class="CSSTableGenerator">
     <tr><td>NO</td><td>TIPE NASKAH</td><td>AKSI</td></tr>
@@ -33,7 +33,7 @@
     <?php $no++; }?>
 </table></div>
 <?php } ?>
-        </td></tr></table>
+<!--        </td></tr></table>-->
 <script type="text/javascript">
 
 $(document).ready(function(){

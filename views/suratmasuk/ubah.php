@@ -12,18 +12,20 @@
         ?>
     <input id="id_surat" type="hidden" name="id" value="<?php echo $this->data->getId(); ?>"</br>
     <div id="walamat"></div>
-    <div><label>ASAL</label><input id="alamat" type="text" name="asal_surat" value="<?php echo isset($this->alamat)?$this->alamat:$this->data->getAlamat(); ?>" title="isikan kode alamat asal surat(*)" onkeyup="cekemptyfield(1,this.value)">
+    <div><label>ASAL</label><input id="alamat" type="text" size="8" name="asal_surat" value="<?php echo isset($this->alamat)?$this->alamat:$this->data->getAlamat(); ?>" title="isikan kode alamat asal surat(*)" onkeyup="cekemptyfield(1,this.value)">
     <a href="<?php echo URL;?>helper/pilihalamat/3<?php 
                      echo "/".$this->data->getId();?>"><input type="button" name="" value="+"></a></br>
-    </div><label>AGENDA</label><input id="agenda" type="text" name="no_agenda" value="<?php echo $this->data->getAgenda() ?>"></br>
+    </div><label>AGENDA</label><input id="agenda" type="text" size="6" name="no_agenda" value="<?php echo $this->data->getAgenda() ?>"></br>
     <label>TANGGAL TERIMA</label><input id="tgl_terima" type="text" name="tgl_terima" value="<?php echo $this->data->getTglTerima() ?>" readonly></br>
     <div id="wtgl"></div>
     <div><label>TANGGAL SURAT</label><input id="datepicker" type="text" name="tgl_surat" value="<?php echo Tanggal::ubahFormatToDatePicker($this->data->getTglSurat()) ?>" onchange="cekemptyfield(2,this.value)" readonly></br>
     </div><div id="wnosurat"></div>
-    <div><label>NOMOR SURAT</label><input id="no_surat" type="text" name="no_surat" value="<?php echo $this->data->getNomor() ?>" title="isikan nomor surat(*)" onkeyup="cekemptyfield(3,this.value)">
+    <div><label>NOMOR SURAT</label><input id="no_surat" type="text" size="40" name="no_surat" value="<?php echo $this->data->getNomor() ?>" title="isikan nomor surat(*)" onkeyup="cekemptyfield(3,this.value)">
     <!--<label class="right"><?php echo $value['no_surat'] ?></label>--></br>
     </div><div id="whal"></div>
-    <div><label>PERIHAL</label><input id="perihal" type="" name="perihal" value="<?php echo $this->data->getPerihal() ?>" title="isikan perihal surat(*)" onkeyup="cekemptyfield(4,this.value)"></br>
+    <div><label>PERIHAL</label><textarea id="perihal" cols="30" rows="5" name="perihal" title="isikan perihal surat(*)" onkeyup="cekemptyfield(4,this.value);"><?php echo $this->data->getPerihal() ?></textarea>
+<!--        <input id="perihal" type="" size="60" name="perihal" value="<?php echo $this->data->getPerihal() ?>" title="isikan perihal surat(*)" onkeyup="cekemptyfield(4,this.value)">-->
+        </br>
     <label>STATUS</label><input id="status" type="" name="status" value="<?php echo $this->data->getStatusSurat() ?>"></br>
     </div><div id="wsifat"></div>
     <div><label>SIFAT</label><select id="sifat" name="sifat" onchange="cekemptyfield(5,this.value)">
@@ -54,7 +56,7 @@
     </select>
     <!--<input type="" name="jenis" value="<?php echo $value['jenis'] ?>">--></br>
     </div><div id="wlampiran"></div>
-    <label>LAMPIRAN</label><input id="lampiran" type="" name="lampiran" value="<?php echo $this->data->getJmlLampiran() ?>" title="isikan jumlah lampiran(*)" onkeyup="cekemptyfield(7,this.value)"></br>
+    <label>LAMPIRAN</label><input id="lampiran" type="" size="5" name="lampiran" value="<?php echo $this->data->getJmlLampiran() ?>" title="isikan jumlah lampiran(*)" onkeyup="cekemptyfield(7,this.value)"></br>
     <label></label><input type="button" class="btn cancel" onclick="location.href='<?php echo URL;?>suratmasuk'" value="BATAL"><input type="button" class="btn save" name="submit" value="SIMPAN" onclick="return selesai();">
 </form></div>
 

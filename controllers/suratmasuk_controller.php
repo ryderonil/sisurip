@@ -59,7 +59,7 @@ class Suratmasuk_Controller extends Controller {
 //cek id_sm jika panjang=5 maka kode satker
             $length = strlen($id_sm);
             //echo $length . " " . $id_sm;
-            if ($length == 6) {
+            if ($length == 8) {
                 $this->view->alamat = $id_sm;
                 $almt = new Admin_Model();
                 $alamat = $almt->getAlamat($id_sm);

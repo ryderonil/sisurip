@@ -61,7 +61,7 @@ class Suratkeluar_Controller extends Controller {
 //cek id_sm jika panjang=5 maka kode satker
             $length = strlen($id_sm);
             //echo $length . " " . $id_sm;
-            if ($length == 6) {
+            if ($length == 8) {
                 $this->view->alamat = $id_sm;
                 $almt = new Admin_Model();
                 $alamat = $almt->getAlamat($id_sm);
@@ -237,7 +237,7 @@ class Suratkeluar_Controller extends Controller {
 //cek id_sm jika panjang=5 maka kode satker
             $length = strlen($id_sk);
             //echo $length . " " . $id_sm;
-            if ($length == 6) {
+            if ($length == 8) {
                 $this->view->alamat = $id_sk;
                 $almt = new Admin_Model();
                 $alamat = $almt->getAlamat($id_sk);
@@ -419,7 +419,7 @@ class Suratkeluar_Controller extends Controller {
                 $this->view->error = $this->uploadrev();
             }
         }
-
+        $this->view->jmlrev = $this->model->getJmlRevisi($id);
         $this->view->data = $this->model->getSuratById($id, 'detil');
         $this->view->datar = $this->model->getHistoriRevisi($id);
 

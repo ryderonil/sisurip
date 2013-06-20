@@ -367,12 +367,13 @@ class Monitoring_Controller extends Controller {
         $this->view->load('monitoring/tipe');
     }
     
-    public function grafikKinerjaPegawai(){
+    public function grafikKinerjaPegawai($lebar){
         /*$data = $this->model->kinerjaPegawai();
         $this->view->data = array();
         foreach ($data as $val){
             $this->view->data[] = $val;
         }*/
+        $this->view->lebar = $lebar;
         $kinerja = new KinerjaPegawai();
         $data = $kinerja->displayKinerja();
         $this->view->data = $data;
@@ -380,7 +381,8 @@ class Monitoring_Controller extends Controller {
         $this->view->load('monitoring/kinerjapegawai');
     }
     
-    public function kinerjaPegawai(){        
+    public function kinerjaPegawai(){
+        $this->view->lebar = $_POST['lebar'];
         $this->view->load('monitoring/kinerjaframe');
     }
     //jumlah surat berdasarkan pengirim--->surat masuk
@@ -489,6 +491,11 @@ class Monitoring_Controller extends Controller {
         $this->view->render('notifikasi/notifikasi');
     }
     
+    public function getScreenRes($width,$height){
+        echo json_encode(array('lebar'=>$width, 'panjang'=>$height));
+    }
+
+
     function __destruct() {
         ;
     }

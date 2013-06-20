@@ -22,6 +22,12 @@ div {
 .divleft {
     text-align: left;
 }
+
+.inform {
+    margin:0 auto;
+    max-width: 80%;
+}
+
 a:visited {
     color: red;
 }
@@ -122,6 +128,7 @@ a:visited {
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     margin: 0 auto;
+    background: url("../images/pw_maze_white.png") repeat;
     z-index: 1;
 
 }
@@ -183,16 +190,17 @@ a:visited {
 #form-wrapper {
 /*    text-align: center;*/
     margin: 0 auto;
-    margin-top: 5px;
+    margin-top: 15px;
     width: 75%;
     min-width: 400px;
     padding: 10px;
     font-family: tahoma;
-    color: #0073c8;
-/*    border: 2px solid chocolate;
-    background-color: greenyellow;*/
-    border: 2px solid black;
+/*    color: #0073c8;*/
+    color: #bcd9e1;
+    background-color: greenyellow;
+    box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3); 
     background-color: white;
+    background: url("../images/dark_exa.png") repeat;
     /*background: rgb(243,197,189); /* Old browsers */
     /*background: -moz-linear-gradient(top,  rgba(243,197,189,1) 0%, rgba(232,108,87,1) 50%, rgba(234,40,3,1) 51%, rgba(255,102,0,1) 75%, rgba(199,34,0,1) 100%); /* FF3.6+ */
     /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(243,197,189,1)), color-stop(50%,rgba(232,108,87,1)), color-stop(51%,rgba(234,40,3,1)), color-stop(75%,rgba(255,102,0,1)), color-stop(100%,rgba(199,34,0,1))); /* Chrome,Safari4+ */
@@ -212,6 +220,18 @@ a:visited {
 
 }
 
+.form-wrapper {
+/*    text-align: center;*/
+    margin: 0 auto;
+    margin-top: 15px;
+    width: 85%;
+    padding: 10px;
+    font-family: tahoma;
+    color: #bcd9e1;
+    box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3); 
+    background: url("../images/dark_exa.png") repeat;
+}
+
 #libur {
     margin: 0 auto;
     margin-top: 5px;
@@ -226,6 +246,20 @@ a:visited {
 }
 
 #table-wrapper {
+    margin: 0 auto;
+    margin-top: 5px;
+    width: 98%;
+    padding: 3px;
+    font-family: tahoma;
+    color: #0073c8;
+    /*border: 2px solid chocolate;
+    background-color: greenyellow;*/
+    border: 2px solid black;
+    background-color: white;
+
+}
+
+.cal-wrapper {
     margin: 0 auto;
     margin-top: 5px;
     width: 98%;
@@ -271,10 +305,12 @@ a:visited {
     
 */
 form {
+    margin: 0 auto;
     padding-left: 5px;
 /*    margin-left: 200px; */
     text-align: left;
 /*    margin: 0 auto;*/
+    min-width: 700px;
     display: inline-block;
     font: 100% 'segoe ui',verdana,arial,sans-serif;
 }
@@ -291,6 +327,13 @@ form.backup {
 
 form .admin_form{
     padding-left: 100px;
+/*    margin-left: 200px; */
+}
+
+form .form_libur{
+    width:200px;
+    max-width: 50%;
+    border : 1px solid white;
 /*    margin-left: 200px; */
 }
 
@@ -321,17 +364,18 @@ form label.right {
 
 form input, form select  {
     background-color: #d6d6d6;
-    width: 400px;
+/*    width: 400px;*/
     max-width: 50%;
     margin: 5px 0 0 10px;
     border: 1px solid gray;
+/*    box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.3);*/
     padding: 4px;
 /*    border-radius: 4px;*/
 }
 
 form textarea {
     background-color: #d6d6d6;
-    width: 400px;
+/*    width: 400px;*/
     max-width: 70%;
     margin: 5px 0 0 10px;
     border: 1px solid gray;
@@ -389,7 +433,7 @@ form input#pass {
 }
 
 form input:hover, form select:hover, form textarea:hover {
-    width: 250;
+/*    width: 250;*/
     margin: 5px 0 0 10px;
     border: 1px double silver;
     padding: 4px;    
@@ -441,13 +485,15 @@ iframe {
 /*    min-height: 100%;*/
     min-height: 485px;
     border: solid 2px #000000;
-    background-color: #127e11;
+/*    background-color: #127e11;*/
+background: url("../images/dark_exa.png") repeat;
 }
 
 iframe.grafik-kinerja {
     text-align: center;
-    margin-left: 5%;
-    width: 800px;
+    margin: 0 auto;
+    width: 90%;
+/*    width: 800px;*/
     padding: 10px;
     min-height: 100px;
     border: solid 2px gray;
@@ -627,8 +673,8 @@ iframe.grafik-rekap {
     padding: 0px 15px;
     float: left;
     position: relative;    
-    color: #ff1a1a;
-    text-shadow: 0 1px 0 #7dd5ff;
+    color: #66a9bd;
+    text-shadow: 0 1px 0 #44889b;
     font-family: Arial,Helvetica,sans-serif;
 }
 
@@ -790,12 +836,12 @@ iframe.grafik-rekap {
 }.CSSTableGenerator tr:hover td{
 
 }
-.CSSTableGenerator tr:nth-child(odd){ background-color:#71c2ff; }
+.CSSTableGenerator tr:nth-child(odd){ background-color:#91d0ff; }
 /*.CSSTableGenerator tr:nth-child(odd){ background-color:#aad4ff; } original
 .CSSTableGenerator tr:nth-child(odd){ background-color:#ff8c00; } orenginal
 .CSSTableGenerator tr:nth-child(odd){ background-color:#00bcf2; } bluenginal
 */
-.CSSTableGenerator tr:nth-child(even)    { background-color:#ffffff; }.CSSTableGenerator td{
+.CSSTableGenerator tr:nth-child(even)    { background-color:#bbe0ff; }.CSSTableGenerator td{
     vertical-align:top;
 
 
@@ -819,7 +865,7 @@ iframe.grafik-rekap {
 /*    #1c6dbf
 background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3a97f4), color-stop(1, #1c6dbf) );
 */
-    background:-o-linear-gradient(bottom, #dd282d 5%, #ac1b1e 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dd282d), color-stop(1, #ac1b1e) );
+    background:-o-linear-gradient(bottom, #dd282d 5%, #ac1b1e 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3c7788), color-stop(1, #3c7788) );
     background:-moz-linear-gradient( center top, #3a97f4 5%, #1c6dbf 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a97f4", endColorstr="#1c6dbf");	background: -o-linear-gradient(top,#3a97f4,1c6dbf);
 
@@ -849,7 +895,7 @@ background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-web
 }
 
 .CSSTableGenerator tr:first-child:hover td{
-    background:-o-linear-gradient(bottom, #e04145 5%, #cc2024 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e04145), color-stop(1, #cc2024) );
+    background:-o-linear-gradient(bottom, #e04145 5%, #cc2024 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #305e6b), color-stop(1, #305e6b) );
     background:-moz-linear-gradient( center top, #3a97f4 5%, #1c6dbf 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a97f4", endColorstr="#1c6dbf");	background: -o-linear-gradient(top,#3a97f4,1c6dbf);
 
@@ -864,11 +910,13 @@ background:-o-linear-gradient(bottom, #3a97f4 5%, #1c6dbf 100%);	background:-web
 
 .tableinfo {
     width:100%;
-    margin:0px;padding:0px;
+    min-width: 100px;
+    margin:0 auto;padding:0px;
 }
 
 .tableinfo table {
     width:100%;
+    min-width: 100px;
     margin:0px;padding:0px;
     height: 100%;
     background-color: #dc3c00;
@@ -1176,6 +1224,7 @@ a.button.icon span{
     background: url(../images/search16.png) no-repeat left;
     margin-left: 0px;
     background-color: #498af2;
+    padding-left: 25px;
     background-position: 10px center;
 }
 
@@ -1185,6 +1234,7 @@ a.button.icon span{
     margin-left: 0px;
     background-color: #0049be;
     border: 3px #12407f;
+    padding-left: 25px;
     background-position: 10px center;
 }
 
@@ -1664,7 +1714,8 @@ tr {
 
 /*-----------calendar-----------------*/
 #calendar {
- width: 400px;
+ 
+ width: 85%;
  height: 400px;
  padding-left: 0;
  margin-left: 40px;

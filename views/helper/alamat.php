@@ -8,22 +8,25 @@
     function lookup(alamat,tipe){
         if(alamat.length == 0){
             $('#result').fadeOut();
+            $('#tb_alamat').fadeIn();
         }else{
             $.post("<?php echo URL;?>helper/alamat", {queryString:""+alamat+","+tipe+""},
             function(data){
+                $('#tb_alamat').fadeOut();
                 $('#result').fadeIn();
                 $('#result').html(data);
             });
         }
     }
 </script>
-<h2>Pilih Alamat Surat</h2><input type="text" id="alamat" placeholder="cari alamat" onkeyup="lookup(this.value,'<?php echo $this->surat;?>');">
+<div class="divleft"><h2>Pilih Alamat Surat</h2><form id="form-search"><input type="text" id="search" placeholder="cari alamat" onkeyup="lookup(this.value,'<?php echo $this->surat;?>');"></form></div>
 </br>
 <hr>
 </br>
-<div id="result">
+<div id="result"></div>
+<div id="tb_alamat">
 <table class="CSSTableGenerator">
-    <tr><th>No</th><th>Kode Satker</th><th>Nama Satker</th><th>Pilih</th></tr>
+    <tr><td>No</td><td>Kode Satker</td><td>Nama Satker</td><td>Pilih</td></tr>
     <?php
     $no = 1;
 

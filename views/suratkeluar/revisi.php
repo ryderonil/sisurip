@@ -10,7 +10,7 @@
 //    foreach ($this->data as $val) { 
         $id = $this->data->getId();
         ?>    
-    <tr><td>TANGGAL SURAT</td><td><?php echo $this->data->getTglSurat();?></td></tr>
+        <tr><td>TANGGAL SURAT</td><td><?php echo Tanggal::tgl_indo($this->data->getTglSurat());?></td></tr>
     <tr><td>TUJUAN</td><td><?php echo $this->data->getAlamat();?></td></tr>
     <tr><td>PERIHAL</td><td><?php echo $this->data->getPerihal();?></td></tr>
     <tr><td>SIFAT</td><td><?php echo $this->data->getSifat();?></td></tr>
@@ -24,6 +24,7 @@
         </td><td width="60%" align="left">
 <div id="form-wrapper">
     <form id="form-rekam"   >
+        <p><b>REVISI KE : <?php echo $this->jmlrev+1;?></b></p>
 <!--        <form method="POST" action="<?php echo URL; ?>suratkeluar/uploadrev" enctype="multipart/form-data">-->
         <?php
             if(isset($this->error)){
@@ -35,9 +36,9 @@
         <input type="hidden" name="id" value="<?php echo $id;?>">
         <input type="hidden" name="user" value="<?php echo $user;?>">       
         <div id="winput"></div>
-        <label>CATATAN REVISI</label><textarea id="catatan" name="catatan" cols="100" rows="10" onkeyup="cekemptyfield(1,this.value)"></textarea></br>
+        <label>CATATAN REVISI</label><br><textarea id="catatan" name="catatan" cols="60" rows="10" onkeyup="cekemptyfield(1,this.value)"></textarea></br>
         <div id="wfile"></div>
-        <label>UPLOAD</label><input id="sfile"  type="file" name="upload" onchange="cekemptyfield(2,this.value)"></br>
+        <label>UPLOAD</label><br><input id="sfile"  type="file" name="upload" onchange="cekemptyfield(2,this.value)"></br>
         <label></label><input type="button" class="btn save" name="submit" value="SIMPAN" onclick="return cekinput()">
     </form>
 </div></td></tr></table>
@@ -48,7 +49,8 @@
         <?php
         $no=1;
             foreach ($this->datar as $val){
-                echo "<tr><td>$no</td><td>$val[time] [$val[user]]</br><p>$val[catatan]</p></td>
+                $time = explode(' ', $val['time']);
+                echo "<tr><td>$no</td><td>".Tanggal::tgl_indo($time[0])." ".$time[1]." [$val[user]]</br><p>$val[catatan]</p></td>
                     <td><a href=".URL."suratkeluar/downloadrev/".$val['id_revisi']."><input class='btn download' type=button value=Download></a></td></tr>";
                 $no++;
                 

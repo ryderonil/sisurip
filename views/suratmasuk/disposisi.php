@@ -1,20 +1,8 @@
 <div id="pesan"></div>
-<div id="form-wrapper"><form id="form-rekam">
-        <?php 
-            if(isset($this->error)){
-                echo "<div id=error>$this->error</div>";
-            }elseif(isset($this->success)){
-                echo "<div id=success>$this->success</div>";
-            }
-        ?>
-        <h1 align="center">Catat Disposisi</h1>
+<div id="form-wrapper">
+    <h1 align="center">Catat Disposisi</h1>
         <h2>Informasi Surat :</h2></br>
-        <?php //foreach($this->data as $value) { ?>
-        <?php if($this->count>0){?>
-        <input id="id_disp" type="hidden" name="id_disp" value="<?php echo $this->disp[0]; ?>">
-        <?php } ?>
-        <input id="id_surat" type="hidden" name="id_surat" value="<?php echo $this->data['id_suratmasuk']; ?>">
-        <table class="CSSTableGenerator">
+        <div class="inform"><hr></br><table class="CSSTableGenerator">
             <tr><td colspan="9"></td></tr>
             <tr><td>No Surat </td><td> : </td><td><b><?php echo $this->data['no_surat']; ?></b> </td>
                 <td>Status </td><td> : </td><td><b><?php echo $this->data['status']; ?></b> </td>
@@ -23,10 +11,26 @@
                 <td>Sifat </td><td> : </td><td><b><?php echo $this->data['sifat']; ?></b> </td>
                 <td>no Agenda </td><td> : </td><td><b><?php echo $this->data['no_agenda']; ?></b> </td></tr>
             <tr><td>Lampiran </td><td> : </td><td><b><?php echo $this->data['lampiran']; ?></b> </td>
-                <td>Jenis </td><td> : </td><td><b><?php echo $this->data['jenis']; ?></b></td><td></td><td></td></tr>
+                <td>Jenis </td><td> : </td><td><b><?php echo $this->data['jenis']; ?></b></td><td></td><td></td><td></td></tr>
             <tr><td>Dari </td><td> : </td><td colspan="7"><b><?php echo @$this->data['asal_surat']; ?></b></td></tr>
             <tr><td>Perihal </td><td> : </td><td colspan="7"><b><?php echo $this->data['perihal']; ?></b></td></tr>
-        </table> 
+        </table></div>
+        </br>
+    <form id="form-rekam">
+        <?php 
+            if(isset($this->error)){
+                echo "<div id=error>$this->error</div>";
+            }elseif(isset($this->success)){
+                echo "<div id=success>$this->success</div>";
+            }
+        ?>
+        
+        <?php //foreach($this->data as $value) { ?>
+        <?php if($this->count>0){?>
+        <input id="id_disp" type="hidden" name="id_disp" value="<?php echo $this->disp[0]; ?>">
+        <?php } ?>
+        <input id="id_surat" type="hidden" name="id_surat" value="<?php echo $this->data['id_suratmasuk']; ?>">
+         
         <?php //} ?>
         <hr>
         <h2>Sifat :</h2>
@@ -103,7 +107,7 @@ if ($this->count > 0) {
         <div id="wpetunjuk"></div>
         <hr>
         <h2>Catatan :</h2></br>
-        <textarea class="txtinput" id="inputs" name="catatan" rows="10" cols="150"><?php if($this->count > 0) echo $this->disp[5];?></textarea>
+        <textarea class="txtinput" id="inputs" name="catatan" rows="10" cols="60"><?php if($this->count > 0) echo $this->disp[5];?></textarea>
         <div id="wcatatan"></div>
         <hr>
         <!--<table>

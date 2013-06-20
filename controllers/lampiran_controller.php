@@ -45,6 +45,7 @@ class Lampiran_Controller extends Controller{
             $this->view->data[2] = $sm->getAlamat();
             $this->view->data[3] = $sm->getPerihal();
             $this->view->data[4] = 'SM';
+            $this->view->isAllow = $this->model->isAllowWrite($data->getId(),'SM');
 //        }
         }elseif ($tipe=='SK') {
             $sk = new Suratkeluar_Model();
@@ -57,6 +58,7 @@ class Lampiran_Controller extends Controller{
             $this->view->data[2] = $data->getAlamat();
             $this->view->data[3] = $data->getPerihal();
             $this->view->data[4] = 'SK';
+            $this->view->isAllow = $this->model->isAllowWrite($data->getId(),'SK');
 //        }
         }
 //        var_dump($this->view->data);

@@ -41,7 +41,7 @@ if (isset($this->data)) {
         ?>
         <input id="rujukan" type="hidden" name="rujukan" value="<?php if (isset($this->data[0])) echo $this->data[0];?>">
         <div id="walamat"></div>
-        <div><label>ALAMAT TUJUAN</label><input id="alamat"  type="text" name="tujuan" value="<?php if (isset($this->alamat)) echo $this->alamat; ?>" title="isikan kode alamat tujuan(*)" onkeyup="cekemptyfield(1,this.value)">
+        <div><label>ALAMAT TUJUAN</label><input id="alamat"  type="text" size="8" name="tujuan" value="<?php if (isset($this->alamat)) echo $this->alamat; ?>" title="isikan kode alamat tujuan(*)" onkeyup="cekemptyfield(1,this.value)">
         <a href="<?php echo URL; ?>helper/pilihalamat/2<?php if (isset($this->data)) echo "/" . $this->data[0]; ?>"><input type="button" name="" value="+"></input></a></br>
         </div><div id="wtgl"></div>
         <label>TANGGAL SURAT</label><input type="text" id="datepicker" name="tgl_surat"  onchange="cekemptyfield(2,this.value)" readonly></br>
@@ -54,9 +54,9 @@ if (isset($this->data)) {
             }
             ?></select></br>
             <div id="wnomor"></div>
-        <label>NOMOR</label><input type="text" name="nomor" id="nomor"> <input type="button" value="+" onclick="return cekTipe();"></br>    
+        <label>NOMOR</label><input type="text" size="30" name="nomor" id="nomor"> <input type="button" value="+" onclick="return cekTipe();"></br>    
         <div id="whal"></div>
-        <label>PERIHAL</label><input id="perihal"  type="text" name="perihal" width="300" title="isikah perihal surat(*)" onkeyup="cekemptyfield(3,this.value)"></br>
+        <label>PERIHAL</label><input id="perihal"  type="text" size="60" name="perihal" width="300" title="isikah perihal surat(*)" onkeyup="cekemptyfield(3,this.value)"></br>
         <div id="wsifat"></div>
         <label>SIFAT</label><select id="sifat" name="sifat"  onchange="cekemptyfield(4,this.value)">
             <option value="" selected>--PILIH SIFAT SURAT--</option>
@@ -76,7 +76,7 @@ foreach ($this->klas as $key => $value) {
 ?>
         </select></br>
         <div id="wlampiran"></div>
-        <label>LAMPIRAN</label><input id="lampiran" type="" name="lampiran" title="isikan jumlah lampiran(*)" onkeyup="cekemptyfield(6,this.value)"></br>
+        <label>LAMPIRAN</label><input id="lampiran" type="text" size="5" name="lampiran" title="isikan jumlah lampiran(*)" onkeyup="cekemptyfield(6,this.value)"></br>
         <div id="wfile"></div>
         <label>FILE SURAT</label><input id="sfile" type="file" name="upload" onchange="cekemptyfield(8, this.value)"></br>
         <label></label><input type="reset" class="btn reset" value="RESET"><input type="button" class="btn save" name="submit" value="SIMPAN" onclick="return cek();">

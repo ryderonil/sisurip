@@ -1,6 +1,6 @@
 <div class="divleft"><h2>Ubah Klasifikasi Arsip</h2></div>
 <hr>
-<table><tr><td width="50%" valign="top">
+<!--<table><tr><td width="50%" valign="top">-->
 <div id="pesan"></div>
 <div id="form-wrapper">
 <form id="form-rekam" >
@@ -14,17 +14,17 @@
         ?>
     <input id="id" type="hidden" name="id" value="<?php echo $this->data[0];?>">
     <div id="wkode"></div>
-    <label>KODE KLASIFIKASI</label><input id="kode"  type="text" name="kode" value="<?php echo $this->data[1];?>" onkeyup="cekemptyfield(1,this.value)"></br>
+    <label>KODE KLASIFIKASI</label><input id="kode"  type="text" size="10" name="kode" value="<?php echo $this->data[1];?>" onkeyup="cekemptyfield(1,this.value)"></br>
     <div id="wklas"></div>
-    <label>KLASIFIKASI</label><input id="klas"  type="text" name="klasifikasi" value="<?php echo $this->data[2];?>" onkeyup="cekemptyfield(2,this.value)"></br>
+    <label>KLASIFIKASI</label><input id="klas"  type="text" size="40" name="klasifikasi" value="<?php echo $this->data[2];?>" onkeyup="cekemptyfield(2,this.value)"></br>
     <label></label><input class="btn cancel" type="button" onclick="location.href='<?php echo URL;?>admin/rekamKlasifikasiArsip'" value="BATAL"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[2];?>');">
 </form></div>
 
 </br>
 <hr>
 </br>
-</td><td width="50%">
-<div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
+<!--</td><td width="50%">-->
+<div id="table-wrapper" style="overflow:scroll; max-height:400px;"><table class="CSSTableGenerator">
     <tr><td>NO</td><td>KODE</td><td>KLASIFIKASI</td><td>AKSI</td></tr>
     <?php $no=1; foreach($this->klasArsip as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>
@@ -34,7 +34,7 @@
             <a href="#"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['klasifikasi']?>');"></a></td></tr>
     <?php $no++; }?>
 </table></div>
-</td></tr></table>
+<!--</td></tr></table>-->
 <script type="text/javascript">
     
     function selesai(num,klas)
