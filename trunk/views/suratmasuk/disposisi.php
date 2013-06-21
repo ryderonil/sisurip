@@ -1,6 +1,6 @@
 <div id="pesan"></div>
 <div id="form-wrapper">
-    <h1 align="center">Catat Disposisi</h1>
+    <h1 align="center">REKAM DISPOSISI</h1>
         <h2>Informasi Surat :</h2></br>
         <div class="inform"><hr></br><table class="CSSTableGenerator">
             <tr><td colspan="9"></td></tr>

@@ -1,8 +1,8 @@
-<div class="divleft"><h2>Rekam/ Ubah Data Hari Libur</h2></div>
-        <hr>
-        </br>
+<!--<div class="divleft"><h2>Rekam/ Ubah Data Hari Libur</h2></div>-->
+<!--        <hr>-->
+<!--        </br>-->
 <!--<table><tr><td width="50%" valign="top">-->
-            <div class="form-wrapper"><form id="form-rekam" method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
+<div id="form-wrapper"><h1>REKAM-UBAH DATA HARI LIBUR DAN CUTI BERSAMA</h1><form id="form-rekam" method="POST" action="<?php echo !$this->ket?URL.'admin/rekamLibur':URL.'admin/updateLibur';?>">
         <div id="warning"></div>
         </br>
         <div id="wtgl"></div>

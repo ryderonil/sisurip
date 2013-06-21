@@ -697,7 +697,9 @@ class Suratmasuk_Controller extends Controller {
             $this->view->data[0] = $value['id_suratmasuk'];
             $this->view->data[1] = $value['no_agenda'];
             $this->view->data[2] = $value['no_surat'];
-            $asal = $this->model->select('SELECT nama_satker FROM alamat WHERE kode_satker='.trim($value['asal_surat']));
+//            var_dump($value['asal_surat']);
+            $asal = $this->model->select('SELECT nama_satker FROM alamat WHERE kode_satker="'.trim($value['asal_surat']).'"');
+//            var_dump('SELECT nama_satker FROM alamat WHERE kode_satker='.trim($value['asal_surat']));
                 foreach($asal as $alamat){
                     $this->view->data[3] = $alamat['nama_satker'];
                 }

@@ -1,6 +1,6 @@
-<div class="divleft"><h2>Pengaturan Kantor</h2></div>            
-<hr>
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+<!--<div class="divleft"><h2>Pengaturan Kantor</h2></div>            -->
+<!--<hr>-->
+<div id="form-wrapper"><h1>PENGATURAN KANTOR</h1><form id="form-rekam" method="POST" action="#">
 
 <?php if ($this->cek > 0)  ?><input type="hidden" name="id" value="<?php echo $this->id; ?>">
         <!--<label>BAGIAN ANGGARAN</label><input class="required" type="text" name="ba" value="<?php if ($this->cek > 0) echo $this->ba; ?>"></br>

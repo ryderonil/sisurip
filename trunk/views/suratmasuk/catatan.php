@@ -1,6 +1,6 @@
 <!-- INFORMASI SURAT -->
-<div class="divleft"><h2>Rekam Disposisi Kasubag/Kasi</h2></div>
-<hr>
+<!--<div class="divleft"><h2>Rekam Disposisi Kasubag/Kasi</h2></div>-->
+<!--<hr>-->
 <div id="pesan"></div>
 </br>
 <?php
@@ -14,16 +14,16 @@ if (isset($this->data)) {
     //var_dump($html->div_open('id', 'form-wrapper'));
     $form->form_open('suratkeluar');
     $form->form_label('AGENDA SURAT MASUK');
-    $form->form_input(array('value' => $this->data[1]));
+    $form->form_input(array('value' => $this->data[1],'size'=>6));
     $html->br();
     $form->form_label('NOMOR SURAT MASUK');
-    $form->form_input(array('value' => $this->data[2]));
+    $form->form_input(array('value' => $this->data[2],'size'=>40));
     $html->br();
     $form->form_label('DARI');
-    $form->form_input(array('value' => $this->data[3]));
+    $form->form_input(array('value' => $this->data[3],'size'=>60));
     $html->br();
     $form->form_label('PERIHAL');
-    $form->form_textarea(array('name' => '#'), $this->data[4]);
+    $form->form_textarea(array('name' => '#','cols'=>40,'rows'=>5), $this->data[4]);
     $html->br();
     $form->form_close();
     $html->div_close();
@@ -40,7 +40,7 @@ if (isset($this->error)) {
 
 if (isset($this->data[0])) {
     ?>
-<div id="form-wrapper"><form id="form-rekam">
+<div id="form-wrapper"><h1>REKAM DISPOSISI KASUBAG/KASI</h1><form id="form-rekam">
         
         <input id="id_surat" type="hidden" name="id_surat" value="<?php echo $this->data[0];?>">
         <input id="id_disp" type="hidden" name="id_disp" value="<?php echo $this->datad->id_disposisi;?>">

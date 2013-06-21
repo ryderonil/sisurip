@@ -235,7 +235,7 @@
 <?php if(isset($this->error)) {?>
 <div id="error"><?php echo $this->error;?></div><?php } ?>
 <?php if(isset($this->success)) {?><div id="success"><?php echo $this->success;?></div><?php }?>
-<div id="form-wrapper"><form id="form-rekam" >
+<div id="form-wrapper"><h1>FORM REKAM SURAT MASUK</h1><form id="form-rekam" >
 <!--        action="<?php echo URL; ?>suratmasuk/input"-->
         <label>AGENDA</label><input id="agenda" type="text" name="no_agenda" value="<?php echo @$this->agenda; ?>" size="6" readonly></br>
         <!--<label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->

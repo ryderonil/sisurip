@@ -1,7 +1,7 @@
 <div class="divleft"><h2>Pengaturan Lokasi Penyimpanan Arsip</h2></div>            
         <hr>
         <div id="pesan"></div>
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+<div id="form-wrapper"><h1>UBAH LOKASI PENYIMPANAN ARSIP</h1><form id="form-rekam" method="POST" action="#">
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/updateRekamLokasi">-->
         <?php 
             if(isset($this->error)){

@@ -12,10 +12,10 @@ if (isset($this->data)) {
     //var_dump($html->div_open('id', 'form-wrapper'));
     $form->form_open('suratkeluar');
     $form->form_label('AGENDA SURAT MASUK');
-    $form->form_input(array('value' => $this->data[1]));
+    $form->form_input(array('value' => $this->data[1],'size'=>8));
     $html->br();
     $form->form_label('NOMOR SURAT MASUK');
-    $form->form_input(array('value' => $this->data[2]));
+    $form->form_input(array('value' => $this->data[2],'size'=>30));
     $form->form_close();
     $html->div_close();
     $html->br();
@@ -25,7 +25,7 @@ if (isset($this->data)) {
 ?>
 
 
-<div id="form-wrapper"><form id="form-rekam" >
+<div id="form-wrapper"><h1>REKAM SURAT KELUAR</h1><form id="form-rekam" >
 <!--        <div id="form-wrapper"><form id="form-rekam" method="POST" action="#" enctype="multipart/form-data">-->
     <!--<label>AGENDA</label><input type="text" name="no_agenda" value=""></br>
     <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->

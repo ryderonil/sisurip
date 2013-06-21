@@ -1,7 +1,7 @@
-<div class="divleft"><h2>Rekam Pejabat Sementara</h2></div>
-<hr>
+<!--<div class="divleft"><h2>Pengaturan Pejabat Sementara</h2></div>-->
+<!--<hr>-->
 <div id="pesan"></div>
-<div id="form-wrapper" >
+<div id="form-wrapper" ><h1>REKAM PEJABAT SEMENTARA</h1>
     <?php if(isset($this->warning)) {?>
     <div id="warning"><?php echo $this->warning;?></div>
     <?php } ?>

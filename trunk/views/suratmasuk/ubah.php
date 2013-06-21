@@ -1,8 +1,8 @@
-<div class="divleft"><h2>Ubah Surat Masuk</h2></div>            
-<hr>
+<!--<div class="divleft"><h2>Ubah Surat Masuk</h2></div>            -->
+<!--<hr>-->
 <div id="pesan"></div>
 <?php // foreach($this->data as $key=>$value) { ?>
-<div id="form-wrapper"><form id="form-rekam" >
+<div id="form-wrapper"><h1>UBAH SURAT MASUK</h1><form id="form-rekam" >
         <?php 
             if(isset($this->error)){
                 echo "<div id=error>$this->error</div>";

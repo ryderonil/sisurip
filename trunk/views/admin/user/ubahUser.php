@@ -1,6 +1,6 @@
-<div class="divleft"><h2>Ubah Pengguna</h2><hr></div>
+<div class="divleft"><h2>Pengaturan Pengguna</h2><hr></div>
 <div id="pesan"></div>
-<div id="form-wrapper">
+<div id="form-wrapper"><h1>UBAH PENGGUNA</h1>
 <form id="form-rekam" method="POST" action="#">
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/updateRekamUser">-->
     <?php 

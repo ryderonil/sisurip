@@ -1,5 +1,5 @@
-<div class="divleft"><h2>Ubah Surat Keluar</h2></div>            
-<hr>
+<!--<div class="divleft"><h2>Ubah Surat Keluar</h2></div>            -->
+<!--<hr>-->
 <div id="pesan"></div>
 <?php
 if (isset($this->datasm)) {
@@ -25,7 +25,7 @@ if (isset($this->datasm)) {
 ?>
 
 
-<div id="form-wrapper"><form id="form-rekam" >
+<div id="form-wrapper"><h1>UBAH SURAT KELUAR</h1><form id="form-rekam" >
     <!--<label>AGENDA</label><input type="text" name="no_agenda" value=""></br>
     <label>TANGGAL TERIMA</label><input type="text" name="tgl_terima"></br>-->
         <?php 
