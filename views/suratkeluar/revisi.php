@@ -41,7 +41,7 @@
         <label>UPLOAD</label><br><input id="sfile"  type="file" name="upload" onchange="cekemptyfield(2,this.value)"></br>
         <label></label><input type="button" class="btn save" name="submit" value="SIMPAN" onclick="return cekinput()">
     </form>
-</div></td></tr></table>
+</div></td></tr></table></br>
 <div id="table-wrapper" style="overflow:scroll; max-height:400px;">
     <table class="CSSTableGenerator">
         <tr><td>REV</td><td>CATATAN</td><td>DOWNLOAD</td></tr>

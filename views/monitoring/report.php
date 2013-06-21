@@ -92,7 +92,9 @@ function srkeluarhari(val){
 
 function kinerja(){
     //seharusnya resolusi layar browser!!!
-    var lebar=screen.width;
+//    var lebar=screen.width;
+    var lebar = $('#reportknj').width();
+//    alert(lebar)
     $.post("<?php echo URL;?>monitoring/kinerjaPegawai", {lebar:""+lebar+""},
             function(data){
 //                document.write(val);

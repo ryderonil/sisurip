@@ -14,13 +14,13 @@
     $html->div_open('id', 'form-wrapper');
     $form->form_open('');
     $form->form_label('NOMOR SURAT');
-    $form->form_input(array('value'=>$this->data[1]));
+    $form->form_input(array('value'=>$this->data[1],'size'=>40));
     $html->br();
     $form->form_label('ASAL SURAT');
-    $form->form_input(array('value'=>$this->data[2]));
+    $form->form_input(array('value'=>$this->data[2],'size'=>60));
     $html->br();
     $form->form_label('PERIHAL');
-    $form->form_input(array('value'=>$this->data[3]));
+    $form->form_input(array('value'=>$this->data[3],'size'=>60));
     $html->br();
     $form->form_close();
     $html->div_close();
@@ -31,7 +31,7 @@
     if($this->isAllow){
 ?>
 <div id="pesan"></div>
-<div id="form-wrapper"><form id="form-rekam">
+<div id="form-wrapper"><h1>REKAM LAMPIRAN</h1><form id="form-rekam">
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>lampiran/addRekamLampiran"-->
 <!--                             enctype="multipart/form-data">-->
     <?php 

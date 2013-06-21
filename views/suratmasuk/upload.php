@@ -11,7 +11,7 @@
 </br>
 <hr>
 </br>
-<div id="form-wrapper">
+<div id="form-wrapper"><h1>UPLOAD FILE SURAT MASUK</h1>
     <form id="form-rekam" >
         <?php 
             if(isset($this->error)){

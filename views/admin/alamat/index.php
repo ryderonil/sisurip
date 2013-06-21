@@ -1,7 +1,7 @@
-<div class="divleft"><h2>Rekam Alamat Surat</h2></div>            
+<div class="divleft"><h2>Pengaturan Alamat Surat</h2></div>            
 <hr>
 <div id="pesan"></div>
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+<div id="form-wrapper"><h1>REKAM ALAMAT SURAT</h1><form id="form-rekam" method="POST" action="#">
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamAlamat">-->
         <!--<label>KEMENTERIAN/LEMBAGA</label><select></select></br>
         <label>UNIT</label><select></select></br>-->

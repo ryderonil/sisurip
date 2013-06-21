@@ -1,7 +1,7 @@
-<div class="divleft"><h2>Ubah Alamat Surat</h2></div>            
+<div class="divleft"><h2>Pengaturan Alamat Surat</h2></div>            
 <hr>
 <div id="pesan"></div>
-<div id="form-wrapper"><form id="form-rekam" method="POST" action="#">
+<div id="form-wrapper"><h1>UBAH ALAMAT SURAT</h1><form id="form-rekam" method="POST" action="#">
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/updateRekamAlamat">-->
         
         <input id="id" type="hidden" name="id" value="<?php echo $this->id;?>">

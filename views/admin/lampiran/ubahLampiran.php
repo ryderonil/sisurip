@@ -1,8 +1,8 @@
-<div class="divleft"><h2>Ubah Jenis Lampiran</h2></div>
+<div class="divleft"><h2>Pengaturan Tipe Naskah</h2></div>
 <hr>
 <!--<table><tr><td width="50%" valign="top">-->
 <div id="pesan"></div>
-<div id="form-wrapper">
+<div id="form-wrapper"><h1>UBAH TIPE NASKAH DINAS</h1>
 <form id="form-rekam" >
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/updateRekamLampiran">-->
     <?php 

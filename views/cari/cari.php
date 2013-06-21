@@ -9,7 +9,7 @@
     </form></div>
     <table class="cari-param" >
         <tr width="50%">
-            <td width="15%" valign="top">
+            <td width="15%" valign="top" align="left">
                 <select id="kat" name="kategori" class="tip" title="Kategori Pencarian" onchange="">
                     <option value="all" selected>Semua</option>
                     <option value="suratmasuk">Surat Masuk</option>

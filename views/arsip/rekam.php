@@ -39,7 +39,7 @@ if($this->isAllow){
 ?>
 
 <div id="pesan"></div>
-<div id="form-wrapper"><form id="form-rekam" >
+<div id="form-wrapper"><h1>REKAM-UBAH ARSIP</h1><form id="form-rekam" >
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>arsip/rekamArsip">-->
         <?php 
         if(isset($this->error)){

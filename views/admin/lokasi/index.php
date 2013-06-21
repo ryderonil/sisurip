@@ -2,7 +2,7 @@
         <hr>
         <div id="pesan"></div>
 <div class="divleft"><div id="btn-show"></br><input  class="btn write" type="button" name="submit" value="REKAM" onclick="displayform()"></div>
-</div><div id="form-wrapper"><form id="form-rekam" >
+</div><div id="form-wrapper"><h1>REKAM LOKASI PENYIMPANAN ARSIP</h1><form id="form-rekam" >
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/inputRekamLokasi">-->
         <?php 
             if(isset($this->error)){
