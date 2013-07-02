@@ -22,7 +22,7 @@
                     <option value=30>   30</option>
                 </select>
             </div>--></div></br>
-        <div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
+        <div id="table-wrapper" style="overflow:scroll; max-height:400px;"><table class="CSSTableGenerator">
     <tr><td >NOMOR</td><td >INFORMASI SURAT</td><td >AKSI</td></tr>
 <?php
     foreach($this->data as $value) {

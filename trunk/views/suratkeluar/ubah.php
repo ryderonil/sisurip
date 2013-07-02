@@ -327,11 +327,11 @@ function cekemptyfield(num, content){
         }
         
         if(sfile!=''){
-            jml++;
+//            jml++;
             var csplit = sfile.split(".");
             var ext = csplit[csplit.length-1];
-            if(ext!='doc' && ext!='docx'){
-                if(ext!='pdf'){
+            if(ext!='doc' && ext!='docx' && ext!='pdf'){
+//                if(ext!='pdf'){
                     jml++;
                     var wfile = '<div id=warning>File surat harus dalam format document (doc/docx) atau pdf!</div>'
                     $('#wfile').fadeIn(200);
@@ -339,7 +339,7 @@ function cekemptyfield(num, content){
                 }else{
                     $('#wfile').fadeOut(200);
                 }
-            }
+//            }
         }
         
         if(jml>0){

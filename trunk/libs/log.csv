@@ -897,3 +897,178 @@ DATETIME;USER;TAG;VALUE
 2013-06-21@10:42:05;admin;LOGIN;
 2013-06-21@10:42:10;admin;LOGOUT;
 2013-06-21@10:42:15;kk;LOGIN;
+2013-06-21@11:20:35;kk;LOGIN;
+2013-06-21@18:15:32;kk;LOGIN;
+2013-06-21@20:51:10;kk;LOGIN;
+2013-06-21@20:51:26;kk;LOGOUT;
+2013-06-21@20:51:28;admin;LOGIN;
+2013-06-21@22:11:38;admin;LOGOUT;
+2013-06-21@22:11:43;kk;LOGIN;
+2013-06-22@09:15:50;admin;LOGIN;
+2013-06-22@09:18:42;admin;LOGIN;
+2013-06-22@09:42:21;admin;LOGOUT;
+2013-06-22@09:42:29;mastri;LOGIN;
+2013-06-22@10:03:18;mastri;LOGOUT;
+2013-06-22@14:37:37;kk;LOGIN;
+2013-06-22@14:39:38;kk;LOGOUT;
+2013-06-22@14:39:39;admin;LOGIN;
+2013-06-22@14:44:50;admin;LOGOUT;
+2013-06-22@14:44:57;mastri;LOGIN;
+2013-06-22@14:58:30;mastri;LOGOUT;
+2013-06-22@18:22:02;kk;LOGIN;
+2013-06-22@18:25:24;kk;LOGOUT;
+2013-06-22@18:25:38;admin;LOGIN;
+2013-06-22@18:25:57;admin;LOGIN;
+2013-06-22@18:27:05;admin;LOGIN;
+2013-06-22@18:40:57;admin;LOGIN;
+2013-06-22@18:42:28;admin;LOGOUT;
+2013-06-22@18:43:36;admin;LOGOUT;
+2013-06-22@19:56:11;huri;LOGIN;
+2013-06-22@19:56:14;huri;LOGIN;
+2013-06-22@19:56:15;huri;LOGIN;
+2013-06-22@19:56:16;huri;LOGIN;
+2013-06-22@19:56:35;huri;LOGOUT;
+2013-06-22@19:56:48;admin;LOGIN;
+2013-06-22@19:58:48;admin;LOGOUT;
+2013-06-22@19:59:18;kk;LOGIN;
+2013-06-22@19:59:18;kk;LOGIN;
+2013-06-22@19:59:18;kk;LOGIN;
+2013-06-22@19:59:19;kk;LOGIN;
+2013-06-22@19:59:22;kk;LOGOUT;
+2013-06-22@19:59:25;admin;LOGIN;
+2013-06-22@19:59:42;admin;LOGOUT;
+2013-06-22@20:00:25;admin;LOGIN;
+2013-06-22@13:00:53;admin;"REKAM SM";"user admin rekam surat masuk agenda SM0001"
+2013-06-22@20:01:27;admin;LOGOUT;
+2013-06-22@20:01:32;kk;LOGIN;
+2013-06-22@20:02:12;kk;"REKAM DISPOSISI";"user kk rekam disposisi no agenda SM0001"
+2013-06-22@20:03:25;kk;LOGOUT;
+2013-06-22@20:03:36;marni;LOGIN;
+2013-06-22@20:04:04;marni;LOGIN;
+2013-06-22@20:04:13;marni;LOGOUT;
+2013-06-22@20:04:18;kasi;LOGIN;
+2013-06-22@20:04:52;kasi;"REKAM CATATAN KASI";"user kasi rekam catatan kasi no agenda SM0001"
+2013-06-22@20:05:10;kasi;LOGOUT;
+2013-06-22@20:05:15;mastri;LOGIN;
+2013-06-22@20:07:02;mastri;UPLOAD;"user mastri upload file surat no agenda SM0001 file:M_s_A.308152.pdf"
+2013-06-22@20:07:28;mastri;LOGOUT;
+2013-06-22@20:07:35;kk;LOGIN;
+2013-06-22@20:13:31;kk;LOGOUT;
+2013-06-22@20:13:36;kk;LOGIN;
+2013-06-22@20:33:26;marni;LOGOUT;
+2013-06-22@20:33:33;admin;LOGIN;
+2013-06-22@20:36:41;kk;LOGOUT;
+2013-06-22@20:36:45;mastri;LOGIN;
+2013-06-22@20:37:07;mastri;LOGOUT;
+2013-06-22@20:37:11;kk;LOGIN;
+2013-06-22@23:00:07;kk;LOGOUT;
+2013-06-22@23:00:09;admin;LOGIN;
+2013-06-22@23:01:46;admin;LOGOUT;
+2013-06-22@23:01:50;kasi;LOGIN;
+2013-06-22@23:01:57;kasi;"CHANGE ROLE";"user kasi mengganti role/bagian ke 2/1"
+2013-06-22@23:04:47;kasi;LOGOUT;
+2013-06-22@23:04:51;mastri;LOGIN;
+2013-06-22@23:06:14;mastri;LOGOUT;
+2013-06-22@23:06:20;kk;LOGIN;
+2013-06-23@00:11:11;kk;LOGOUT;
+2013-06-23@00:25:46;kk;LOGIN;
+2013-06-23@10:32:01;admin;LOGIN;
+2013-06-23@10:56:42;admin;LOGOUT;
+2013-06-23@10:56:52;kk;LOGIN;
+2013-06-23@10:58:31;kk;LOGOUT;
+2013-06-23@12:10:11;kk;LOGIN;
+2013-06-23@12:53:02;mastri;LOGIN;
+2013-06-23@05:55:13;mastri;"REKAM SM";"user mastri rekam surat masuk agenda "
+2013-06-23@05:58:49;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.3081"
+2013-06-23@15:39:43;mastri;LOGOUT;
+2013-06-23@15:39:49;kk;LOGIN;
+2013-06-23@17:27:23;kk;LOGOUT;
+2013-06-23@17:54:20;mastri;LOGIN;
+2013-06-23@17:57:51;mastri;LOGOUT;
+2013-06-23@17:57:52;admin;LOGIN;
+2013-06-23@17:58:35;admin;LOGOUT;
+2013-06-23@17:58:40;mastri;LOGIN;
+2013-06-23@18:00:19;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 1 perihal:edaran Kepala Kantor"
+2013-06-23@18:05:14;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 1 perihal:edaran Kepala Kantor"
+2013-06-23@18:06:18;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 1 perihal:edaran Kepala Kantor"
+2013-06-23@18:10:16;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 1 perihal:edaran Kepala Kantor"
+2013-06-23@18:20:34;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 1 perihal:edaran Kepala Kantor"
+2013-06-23@18:21:14;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 1 perihal:edaran Kepala Kantor"
+2013-06-23@18:21:51;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 1 perihal:edaran Kepala Kantor"
+2013-06-23@11:27:05;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.3081"
+2013-06-23@11:30:53;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.3081"
+2013-06-23@11:31:55;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.3081"
+2013-06-23@11:35:33;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.3081"
+2013-06-23@11:41:28;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.2600"
+2013-06-23@11:42:36;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.2600"
+2013-06-23@19:14:23;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 7 perihal:ss"
+2013-06-23@19:14:45;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 7 perihal:ss"
+2013-06-23@19:15:49;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 7 perihal:ss"
+2013-06-23@19:17:31;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 7 perihal:ss"
+2013-06-23@19:18:12;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 7 perihal:ss"
+2013-06-23@19:18:42;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 7 perihal:sss"
+2013-06-23@19:19:11;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 7 perihal:sss"
+2013-06-23@19:20:13;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 7 perihal:sss"
+2013-06-23@19:20:55;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 7 perihal:sss"
+2013-06-23@12:23:23;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.2690"
+2013-06-23@12:26:03;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.2690"
+2013-06-23@12:26:51;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.2690"
+2013-06-23@12:28:43;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.2600"
+2013-06-23@12:31:28;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.2600"
+2013-06-23@12:33:16;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.3081"
+2013-06-23@12:35:25;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.3081"
+2013-06-23@12:35:56;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.3081"
+2013-06-23@19:42:24;mastri;UPLOAD;"user mastri upload file surat no agenda SM0001 file:M_S-01_PA_2013_A.308152.pdf"
+2013-06-23@19:42:35;mastri;LOGOUT;
+2013-06-23@21:11:05;mastri;LOGIN;
+2013-06-23@14:15:06;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.3081"
+2013-06-23@14:15:31;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.3081"
+2013-06-23@14:17:50;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.2690"
+2013-06-23@14:20:09;mastri;"REKAM SK";"user mastri rekam surat keluar tujuan A.2690"
+2013-06-23@21:25:47;mastri;"REKAM REVISI";"user mastri rekam revisi surat keluar id 4 nama file K_4_A.269001.docx"
+2013-06-23@21:28:43;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:30:45;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:34:22;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:35:02;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:36:18;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:36:38;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:37:32;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:38:34;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:38:38;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:38:58;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:39:13;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:39:46;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:43:53;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sddd"
+2013-06-23@21:45:32;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 0 perihal:sddd"
+2013-06-23@21:46:14;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 3 perihal:sddd"
+2013-06-23@21:46:50;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 3 perihal:sddd"
+2013-06-23@21:47:14;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 3 perihal:sddd"
+2013-06-23@21:47:24;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 3 perihal:sddd"
+2013-06-23@22:20:40;mastri;LOGOUT;
+2013-06-23@22:20:44;admin;LOGIN;
+2013-06-23@23:14:15;admin;LOGOUT;
+2013-06-23@23:14:20;kk;LOGIN;
+2013-06-23@23:44:55;kk;LOGOUT;
+2013-06-23@23:45:00;mastri;LOGIN;
+2013-06-23@23:45:13;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 1 perihal:sss"
+2013-06-23@23:46:10;mastri;LOGOUT;
+2013-06-23@23:46:17;kk;LOGIN;
+2013-06-25@14:35:49;admin;LOGIN;
+2013-06-25@14:45:47;admin;LOGIN;
+2013-06-28@21:30:40;mastri;LOGIN;
+2013-06-28@21:31:21;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sss"
+2013-06-28@21:31:54;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sss"
+2013-06-28@21:32:06;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sss"
+2013-06-28@21:35:31;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sss"
+2013-06-28@21:35:49;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sss"
+2013-06-28@21:37:04;mastri;LOGOUT;
+2013-06-28@21:37:12;mastri;LOGIN;
+2013-06-28@21:38:50;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sss"
+2013-06-28@21:40:34;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sss"
+2013-06-28@21:40:48;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 4 perihal:sss"
+2013-06-28@22:08:53;mastri;LOGOUT;
+2013-06-28@22:08:57;mastri;LOGIN;
+2013-06-28@22:09:13;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 2 perihal:2222"
+2013-06-28@22:10:30;mastri;"UBAH SK";"user mastri ubah surat keluar tujuan: 2 perihal:2222"
+2013-07-01@11:29:35;kk;LOGIN;
+2013-07-02@18:10:57;kk;LOGIN;

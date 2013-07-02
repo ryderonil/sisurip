@@ -259,7 +259,8 @@ class Admin_Model extends Model{
     }
     
     public function hapuspjs($where){
-        $data = array('aktif'=>'N');
+        $time = date('Y-m-d H:i:s');
+        $data = array('akhir_aktif'=>$time,'aktif'=>'N');
         return $this->update('pjs',$data,$where);
     }
 

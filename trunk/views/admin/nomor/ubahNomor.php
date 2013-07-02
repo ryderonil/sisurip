@@ -37,13 +37,13 @@
         <td><?php echo $value['bagian']; ?></td>
         <td><?php echo $value['kd_nomor']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahNomor/<?php echo $value['id_nomor'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2);"></a></td></tr>
+            <a ><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,<?php echo $value['id_nomor'];?>);"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <!--</td></tr></table>-->
 <script type="text/javascript">
     
-    function selesai(num)
+    function selesai(num,id)
     {
         if(num==1){
             var answer = confirm ("Anda yakin menyimpan perubahan?")
@@ -54,6 +54,15 @@
         if (answer){
             if(num==1){
                 cek();
+            }else{
+                $.ajax({
+                    type:'post',
+                    url:'<?php echo URL;?>admin/hapusNomor',
+                    data:'id='+id,
+                    success:function(){
+                        window.location.href='<?php echo URL;?>admin/rekamNomor';
+                    }
+                })
             }
             return true;
         }else{

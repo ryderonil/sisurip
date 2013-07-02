@@ -42,7 +42,7 @@
                 </td>
                 <td><button class='btn view' onclick=viewlampiran($value[id_lamp]);>view</button>
                 <a href=".URL."lampiran/ubah/$value[id_lamp]><button class='btn btn-green' >ubah</button></a>
-                <a href=".URL."lampiran/hapus/$value[id_lamp]><button class='btn btn-danger' onclick='return konfirmasi()'>hapus</button></a></td></tr>";
+                <a ><button class='btn btn-danger' onclick='return konfirmasi($value[id_lamp])'>hapus</button></a></td></tr>";
             }
         ?>
         
@@ -77,10 +77,18 @@
         $(".tip").tipTip({maxWidth: "auto", edgeOffset: 10});
     });
     
-    function konfirmasi(){
+    function konfirmasi(id){
         var answer = 'Anda yakin, data lampiran ini akan dihapus?'
         
         if(confirm(answer)){
+            $.ajax({
+                type:'POST',
+                url:'<?php echo URL?>lampiran/hapus',
+                data:'id='+id,
+                success:function(){
+                    window.location.reload();
+                }
+            })
             return true;
         }else{
             return false;
