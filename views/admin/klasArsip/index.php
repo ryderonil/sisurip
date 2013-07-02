@@ -32,7 +32,7 @@
         <td><?php echo $value['kode']; ?></td>
         <td><?php echo $value['klasifikasi']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['klasifikasi'];?>');"></a></td></tr>
+            <a ><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['klasifikasi'];?>',<?php echo $value['id_klasarsip'];?>);"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
@@ -48,10 +48,18 @@
         $('#form-wrapper').fadeIn(500);
     }
     
-    function selesai(klas)
+    function selesai(klas,id)
     {
         var answer = confirm ("Klasifikasi arsip : "+klas+" akan dihapus?");
         if (answer){
+            $.ajax({
+                type:'post',
+                url:'<?php echo URL;?>admin/hapusKlasifikasiArsip',
+                data:'id='+id,
+                success:function(){
+                    window.location.reload();
+                }
+            })
             return true;
         }else{
             return false;

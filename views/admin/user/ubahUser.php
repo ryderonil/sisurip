@@ -1,7 +1,7 @@
 <div class="divleft"><h2>Pengaturan Pengguna</h2><hr></div>
 <div id="pesan"></div>
 <div id="form-wrapper"><h1>UBAH PENGGUNA</h1>
-<form id="form-rekam" method="POST" action="#">
+<form id="form-rekam">
 <!--    <form id="form-rekam" method="POST" action="<?php echo URL; ?>admin/updateRekamUser">-->
     <?php 
             if(isset($this->error)){
@@ -61,7 +61,7 @@
             }
         ?>
     </select></br>   
-    <label></label><input class="btn cancel" type="button" onclick="location.href='<?php echo URL;?>admin/rekamUser'" value="BATAL" ><input class="btn save"type="submit" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[3];?>');">
+    <label></label><input class="btn cancel" type="button" onclick="location.href='<?php echo URL;?>admin/rekamUser'" value="BATAL" ><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="return selesai(1,'<?php echo $this->data[3];?>');">
                     <input class="btn write" type="button" onclick="location.href='<?php echo URL;?>admin/rekamPjs/<?php echo $this->data[1];?>'" value="PENGGANTI">
 </form></div>
 </br>
@@ -74,14 +74,14 @@
         <td><?php echo $value['namaPegawai']; ?></td>
         <td><?php echo $value['username']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['namaPegawai'];?>');"></a></td>
+            <a ><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['namaPegawai'];?>',<?php echo $value['id_user'];?>);"></a></td>
         <td><a ><input class="btn" type="button" value="<?php echo $value['active']; ?>" onclick="setaktifuser('<?php echo $value['id_user'].'-'.$value['active'];?>');"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 
 <script type="text/javascript">
 
-function selesai(num,usern)
+function selesai(num,usern, id)
     {
         if(num==1){
             var answer = confirm('Yakin menyimpan perubahan pengguna atas nama : '+usern+"?")
@@ -92,6 +92,15 @@ function selesai(num,usern)
         if (answer){
             if(num==1){
                 cek();
+            }else{
+                $.ajax({
+                type:'post',
+                url:'<? echo URL; ?>admin/hapusUser',
+                data:'id='+id,
+                success:function(){
+                    window.location.href='<?php echo URL; ?>admin/rekamUser';
+                }
+            })
             }
             
             return true;
@@ -298,6 +307,7 @@ function setaktifuser(id){
                         var walamat = '<div id=warning>Nama user ini telah dipakai!</div>'
                         $('#wuser').fadeIn(500);
                         $('#wuser').html(walamat);
+                        return false;
                     }
                 }
             });

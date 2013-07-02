@@ -421,7 +421,7 @@ class Monitoring_Model extends Model {
     public function getDueDate($tipe,$id=null){
         $due_date = 24;
         if($tipe=='SM'){
-            return $due_date;
+            return 4;
         }elseif ($tipe='SK' AND !is_null($id)) {
             $sk = new Suratkeluar_Model();
             $data = $sk->getSuratById($id, 'ubah');
@@ -605,19 +605,19 @@ class Monitoring_Model extends Model {
      * param time, rentang, $cek (true[cek hari kerja atau bukan], false[])
      */
     public function cekNextDay($start, $param=true, $rentang=null){
-        
+//        var_dump($start);
         $start = explode(" ", $start);
         $from = strtotime($this->jammasuk);
         $to = strtotime($this->jampulang);
         $time = strtotime($start[1]);
-        
+//        var_dump($param);
         $sql = "SELECT tgl FROM libur"; //mendapatkan hari libur
         $data = $this->select($sql);
         //cek dulu hari libur apa nggak!
         if($param){
             $harikerja = true;
             foreach ($data as $val){
-                if(strtotime($start[0])==  strtotime($val['tgl'])) {
+                if(strtotime($start[0]) ==  strtotime($val['tgl'])) {
                     $harikerja=false;
                     break;
                 }  
@@ -628,10 +628,18 @@ class Monitoring_Model extends Model {
             if(date('w',  strtotime($date))==0 OR date('w',  strtotime($date))==6) {
                 $harikerja=false;
             }
-
+//            var_dump($harikerja);
             if($harikerja){
                 if($time<$from) return date('Y-m-d H:i:s',  strtotime ($start[0].' '.$this->jammasuk)); //jika kurang dari jam masuk, catak sbg jam masuk
                 if($time<$to AND $time>$from) return implode (" ", $start); //jika di jam kerja, catat sebagai jam kerja
+            }else{
+                
+                $newdate = strtotime ( '+1 day' , strtotime ( implode(' ',$start) ) );
+                $start_to = date('Y-m-d H:i:s',$newdate);
+//                var_dump($start_to);
+                $tmp = $this->cekNextDay($start_to,true);
+//                var_dump($tmp);
+                return $tmp;
             }
         }
         
@@ -643,6 +651,7 @@ class Monitoring_Model extends Model {
         while($cek==true){
             $startday = strtotime('+1 day', strtotime($startdate)); //masalahnya kayake ada disini
             $startdate = date('Y-m-d',$startday); //diubah ke date dulu
+//            echo $startdate.'</br>';
             $wday = date('w',strtotime($startdate)); //ubah lagi ke strtotime->date  
             $k = false;
             if($wday!=0 AND $wday!=6){
@@ -666,19 +675,48 @@ class Monitoring_Model extends Model {
                 $cek=false;
             }
         }
-        
         if($param){
             return date('Y-m-d H:i;s',  strtotime($startdate.' '.$this->jammasuk));
         }else{
             $hms = $start[1];
-            if($time<$from) $hms = date('Y-m-d H:i:s',  strtotime ($startdate.' '.$this->jammasuk));
-            if($time>$to) $hms = date('Y-m-d H:i:s',  strtotime ($startdate.' '.$this->jampulang));
-            if($time<$to AND $time>$from) $hms = implode (" ", $start);
+            if($time<=$from) $hms = date('Y-m-d H:i:s',  strtotime ($startdate.' '.$this->jammasuk));
+            if($time>=$to) $hms = date('Y-m-d H:i:s',  strtotime ($startdate.' '.$this->jampulang));
+            if($time<$to AND $time>$from) $hms = $startdate.' '.$hms;
             return date('Y-m-d H:i;s',  strtotime($hms));
         }
         
     }
     
+    /*
+     * fungsi mendapatkan waktu di hari kerja terdekat dengan rentang waktu jam yg telah ditentukan
+     * fungsi ini melakukan pengujian hari libur dan meniadakannya
+     */
+    public function findNextHour($start,$hour){
+        $day = explode(' ', $start);
+        $from = strtotime($this->jammasuk);
+        $to = strtotime($this->jampulang);
+        $date = strtotime($day[0]);
+        $time = strtotime('+'.$hour.' hour',strtotime($day[1]));
+        $timediv = 0;
+        if($time>$to){
+//            echo $time.'</br>';
+            $selisih = $to-strtotime($day[1]);
+//            echo $to.'</br>'.strtotime($day[1]).'</br>';
+//            echo $selisih;
+            $timediv = $hour*3600-$selisih;
+//            echo '</br>'.$timediv;
+            $nextday = explode(' ',$this->cekNextDay($day[0].' '.date('H:i:s',$time),true));
+            $timeto = date('H:i:s',$from+$timediv);
+            return $nextday[0].' '.$timeto;
+        }else{
+            $time = date('H:i:s',$time);
+            $return = $day[0].' '.$time;
+            
+            return $return;
+        }
+    }
+
+
     function __destruct() {
         ;
     }

@@ -45,7 +45,7 @@ a:visited {
 
 #header {
     font-size: 14px;
-    position: fixed;
+    position: relative;
     width: 100%;
     min-width: 950px;
     background: #12407f;
@@ -254,7 +254,8 @@ a:visited {
   color: #000000;
   text-align: center;
   text-shadow: 0 1px white;
-  background: url("../images/pw_maze_white.png") repeat;
+/*  background: url("../images/pw_maze_white.png") repeat;*/
+  background: #f3f3f3;
   border-bottom: 1px solid #cfcfcf;
   border-radius: 3px 3px 0 0;
   background-image: -webkit-linear-gradient(top, whiteffd, #eef2f5);
@@ -520,7 +521,7 @@ iframe {
     min-height: 485px;
     border: solid 2px #000000;
 /*    background-color: #127e11;*/
-background: url("../images/dark_exa.png") repeat;
+    background: url("../images/dark_exa.png") repeat;
 }
 
 iframe.grafik-kinerja {

@@ -323,10 +323,11 @@ class Monitoring_Controller extends Controller {
             if ($key == 'SM') {
                 echo '<tr><td></td><td colspan=5><font size=4><strong>SURAT MASUK</strong></font></td></tr>';
                 foreach ($val as $prog) {
-                    $date = new DateTime($prog['start']);
-                    $add = $this->model->getDueDate('SM');
-                    $date->add(new DateInterval('PT' . $add . 'H0M0S'));
-                    $due_date = $date->format('Y-m-d H:i:s'); //cek lagi dengan hari libur
+//                    $date = new DateTime($prog['start']);
+                    $add = (int) $this->model->getDueDate('SM');
+//                    $date->add(new DateInterval('PT' . $add . 'H0M0S'));
+//                    $due_date = $date->format('Y-m-d H:i:s'); //cek lagi dengan hari libur
+                    $due_date = $this->model->findNextHour($prog['start'],$add);
                     echo "<tr><td><font color=black><b>$no</b></font></td>
                         <td><font color=black><b>$prog[no_surat]/</br>$prog[tgl_surat]</b></font></td>
                         <td><font color=black><b>$prog[alamat]</b></font></td>
@@ -340,7 +341,7 @@ class Monitoring_Controller extends Controller {
                 echo '<tr><td></td><td colspan=5><font size=4><strong>SURAT KELUAR</strong></font></td></tr>';
                 foreach ($val as $prog) {
 //                    $date = new DateTime($prog['start']);
-                    $add = (string) $this->model->getDueDate('SK', $prog['id']);
+                    $add = (int) $this->model->getDueDate('SK', $prog['id']);
 //                    $date->add(new DateInterval('PT' . $add . 'H0M0S'));
 //                    $due_date = $date->format('Y-m-d H:i:s');
                     $due_date = $this->model->cekNextDay($prog['start'],false,($add/24));
@@ -349,7 +350,7 @@ class Monitoring_Controller extends Controller {
                         <td><font color=black><b>$prog[alamat]</b></font></td>
                         <td><font color=black><b>$prog[klasifikasi]/</br>$prog[status]</b></font></td>
                         <td><font color=black><b>$prog[start]</b></font></td>
-                        <td><font color=black><b>$due_date</b></font></td>
+                        <td><font color=black><b>".$due_date."</b></font></td>
                         </tr>";
                     $no++;
                 }
@@ -377,7 +378,6 @@ class Monitoring_Controller extends Controller {
         $kinerja = new KinerjaPegawai();
         $data = $kinerja->displayKinerja();
         $this->view->data = $data;
-        
         $this->view->load('monitoring/kinerjapegawai');
     }
     
@@ -495,7 +495,11 @@ class Monitoring_Controller extends Controller {
         echo json_encode(array('lebar'=>$width, 'panjang'=>$height));
     }
 
-
+    public function test(){
+        $date = '2013-06-25 16:30:00';
+        $mon = new Monitoring_Model();
+        echo $mon->cekNextDay($date, false, 5);
+    }
     function __destruct() {
         ;
     }

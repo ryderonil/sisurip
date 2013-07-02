@@ -304,7 +304,7 @@ class Suratmasuk_Controller extends Controller {
     }
 
     public function disposisi($id) {
-        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian')) AND !Auth::isAllow(4, Session::get('role'), 6, Session::get('bagian'))){
             header('location:'.URL.'home');
         }
         if(isset($_POST['submit'])){
@@ -407,7 +407,7 @@ class Suratmasuk_Controller extends Controller {
                         $this->view->data[$i]['jenis'] = $value1['klasifikasi'];
                     }
 //                    $this->view->data[$i]['jenis'] = $value['jenis'];
-                    $sql = 'SELECT nama_satker FROM alamat WHERE kode_satker=' . trim($this->model->getAlamat());
+                    $sql = 'SELECT nama_satker FROM alamat WHERE kode_satker="' . trim($this->model->getAlamat()).'"';
                     $asal = $this->model->select($sql);
                     foreach ($asal as $value1) {
                         $this->view->data[$i]['asal_surat'] = $value1['nama_satker'];
@@ -447,7 +447,7 @@ class Suratmasuk_Controller extends Controller {
                     $this->view->data[0]['jenis'] = $value1['klasifikasi'];
                 }
 //                $this->view->data[0]['jenis'] = $value['jenis'];
-                $sql = 'SELECT nama_satker FROM alamat WHERE kode_satker=' . trim($this->model->getAlamat());
+                $sql = 'SELECT nama_satker FROM alamat WHERE kode_satker="' . trim($this->model->getAlamat()).'"';
                 $asal = $this->model->select($sql);
                 foreach ($asal as $value1) {
                     $this->view->data[0]['asal_surat'] = $value1['nama_satker'];
@@ -792,6 +792,13 @@ class Suratmasuk_Controller extends Controller {
         echo $nomor->generateNumber('SM');
     }
     
+    public function test(){
+        $mon = new Monitoring_Model();
+        $start = $mon->cekNextDay(date('Y-m-d h:m:s'),true);
+        echo $start;
+    }
+
+
     function __destruct() {
         ;
     }

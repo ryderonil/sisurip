@@ -161,15 +161,14 @@ class Suratkeluar_Model extends Surat{
                 a.file as file,
                 e.status as status,
                 f.tipe_naskah as tipe
-                FROM suratkeluar a JOIN alamat b ON a.tujuan = b.kode_satker
-                JOIN sifat_surat c ON a.sifat = c.kode_sifat
-                JOIN klasifikasi_surat d ON a.jenis = d.kode_klassurat
-                JOIN status e ON a.status = e.id_status
-                JOIN tipe_naskah f ON a.tipe = f.id_tipe WHERE a.id_suratkeluar=" . $id;
+                FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker
+                LEFT JOIN sifat_surat c ON a.sifat = c.kode_sifat
+                LEFT JOIN klasifikasi_surat d ON a.jenis = d.kode_klassurat
+                LEFT JOIN status e ON a.status = e.id_status
+                LEFT JOIN tipe_naskah f ON a.tipe = f.id_tipe WHERE a.id_suratkeluar=" . $id;
         }elseif ($aksi=='ubah') {
             $sql='SELECT * FROM suratkeluar WHERE id_suratkeluar='.$id;
         }
-//        var_dump($sql);
         $data = $this->select($sql);
 //        var_dump($data);
         foreach ($data as $value){
@@ -196,7 +195,17 @@ class Suratkeluar_Model extends Surat{
     }
     
     public function editSurat($data=null,$where=null){
-        return $this->update('suratkeluar', $data, $where);
+        $this->beginTransaction();
+        $this->exec('LOCK TABLES suratkeluar WRITE');
+        $this->update('suratkeluar', $data, $where);
+        if($this->commit()){
+            $this->exec('UNLOCK TABLES');
+            return TRUE;
+        }else{
+            $this->rollBack();
+            $this->exec('UNLOCK TABLES');
+            return false;
+        }
     }
     
     public function remove($id=null){
@@ -224,7 +233,7 @@ class Suratkeluar_Model extends Surat{
     
     public function uploadFile($data,$where){
     
-        $this->update('suratkeluar', $data, $where);
+        return $this->update('suratkeluar', $data, $where);
     }
     
     public function addRevisi($data){
@@ -283,6 +292,24 @@ class Suratkeluar_Model extends Surat{
         }
         
         return $jml;
+        
+    }
+    
+    /*
+     * fungsi cek nomor surat keluar, validasi apakah ada nomor yang sama di database
+     * dengan nomor yg digenerate, jika ada maka buat nomor baru
+     */
+    public function cekIfExistNomor($nomor, $tipe, $bagian){
+        $sql = 'SELECT COUNT(*) as jumlah FROM suratkeluar WHERE no_surat="'.$nomor.'" AND tipe='.$tipe;
+        $data = $this->select($sql);
+        foreach ($data as $val){
+            if(((int) $val['jumlah'])>0){
+                $no = new Nomor();
+                return $no->generateNumber($tipe, $bagian).'/'.date('Y'); 
+            }else{
+                return $nomor;
+            }
+        }
         
     }
 

@@ -29,7 +29,7 @@
     <tr><td><?php echo $no; ?></td>        
         <td><?php echo $value['tipe_naskah']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_tipe'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['tipe_naskah']; ?>');"></a></td></tr>
+            <a ><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['tipe_naskah']; ?>',<?php echo $value['id_tipe'];?>);"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
@@ -45,11 +45,20 @@ $(document).ready(function(){
         $('#form-wrapper').fadeIn(500);
     }
     
-function selesai(lamp){
+function selesai(lamp,id){
     
     var answer = 'Tipe naskah dinas : '+lamp+" akan dihapus?"
     
     if(confirm(answer)){
+        
+            $.ajax({
+                type:'post',
+                url:'<?php echo URL;?>admin/hapusLampiran',
+                data:'id='+id,
+                success:function(){
+                    window.location.reload();
+                }
+            })
         return true;
     }else{
         return false;

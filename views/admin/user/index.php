@@ -57,7 +57,7 @@
         <td><?php echo $value['namaPegawai']; ?></td>
         <td><?php echo $value['username']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahUser/<?php echo $value['id_user'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusUser/<?php echo $value['id_user'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['username'];?>');"></a></td>
+            <a ><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai('<?php echo $value['username'];?>',<?php echo $value['id_user'];?>);"></a></td>
         <td><a ><input class="btn" type="button" value="<?php echo $value['active']; ?>" onclick="return setaktifuser('<?php echo $value['id_user'].'-'.$value['active'];?>',<?php echo $value['bagian']; ?>,<?php echo $value['role']; ?>); "></a></td></tr>
     <?php $no++; }?>
 </table></div>
@@ -65,10 +65,18 @@
 
 <script type="text/javascript">
 
-    function selesai(user){
+    function selesai(user,id){
         var answer = 'apakah akun atas nama '+user+' akan dihapus?'
         
         if(confirm(answer)){
+            $.ajax({
+                type:'post',
+                url:'<? echo URL; ?>admin/hapusUser',
+                data:'id='+id,
+                success:function(){
+                    window.location.reload();
+                }
+            })
             return true;
         }else{
             return false;

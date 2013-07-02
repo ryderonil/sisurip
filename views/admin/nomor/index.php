@@ -36,20 +36,28 @@
         <td><?php echo $value['bagian']; ?></td>
         <td><?php echo $value['kd_nomor']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahNomor/<?php echo $value['id_nomor'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusNomor/<?php echo $value['id_nomor'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai();"></a></td></tr>
+            <a ><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(<?php echo $value['id_nomor'];?>);"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <?php } ?>
 <!--</td></tr></table>-->
 <script type="text/javascript">
     
-    function selesai()
+    function selesai(id)
 {
     
         var answer = confirm ("Anda yakin data ini akan dihapus?")
    
   
     if (answer){
+        $.ajax({
+                type:'post',
+                url:'<?php echo URL;?>admin/hapusNomor',
+                data:'id='+id,
+                success:function(){
+                    window.location.reload();
+                }
+            })
         return true;
     }else{
         

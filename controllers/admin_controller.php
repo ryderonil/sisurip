@@ -495,7 +495,7 @@ class Admin_Controller extends Controller {
             'user'=>$user,
             'bagian'=>$bagian,
             'jabatan'=>$jabatan,
-            'time'=>$time
+            'awal_aktif'=>$time
         );
 
         if($this->model->rekamPjs($data)){
@@ -630,8 +630,8 @@ class Admin_Controller extends Controller {
 //        return true;
     }
 
-    public function hapusNomor($id) {
-        
+    public function hapusNomor() {
+        $id=$_POST['id'];
         $this->model->deleteNomor($id);
         $this->rekamNomor();
     }
@@ -669,8 +669,8 @@ class Admin_Controller extends Controller {
 //        return true;
     }
 
-    public function hapusKlasifikasiArsip($id) {
-        
+    public function hapusKlasifikasiArsip() {
+        $id= $_POST['id'];
         $this->model->deleteKlasifikasiArsip($id);
         $this->rekamKlasifikasiArsip();
     }
@@ -720,7 +720,8 @@ class Admin_Controller extends Controller {
      * ubah status lampiran menjadi aktif dan tidak aktif
      * 
      */
-    public function hapusLampiran($id) {
+    public function hapusLampiran() {
+        $id=$_POST['id'];
         $where = ' id_tipe =' . $id;
         $this->model->deleteLampiran($where);
         $this->rekamJenisLampiran();
@@ -827,7 +828,8 @@ class Admin_Controller extends Controller {
         }
     }
 
-    public function hapusUser($id) {
+    public function hapusUser() {
+        $id = $_POST['id'];
         $user = new User();
         $user->set('id_user', $id);
         $user->hapusUser();
@@ -952,7 +954,7 @@ class Admin_Controller extends Controller {
             'email'=>$_POST['email']
         );
         
-        if($this->model->existAlamat($_POST['kode_satker'])){
+        if($this->model->existAlamat($tipe.'.'.$_POST['kode_satker'])){
             echo "<div id=error>alamat dengan kode $_POST[kode_satker] telah ada di database!</div>";
             return false;
         }
@@ -980,7 +982,7 @@ class Admin_Controller extends Controller {
             return false;
         }*/
         
-        $where = ' id_alamat='.$_POST['id'];
+        $where = ' id_alamat='.$_POST['id_alamat'];
         if($this->model->updateAlamatSurat($data, $where)){
             echo "<div id=success>Ubah data alamat kode alamat $_POST[kode_satker] berhasil</div>";
         }else{

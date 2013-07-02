@@ -174,7 +174,7 @@ $roleuser = Helper_Model::getRoleUser($user);
                                        }
                                    }
                                 });
-                            },10*1000); // every 10 seconds
+                            },3*1000); // every 10 seconds
                         }) 
         
                         function changerole(role){

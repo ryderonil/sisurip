@@ -110,20 +110,22 @@ class Suratkeluar_Controller extends Controller {
         $mon = new Monitoring_Model();
         $time = $mon->cekNextDay(date('Y-m-d H:i:s'),true);
         $tgl = $_POST['tgl_surat'] == '0000-00-00' ? date('Y-m-d') : $_POST['tgl_surat'];
+        $status = $_POST['nomor']==''?'21':'22';
         $data = array(
             'rujukan' => $_POST['rujukan'],
             'no_surat' => $_POST['nomor'],
             'tipe' => $_POST['tipe'],
             'tgl_surat' => Tanggal::ubahFormatTanggal($tgl),
-            'tujuan' => substr($_POST['tujuan'], 0, 6),
+            'tujuan' => substr($_POST['tujuan'], 0, 8),
             'perihal' => $_POST['perihal'],
             'sifat' => $_POST['sifat'],
             'jenis' => $_POST['jenis'],
             'lampiran' => $_POST['lampiran'],
             'user' => Session::get('user'),
-            'status' => '21',
+            'status' => $status,
             'start' => $time
         );
+        
         if ($this->model->input($data)) {
             //var_dump($data);       
             //upload file surat, sementara di temp folder krn belom dapat nomor
@@ -132,10 +134,13 @@ class Suratkeluar_Controller extends Controller {
               }else{
               $this->view->error = "rekam data surat keluar tidak berhasil";
               } */
-
-            $upload->setDirTo('arsip/temp/');
+            if(end(explode('.', $upload->getFileName()))=='pdf'){
+                $upload->setDirTo('arsip/');
+            }elseif(end(explode('.', $upload->getFileName()))=='docx' OR end(explode('.', $upload->getFileName()))=='doc'){
+                $upload->setDirTo('arsip/temp/');
+            }
             $tipe = 'K';
-            $satker = substr($_POST['tujuan'], 0, 6);
+            $satker = substr($_POST['tujuan'], 0, 8);
             $id = 0;
             $sql = "SELECT MAX(id_suratkeluar) as id FROM suratkeluar";
             $did = $this->model->select($sql);
@@ -181,7 +186,7 @@ class Suratkeluar_Controller extends Controller {
     public function detil($id) {
         $data = $this->model->getSuratById($id, 'detil');
 //        foreach ($data as $value) {
-        $this->view->id = $this->model->getId();
+        $this->view->id = $data->getId();
         $this->view->rujukan = $this->model->getRujukan();
         $this->view->tipe = $this->model->getTipeSurat();
         $this->view->no_surat = $this->model->getNomor();
@@ -194,7 +199,7 @@ class Suratkeluar_Controller extends Controller {
         $this->view->file = $this->model->getFile();
         $this->view->status = $this->model->getStatus();
 //        }
-
+        
         $lamp = new Lampiran_Model();
         $this->view->datal = $lamp->getLampiranSurat($this->view->id, 'SK');
 
@@ -281,37 +286,55 @@ class Suratkeluar_Controller extends Controller {
         $temp = explode(' ', $_POST['tujuan']);
         $tujuan = $temp[0];
         $upload = new Upload('upload');
+//        cek nomor ada yg sama di db ato gak
+        if($_POST['nomor']!=''){
+            $bagian = Session::get('bagian');
+            $sql = "SELECT kd_bagian FROM r_bagian WHERE id_bagian=" . $bagian;
+            $datab = $this->model->select($sql);
+            foreach ($datab as $val) {
+                $bagian = $val['kd_bagian'];
+            }
+            $nomor = $this->model->cekIfExistNomor($_POST['nomor'],$_POST['tipe'],$bagian);
+        }else{
+            $nomor = $_POST['nomor'];
+        }
         $data = array(
             "tipe" => $_POST['tipe'],
             "tgl_surat" => Tanggal::ubahFormatTanggal($_POST['tgl_surat']),
-            "no_surat" => $_POST['nomor'],
+            "no_surat" => $nomor,
             "tujuan" => $tujuan,
             "perihal" => $_POST['perihal'],
             "sifat" => $_POST['sifat'],
             "jenis" => $_POST['jenis'],
             "lampiran" => $_POST['lampiran']
         );
-
         $id = $_POST['id'];
         $where = "id_suratkeluar = '" . $id . "'";
 //        var_dump($data);
 //        var_dump($where);
 //        var_dump($_FILES);
         //echo $where;
-        if ($this->model->editSurat($data, $where)) { //status net
+        $update = $this->model->editSurat($data, $where);
+        if ($update) { //status net
             if ($_POST['nomor'] != '') {
                 $data = array('status' => 22);
                 $this->model->editSurat($data, $where);
             }
+            echo "<div id=success>Ubah data surat berhasil</div>";
             //upload file
-            $upload->setDirTo('arsip/');
+            if(end(explode('.', $upload->getFileName()))=='pdf'){
+                $upload->setDirTo('arsip/');
+            }elseif(end(explode('.', $upload->getFileName()))=='docx' OR end(explode('.', $upload->getFileName()))=='doc'){
+                $upload->setDirTo('arsip/temp/');
+            }
+            
             $tipe = 'K';
-            $satker = substr($_POST['tujuan'], 0, 6);
-            $id = 0;
+            $satker = substr($_POST['tujuan'], 0, 8);
+//            $id = 0;
             $sql = "SELECT MAX(id_suratkeluar) as id FROM suratkeluar";
             $did = $this->model->select($sql);
             foreach ($did as $valid) {
-                $id = $valid['id'];
+                $id_max = $valid['id'];
             }
             //nama baru akan terdiri dari tipe naskah_nomor surat_asal(asal/tetapi asal terlaku kepanjangan)
             $ubahNama = array($tipe, $id, $satker);
@@ -319,7 +342,6 @@ class Suratkeluar_Controller extends Controller {
             $upload->changeFileName($upload->getFileName(), $ubahNama);
             $namafile = $upload->getFileTo();
             $where = ' id_suratkeluar=' . $id;
-
             $data = array(
                 'file' => $namafile
             );
@@ -327,16 +349,14 @@ class Suratkeluar_Controller extends Controller {
                 $upload->uploadFile();
                 $this->model->uploadFile($data, $where);
             }
-            //mgkn bisa pake js untuk pesan berhasil atau gagal, dan dimunculkan di halaman yg sama
-            //atau dimunculkan di halaman lihat data surat keluar
-//        header('location:' . URL . 'suratkeluar');
+            
             @Session::createSession();
             $user = Session::get('user');
             $log = new Log();
             $log->addLog($user, 'UBAH SK', 'user ' . $user . ' ubah surat keluar tujuan: ' . $id . ' perihal:' . $_POST['perihal']);
             unset($log);
 //        return true;
-            echo "<div id=success>Ubah data surat berhasil</div>";
+            
         } else {
             echo "<div id=error>Ubah data surat gagal</div>";
         }
@@ -422,7 +442,6 @@ class Suratkeluar_Controller extends Controller {
         $this->view->jmlrev = $this->model->getJmlRevisi($id);
         $this->view->data = $this->model->getSuratById($id, 'detil');
         $this->view->datar = $this->model->getHistoriRevisi($id);
-
         $this->view->render('suratkeluar/revisi');
     }
 

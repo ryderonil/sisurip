@@ -193,8 +193,8 @@ class Lampiran_Controller extends Controller{
             $file = explode("_", $filex);
             $j = count($file);
             $ext = explode('.',$file[$j-1]);
-            var_dump($ext);
-            var_dump($file);
+//            var_dump($ext);
+//            var_dump($file);
 //            $namafile = explode("_", $file);
 //            var_dump($namafile);
             $file[0] = $tipe;
@@ -204,7 +204,7 @@ class Lampiran_Controller extends Controller{
                 echo $file[$i].'</br>';
             }
             $namafile = trim($namafile, "_").'_'.$ext[0].'.'.$ext[1];
-            var_dump($namafile);
+//            var_dump($namafile);
 //            $namafile = implode("_", $namafile);
             rename('arsip/'.$filex, 'arsip/'.$namafile);
         }
@@ -252,7 +252,8 @@ class Lampiran_Controller extends Controller{
         
     }
     
-    public function hapus($id){
+    public function hapus(){
+        $id = $_POST['id'];
         $sql = "SELECT file FROM lampiran WHERE id_lamp=".$id;
         $data = $this->model->select($sql);
         $file='';
@@ -262,7 +263,13 @@ class Lampiran_Controller extends Controller{
         $this->model->set('id_lamp', $id);
         $hapus = $this->model->deleteLampiran();
         if($hapus){
-            unlink('arsip/'.$file);
+            try{
+                unlink('arsip/'.$file);
+            }  catch (Exception $e){
+                echo 'file tidak ditemukan</br>';
+//                echo $e->getMessage().'</br>';
+            }
+            
             echo "Data lampiran berhasil dihapus";
         }else{
             echo "Data lampiran gagal dihapus!";

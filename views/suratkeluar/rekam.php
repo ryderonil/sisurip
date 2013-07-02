@@ -353,7 +353,7 @@ foreach ($this->klas as $key => $value) {
         var formData = new FormData($('#form-rekam')[0]);
         
         $.ajax({
-            url: '<?php echo URL; ?>suratmasuk/input',
+            url: '<?php echo URL; ?>suratkeluar/input',
             type: 'POST',
             data: formData,
             async: false,

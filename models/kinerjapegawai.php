@@ -51,14 +51,15 @@ class KinerjaPegawai extends Model{
     }
     
     public function calculateKinerja(User $user){
-        $sql = "SELECT a.id_suratkeluar as no_agenda,
+        $sql = "SELECT 
+                a.id_suratkeluar as no_agenda,
                 a.start as start,
                 a.end as end,
                 b.namaPegawai as nama
                 FROM suratkeluar a 
                 LEFT JOIN user b ON a.user = b.username
-                WHERE a.user='".$user->get('nama_user')."'";
-        
+                WHERE a.user='".$user->get('nama_user')."'
+                    ";
         $data = $this->select($sql);
         $arraydata = null;
         $monitoring = new Monitoring_Model();
@@ -115,6 +116,7 @@ class KinerjaPegawai extends Model{
         foreach ($data as $val){
             if(Auth::isRole($val->get('role'), 3)){
                 $kp = $this->calculateKinerja($val);
+                if(!is_null($kp))
                 $kinerja[]=$kp;
             }
             

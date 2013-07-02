@@ -23,9 +23,9 @@ class Upload{
         $this->setDirFrom($_FILES[$fupload]['tmp_name']);
         $this->setFileExt($_FILES[$fupload]['type']);
         $this->setFileName($_FILES[$fupload]['name']);        
-//        echo $this->getDirFrom();
-//        echo $this->getFileExt();
-//        echo $this->getFileName();        
+//        echo $this->getDirFrom().'</br>';
+//        echo $this->getFileExt().'</br>';
+//        echo $this->getFileName().'</br>';        
     }
     
     public function cekFileExist(){
@@ -39,7 +39,7 @@ class Upload{
     public function cekEkstensi($fileExt){
         //$this->setFileExt($fileExt);
         
-        if($fileExt == __EXT_FILE__ OR $fileExt == 'application/msword' OR $fileExt == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+        if($fileExt == __EXT_FILE__ OR $fileExt == 'application/msword' OR $fileExt == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' OR $fileExt == 'application/octet-stream'){
             return true;
         }else{
             return false;

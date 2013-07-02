@@ -30,13 +30,13 @@
     <tr><td><?php echo $no; ?></td>        
         <td><?php echo $value['tipe_naskah']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahLampiran/<?php echo $value['id_tipe'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
-            <a href="<?php echo URL;?>admin/hapusLampiran/<?php echo $value['id_tipe'];?>"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['tipe_naskah']; ?>');" ></a></td></tr>
+            <a ><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['tipe_naskah']; ?>',<?php echo $value['id_tipe'];?>);" ></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <!--</td></tr></table>-->
 <script type="text/javascript">
 
-    function selesai(num,lamp)
+    function selesai(num,lamp,id)
     {
         if(num==1){
             var answer = confirm('Yakin menyimpan perubahan tipe naskah dinas : '+lamp+"?")
@@ -47,6 +47,15 @@
         if (answer){
             if(num==1){
                 cek();
+            }else{
+                $.ajax({
+                    type:'post',
+                    url:'<?php echo URL;?>admin/hapusLampiran',
+                    data:'id='+id,
+                    success:function(){
+                        window.location.href='<?php echo URL;?>admin/rekamJenisLampiran';
+                    }
+                })
             }
             
             return true;

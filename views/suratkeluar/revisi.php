@@ -1,5 +1,8 @@
 <div class="divleft"><h2>Catatan Revisi</h2></div>
 <hr>
+<?php if(end(explode('.', $this->data->getFile()))=='pdf'){
+    echo "<div id=warning>File surat berekstensi pdf, tidak dapat direvisi!</div>";
+}else{ ?>
 <div id="pesan"></div>
 </br>
 <table><tr><td width="40%" valign="top" align="right">
@@ -59,7 +62,7 @@
     </table>
     
 </div>
-
+<?php }?>
 <script type="text/javascript">
 
     $(document).ready(function(){

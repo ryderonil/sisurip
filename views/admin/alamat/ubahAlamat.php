@@ -1,7 +1,7 @@
 <div class="divleft"><h2>Pengaturan Alamat Surat</h2></div>            
 <hr>
 <div id="pesan"></div>
-<div id="form-wrapper"><h1>UBAH ALAMAT SURAT</h1><form id="form-rekam" method="POST" action="#">
+<div id="form-wrapper"><h1>UBAH ALAMAT SURAT</h1><form id="form-rekam" >
 <!--        <form id="form-rekam" method="POST" action="<?php echo URL;?>admin/updateRekamAlamat">-->
         
         <input id="id" type="hidden" name="id" value="<?php echo $this->id;?>">
@@ -26,7 +26,7 @@
         <label>TELEPON</label><input id="telp" type="text" name="telepon" value="<?php echo $this->telepon;?>" onkeyup="cekemptyfield(4,this.value)"></br>
         <div id="wemail"></div>
         <label>EMAIL</label><input id="email" type="text" name="email" size="25" value="<?php echo $this->email;?>" onkeyup="cekemptyfield(5,this.value)"></br>
-        <label></label><input class="btn cancel" type="button" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamAlamat'"><input type="submit" class="btn save" name="submit" value="SIMPAN" onclick="return selesai()">
+        <label></label><input class="btn cancel" type="button" value="BATAL" onclick="location.href='<?php echo URL;?>admin/rekamAlamat'"><input type="button" class="btn save" name="submit" value="SIMPAN" onclick="return selesai()">
         <?php 
             if(isset($this->error)){
                 echo "<div id=error>$this->error</div>";
@@ -182,9 +182,10 @@
         }
         
         if(telp!=''){
-            jml++;
+//            jml++;
             var pola = /^0([1-9]{2,3})[-. ]([0-9]{5,7})$/;
-            if(pola.test(content)==false){
+            if(pola.test(telp)==false){
+                jml++;
                 var wtgl = '<div id=warning>Isikan format telepon yang benar (kode area-nomor telepon)!</div>'
                 $('#wtelp').fadeIn(500);
                 $('#wtelp').html(wtgl);
@@ -194,9 +195,9 @@
         }
         
         if(email!=''){
-            jml++;
             var pola = /^[a-zA-Z0-9]*(|[-._][a-zA-Z0-9]*)\@([a-z]*)[.]([a-z]{3,4})/;
-            if(pola.test(content)==false){
+            if(pola.test(email)==false){
+                jml++;
                 var wtgl = '<div id=warning>Isikan format email yang benar!</div>'
                 $('#wemail').fadeIn(500);
                 $('#wemail').html(wtgl);
@@ -221,6 +222,7 @@
         var alamat = document.getElementById('alamat').value;
         var telp = document.getElementById('telp').value;
         var email = document.getElementById('email').value;
+        var tipe = document.getElementById('tipe').value;
         $.ajax({
             type:'post',
             url:'<?php echo URL;?>admin/updateRekamAlamat',
@@ -230,7 +232,8 @@
                 '&jabatan='+jabatan+
                 '&alamat='+alamat+
                 '&telepon='+telp+
-                '&email='+email,
+                '&email='+email+
+                '&tipe='+tipe,
             success:function(data){
                 $('#pesan').fadeIn();
                 $('#pesan').html(data);

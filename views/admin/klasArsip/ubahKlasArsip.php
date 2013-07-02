@@ -31,13 +31,13 @@
         <td><?php echo $value['kode']; ?></td>
         <td><?php echo $value['klasifikasi']; ?></td>
         <td><a href="<?php echo URL;?>admin/ubahKlasifikasiArsip/<?php echo $value['id_klasarsip'];?>"><input class="btn edit" type="button" value="UBAH"></a> | 
-            <a href="#"><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['klasifikasi']?>');"></a></td></tr>
+            <a ><input class="btn btn-danger" type="button" value="HAPUS" onclick="return selesai(2,'<?php echo $value['klasifikasi']?>',<?php echo $value['id_klasarsip'];?>);"></a></td></tr>
     <?php $no++; }?>
 </table></div>
 <!--</td></tr></table>-->
 <script type="text/javascript">
     
-    function selesai(num,klas)
+    function selesai(num,klas,id)
     {
         if(num==1){
             var answer = confirm ("Yakin menyimpan perubahan data klasifikasi : "+klas+"?");
@@ -48,6 +48,16 @@
         if (answer){
             if(num==1){
                 cek();
+            }else{
+                
+                $.ajax({
+                    type:'post',
+                    url:'<?php echo URL;?>admin/hapusKlasifikasiArsip',
+                    data:'id='+id,
+                    success:function(){
+                        window.location.href='<?php echo URL;?>admin/rekamKlasifikasiArsip';
+                    }
+                })
             }
             return true;
         }else{

@@ -91,14 +91,15 @@ class Arsip_Controller extends Controller{
         
         if($this->model->rekamArsip($data)){
             $this->view->success = "Data arsip telah berhasil disimpan";
-        
+            $mon = new Monitoring_Model();
+            $time = $mon->cekNextDay(date('Y-m-d h:m:s'),true);
             if($tipe_surat=='SM'){
-                $time = date('Y-m-d H:i:s');
+//                $time = date('Y-m-d H:i:s');
                 $datastat = array('stat'=>'15', 'end'=>$time);
                 $where = 'id_suratmasuk='.$id_surat;
                 $this->model->update('suratmasuk',$datastat,$where); //update status -> arsip
             }elseif($tipe_surat=='SK'){
-                $time = date('Y-m-d H:i:s');
+//                $time = date('Y-m-d H:i:s');
                 $datastat = array('status'=>'23', 'end'=>$time);
                 $where = 'id_suratkeluar='.$id_surat;
                 $this->model->update('suratkeluar',$datastat,$where); //update status -> arsip
