@@ -57,7 +57,7 @@
 </br>
 <hr>
 </br>
-<div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
+<div id="table-wrapper" style="overflow:auto; height:400px;"><table class="CSSTableGenerator">
     <tr><td>NO</td><td>BAGIAN</td><td>RAK</td><td>BARIS</td><td>BOX</td><td>STATUS</td><td>AKSI</td></tr>
     <?php 
         foreach($this->lokasi as $data){            

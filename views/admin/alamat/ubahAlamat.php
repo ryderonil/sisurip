@@ -40,7 +40,7 @@
 <hr>
 </br>
 <?php if(!is_null($this->data)){?>
-<div id="table-wrapper" style="overflow:scroll; height:400px;">
+<div id="table-wrapper" style="overflow: auto; height:400px;">
 <table class="CSSTableGenerator">
     <tr><td>NO</td><td>NAMA ALAMAT</td><td>ALAMAT</td></tr>
     <?php

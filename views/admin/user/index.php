@@ -50,7 +50,7 @@
 </br>
 <div id="pesan"></div>
 <?php if($this->count>0) { $no=1;?>
-<div id="table-wrapper" style="overflow:scroll; height:400px;"><table class="CSSTableGenerator">
+<div id="table-wrapper" style="overflow:auto; height:400px;"><table class="CSSTableGenerator">
     <tr><td>NO</td><td>NAMA PEGAWAI</td><td>NAMA USER</td><td>AKSI</td><td>AKTIF</td></tr>
     <?php foreach($this->user as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>

@@ -29,37 +29,21 @@ class PDF extends FPDF {
         $this->SetFont('Times', 'B', 12);
         // Move to the right
         $this->Cell(0.5,0.6,'','',0);
-        // Title 3
-        // Query  kanwil
-        @$qKanwil = mysql_query("SELECT nmkanwil FROM t_kanwil WHERE aktif='1'") ;
-        @$rKanwil = mysql_fetch_object($qKanwil);
-        @$nmKanwil = $rKanwil->nmkanwil;
-        @$this->Cell(18.3, 0.6, 'KANTOR WILAYAH PROVINSI BENGKULU' . $nmKanwil, '', 1, 'C');
+        @$this->Cell(18.3, 0.6, Kantor::getKanwil(), '', 1, 'C');
         // Times bold 12
         $this->SetFont('Times', '', 11);
         // Move to the right
         $this->Cell(0.5,0.5,'','',0);
-        // Title 4
-        // Query KPPN
-        @$qKppn = mysql_query("SELECT nmkppn FROM t_kppn WHERE kddefa='1'") ;
-        @$rKppn = mysql_fetch_array($qKppn);
-        @$nmKppn = $rKppn['nmkppn'];
-        @$this->Cell(18.3, 0.5, 'KANTOR PELAYANAN PERBENDAHARAAN NEGARA BENGKULU' . $nmKppn, '', 1, 'C');
+        @$this->Cell(18.3, 0.5, Kantor::getNamaKPPN(), '', 1, 'C');
         // Times  8
         @$this->SetFont('Times', '', 8);
         // Move to the right
         $this->Cell(0.5,0.4,'','',0);
-        // Title 5
-        @$qryKppn = mysql_query("SELECT almkppn,kotakppn,telkppn,email,kodepos,faxkppn,website,smsgateway FROM t_kppn WHERE kddefa='1'") ;
-        @$rsltKppn = mysql_fetch_array($qryKppn);
-        @$almKppn = $rsltKppn['almkppn'] . " " . $rsltKppn['kotakppn'] . " " . $rsltKppn['kodepos'] . " Telepon: " . $rsltKppn['telkppn'] . " Faksimile: " . $rsltKppn['faxkppn'];
+        @$almKppn = Kantor::getAlamat() . " Telepon: " . Kantor::getTelepon() . " Faksimile: " . Kantor::getFaksimile();
         @$this->Cell(18.3, 0.4, $almKppn, '', 1, 'C');
         // Move to the right
         $this->Cell(0.5,0.4,'','B',0);
-        // Title 6
-        @$queryKppn = mysql_query("SELECT email,website,smsgateway FROM t_kppn WHERE kddefa='1'") ;
-        @$resultKppn = mysql_fetch_array($queryKppn);
-        @$webKppn = "Website: " . $resultKppn['website'] . " Email: " . $resultKppn['email'] . " SMS Gateway: " . $resultKppn['smsgateway'];
+        @$webKppn = "Website: " . Kantor::getWebsite() . " Email: " . Kantor::getEmail() . " SMS Gateway: " . Kantor::getSmsGateway();
         $this->Cell(18.3, 0.4, $webKppn, 'B', 1, 'C');
         // Draw line
         //$this->Line(1.0,3.95,20.0,3.95);
@@ -102,14 +86,14 @@ $pdf->Cell(18.8, 0.4, 'DAFTAR EKSPEDISI SURAT MASUK', 0, 1, 'C');
 $date = Tanggal::tgl_indo(date('Y-m-d'));
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(18.8, 0.4, 'Bengkulu, '.$date, 0, 1, 'C');
-$pdf->Cell(18.8, 0.4, '', 0, 1, 'C');
-$pdf->Cell(18.8, 0.4, '', 0, 1, 'C');
-$pdf->Cell(18.8, 0.4, '', 0, 1, 'C');
-
-$pdf->Cell(2, 0.5, 'NO URUT', 'RLBT', 0, 'C');
-$pdf->Cell(5, 0.5, 'NO SURAT', 'RLBT', 0, 'C');
-$pdf->Cell(7, 0.5, 'ASAL SURAT', 'RLBT', 0, 'C');
-$pdf->Cell(4.8, 0.5, 'PARAF PENERIMA', 'RLBT', 1, 'C');
+$pdf->Cell(18.8, 0.6, '', 0, 1, 'C');
+//$pdf->Cell(18.8, 0.4, '', 0, 1, 'C');
+//$pdf->Cell(18.8, 0.4, '', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(2, 0.7, 'NO URUT', 'RLBT', 0, 'C');
+$pdf->Cell(5, 0.7, 'NO SURAT', 'RLBT', 0, 'C');
+$pdf->Cell(7, 0.7, 'ASAL SURAT', 'RLBT', 0, 'C');
+$pdf->Cell(4.8, 0.7, 'PARAF PENERIMA', 'RLBT', 1, 'C');
 
 if(count($this->data)>0){
     $no=1;
@@ -117,7 +101,9 @@ if(count($this->data)>0){
     //nama satker maks 35 karakter
     foreach($this->data as $key=>$val){
         $kdbag = getBagianName($key);
+        $pdf->SetFont('Arial', 'B', 9);
         $pdf->Cell(18.8, 0.7, $kdbag, 'TBRL', 1, 'L');
+        $pdf->SetFont('Arial', '', 9);
         foreach ($val as $value){
         $length_asal = strlen($value['asal_surat']);
         $div = ceil($length_asal/35);

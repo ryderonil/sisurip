@@ -46,9 +46,13 @@ class Monitoring_Model extends Model {
         $count = 1;
         $bulan = '';
         foreach ($data as $value) {
+            $selesai = true;
             $tgl1 = $value['start'];
             $tgl2 = $value['end'];
-            if($tgl2=='0000-00-00 00:00:00' OR $tgl2==null) $tgl2=$tgl1;
+            if($tgl2=='0000-00-00 00:00:00' OR $tgl2==null) {
+                $tgl2=$tgl1;
+                $selesai = false;
+            }
             $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
             $start = explode(" ", $value['start']);
             $start = trim($start[1]);
@@ -75,7 +79,15 @@ class Monitoring_Model extends Model {
                 $krj[] = $kinerja;
                 $count++;
                 $sum = round(array_sum($krj)/($count),2); 
-                $arraydata[$value['bulan']] = $sum;                
+                $arraydata[$value['bulan']][0] = $sum;
+                if($kinerja>=100){
+                    $arraydata[$value['bulan']][1]++;
+                }else if($kinerja<100 AND $selesai){
+                    $arraydata[$value['bulan']][2]++;
+                }
+                if(!$selesai){
+                    $arraydata[$value['bulan']][3]++;
+                }
                 
             }else if($value['bulan']!=$bulan){              
                 $krj = null;                
@@ -83,7 +95,19 @@ class Monitoring_Model extends Model {
                 $krj[] = $kinerja;
                 $count = 1;
                 $sum = round(array_sum($krj)/($count),2); 
-                $arraydata[$value['bulan']] = $sum;                          
+                $arraydata[$value['bulan']][0] = $sum;
+                $arraydata[$value['bulan']][1] = 0;
+                $arraydata[$value['bulan']][2] = 0;
+                $arraydata[$value['bulan']][3] = 0;
+                if($kinerja>=100){
+                    $arraydata[$value['bulan']][1]++;
+                }else if($kinerja<100 AND $selesai){
+                    $arraydata[$value['bulan']][2]++;
+                }
+                if(!$selesai){
+                    $arraydata[$value['bulan']][3]++;
+                }
+                
             }
             $bulan = $value['bulan'];            
         }
@@ -108,10 +132,17 @@ class Monitoring_Model extends Model {
         $count = 1;
         $tanggal = '';
         foreach ($data as $value) {
+            $selesai = true;
             $tgl1 = $value['start'];
             $tgl2 = $value['end'];
-            if($tgl2=='0000-00-00 00:00:00') $tgl2=$tgl1;
-            if(is_null($tgl2)) $tgl2=$tgl1;
+            if($tgl2=='0000-00-00 00:00:00') {
+                $tgl2=$tgl1;
+                $selesai = false;
+            }
+            if(is_null($tgl2)) {
+                $tgl2=$tgl1;
+                $selesai = false;
+            }
             $selisihhari = $this->cekSelisihHari($tgl1, $tgl2);
             $start = explode(" ", $value['start']);
             $start = trim($start[1]);
@@ -138,15 +169,34 @@ class Monitoring_Model extends Model {
                 $count++;
                 $krj[] = $kinerja;                
                 $sum = array_sum($krj)/($count); 
-                $arraydata[$value['tanggal']] = $sum;                
-                
+                $arraydata[$value['tanggal']][0] = $sum;                
+                if($kinerja>=100){
+                    $arraydata[$value['tanggal']][1]++;
+                }else if($kinerja<100 AND $selesai){
+                    $arraydata[$value['tanggal']][2]++;
+                }
+                if(!$selesai){
+                    $arraydata[$value['tanggal']][3]++;
+                }
             }else if($value['tanggal']!=$tanggal){              
                 $krj = null;                
                 $krj = array();
                 $krj[] = $kinerja;
                 $count = 1;
                 $sum = array_sum($krj)/($count); 
-                $arraydata[$value['tanggal']] = $sum;                          
+                $arraydata[$value['tanggal']][0] = $sum;
+                $arraydata[$value['tanggal']][1] = 0;
+                $arraydata[$value['tanggal']][2] = 0;
+                $arraydata[$value['tanggal']][3] = 0;
+                if($kinerja>=100){
+                    $arraydata[$value['tanggal']][1]++;
+                }else if($kinerja<100 AND $selesai){
+                    $arraydata[$value['tanggal']][2]++;
+                }
+                
+                if(!$selesai){
+                    $arraydata[$value['tanggal']][3]++;
+                }
             }
             $tanggal = $value['tanggal'];            
         }

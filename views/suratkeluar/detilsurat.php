@@ -6,7 +6,9 @@
     <div id="table-wrapper"><table class="tableinfo">
         <tr><td width="25%"></td><td></td></tr>
         <?php if($this->rujukan != 0 AND $this->rujukan !=''){?>
-        <tr><td>NOMOR SURAT MASUK</td><td><?php echo $this->rujukan; ?></td></tr>
+        <tr><td>NOMOR SURAT MASUK</td><td><?php 
+        $mon = new Suratkeluar_Model();
+        echo $mon->getRujukan($this->rujukan); ?></td></tr>
         <?php } ?>
         <tr><td>TANGGAL/NO SURAT</td><td><?php echo Tanggal::tgl_indo($this->tgl_surat).'/'.$this->no_surat; ?></td></tr>
         <?php if($this->no_surat != 0 AND $this->no_surat !=''){?>

@@ -55,14 +55,20 @@ class Arsip_Model extends Model {
         return $this->select($sql);
     }
 
-    public function getRak(){
+    public function getRak($kosong=null){
         $sql = "SELECT * FROM lokasi WHERE tipe=1";
+        if(!is_null($kosong)){
+                if($kosong) $sql .= " AND status='E'";
+            }
         return $this->select($sql);
     }
     
-    public function getBaris($parent=null){
+    public function getBaris($parent=null,$kosong=null){
         if(!is_null($parent)){
             $sql = "SELECT * FROM lokasi WHERE tipe=2 AND parent=".$parent;
+            if(!is_null($kosong)){
+                if($kosong) $sql .= " AND status='E'";
+            }
         }else{
             $sql = "SELECT * FROM lokasi WHERE tipe=2";
         }
@@ -70,9 +76,12 @@ class Arsip_Model extends Model {
         return $this->select($sql);
     }
     
-    public function getBox($parent=null){
+    public function getBox($parent=null, $kosong=null){
         if(!is_null($parent)){
             $sql = "SELECT * FROM lokasi WHERE tipe=3 AND parent=".$parent;
+            if(!is_null($kosong)){
+                if($kosong) $sql .= " AND status='E'";
+            }
         }else{
             $sql = "SELECT * FROM lokasi WHERE tipe=3";
         }
@@ -207,6 +216,21 @@ class Arsip_Model extends Model {
         if($ext!='pdf') return false;
         if(!file_exists('arsip/'.$file)) return false;
         return true;
+    }
+    
+    /*
+     * cek apakah sudah diarsipkan
+     * @param id_surat, tipe surat[SM,SK]
+     * return boolean
+     */
+    public function isHasBeenArchived($id, $tipe='SM'){
+        $sql = 'SELECT COUNT(*) as jml FROM arsip WHERE id_surat='.$id.' AND tipe_surat="'.$tipe.'"';
+        $data = $this->select($sql);
+        foreach ($data as $val){
+            if(((int)$val['jml'])>0) return true;
+        }
+        
+        return false;
     }
 
 

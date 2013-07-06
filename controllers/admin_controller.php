@@ -1107,6 +1107,21 @@ class Admin_Controller extends Controller {
                 }
             }
         }
+        /*
+         * ubah nama admin dan password admin, 
+         * mengantisipasi lupa password setelah restore
+         */
+        $sql = "SELECT id_user FROM user WHERE role=5";
+        $data = $this->model->select($sql);
+        $id=0;
+        foreach ($data as $val){
+            $id = $val['id_user'];
+        }
+        $data_admin = array('username'=>  'admin',
+                        'password'=>Hash::create('md5', 'admin', HASH_SALT_KEY),
+                        'active'=>'Y');
+        $where = ' id_user='.$id;
+        $this->model->update('user',$data_admin,$where);
         
         $this->view->message = "<div id=success>restore data telah berhasil dilakukan, ".$_SESSION['ttlQuery']." query dieksekusi pada ".date('Y-m-d H:i:s', $_SESSION['timeQuery'])."</div>"; 
     
