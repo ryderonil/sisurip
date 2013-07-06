@@ -56,9 +56,9 @@ class Arsip_Controller extends Controller{
                 $this->view->ar['box'] = $dataa->lokasi[3];
                 $this->view->ar['klas'] = $dataa->klas;
                 $this->view->ar['id_arsip'] = $dataa->id_arsip;
-            $this->view->rak = $this->model->getRak();
-            $this->view->baris = $this->model->getBaris($this->view->ar['rak']);
-            $this->view->box = $this->model->getBox($this->view->ar['baris']);
+            $this->view->rak = $this->model->getRak(true);
+            $this->view->baris = $this->model->getBaris($this->view->ar['rak'],true);
+            $this->view->box = $this->model->getBox($this->view->ar['baris'],true);
             $this->view->klas = $this->model->getKlas();
             
         }else{

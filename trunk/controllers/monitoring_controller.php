@@ -46,25 +46,30 @@ class Monitoring_Controller extends Controller {
         $year = DATE('Y');
         $arraydata = $this->model->kinerjaTahun($year, 'SM');
         $masa = "TAHUN " . $year;
-        $max = max($arraydata);
+        $max = 0;
+        foreach ($arraydata as $key=>$val){
+            if($val[0]>$max){
+                $max = $val[0];
+            }
+        }
         echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Masuk</font></h2>";
         echo "<h3 align=center>$masa</h3>";
         echo "</br><div id=chart-wrapper><table>";
         echo "<tr><td><font color=black><b>bulan</b></font></td><td></td><td></td></tr>";
         foreach ($arraydata as $key => $value) {
             $bulan = Tanggal::bulan_indo($key);
-            echo "<tr><td width=10%><font color=grey>$bulan</font></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+            echo "<tr><td width=15%><font color=grey>$bulan</font></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
             echo "<td width=50%><div class='progress'>";
-            $val = round(($value / $max) * 100, 0);
-            if ($value > 100) {
+            $val = round(($value[0] / $max) * 100, 0);
+            if ($value[0] > 100) {
                 echo "<a href=#><div class='bar bar-danger' style='width:$val%;' onclick='srmasukbulan(" . $key . ");'></div></a>";
-            } else if ($value < 50) {
+            } else if ($value[0] < 50) {
                 echo "<a href=#><div class='bar bar-success' style='width:$val%;' onclick='srmasukbulan(" . $key . ");'></div></a>";
             } else {
                 echo "<a href=#><div class='bar' style='width:$val%;' onclick='srmasukbulan(" . $key . ");'></div></a>";
             }
 
-            echo "</td><td>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
+            echo "</td><td align=left>&nbsp;&nbsp;<font color=grey>[".$value[0]."%,<font color=red>".$value[1]."</font>,<font color=blue>".$value[2]."</font>,".$value[3]."]</font></td></tr></div>";
         }
         echo "</table></div></div>";
     }
@@ -87,7 +92,12 @@ class Monitoring_Controller extends Controller {
         $arraydata = $this->model->kinerjaBulan($q, $year, 'SM');
         $bulan = Tanggal::bulan_indo($bulan);
         $masa = "BULAN " . strtoupper($bulan) . " TAHUN " . $year;
-        $max = max($arraydata);
+        $max = 0;
+        foreach ($arraydata as $key=>$val){
+            if($val[0]>$max){
+                $max = $val[0];
+            }
+        }
         echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Masuk</font></h2>";
         echo "<h3 align=center>$masa</h3>";
         echo "</br><div id=chart-wrapper><table>";
@@ -97,16 +107,16 @@ class Monitoring_Controller extends Controller {
             $tanggal = Tanggal::tgl_indo($key);
             echo "<tr><td width=15%><font color=grey>$tanggal</font></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
             echo "<td width=50%><div class='progress'>";
-            $val = round(($value / $max) * 100, 0);
-            if ($value > 100) {
+            $val = round(($value[0] / $max) * 100, 0);
+            if ($value[0] > 100) {
                 echo "<a href=#><div class='bar bar-danger' style='width:$val%;' onclick='srmasuk(" . $js . ");'></div></a>";
-            } else if ($value < 50) {
+            } else if ($value[0] < 50) {
                 echo "<a href=#><div class='bar bar-success' style='width:$val%;' onclick='srmasuk(" . $js . ");'></div></a>";
             } else {
                 echo "<a href=#><div class='bar' style='width:$val%;' onclick='srmasuk(" . $js . ");'></div></a>";
             }
 
-            echo "</td><td>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
+            echo "</td><td align=left>&nbsp;&nbsp;<font color=grey>[".$value[0]."%,<font color=red>".$value[1]."</font>,<font color=blue>".$value[2]."</font>,".$value[3]."]</font></td></tr></div>";
         }
         echo "</table></div></div>";
     }
@@ -143,7 +153,7 @@ class Monitoring_Controller extends Controller {
                 echo "<a href=" . URL . "suratmasuk/detil/$key><div class='bar' style='width:$val%;' ></div></a>";
             }
 
-            echo "</td><td>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
+            echo "</td><td align=left>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
         }
         echo "</table></div></div>";
     }
@@ -162,7 +172,12 @@ class Monitoring_Controller extends Controller {
         $year = DATE('Y');
         $arraydata = $this->model->kinerjaTahun($year, 'SK');
         $masa = "TAHUN " . $year;
-        $max = max($arraydata);
+        $max = 0;
+        foreach ($arraydata as $key=>$val){
+            if($val[0]>$max){
+                $max = $val[0];
+            }
+        }
         //$masa = 'Bulan : Maret 2013';
         echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Keluar</font></h2>";
         echo "<h3 align=center>$masa</h3>";
@@ -171,18 +186,18 @@ class Monitoring_Controller extends Controller {
         foreach ($arraydata as $key => $value) {
             //echo $key;
             $bulan = Tanggal::bulan_indo($key);
-            echo "<tr><td width=10%><font color=grey>$bulan</font></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+            echo "<tr><td width=15%><font color=grey>$bulan</font></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
             echo "<td width=50%><div class='progress'>";
-            $val = round(($value / $max) * 100, 0);
-            if ($value > 100) {
+            $val = round(($value[0] / $max) * 100, 0);
+            if ($value[0] > 100) {
                 echo "<a href=#><div class='bar bar-danger' style='width:$val%;' onclick='srkeluarbulan(" . $key . ");'></div></a>";
-            } else if ($value < 50) {
+            } else if ($value[0] < 50) {
                 echo "<a href=#><div class='bar bar-success' style='width:$val%;' onclick='srkeluarbulan(" . $key . ");'></div></a>";
             } else {
                 echo "<a href=#><div class='bar' style='width:$val%;' onclick='srkeluarbulan(" . $key . ");'></div></a>";
             }
 
-            echo "</td><td>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
+            echo "</td><td align=left>&nbsp;&nbsp;<font color=grey>[".$value[0]."%,<font color=red>".$value[1]."</font>,<font color=blue>".$value[2]."</font>,".$value[3]."]</font></td></tr></div>";
         }
         echo "</table></div></div>";
     }
@@ -213,7 +228,12 @@ class Monitoring_Controller extends Controller {
 
 
 
-        $max = max($arraydata);
+        $max = 0;
+        foreach ($arraydata as $key=>$val){
+            if($val[0]>$max){
+                $max = $val[0];
+            }
+        }
         //$masa = 'Bulan : Maret 2013';
         echo "<div id=table-wrapper><h2 align=center><font color=black>Ketepatan Waktu Penatausahaan Surat Keluar</font></h2>";
         echo "<h3 align=center>$masa</h3>";
@@ -229,16 +249,16 @@ class Monitoring_Controller extends Controller {
             $tanggal = Tanggal::tgl_indo($key);
             echo "<tr><td width=15%><font color=grey>$tanggal</font></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
             echo "<td width=50%><div class='progress'>";
-            $val = round(($value / $max) * 100, 0);
-            if ($value > 100) {
+            $val = round(($value[0] / $max) * 100, 0);
+            if ($value[0] > 100) {
                 echo "<a href=#><div class='bar bar-danger' style='width:$val%;' onclick='srkeluarhari(" . $js . ");'></div></a>";
-            } else if ($value < 50) {
+            } else if ($value[0] < 50) {
                 echo "<a href=#><div class='bar bar-success' style='width:$val%;' onclick='srkeluarhari(" . $js . ");'></div></a>";
             } else {
                 echo "<a href=#><div class='bar' style='width:$val%;' onclick='srkeluarhari(" . $js . ");'></div></a>";
             }
 
-            echo "</td><td>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
+            echo "</td><td align=left>&nbsp;&nbsp;<font color=grey>[".$value[0]."%,<font color=red>".$value[1]."</font>,<font color=blue>".$value[2]."</font>,".$value[3]."]</font></td></tr></div>";
         }
         echo "</table></div></div>";
     }
@@ -286,7 +306,7 @@ class Monitoring_Controller extends Controller {
                 echo "<a href=" . URL . "suratkeluar/detil/$key><div class='bar' style='width:$val%;' ></div></a>";
             }
 
-            echo "</td><td>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
+            echo "</td><td align=left>&nbsp;&nbsp;<font color=grey>$value%</font></td></tr></div>";
         }
         echo "</table></div></div>";
     }
@@ -327,13 +347,16 @@ class Monitoring_Controller extends Controller {
                     $add = (int) $this->model->getDueDate('SM');
 //                    $date->add(new DateInterval('PT' . $add . 'H0M0S'));
 //                    $due_date = $date->format('Y-m-d H:i:s'); //cek lagi dengan hari libur
-                    $due_date = $this->model->findNextHour($prog['start'],$add);
+                    $due_date = explode(' ', $this->model->findNextHour($prog['start'],$add));
+                    $start = explode(' ', $prog['start']);
+                    $start_time = Tanggal::tgl_indo($start[0]).' '.$start[1];
+                    $duedate_time = Tanggal::tgl_indo($due_date[0]).' '.$due_date[1];
                     echo "<tr><td><font color=black><b>$no</b></font></td>
                         <td><font color=black><b>$prog[no_surat]/</br>$prog[tgl_surat]</b></font></td>
                         <td><font color=black><b>$prog[alamat]</b></font></td>
                         <td><font color=black><b>$prog[klasifikasi]/</br>$prog[status]</b></font></td>
-                        <td><font color=black><b>$prog[start]</b></font></td>
-                        <td><font color=black><b>$due_date</b></font></td>
+                        <td><font color=black><b>$start_time</b></font></td>
+                        <td><font color=black><b>$duedate_time</b></font></td>
                         </tr>";
                     $no++;
                 }
@@ -344,13 +367,16 @@ class Monitoring_Controller extends Controller {
                     $add = (int) $this->model->getDueDate('SK', $prog['id']);
 //                    $date->add(new DateInterval('PT' . $add . 'H0M0S'));
 //                    $due_date = $date->format('Y-m-d H:i:s');
-                    $due_date = $this->model->cekNextDay($prog['start'],false,($add/24));
+                    $due_date = explode(' ', $this->model->cekNextDay($prog['start'],false,($add/24)));
+                    $start = explode(' ', $prog['start']);
+                    $start_time = Tanggal::tgl_indo($start[0]).' '.$start[1];
+                    $duedate_time = Tanggal::tgl_indo($due_date[0]).' '.$due_date[1];
                     echo "<tr><td><font color=black><b>$no</b></font></td>
                         <td><font color=black><b>$prog[no_surat]/</br>$prog[tgl_surat]</b></font></td>
                         <td><font color=black><b>$prog[alamat]</b></font></td>
                         <td><font color=black><b>$prog[klasifikasi]/</br>$prog[status]</b></font></td>
-                        <td><font color=black><b>$prog[start]</b></font></td>
-                        <td><font color=black><b>".$due_date."</b></font></td>
+                        <td><font color=black><b>$start_time</b></font></td>
+                        <td><font color=black><b>".$duedate_time."</b></font></td>
                         </tr>";
                     $no++;
                 }

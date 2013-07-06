@@ -149,6 +149,12 @@ class User extends Model{
     
     public function hapusUser(){
         $where = ' id_user='.$this->get('id_user');
+        $data = $this->getUser($this->get('id_user'));
+        foreach ($data as $val){
+            if($val->get('role')==5){ //jika role admin surat
+                return false; //tidak dapat dihapus
+            }
+        }
         return $this->delete('user', $where);
     }
     

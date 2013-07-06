@@ -102,11 +102,11 @@ $roleuser = Helper_Model::getRoleUser($user);
                 </div>
                 <div id="navbar">
                     <!-- pencarian --> 
-
+                    <div>
                     <div id="sisurip">
 <?php if (Session::get('loggedin') == true){ ?><h1>SiSuRIP</h1></div>
                     <div id="pull-right">
-                            <select id="role" name="role" onchange="location.href='<?php echo URL;?>login/changeRole/'+this.value;">
+                            <select id="role" name="role" onchange="location.href='<?php echo URL;?>login/changeRole/'+this.value;" style="width:250px">
 <!--                            <option value="">--PILIH ROLE--</option>-->
                             <?php //cek klo sesuai selected
                             foreach ($roleuser as $valrole){
@@ -123,7 +123,7 @@ $roleuser = Helper_Model::getRoleUser($user);
                             </select>                            
                        </div>
                     <div id="pull-right"><?php echo Helper_Model::getRoleName($role) . '/' . Helper_Model::getBagianName($bagian); ?><?php } ?></div>                    
-
+                    </div>
                 </div>
 
 

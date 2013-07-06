@@ -12,6 +12,7 @@ class Suratkeluar_Model extends Surat{
     private $jns_surat;
     private $user;
     private $rujukan;
+    private $start;
 
     public function __construct() {
         //echo 'ini adalah model</br>';
@@ -38,8 +39,27 @@ class Suratkeluar_Model extends Surat{
         $this->rujukan = $value;
     }
     
-    public function getRujukan(){
+    public function getRujukan($idsm=null){
+        if(!is_null($idsm)){
+            $sql = "SELECT a.no_surat as no_surat,b.nama_satker as asal_surat
+                FROM suratmasuk a
+                LEFT JOIN alamat b ON a.asal_surat=b.kode_satker
+                WHERE a.id_suratmasuk=".$idsm;
+            $data = $this->select($sql);
+            foreach ($data as $val){
+                $return = $val['no_surat'].'-'.$val['asal_surat'];
+                return $return;
+            }
+        }
         return $this->rujukan;
+    }
+    
+    public function setStart($value){
+        $this->start = $value;
+    }
+    
+    public function getStart(){
+        return $this->start;
     }
 
     public function showAll($limit=null,$batas=null) {
@@ -59,13 +79,16 @@ class Suratkeluar_Model extends Surat{
             a.lampiran as lampiran,
             a.file as file,
             e.status as status,
-            f.tipe_naskah as tipe
+            h.namaPegawai as user,
+            f.tipe_naskah as tipe,
+            a.start as start
             FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker
             LEFT JOIN sifat_surat c ON a.sifat = c.kode_sifat
             LEFT JOIN klasifikasi_surat d ON a.jenis = d.kode_klassurat
             LEFT JOIN status e ON a.status = e.id_status
             LEFT JOIN tipe_naskah f ON a.tipe = f.id_tipe 
             LEFT JOIN notifikasi g ON a.id_suratkeluar = g.id_surat
+            LEFT JOIN user h ON a.user = h.username
             WHERE g.jenis_surat='SK' AND g.id_user=".User::getIdUser($user)."
             GROUP BY a.id_suratkeluar ORDER BY a.id_suratkeluar DESC";
         }elseif(Auth::isRole($role, 3) ){
@@ -80,12 +103,15 @@ class Suratkeluar_Model extends Surat{
             a.lampiran as lampiran,
             a.file as file,
             e.status as status,
-            f.tipe_naskah as tipe
+            h.namaPegawai as user,
+            f.tipe_naskah as tipe,
+            a.start as start
             FROM suratkeluar a LEFT JOIN alamat b ON a.tujuan = b.kode_satker
             LEFT JOIN sifat_surat c ON a.sifat = c.kode_sifat
             LEFT JOIN klasifikasi_surat d ON a.jenis = d.kode_klassurat
             LEFT JOIN status e ON a.status = e.id_status
-            LEFT JOIN tipe_naskah f ON a.tipe = f.id_tipe 
+            LEFT JOIN tipe_naskah f ON a.tipe = f.id_tipe
+            LEFT JOIN user h ON a.user = h.username
             WHERE a.user='".$user."'
             GROUP BY a.id_suratkeluar ORDER BY a.id_suratkeluar DESC";
             
@@ -101,11 +127,14 @@ class Suratkeluar_Model extends Surat{
             a.lampiran as lampiran,
             a.file as file,
             e.status as status,
-            f.tipe_naskah as tipe
+            h.namaPegawai as user,
+            f.tipe_naskah as tipe,
+            a.start as start
             FROM suratkeluar a JOIN alamat b ON a.tujuan = b.kode_satker
             JOIN sifat_surat c ON a.sifat = c.kode_sifat
             JOIN klasifikasi_surat d ON a.jenis = d.kode_klassurat
             JOIN status e ON a.status = e.id_status
+            LEFT JOIN user h ON a.user = h.username
             JOIN tipe_naskah f ON a.tipe = f.id_tipe ORDER BY a.id_suratkeluar DESC";
         }
         
@@ -129,6 +158,8 @@ class Suratkeluar_Model extends Surat{
             $obj->setFile($value['file']);
             $obj->setStatus($value['status']);
             $obj->setTipeSurat($value['tipe']);
+            $obj->setStart($value['start']);
+            $obj->setUserCreate($value['user']);
             $surat[] = $obj;
         }
 

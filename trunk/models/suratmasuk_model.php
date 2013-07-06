@@ -129,6 +129,7 @@ class Suratmasuk_Model extends Surat{
             $obj->setTglSurat($value['tgl_surat']);
             $obj->setTglTerima($value['tgl_terima']);
             $obj->setAgenda($value['no_agenda']);
+            $obj->setStart($value['start']);
             $surat[] = $obj;
         }
 //        var_dump($surat);

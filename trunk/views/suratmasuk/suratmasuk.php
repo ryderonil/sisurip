@@ -22,31 +22,48 @@
         ?>
         </div>
         </br>
-        <div id="table-wrapper" style="overflow:scroll; max-height:400px;"><table class="CSSTableGenerator">
+        <div id="table-wrapper" style="max-height:400px;"><table class="CSSTableGenerator">
     <tr><td >AGENDA</td><td >INFORMASI SURAT</td><td >AKSI</td></tr>
     <form name="sm" >
 <?php
     $no=1;
+    $arsip = new Arsip_Model();
     foreach($this->listSurat as $value) {
         echo '<tr valign=top>';
         //echo '<td>' . $value['no_agenda'] . '</td>';
         //var_dump($this->notif->isRead($value['id_suratmasuk'],$user,'SM'));
         if($this->notif->isRead($value->getId(),$user,'SM')){
-            echo '<td><input type=checkbox id=cek'.$no.' name=cek[] value=' . $value->getId() . ' onchange=cek();> <font color=blue><strong>' . Tanggal::tgl_indo($value->getTglTerima()) . '</br>'.$value->getAgenda(). '</strong></font></td>';
-            echo '<td><b><font color=blue><a href="'.URL.'suratmasuk/detil/'.$value->getId().'" title="klik disini untuk melihat detil surat" class=tip>' . $value->getNomor() . '</a> || '
-            . Tanggal::tgl_indo($value->getTglSurat()) . '</br>'. $value->getAlamat(). '</br>'. $value->getPerihal() .
-             '</font></b></td>';
+            echo '< width=20%><input type=checkbox id=cek'.$no.' name=cek[] value=' . $value->getId() . ' onchange=cek();> <font color=blue><strong>' . Tanggal::tgl_indo($value->getTglTerima()) . '</br>'.$value->getAgenda(). '</strong></font></br>';
+            if(!$arsip->isHasBeenArchived($value->getId(),'SM')){
+                $mon = new Monitoring_Model();
+                $add = (int) $mon->getDueDate('SM');
+                $due_date = $mon->findNextHour($value->getStart(),$add);
+                $tgl = explode(' ', $due_date);
+                echo '<font color=red>batas waktu : '.Tanggal::tgl_indo($tgl[0]).' '.$tgl[1].'</font>';
+            }
+            echo '</td>';
+            echo '<td width=50%><b><font color=blue><a href="'.URL.'suratmasuk/detil/'.$value->getId().'" title="klik disini untuk melihat detil surat" class=tip>' . $value->getNomor() . '</a> || '
+            . Tanggal::tgl_indo($value->getTglSurat()) . '</br>'. $value->getAlamat(). '</br><i>'. $value->getPerihal() .
+             '</i></font></b></td>';
         }else{
-            echo '<td><input type=checkbox id=cek name=cek[] value=' . $value->getId() . ' onchange=cek();> ' . Tanggal::tgl_indo($value->getTglTerima()) . '</br>'.$value->getAgenda(). '</td>';
-            echo '<td><a href="'.URL.'suratmasuk/detil/'.$value->getId().'" title="klik disini untuk melihat detil surat" class=tip>' . $value->getNomor() . '</a> || '
-            . Tanggal::tgl_indo($value->getTglSurat()) . '</br>'. $value->getAlamat() . '</br>'. $value->getPerihal() .
-             '</td>';
+            echo '<td width=20%><input type=checkbox id=cek name=cek[] value=' . $value->getId() . ' onchange=cek();> ' . Tanggal::tgl_indo($value->getTglTerima()) . '</br>'.$value->getAgenda(). '</br>';
+            if(!$arsip->isHasBeenArchived($value->getId(),'SM')){
+                $mon = new Monitoring_Model();
+                $add = (int) $mon->getDueDate('SM');
+                $due_date = $mon->findNextHour($value->getStart(),$add);
+                $tgl = explode(' ', $due_date);
+                echo '<font color=red>batas waktu : '.Tanggal::tgl_indo($tgl[0]).' '.$tgl[1].'</font>';
+            }
+            echo '</td>';
+            echo '<td width=50%><a href="'.URL.'suratmasuk/detil/'.$value->getId().'" title="klik disini untuk melihat detil surat" class=tip>' . $value->getNomor() . '</a> || '
+            . Tanggal::tgl_indo($value->getTglSurat()) . '</br>'. $value->getAlamat() . '</br><font color=grey><i>'. $value->getPerihal() .
+             '</i></font></td>';
         }
         //echo '<td>' . $value['tgl_terima'] . '</td>';
         //echo '<td>' . $value['tgl_surat'] . '</td>';
         //echo '<td>' . $value['asal_surat'] . '</td>';
         //echo '<td>' . $value['perihal'] . '</td>';
-        echo '<td halign=center>';
+        echo '<td halign=center width=30%>';
                 if(Auth::isRole($role, 2) AND Auth::isBagian($bagian, 1))echo '<a href="'.URL.'suratmasuk/edit/'.$value->getId().'" title="ubah data surat" class=tip><input class="btn btn-green" type=button value=ubah></a> 
                 <a href="'.URL.'suratmasuk/hapus/'.$value->getId().'" title="hapus data surat" class=tip><input class="btn btn-danger" type=button value="hapus" onclick="return selesai(\'' . $value->getAgenda() . '\');"></a>';
                 if(Auth::isRole($role, 1) OR Auth::isRole($role, 4)) echo '<a href="'.URL.'suratmasuk/disposisi/'.$value->getId().'" title="rekam disposisi" class=tip><input class="btn write" type=button value=disposisi></a>';

@@ -24,7 +24,7 @@
 <hr>
 </br>
 <!--</td><td width="50%">-->
-<div id="table-wrapper" style="overflow:scroll; max-height:400px;"><table class="CSSTableGenerator">
+<div id="table-wrapper" style="overflow: auto; max-height:400px;"><table class="CSSTableGenerator">
     <tr><td>NO</td><td>KODE</td><td>KLASIFIKASI</td><td>AKSI</td></tr>
     <?php $no=1; foreach($this->klasArsip as $key=>$value) {?>
     <tr><td><?php echo $no; ?></td>

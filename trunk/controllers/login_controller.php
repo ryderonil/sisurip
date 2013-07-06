@@ -19,7 +19,13 @@ class Login_Controller extends Controller{
     //put your code here
     
     public function index(){
-        $this->view->render('login/index');
+        Session::createSession();
+        if(isset($_SESSION['loggedin'])) {
+            header('location:'.URL.'home');
+        }else{
+            $this->view->render('login/index');
+        }
+        
     }
     
     public function auth(){
