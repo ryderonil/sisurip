@@ -176,7 +176,7 @@ class Admin_Model extends Model{
     public function getAlamat($kd=null){
         if(is_null($kd)) return $this->select('SELECT * FROM alamat');
         if(strlen($kd)>1){
-            return $this->select('SELECT * FROM alamat WHERE kode_satker='.$kd);
+            return $this->select('SELECT * FROM alamat WHERE kode_satker="'.$kd.'"');
         }
         return $this->select('SELECT * FROM alamat WHERE id_alamat='.$kd);
     }
@@ -249,11 +249,12 @@ class Admin_Model extends Model{
             b.namaPegawai as user, 
             c.bagian as bagian, 
             d.role as jabatan,
-            a.time as time,
+            a.awal_aktif as start,
+            a.akhir_aktif as end,
             a.aktif as aktif
             FROM pjs a JOIN user b ON a.user = b.username
             JOIN r_bagian c ON a.bagian = c.id_bagian 
-            JOIN role d ON a.jabatan = d.id_role WHERE a.aktif ='Y'";
+            JOIN role d ON a.jabatan = d.id_role ORDER by a.id_pjs DESC";
         
         return $this->select($sql);
     }

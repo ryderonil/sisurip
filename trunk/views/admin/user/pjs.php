@@ -54,9 +54,18 @@
                     echo "Pjs ".$value['jabatan'];
                 }
                 
-                $dtime = explode(' ',$value['time']);
-                echo "</td><td>".Tanggal::tgl_indo($dtime[0])." ".$dtime[1]."</td>
-                    <td><a href=".URL."admin/hapuspjs/".$value['id_pjs']."><input class='btn btn-danger' type=button onclick='return selesai()' value=HAPUS></a></td>
+                $dtime = explode(' ',$value['start']);
+                echo "</td><td>".Tanggal::tgl_indo($dtime[0])." ".$dtime[1];
+                    if($value['end']!='0000-00-00 00:00:00' AND $value['end']!=null){
+                        $dtime = explode(' ',$value['end']);
+                        echo " - ".Tanggal::tgl_indo($dtime[0])." ".$dtime[1];
+                    }
+                echo "</td>
+                    <td>";
+                    if($value['end']=='0000-00-00 00:00:00' OR $value['end']==null){
+                echo "<a href=".URL."admin/hapuspjs/".$value['id_pjs']."><input class='btn btn-danger' type=button onclick='return selesai()' value=HAPUS></a>";
+                    }
+                echo "</td>
                     </tr>";
                 $no++;
             }
@@ -108,6 +117,7 @@ function cekemptyfield(num, content){
             var walamat = '<div id=warning>Bagian harus dipilih!</div>'
             $('#wbag').fadeIn(500);
             $('#wbag').html(walamat);
+            $('#pesan').fadeOut();
         }
         
         if(jabatan==''){
@@ -115,6 +125,7 @@ function cekemptyfield(num, content){
             var wtgl = '<div id=warning>Jabatan harus dipilih!</div>'
             $('#wjabatan').fadeIn(500);
             $('#wjabatan').html(wtgl);
+            $('#pesan').fadeOut();
         }
         
         if(jml>0){
@@ -132,6 +143,7 @@ function cekemptyfield(num, content){
                     var walamat = '<div id=warning>Non aktifkan pejabat definitif terlebih dahulu!</div>';
                     $('#wbag').fadeIn(500);
                     $('#wbag').html(walamat);
+                    $('#pesan').fadeOut();
                     return false;
                 }else{
                     $.ajax({ //bagian ini kayaknya gak perlu
@@ -146,6 +158,7 @@ function cekemptyfield(num, content){
                                     var walamat = '<div id=warning>Pejabat sementara Jabatan ini telah ada!</div>';
                                     $('#pesan').fadeIn(500);
                                     $('#pesan').html(walamat);
+                                    $('#pesan').fadeOut();
                                     return false
                                 }else{
                                     rekam();

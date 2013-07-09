@@ -152,7 +152,7 @@ class Notifikasi extends Model{
      * @param nama user
      * return jumlah notifikasi
      */
-    public static function getJumlahNotifikasi($user){
+    public static function getJumlahNotifikasi($user, $tipe_surat=null){
         $pdo = new PDO(DB_TYPE.':host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASS);        
         $sql ='';
         $count = 0;
@@ -171,8 +171,11 @@ class Notifikasi extends Model{
         }*/
         
 //        $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE role=:role AND bagian=:bagian AND stat_notif=1";
-        $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE id_user=(SELECT id_user FROM user WHERE username=:user) AND stat_notif=1";
         
+        $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE id_user=(SELECT id_user FROM user WHERE username=:user) AND stat_notif=1";
+        if(!is_null($tipe_surat)){
+            $sql = "SELECT COUNT(stat_notif) as jml FROM notifikasi WHERE id_user=(SELECT id_user FROM user WHERE username=:user) AND stat_notif=1 AND jenis_surat='".$tipe_surat."'"; 
+        }
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':user',$user);
         $sth->execute();

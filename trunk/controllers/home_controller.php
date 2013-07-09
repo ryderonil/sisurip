@@ -15,7 +15,14 @@ class Home_Controller extends Controller{
     }
     
     public function index(){
+        $arsip = new Arsip_Model();
+        $this->view->arsip = @$arsip->getJmlArsipBagian();
+//        var_dump($arsip);
         $this->view->render('home');
+    }
+    
+    public function metro(){
+        $this->view->load('metro');
     }
     
     function __destruct() {

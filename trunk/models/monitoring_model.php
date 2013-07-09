@@ -765,7 +765,50 @@ class Monitoring_Model extends Model {
             return $return;
         }
     }
-
+    
+    public function getJumlahSuratBulan($month){
+        $sql ="select dayofmonth(tgl_terima) as tgl, id_suratmasuk as id, 'SM' as tipe, 1 as selesai 
+                from suratmasuk where stat=15 
+                and month(tgl_terima)=".$month." 
+                union
+                SELECT dayofmonth(tgl_surat) as tgl, id_suratkeluar as id, 'SK' as tipe, 1 as selesai 
+                FROM suratkeluar
+                WHERE STATUS =23 and month(tgl_surat)=".$month." 
+                union
+                select dayofmonth(tgl_terima) as tgl, id_suratmasuk as id, 'SM' as tipe, 0 as selesai 
+                from suratmasuk where stat<>15 and month(tgl_terima)=".$month." 
+                union
+                SELECT dayofmonth(tgl_surat) as tgl, id_suratkeluar as id, 'SK' as tipe, 0 as selesai 
+                FROM suratkeluar
+                WHERE STATUS <>23 and month(tgl_surat)=".$month." ";
+        $return = array();
+        $numdaycurrmonth = date('t',date('m'));
+        for($i=0;$i<$numdaycurrmonth;$i++){
+            $return[$i] = array($i+1,0,0,0,0);
+        }
+        $data = $this->select($sql);
+        foreach ($data as $val){
+            for ($i = 0; $i < $numdaycurrmonth; $i++) {
+                if (($i + 1) == (int) $val['tgl']) {
+                    if ($val['tipe'] == 'SM') {
+                        if ($val['selesai'] == '1') {
+                            $return[$i][1]++;
+                        } elseif ($val['selesai'] == '0') {
+                            $return[$i][2]++;
+                        }
+                    } elseif ($val['tipe'] == 'SK') {
+                        if ($val['selesai'] == '1') {
+                            $return[$i][3]++;
+                        } elseif ($val['selesai'] == '0') {
+                            $return[$i][4]++;
+                        }
+                    }
+                }
+            }
+            
+        }
+        return $return;
+    }
 
     function __destruct() {
         ;

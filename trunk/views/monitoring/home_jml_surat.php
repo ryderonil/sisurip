@@ -8,7 +8,8 @@
 require 'libs/phplot/phplot.php';
 
 $data = $this->data;
-$lebar = $this->lebar*0.4;
+$lebar = $this->lebar;
+//var_dump($lebar);
 $plot = new PHPlot($lebar,250);
 $plot->SetImageBorderType('plain');
 $plot->SetPlotType('bars');
@@ -16,16 +17,15 @@ $plot->SetPlotType('bars');
 $plot->SetDataType('text-data');
 $plot->SetDataValues($data);
 # Main plot title:
-$plot->SetTitle('SURAT MASUK'. strtoupper(Tanggal::bulan_indo(date('m'))).' '.date('Y'));
+$plot->SetTitle('PENYELESAIAN SURAT BULAN '.strtoupper(Tanggal::bulan_indo(date('m'))));
 $plot->SetBackgroundColor('#eeeeff');
-$plot->SetDataColors(array('red'));
-# Make a legend for the 3 data sets plotted:
+$plot->SetDataColors(array('green','red','blue','grey'));
+# Make a legend for the 4 data sets plotted:
+$plot->SetLegend(array('SM selesai', 'SM belum selesai', 'SK selesai','SK belum selesai'));
+//$plot->SetLegendPosition(0, 0, 'image', 0, 0, 5, 5);
+//$plot->SetShading(0);
 # Turn off X tick labels and ticks because they don't apply here:
 $plot->SetXTickLabelPos('none');
 $plot->SetXTickPos('none');
-if(count($data)==0){
-   echo "<p><i><font color=white>Tidak ada data surat masuk bulan ini</font></i></p>"; 
-}else{
-   $plot->DrawGraph();  
-}
+$plot->DrawGraph();
 ?>

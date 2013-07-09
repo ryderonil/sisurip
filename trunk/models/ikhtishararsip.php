@@ -213,9 +213,8 @@ class IkhtisharArsip extends Model{
             b.tgl_surat as tgl_surat,
             d.nama_satker as alamat,
             a.tipe_surat as tipe, 
-            c.tipe_naskah as tipe_naskah
-            FROM arsip a LEFT JOIN suratmasuk b ON a.id_surat=b.id_suratmasuk             
-            LEFT JOIN tipe_naskah c ON a.jenis=c.id_tipe
+            'Surat Dinas' as tipe_naskah
+            FROM arsip a LEFT JOIN suratmasuk b ON a.id_surat=b.id_suratmasuk
             LEFT JOIN alamat d ON b.asal_surat=d.kode_satker
             WHERE a.jenis=".$id." AND a.tipe_surat='SM'";        
         
@@ -240,7 +239,7 @@ class IkhtisharArsip extends Model{
             a.tipe_surat as tipe, 
             c.tipe_naskah as tipe_naskah
             FROM arsip a LEFT JOIN suratkeluar b ON a.id_surat=b.id_suratkeluar             
-            LEFT JOIN tipe_naskah c ON a.jenis=c.id_tipe
+            LEFT JOIN tipe_naskah c ON b.tipe=c.id_tipe
             LEFT JOIN alamat d ON b.tujuan=d.kode_satker
             WHERE a.jenis=".$id." AND a.tipe_surat='SK'";        
         
@@ -273,7 +272,7 @@ class IkhtisharArsip extends Model{
         }
         
         $darsip = array();
-        $sql = "SELECT a.id_arsip as id_arsip,
+        /*$sql = "SELECT a.id_arsip as id_arsip,
             a.id_surat as id_surat,
             b.no_surat as no_surat,
             b.tgl_surat as tgl_surat,
@@ -282,6 +281,16 @@ class IkhtisharArsip extends Model{
             c.tipe_naskah as tipe_naskah
             FROM arsip a LEFT JOIN suratmasuk b ON a.id_surat=b.id_suratmasuk             
             LEFT JOIN tipe_naskah c ON a.jenis=c.id_tipe
+            LEFT JOIN alamat d ON b.asal_surat=d.kode_satker
+            WHERE a.id_lokasi=".$id." AND a.tipe_surat='SM'";*/
+        $sql = "SELECT a.id_arsip as id_arsip,
+            a.id_surat as id_surat,
+            b.no_surat as no_surat,
+            b.tgl_surat as tgl_surat,
+            d.nama_satker as alamat,
+            a.tipe_surat as tipe, 
+            'Surat Dinas' as tipe_naskah
+            FROM arsip a LEFT JOIN suratmasuk b ON a.id_surat=b.id_suratmasuk
             LEFT JOIN alamat d ON b.asal_surat=d.kode_satker
             WHERE a.id_lokasi=".$id." AND a.tipe_surat='SM'";
         $datasm = $this->select($sql);
@@ -305,7 +314,7 @@ class IkhtisharArsip extends Model{
             a.tipe_surat as tipe, 
             c.tipe_naskah as tipe_naskah
             FROM arsip a LEFT JOIN suratkeluar b ON a.id_surat=b.id_suratkeluar             
-            LEFT JOIN tipe_naskah c ON a.jenis=c.id_tipe
+            LEFT JOIN tipe_naskah c ON b.tipe=c.id_tipe
             LEFT JOIN alamat d ON b.tujuan=d.kode_satker
             WHERE a.id_lokasi=".$id." AND a.tipe_surat='SK'";        
         

@@ -151,7 +151,7 @@ class User extends Model{
         $where = ' id_user='.$this->get('id_user');
         $data = $this->getUser($this->get('id_user'));
         foreach ($data as $val){
-            if($val->get('role')==5){ //jika role admin surat
+            if(((int)$val->get('role'))==5){ //jika role admin surat
                 return false; //tidak dapat dihapus
             }
         }

@@ -33,7 +33,7 @@
         //echo '<td>' . $value['no_agenda'] . '</td>';
         //var_dump($this->notif->isRead($value['id_suratmasuk'],$user,'SM'));
         if($this->notif->isRead($value->getId(),$user,'SM')){
-            echo '< width=20%><input type=checkbox id=cek'.$no.' name=cek[] value=' . $value->getId() . ' onchange=cek();> <font color=blue><strong>' . Tanggal::tgl_indo($value->getTglTerima()) . '</br>'.$value->getAgenda(). '</strong></font></br>';
+            echo '<td width=20%><input type=checkbox id=cek'.$no.' name=cek[] value=' . $value->getId() . ' onchange=cek();> <font color=blue><strong>' . Tanggal::tgl_indo($value->getTglTerima()) . '</br>'.$value->getAgenda(). '</strong></font></br>';
             if(!$arsip->isHasBeenArchived($value->getId(),'SM')){
                 $mon = new Monitoring_Model();
                 $add = (int) $mon->getDueDate('SM');

@@ -401,6 +401,7 @@ class Admin_Controller extends Controller {
         $this->view->user = $this->model->select('SELECT * FROM user');
         $this->view->jabatan = $this->model->select('SELECT * FROM jabatan');
         $this->view->role = $this->model->select('SELECT * FROM role');
+//        var_dump($this->view->role);
         $this->view->count = count($this->view->user);
         $this->view->render('admin/user/index');
     }
@@ -755,10 +756,11 @@ class Admin_Controller extends Controller {
 
     public function inputRekamUser() {
         $user = new User();
+        $password = Hash::create('md5', $_POST['password'], HASH_SALT_KEY);
         $user->set('namaPegawai', $_POST['namaPegawai']);
         $user->set('NIP', $_POST['NIP']);
         $user->set('nama_user', $_POST['username']);
-        $user->set('password', Hash::create('md5', $_POST['password'], HASH_SALT_KEY));
+        $user->set('password', $_POST['password'] );
         $user->set('bagian', $_POST['bagian']);
         $user->set('jabatan', $_POST['jabatan']);
         $user->set('role', $_POST['role']);
@@ -776,7 +778,7 @@ class Admin_Controller extends Controller {
         if($user->addUser()){
             echo json_encode(array(
                 'status'=>'success',
-                'message'=>'<div id=success>Rekam pengguna atas nama '.$_POST['namaPegawai'].' berhasil</div>'
+                'message'=>'<div id=success>Rekam pengguna atas nama '.$_POST['namaPegawai'].' berhasil'.$_POST['password'].' '.Hash::create('md5', $_POST['password'], HASH_SALT_KEY).' '.$password.'</div>'
             ));
         }else{
             echo json_encode(array(
@@ -829,13 +831,28 @@ class Admin_Controller extends Controller {
     }
 
     public function hapusUser() {
-        $id = $_POST['id'];
+        $id = (int)$_POST['id'];
         $user = new User();
         $user->set('id_user', $id);
-        $user->hapusUser();
+        if($user->hapusUser()){
+            echo json_encode(array('hasil'=>1));
+        }else{
+            echo json_encode(array('hasil'=>0));
+        }
 //        $where = ' id_user=' . $id;
 //        $this->model->deleteUser($where);
-        $this->rekamUser();
+//        $this->rekamUser();
+    }
+    
+    public function cekAdmin(){
+        $sql = "SELECT COUNT(*) as num FROM user WHERE role=5";
+        $num = 0;
+        $data = $this->model->select($sql);
+        foreach ($data as $val){
+            $num = (int) $val['num'];
+        }
+        
+        echo json_encode(array('hasil'=>$num));
     }
 
     public function setAktifUser($id, $active) { //belum ada cek apakah ada pjs
