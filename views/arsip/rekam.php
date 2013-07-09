@@ -18,7 +18,7 @@ $html->hr();
 $html->br();
 $html->div_open('id', 'pesan');
 $html->div_close();
-$html->div_open('id', 'form-wrapper');
+/*$html->div_open('id', 'form-wrapper');
 $form->form_open('');
 $form->form_label('NOMOR SURAT');
 $form->form_input(array('value' => $this->data[1]));
@@ -33,8 +33,19 @@ $form->form_close();
 $html->div_close();
 $html->br();
 $html->hr();
-$html->br();
-
+$html->br();*/
+?>
+<div id="form-wrapper">
+    <table class="tableinfo">
+        <tr><td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;NOMOR SURAT</td><td><?php echo $this->data[1]?></td></tr>
+        <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;ASAL SURAT</td><td><?php echo $this->data[2]?></td></tr>
+        <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;PERIHAL</td><td><?php echo $this->data[3]?></td></tr>
+    </table>
+</div>
+<br>
+<hr>
+<br>
+<?php
 if($this->isAllow){
 ?>
 
@@ -131,7 +142,7 @@ if($this->isAllow){
         //}
         ?>
     </select></div></br>
-    <label></label><input type="button" name="submit" value="SIMPAN" onclick="
+    <label></label><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="
         <?php if(isset($this->ar)) {?>
             return cek(2);
         <?php }else{ ?>

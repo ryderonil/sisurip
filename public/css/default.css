@@ -545,7 +545,8 @@ iframe.grafik-kinerja {
 iframe.grafik-rekap {
     text-align: center;
     margin-left: 5%;
-    width: 400px;
+    margin-bottom: 5%;
+    width: 90%;
     padding: 10px;
     min-height: 250px;
     border: solid 2px gray;
@@ -1987,4 +1988,31 @@ tr {
 .about-author > a {
   padding: 1px 3px;
   margin: 0 -1px;
+}
+
+.shortcut {
+    width:47%;
+    height: 230px;
+    cursor: pointer;
+/*    margin-right: 5px;*/
+    margin-bottom: 5px;
+    text-align: left;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+
+.shortcut.sm {
+    float: left;
+    background: #ba141a;
+}
+
+.shortcut.sk {
+    float: right;
+    background: #1570a6;
+}
+
+.shortcut.arsip {
+    float: right;
+    width: 49%;
+    background: #dc3c00;
 }

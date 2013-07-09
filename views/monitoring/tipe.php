@@ -7,25 +7,25 @@
 
 require 'libs/phplot/phplot.php';
 
-$color = array('skyblue',
+$color = array('DarkGreen',
                 'green',
                 'orange',
                 'blue',
                 'red',
-                'DarkGreen',
+                'SkyBlue',
                 'purple',
                 'peru',
                 'cyan',
                 'salmon',
                 'SlateBlue',
-                'Yellow',
+                'yellow',
                 'magenta',
                 'aquamarine1',
                 'gold',
                 'violet');
 $data = $this->data;
-
-$plot = new PHPlot(400,250);
+$lebar = $this->lebar*0.4;
+$plot = new PHPlot($lebar,250);
 $plot->SetImageBorderType('plain');
 $plot->SetPlotType('pie');
 
@@ -40,6 +40,7 @@ $plot->SetDataColors(array('lavender', 'red', 'green', 'blue', 'yellow',
                 'SlateBlue', 'cyan','magenta', 'brown', 'pink',
                 'gray', 'orange','purple','peru','salmon','aquamarine1',
                 'violet','gold',));
+$plot->SetDataColors($color);
 foreach ($data as $row)
 $plot->SetLegend(implode(': ', $row));
 # Place the legend in the upper left corner:

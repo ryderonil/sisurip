@@ -383,6 +383,11 @@ class Helper_Controller extends Controller{
         $this->view->render('notifikasi/notifikasi');
     }
     
+    function test(){
+        $this->view->load('helper/test');
+    }
+
+
     function __destruct() {
         ;
     }

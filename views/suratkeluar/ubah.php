@@ -8,7 +8,7 @@ if (isset($this->datasm)) {
     $html->heading('INFORMASI SURAT MASUK :', 3);
     $html->hr();
     $html->br();
-    $html->div_open('id', 'form-wrapper');
+    /*$html->div_open('id', 'form-wrapper');
     //var_dump($html->div_open('id', 'form-wrapper'));
     $form->form_open('suratkeluar');
     $form->form_label('AGENDA SURAT MASUK');
@@ -20,7 +20,19 @@ if (isset($this->datasm)) {
     $html->div_close();
     $html->br();
     $html->hr();
-    $html->br();
+    $html->br*/
+?>
+<div id="form-wrapper">
+    <table class="tableinfo">
+        <tr><td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;AGENDA SURAT MASUK</td><td><?php echo $this->data[1]?></td></tr>
+        <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;NOMOR SURAT MASUK</td><td><?php echo $this->data[2]?></td></tr>
+    </table>
+</div>
+<br>
+<hr>
+<br>
+<?php
+    
 }
 ?>
 

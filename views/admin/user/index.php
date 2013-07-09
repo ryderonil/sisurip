@@ -10,6 +10,7 @@
             }elseif(isset($this->success)){
                 echo "<div id=success>$this->success</div>";
             }
+//            var_dump($this->role);
         ?>
     <div id="wnama"></div>
     <label>NAMA PEGAWAI</label><input id="nama" type="text" size="50" name="namaPegawai" onkeyup="cekemptyfield(1,this.value)"></br>
@@ -18,7 +19,7 @@
     <div id="wuser"></div>
     <div><label>NAMA USER</label><input id="usern"  type="text" size="15" name="username" onkeyup="cekemptyfield(3,this.value)"></br>
     </div><div id="wpass"></div>
-    <div><label>PASSWORD</label><input id="pass"  type="text" size="20" name="password" onkeyup="cekemptyfield(4,this.value)"></br>
+    <div><label>PASSWORD</label><input id="password"  type="text" size="20" name="password" onkeyup="cekemptyfield(4,this.value)"></br>
     </div><div id="wbag"></div>
     <label>BAGIAN</label><select id="bag"  name="bagian" onchange="cekemptyfield(5,this.value)">
         <option value="">--PILIH BAGIAN--</option>
@@ -36,14 +37,15 @@
         ?>
     </select></br>
     <div id="wrole"></div>
-    <label>ROLE</label><select id="role"  name="role" onchange="cekemptyfield(7,this.value)">
+    <label>ROLE</label><select id="roles"  name="role" onchange="cekemptyfield(7,this.value)">
         <option value="">--PILIH ROLE--</option>
-        <?php foreach($this->role as $key=>$value){
+        <?php foreach($this->role as $value){
                 echo '<option value='.$value['id_role'].'>'.strtoupper($value['role']).'</option>';
             }
+            
         ?>
     </select></br>   
-    <label></label><input class="btn reset" type="reset" name="submit" value="RESET"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="cek()">
+    <label></label><input class="btn reset" type="reset" name="submit" value="RESET"><input class="btn save" type="button" name="submit" value="SIMPAN" onclick="return cek();">
 </form></div>
 </br>
 <hr>
@@ -71,12 +73,18 @@
         if(confirm(answer)){
             $.ajax({
                 type:'post',
-                url:'<? echo URL; ?>admin/hapusUser',
+                url:'<?php echo URL; ?>admin/hapusUser',
                 data:'id='+id,
-                success:function(){
-                    window.location.reload();
+                dataType:'json',
+                success:function(data){
+                    if(data.hasil==1){
+                        window.location.reload();
+                    }else{
+                        $('#pesan').html('<div id=error>akun admin tidak dapat dihapus!</div>');
+                    }
+                    
                 }
-            })
+            });
             return true;
         }else{
             return false;
@@ -228,7 +236,9 @@
                     $('#wrole').fadeIn(500);
                     $('#wrole').html(wtgl);
                 }else{
+//                    alert(content);
                     $('#wrole').fadeOut(500);
+                    $('#pesan').fadeOut(500);
                     
                 } 
                 break;
@@ -239,10 +249,11 @@
         var nama = document.getElementById('nama').value;
         var nip = document.getElementById('nip').value;
         var user = document.getElementById('usern').value;
-        var pass = document.getElementById('pass').value;
+        var pass = document.getElementById('password').value;
         var bagian = document.getElementById('bag').value;
         var jabatan = document.getElementById('jabatan').value;
-        var role = document.getElementById('role').value;
+        var role = document.getElementById('roles').value;
+//        alert(pass);
         var jml = 0;
         if(nama==''){
             jml++;
@@ -259,6 +270,7 @@
         }else{
             var pola = /^[0-9]*$/;
             if(pola.test(nip)==false){
+                jml++;
                 var walamat = '<div id=warning>NIP harus terdiri dari angka!</div>'
                 $('#wnip').fadeIn(500);
                 $('#wnip').html(walamat);
@@ -270,7 +282,8 @@
                         data:'nip='+nip,
                         dataType:'json',
                         success:function(data){
-                            if(data.hasil==1){
+                            if(data.hasil>0){
+                                jml++;
                                 var walamat = '<div id=warning>Pegawai ini telah memiliki akun user!</div>'
                                 $('#wnip').fadeIn(500);
                                 $('#wnip').html(walamat);
@@ -333,13 +346,33 @@
             $('#wjabatan').fadeIn(500);
             $('#wjabatan').html(walamat);
         }
-        
+//        alert(role.substr(0,4));
         if(role==''){
             jml++;
             var wtgl = '<div id=warning>Role pegawai belum dipilih!</div>'
             $('#wrole').fadeIn(500);
             $('#wrole').html(wtgl);
+        }else if(role.substr(0,1)==5){
+        
+            $.ajax({
+                type:'post',
+                url:'<?php echo URL; ?>admin/cekAdmin',
+                data:'',
+                dataType:'json',
+                success:function(data){
+                    if(data.hasil>0){
+                        jml++;
+                        var walamat = '<div id=error>Akun Admin hanya diijinkan satu dalam satu waktu!</div>'
+                        $('#pesan').fadeIn(500);
+                        $('#pesan').html(walamat);
+                        return false;
+                       }   
+                    }
+                });
+            
         }
+        
+        
         
         if(jml>0){
             return false;
@@ -353,10 +386,10 @@
         var nama = document.getElementById('nama').value;
         var nip = document.getElementById('nip').value;
         var user = document.getElementById('usern').value;
-        var pass = document.getElementById('pass').value;
+        var pass = document.getElementById('password').value;
         var bagian = document.getElementById('bag').value;
         var jabatan = document.getElementById('jabatan').value;
-        var role = document.getElementById('role').value;
+        var role = document.getElementById('roles').value;
         $.ajax({
             type:'post',
             url:'<?php echo URL; ?>admin/inputRekamUser',
@@ -373,7 +406,7 @@
                     $('#pesan').fadeIn();
                     $('#pesan').html(data.message);
                     window.setTimeout(function(){
-                        location.reload(500)
+//                        location.reload(500)
                     }
                     ,3000);
                 }else if(data.status=='error'){

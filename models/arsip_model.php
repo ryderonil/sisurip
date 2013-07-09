@@ -233,6 +233,31 @@ class Arsip_Model extends Model {
         return false;
     }
 
+    public function getJmlArsipBagian(){
+        $sql = "SELECT DISTINCT(b.bagian) as kd_bagian FROM arsip a LEFT JOIN lokasi b ON a.id_lokasi = b.id_lokasi";
+//        var_dump($sql);
+        $datab = $this->select($sql);
+        $return = array();
+        foreach ($datab as $val){
+            $sql = "SELECT a.id_arsip as id_arsip, c.bagian as bagian FROM arsip a 
+                LEFT JOIN lokasi b ON a.id_lokasi = b.id_lokasi
+                LEFT JOIN r_bagian c ON b.bagian = c.kd_bagian
+                WHERE b.bagian='".$val['kd_bagian']."'";
+            echo $sql.'</br>';
+            $data = $this->select($sql);
+            $num = count($data);
+            if($num>0){
+                $bagian='';
+                foreach ($data as $bag){
+                    $bagian = $bag['bagian'];
+                }
+                $return[] = array($bagian,$num);
+            }
+        }
+        
+        return $return;
+    }
+
 
     function __destruct() {
         ;

@@ -104,7 +104,7 @@ $roleuser = Helper_Model::getRoleUser($user);
                     <!-- pencarian --> 
                     <div>
                     <div id="sisurip">
-<?php if (Session::get('loggedin') == true){ ?><h1>SiSuRIP</h1></div>
+<?php if (Session::get('loggedin') == true){ ?><h1 onclick="menu('home')" style="cursor: pointer;" title="beranda">SiSuRIP</h1></div>
                     <div id="pull-right">
                             <select id="role" name="role" onchange="location.href='<?php echo URL;?>login/changeRole/'+this.value;" style="width:250px">
 <!--                            <option value="">--PILIH ROLE--</option>-->
@@ -245,6 +245,9 @@ $roleuser = Helper_Model::getRoleUser($user);
                                     break;
                                 case 'backup':
                                     window.open('<?php echo URL;?>admin/backuprestore','_self');
+                                    break;
+                                case 'home':
+                                    window.open('<?php echo URL;?>home','_self');
                                     break;
                             }
                         }

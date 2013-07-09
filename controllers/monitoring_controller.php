@@ -312,11 +312,11 @@ class Monitoring_Controller extends Controller {
     }
 
     public function ikhtisar() {
-        if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
+        /*if(!Auth::isAllow(1, Session::get('role'), 1, Session::get('bagian'))){
             if(!Auth::isAllow(2, Session::get('role'))){
                 header('location:'.URL.'home');
             }
-        }
+        }*/
         $this->view->render('monitoring/ikhtisar');
     }
 
@@ -385,7 +385,8 @@ class Monitoring_Controller extends Controller {
     }
     
     //jumlah surat berdasarkan tipe
-    public function grafikTipeSuratKeluar(){
+    public function grafikTipeSuratKeluar($lebar=null){
+        $this->view->lebar = $lebar;
         $data = $this->model->grafikTipeSuratKeluar();
         $this->view->data = array();
         foreach ($data as $val){
@@ -412,7 +413,8 @@ class Monitoring_Controller extends Controller {
         $this->view->load('monitoring/kinerjaframe');
     }
     //jumlah surat berdasarkan pengirim--->surat masuk
-    public function grafikAsalSurat(){
+    public function grafikAsalSurat($lebar=null){
+        $this->view->lebar = $lebar;
         $data = $this->model->grafikAsalSurat();
         $this->view->data = array();
         foreach ($data as $val){
@@ -422,7 +424,8 @@ class Monitoring_Controller extends Controller {
     }
     
     //jumlah surat masuk harian dalam bulan bersangkutan
-    public function grafikJmlSuratMasukHarian(){
+    public function grafikJmlSuratMasukHarian($lebar=null){
+        $this->view->lebar = $lebar;
         $data = $this->model->grafikJmlSuratMasuk();
         $this->view->data = array();
         foreach ($data as $val){
@@ -432,7 +435,8 @@ class Monitoring_Controller extends Controller {
     }
     
     //jumlah surat keluar harian dalam bulan bersangkutan
-    public function grafikJmlSuratKeluarHarian(){
+    public function grafikJmlSuratKeluarHarian($lebar=null){
+        $this->view->lebar = $lebar;
         $data = $this->model->grafikJmlSuratKeluar();
         $this->view->data = array();
         foreach ($data as $val){
@@ -447,6 +451,7 @@ class Monitoring_Controller extends Controller {
                 header('location:'.URL.'home');
             }
         }
+        $this->view->lebar = $_POST['lebar'];
         $this->view->load('monitoring/grafik');
     }
     
@@ -457,6 +462,12 @@ class Monitoring_Controller extends Controller {
                             'notifikasi'=>$notif));
     }
     
+    public function getJumlahNotifikasiHome($user,$tipe_surat){
+        $notif = Notifikasi::getJumlahNotifikasi($user, $tipe_surat);
+        echo json_encode(array('notifikasi'=>$notif));
+    }
+
+
     function notif($user){
         //$sm = new Suratmasuk_Model();
         //$sk = new Suratkeluar_Model();
@@ -526,6 +537,20 @@ class Monitoring_Controller extends Controller {
         $mon = new Monitoring_Model();
         echo $mon->cekNextDay($date, false, 5);
     }
+    
+    public function homeGrafikSurat(){
+        $lebar = $_POST['lebar'];
+        echo "<iframe style='background:none; border:none;height:350px;' src=".URL."monitoring/grafiksurat/".$lebar." ></iframe>";
+        
+    }
+    
+    public function grafiksurat($lebar){
+        $mon = date('m');
+        $this->view->lebar = $lebar;
+        $this->view->data = $this->model->getJumlahSuratBulan($mon);
+        $this->view->load('monitoring/home_jml_surat');
+    }
+    
     function __destruct() {
         ;
     }

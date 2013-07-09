@@ -8,8 +8,8 @@
 require 'libs/phplot/phplot.php';
 
 $data = $this->data;
-
-$plot = new PHPlot(400,250);
+$lebar = $this->lebar*0.4;
+$plot = new PHPlot($lebar,250);
 $plot->SetImageBorderType('plain');
 $plot->SetPlotType('thinbarline');
 

@@ -11,6 +11,9 @@
             }
         ?>
     <input id="id" type="hidden" name="id" value="<?php echo $this->data[0];?>">
+    <input id="role_hidden" type="hidden" name="role_hidden" value="<?php echo $this->data[7];?>">
+    <input id="user_hidden" type="hidden" name="role_hidden" value="<?php echo $this->data[1];?>">
+    <input id="nip_hidden" type="hidden" name="role_hidden" value="<?php echo $this->data[4];?>">
     <div id="wnama"></div>
     <label>NAMA PEGAWAI</label><input id="nama"  type="text" size="50" name="namaPegawai" value="<?php echo $this->data[3]; ?>" onkeyup="cekemptyfield(1,this.value)"></br>
     <div id="wnip"></div>
@@ -48,7 +51,7 @@
         ?>
     </select></br>
     <div id="wrole"></div>
-    <label>ROLE</label><select id="role"  name="role" onchange="cekemptyfield(7,this.value)">
+    <label>ROLE</label><select id="roles"  name="role" onchange="cekemptyfield(7,this.value)">
         <option value="">--PILIH ROLE--</option>
         <?php foreach($this->role as $key=>$value){
                 
@@ -177,7 +180,9 @@ function setaktifuser(id){
                     $('#wuser').fadeIn(500);
                     $('#wuser').html(walamat);
                 }else{
-                    $.ajax({
+                    var user_old = document.getElementById('user_hidden').value;
+                    if(user_old!=content){
+                        $.ajax({
                         type:'post',
                         url:'<?php echo URL; ?>admin/cekUser',
                         data:'user='+content,
@@ -192,6 +197,8 @@ function setaktifuser(id){
                             }
                         }
                     });
+                    }
+                    
                     
                 } 
                 break;
@@ -244,7 +251,8 @@ function setaktifuser(id){
         var pass = document.getElementById('pass').value;
         var bagian = document.getElementById('bag').value;
         var jabatan = document.getElementById('jabatan').value;
-        var role = document.getElementById('role').value;
+        var role = document.getElementById('roles').value;
+        var role_hidden = document.getElementById('role_hidden').value;
         var jml = 0;
         if(nama==''){
             jml++;
@@ -266,10 +274,12 @@ function setaktifuser(id){
                 $('#wnip').html(walamat);
             }else{
                 if(nip.length==9 || nip.length==18){
-                    $.ajax({
+                    var nip_old = document.getElementById('nip_hidden').value;
+                    if(nip!=nip_old){
+                        $.ajax({
                         type:'post',
                         url:'<?php echo URL; ?>admin/cekUser',
-                        data:'nip='+content,
+                        data:'nip='+nip,
                         dataType:'json',
                         success:function(data){
                             if(data.hasil==1){
@@ -281,6 +291,8 @@ function setaktifuser(id){
                             }
                         }
                     });
+                    }
+                    
                 }else{
                     var walamat = '<div id=warning>NIP tidak valid!</div>'
                     $('#wnip').fadeIn(500);
@@ -296,21 +308,24 @@ function setaktifuser(id){
             $('#wuser').fadeIn(500);
             $('#wuser').html(walamat);
         }else{
-            $.ajax({
-                type:'post',
-                url:'<?php echo URL; ?>admin/cekUser',
-                data:'user='+user,
-                dataType:'json',
-                success:function(data){
-                    if(data.hasil==1){
-                        jml++;
-                        var walamat = '<div id=warning>Nama user ini telah dipakai!</div>'
-                        $('#wuser').fadeIn(500);
-                        $('#wuser').html(walamat);
-                        return false;
-                    }
-                }
-            });
+            var user_old = document.getElementById('user_hidden').value;
+               if(user_old!=user){
+                        $.ajax({
+                        type:'post',
+                        url:'<?php echo URL; ?>admin/cekUser',
+                        data:'user='+user,
+                        dataType:'json',
+                        success:function(data){
+                            if(data.hasil==1){
+                                var walamat = '<div id=warning>Nama user ini telah dipakai!</div>'
+                                $('#wuser').fadeIn(500);
+                                $('#wuser').html(walamat);
+                            }else{
+                                $('#wuser').fadeOut(500);
+                            }
+                        }
+                    });
+              }
         }
         
         if(pass==''){
@@ -340,6 +355,24 @@ function setaktifuser(id){
             $('#wrole').fadeIn(500);
             $('#wrole').html(wtgl);
         }
+
+        if(role_hidden!=5 & role.substr(0,1)==5){
+            $.ajax({
+                type:'post',
+                url:'<?php echo URL; ?>admin/cekAdmin',
+                data:'',
+                dataType:'json',
+                success:function(data){
+                    if(data.hasil>0){
+                        jml++;
+                        var walamat = '<div id=error>Akun Admin hanya diijinkan satu dalam satu waktu!</div>'
+                        $('#pesan').fadeIn(500);
+                        $('#pesan').html(walamat);
+                        return false;
+                    }
+                }
+            });
+        }
         
         if(jml>0){
             return false;
@@ -357,10 +390,10 @@ function setaktifuser(id){
         var pass = document.getElementById('pass').value;
         var bagian = document.getElementById('bag').value;
         var jabatan = document.getElementById('jabatan').value;
-        var role = document.getElementById('role').value;
+        var role = document.getElementById('roles').value;
         $.ajax({
             type:'post',
-            url:'<?php echo URL; ?>admin/inputRekamUser',
+            url:'<?php echo URL; ?>admin/updateRekamUser',
             data:'namaPegawai='+nama+
                 '&id='+id+
                 '&NIP='+nip+

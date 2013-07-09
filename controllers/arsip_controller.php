@@ -36,14 +36,24 @@ class Arsip_Controller extends Controller{
                 $data = $this->model->getSurat($id,'SM');
                     $this->view->data[0] = $data->getId();
                     $this->view->data[1] = $data->getNomor();
-                    $this->view->data[2] = $data->getAlamat();
+                    $admin = new Admin_Model();
+                    $alamat = $admin->getAlamat($data->getAlamat());
+                    foreach ($alamat as $val){
+                        $alamat = $val['nama_satker'];
+                    }
+                    $this->view->data[2] = $alamat;
                     $this->view->data[3] = $data->getPerihal();
                     $this->view->isAllow = $this->model->isAllowWrite($data->getId(),'SM');
             }elseif (($tipesurat=='SK')) {
                 $data = $this->model->getSurat($id,'SK');
                     $this->view->data[0] = $data->getId();
                     $this->view->data[1] = $data->getNomor();
-                    $this->view->data[2] = $data->getAlamat();
+                    $admin = new Admin_Model();
+                    $alamat = $admin->getAlamat($data->getAlamat());
+                    foreach ($alamat as $val){
+                        $alamat = $val['nama_satker'];
+                    }
+                    $this->view->data[2] = $alamat;
                     $this->view->data[3] = $data->getPerihal();
                     $this->view->isAllow = $this->model->isAllowWrite($data->getId(),'SK');
             }

@@ -42,7 +42,12 @@ class Lampiran_Controller extends Controller{
 //        foreach ($data as $value){
             $this->view->data[0] = $sm->getId();
             $this->view->data[1] = $sm->getNomor();
-            $this->view->data[2] = $sm->getAlamat();
+            $admin = new Admin_Model();
+            $alamat = $admin->getAlamat($sm->getAlamat());
+            foreach ($alamat as $val){
+                $alamat = $val['nama_satker'];
+            }
+            $this->view->data[2] = $alamat;
             $this->view->data[3] = $sm->getPerihal();
             $this->view->data[4] = 'SM';
             $this->view->isAllow = $this->model->isAllowWrite($data->getId(),'SM');
@@ -55,7 +60,12 @@ class Lampiran_Controller extends Controller{
 //            foreach ($data as $value){
             $this->view->data[0] = $data->getId();
             $this->view->data[1] = $data->getNomor();
-            $this->view->data[2] = $data->getAlamat();
+            $admin = new Admin_Model();
+            $alamat = $admin->getAlamat($data->getAlamat());
+            foreach ($alamat as $val){
+                $alamat = $val['nama_satker'];
+            }
+            $this->view->data[2] = $alamat;
             $this->view->data[3] = $data->getPerihal();
             $this->view->data[4] = 'SK';
             $this->view->isAllow = $this->model->isAllowWrite($data->getId(),'SK');
@@ -147,7 +157,12 @@ class Lampiran_Controller extends Controller{
 //            foreach ($datas as $value){
                 $this->view->data[0] = $datas->getId();
                 $this->view->data[1] = $datas->getNomor();
-                $this->view->data[2] = $datas->getAlamat();
+                $admin = new Admin_Model();
+                $alamat = $admin->getAlamat($datas->getAlamat());
+                foreach ($alamat as $val){
+                    $alamat = $val['nama_satker'];
+                }
+                $this->view->data[2] = $alamat;
                 $this->view->data[3] = $datas->getPerihal();
                 $this->view->data[4] = 'SK';
 //            }
@@ -157,7 +172,12 @@ class Lampiran_Controller extends Controller{
 //            foreach ($data as $value){
                 $this->view->data[0] = $datas->getId();
                 $this->view->data[1] = $datas->getNomor();
-                $this->view->data[2] = $datas->getAlamat();
+                $admin = new Admin_Model();
+                $alamat = $admin->getAlamat($datas->getAlamat());
+                foreach ($alamat as $val){
+                    $alamat = $val['nama_satker'];
+                }
+                $this->view->data[2] = $alamat;
                 $this->view->data[3] = $datas->getPerihal();
                 $this->view->data[4] = 'SK';
 //            }
